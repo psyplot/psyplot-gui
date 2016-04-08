@@ -1,0 +1,7 @@
+psyplot_gui.config.rcsetup module
+=================================
+
+.. automodule:: psyplot_gui.config.rcsetup
+    :members:
+    :undoc-members:
+    :show-inheritance:

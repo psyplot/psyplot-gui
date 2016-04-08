@@ -1,0 +1,7 @@
+psyplot_gui.compat.qtcompat module
+==================================
+
+.. automodule:: psyplot_gui.compat.qtcompat
+    :members:
+    :undoc-members:
+    :show-inheritance:

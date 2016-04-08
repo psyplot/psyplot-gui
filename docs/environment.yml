@@ -1,0 +1,12 @@
+name: psyplot_gui_docs
+channels:
+    - chilipp
+dependencies:
+    - python=3.4
+    - psyplot
+    - ipykernel
+    - pexpect
+    - pygments
+    - pyqt
+    - pip:
+        - sphinx-argparse
