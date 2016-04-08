@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
-import sys
+#import sys
 
-needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
-pytest_runner = ['pytest-runner'] if needs_pytest else []
+#needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+#pytest_runner = ['pytest-runner'] if needs_pytest else []
 
 
 def readme():
@@ -11,11 +11,11 @@ def readme():
 
 
 setup(name='psyplot_gui',
-      version='0.1.2',
+      version='0.0.0b',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Scientific/Engineering :: GIS',
@@ -29,7 +29,8 @@ setup(name='psyplot_gui',
         'Programming Language :: Python :: 3.4',
         'Operating System :: OS Independent',
       ],
-      keywords='visualization netcdf raster cartopy earth-sciences',
+      keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt'
+                'ipython jupyter qtconsole'),
       url='https://github.com/Chilipp/psyplot_gui',
       author='Philipp Sommer',
       author_email='philipp.sommer@unil.ch',
@@ -40,6 +41,6 @@ setup(name='psyplot_gui',
           'qtconsole',
           'fasteners',
       ],
-      setup_requires=pytest_runner,
-      tests_require=['pytest'],
+#      setup_requires=pytest_runner,
+#      tests_require=['pytest'],
       zip_safe=False)

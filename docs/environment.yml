@@ -4,9 +4,12 @@ channels:
 dependencies:
     - python=3.4
     - psyplot
+    - qtconsole
     - ipykernel
     - pexpect
     - pygments
     - pyqt
+    - sphinx
     - pip:
         - sphinx-argparse
+        - fasteners
