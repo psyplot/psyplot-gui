@@ -1,7 +1,7 @@
 Command line usage
 ==================
 The ``psyplot_gui`` module extends the
-`command line usage of the psyplot module`__. You can open one (or more) files
+`command line usage of the psyplot module`_. You can open one (or more) files
 in the graphical user interface simply via::
 
     $ psyplot myfile.nc
