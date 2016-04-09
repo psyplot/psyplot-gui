@@ -1,5 +1,7 @@
 .. _install:
 
+.. highlight:: bash
+
 Installation
 ============
 This package requires the psyplot package which is installed alongside if you
@@ -12,13 +14,20 @@ How to install
 Installation using conda
 ^^^^^^^^^^^^^^^^^^^^^^^^
 We highly recommend to use conda_ for installing psyplot_gui.
-If you do not already have PyQt4 of PyQt5 installed, install PyQt4 via::
-
-    $ conda install pyqt
 
 You can then install psyplot_gui simply via::
 
     $ conda install -c chilipp psyplot_gui
+
+If you do not want to use PyQt4 (we indeed recommend to use PyQt5), you should
+remove the ``'pyqt'`` and and ``'qt'`` package from anaconda::
+
+    $ conda remove -y pyqt qt
+
+You then have to install PyQt5 manually (see the installation page) or use
+an inofficial anaconda channel, e.g. the spyder-ide::
+
+    $ conda install -c spyder-ide pyqt5
 
 
 Installation using pip
@@ -41,6 +50,7 @@ built upon multiple other packages, namely
   an inprocess ipython console in a Qt widget
 - fasteners_: Which provides an inprocess lock to communicate to the psyplot
   mainwindow
+- PyQt4_ or PyQt5_: Python bindings to the Qt_ software
 
 Optional dependencies
 ^^^^^^^^^^^^^^^^^^^^^
@@ -52,3 +62,6 @@ We furthermore recommend to use
 .. _qtconsole: https://qtconsole.readthedocs.org/en/latest/
 .. _fasteners: http://fasteners.readthedocs.org/en/latest/index.html
 .. _sphinx: http://www.sphinx-doc.org/en/stable/index.html
+.. _PyQt4: http://pyqt.sourceforge.net/Docs/PyQt4/installation.html
+.. _PyQt5: http://pyqt.sourceforge.net/Docs/PyQt5/installation.html
+.. _Qt: http://www.qt.io/
