@@ -58,6 +58,7 @@ We furthermore recommend to use
 
 - sphinx_>=1.3.5: To use all features of the interactive documentation access
 
+.. _conda: http://conda.io/
 .. _psyplot: http://psyplot.readthedocs.org/en/latest/installing.html
 .. _qtconsole: https://qtconsole.readthedocs.org/en/latest/
 .. _fasteners: http://fasteners.readthedocs.org/en/latest/index.html
