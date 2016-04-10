@@ -442,7 +442,7 @@ class MainWindow(QMainWindow):
         if project is not None:
             fnames = [s.split(',') for s in fnames]
             single_files = (l[0] for l in fnames if len(l) == 1)
-            alternative_paths = defaultdict(single_files.next)
+            alternative_paths = defaultdict(lambda: next(single_files, None))
             alternative_paths.update(list(l for l in fnames if len(l) == 2))
             psy.Project.load_project(
                 project, alternative_paths=alternative_paths,
