@@ -221,7 +221,7 @@ class FormatoptionWidget(QWidget, DockMixin):
             return
         if self.all_groups_cb.isChecked():
             fmtos = list(chain(*(
-                fmto_group for i, fmto_group in self.fmtos
+                fmto_group for i, fmto_group in enumerate(self.fmtos)
                 if not self.groups[i] in [ALLGROUP, COORDSGROUP])))
         else:
             if self.groups[self.group_combo.currentIndex()] == COORDSGROUP:
