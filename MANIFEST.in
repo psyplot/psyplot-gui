@@ -1,0 +1,2 @@
+include README.rst
+global-include psyplot_gui/sphinx_supp/psyplot.rst
