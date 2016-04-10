@@ -11,11 +11,11 @@ def readme():
 
 
 setup(name='psyplot_gui',
-      version='0.0.1dev',
+      version='0.0.2dev0',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Scientific/Engineering :: GIS',
@@ -29,7 +29,7 @@ setup(name='psyplot_gui',
         'Programming Language :: Python :: 3.4',
         'Operating System :: OS Independent',
       ],
-      keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt'
+      keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt '
                 'ipython jupyter qtconsole'),
       url='https://github.com/Chilipp/psyplot_gui',
       author='Philipp Sommer',
