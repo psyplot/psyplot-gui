@@ -36,10 +36,11 @@ else:
         QAction, QMessageBox, QCheckBox, QFileDialog, QListView,
         QDesktopWidget, QStyledItemDelegate, QTableWidget, QTableWidgetItem,
         QGridLayout, QErrorMessage, QInputDialog, QTabWidget,
-        QGraphicsScene, QGraphicsRectItem, QGraphicsView, QKeySequence)
+        QGraphicsScene, QGraphicsRectItem, QGraphicsView)
     from PyQt5.QtGui import (
         QIcon, QKeyEvent, QStandardItem, QStandardItemModel, QTextCursor,
-        QValidator, QRegExpValidator, QIntValidator, QDoubleValidator)
+        QValidator, QRegExpValidator, QIntValidator, QDoubleValidator,
+        QKeySequence)
     from PyQt5 import QtCore
     from PyQt5.QtCore import Qt, QSortFilterProxyModel
     from PyQt5.QtWebKitWidgets import QWebView
