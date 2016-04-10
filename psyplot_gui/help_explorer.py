@@ -269,6 +269,7 @@ class HelpMixin(object):
     can_show_rst = True
 
     @docstrings.get_sectionsf('HelpMixin.show_help')
+    @docstrings.dedent
     def show_help(self, obj, oname=''):
         """
         Show the rst documentation for the given object
@@ -366,8 +367,10 @@ class HelpMixin(object):
         return '\n'.join(lines)
 
     @docstrings.get_sectionsf('HelpMixin.show_rst')
+    @docstrings.dedent
     def show_rst(self, text, oname='', descriptor=None):
-        """Abstract method which needs to be implemented by th widget to show
+        """
+        Abstract method which needs to be implemented by th widget to show
         restructured text
 
         Parameters
@@ -379,6 +382,19 @@ class HelpMixin(object):
         descriptor: instance of :attr:`object_descriptor`
             The object descriptor holding the informations"""
         pass
+
+    @docstrings.get_sectionsf('HelpMixin.show_intro')
+    def show_intro(self, text=''):
+        """
+        Show an intro message
+
+        Parameters
+        ----------
+        s: str
+            A string in reStructured Text format to show"""
+        title = 'Welcome to psyplot!'
+        title += '\n' + '-' * len(title) + '\n\n'
+        self.show_rst(title + text, 'intro')
 
 
 class TextHelp(QFrame, HelpMixin):
@@ -434,7 +450,6 @@ class UrlHelp(UrlBrowser, HelpMixin):
         else:
             self.sphinx_thread = None
 
-
         #: menu button with different urls
         self.bt_url_menus = QToolButton(self)
         self.bt_url_menus.setIcon(QIcon(get_icon('docu_button.png')))
@@ -452,7 +467,17 @@ class UrlHelp(UrlBrowser, HelpMixin):
 
         self.button_box.addWidget(self.bt_url_menus)
 
+    @docstrings.dedent
+    def show_intro(self, text=''):
+        """
+        Show the intro text in the explorer
+
+        Parameters
+        ----------
+        %(HelpMixin.show_intro.parameters)s"""
         if self.sphinx_thread is not None:
+            with open(self.sphinx_thread.index_file, 'a') as f:
+                f.write(text)
             self.sphinx_thread.render(None, None)
 
     def show_rst(self, text, oname='', descriptor=None):
@@ -796,3 +821,23 @@ class HelpExplorer(QWidget, DockMixin):
             if viewer.can_show_rst:
                 self.set_viewer(viewer)
                 return viewer.show_rst(text, oname=oname)
+
+    @docstrings.dedent
+    def show_intro(self, text=''):
+        """
+        Show an intro text
+
+        We first try to use the current viewer based upon it's
+        :attr:`HelpMixin.can_show_rst` attribute. If this does not work,
+        we check the other viewers
+
+        Parameters
+        ----------
+        %(HelpMixin.show_intro.parameters)s"""
+        found = False
+        for i, viewer in enumerate(six.itervalues(self.viewers)):
+            viewer.show_intro(text)
+            if not found and viewer.can_show_rst:
+                if i:
+                    self.set_viewer(viewer)
+                found = True

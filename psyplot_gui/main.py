@@ -290,6 +290,11 @@ class MainWindow(QMainWindow):
 
         self.open_external.connect(self.open_external_files)
 
+        # ---------------------------------------------------------------------
+        # ------------------------------ closure ------------------------------
+        # ---------------------------------------------------------------------
+        self.help_explorer.show_intro(self.console.intro_msg)
+
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
             fname = QFileDialog.getSaveFileName(

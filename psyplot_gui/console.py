@@ -47,6 +47,8 @@ class ConsoleWidget(RichJupyterWidget):
     rc = rcParams.find_and_replace(
         'console.', pattern_base='console\.')
 
+    intro_msg = ''
+
     def __init__(self, *args, **kwargs):
         kernel_manager = QtInProcessKernelManager()
         kernel_manager.start_kernel(show_banner=False)
@@ -58,11 +60,14 @@ class ConsoleWidget(RichJupyterWidget):
 
         self.help_explorer = kwargs.pop('help_explorer', None)
 
-        self.banner += '\n' + dedents("""
+        super(ConsoleWidget, self).__init__(*args, **kwargs)
+
+        self.intro_msg = dedents("""
         psyplot version: %s
+
         gui version: %s
 
-        This console provides you the full access to the current project and
+        The console provides you the full access to the current project and
         plots.
         To make your life easier, the following modules have been imported
 
@@ -70,7 +75,7 @@ class ConsoleWidget(RichJupyterWidget):
 
         Furthermore, each time you change the selection or the content in the
         plot objects viewer, the `sp` (the selection) and `mp` (all arrays)
-        variables in the console are adjusted. To disable this behaviour, set
+        variables in the console are adjusted. To disable this behaviour, set::
 
             >>> import psyplot_gui
             >>> psyplot_gui.rcParams['console.auto_set_mp'] = False
@@ -81,9 +86,6 @@ class ConsoleWidget(RichJupyterWidget):
                 psyplot.__version__, psyplot_gui.__version__,
                 '\n    - '.join('%s as %s' % t for t in modules2import))
 
-        self.banner += '\n\n'
-
-        super(ConsoleWidget, self).__init__(*args, **kwargs)
         self.kernel_manager = kernel_manager
         self.kernel_client = kernel_client
 
