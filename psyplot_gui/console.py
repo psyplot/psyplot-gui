@@ -6,6 +6,9 @@ Based on the earlier example in the IPython repository, this has
 been updated to use qtconsole.
 """
 import re
+import uuid
+import os.path as osp
+import hmac
 
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
@@ -16,6 +19,7 @@ import psyplot_gui
 from psyplot_gui import rcParams
 import psyplot.project as psy
 from psyplot.docstring import dedents
+from psyplot.config.rcsetup import get_configdir
 
 
 modules2import = [
@@ -28,6 +32,7 @@ symbols_patt = re.compile(r"[^\'\"a-zA-Z0-9_.]")
 
 
 class IPythonControl(QTextEdit):
+    """A modified control to show the help of objects in the help explorer"""
 
     def keyPressEvent(self, event):
         """Reimplement Qt Method - Basic keypress event handler"""
@@ -41,6 +46,7 @@ class IPythonControl(QTextEdit):
 
 
 class ConsoleWidget(RichJupyterWidget):
+    """A console widget to access an inprocess shell"""
 
     custom_control = IPythonControl
 
@@ -50,6 +56,15 @@ class ConsoleWidget(RichJupyterWidget):
     intro_msg = ''
 
     def __init__(self, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        help_explorer: psyplot_gui.help_explorer.HelpExplorer or None
+            A widget that can be used to show the documentation of an object
+        ``*args, **kwargs``
+            Any other keyword argument for the
+            :class:`qtconsole.rich_jupyter_widget.RichJupyterWidget
+        """
         kernel_manager = QtInProcessKernelManager()
         kernel_manager.start_kernel(show_banner=False)
         kernel = kernel_manager.kernel
@@ -102,14 +117,20 @@ class ConsoleWidget(RichJupyterWidget):
         psy.Project.oncpchange.connect(self.update_sp)
 
     def update_mp(self, project):
-        if self.rc['auto_set_mp'] and project.is_main:
+        """Update the `mp` variable in the shell is
+        ``rcParams['console.auto_set_mp']`` with a main project"""
+        if self.rc['auto_set_mp'] and project is not None and project.is_main:
             self.kernel_manager.kernel.shell.run_code('mp = psy.gcp(True)')
 
     def update_sp(self, project):
+        """Update the `sp` variable in the shell is
+        ``rcParams['console.auto_set_sp']`` with a sub project"""
         if self.rc['auto_set_sp'] and (project is None or not project.is_main):
             self.kernel_manager.kernel.shell.run_code('sp = psy.gcp()')
 
     def show_current_help(self, to_end=False):
+        """Show the help of the object at the cursor position if
+        ``rcParams['console.connect_to_help']`` is set"""
         if not self.rc['connect_to_help']:
             return
         obj_text = self.get_current_object(to_end)
@@ -119,6 +140,20 @@ class ConsoleWidget(RichJupyterWidget):
                 self.help_explorer.show_help(obj, obj_text)
 
     def get_obj(self, obj_text):
+        """
+        Get the object from the shell specified by `obj_text`
+
+        Parameters
+        ----------
+        obj_text: str
+            The name of the variable as it is stored in the shell
+
+        Returns
+        -------
+        bool
+            True, if the object could be found
+        object or None
+            The requested object or None if it could not be found"""
         info = self.kernel_manager.kernel.shell._object_find(
             obj_text)
         if info.found:
@@ -127,6 +162,7 @@ class ConsoleWidget(RichJupyterWidget):
             return False, None
 
     def get_current_object(self, to_end=False):
+        """Get the name of the object at cursor position"""
         c = self._control
         cursor = c.textCursor()
         curr = cursor.position()
