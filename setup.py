@@ -11,7 +11,7 @@ def readme():
 
 
 setup(name='psyplot_gui',
-      version='0.0.3.dev5',
+      version='0.0.3.dev6',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
