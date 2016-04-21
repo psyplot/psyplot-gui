@@ -922,7 +922,7 @@ class ArrayTable(DragDropTable):
         """Return all the rows that have the same array name as the given `row`
         """
         def check_item(row):
-            item = self.item(r, arr_col)
+            item = self.item(row, arr_col)
             return item is not None and item.text() == arr_name
 
         if self.plot_method is None or not self.plot_method._prefer_list:
