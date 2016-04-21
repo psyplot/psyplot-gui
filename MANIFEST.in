@@ -1,2 +1,3 @@
 include README.rst
 include psyplot_gui/sphinx_supp/psyplot.rst
+include psyplot_gui/icons/*.png
