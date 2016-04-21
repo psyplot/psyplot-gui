@@ -6,9 +6,6 @@ Based on the earlier example in the IPython repository, this has
 been updated to use qtconsole.
 """
 import re
-import uuid
-import os.path as osp
-import hmac
 
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
@@ -19,7 +16,6 @@ import psyplot_gui
 from psyplot_gui import rcParams
 import psyplot.project as psy
 from psyplot.docstring import dedents
-from psyplot.config.rcsetup import get_configdir
 
 
 modules2import = [
