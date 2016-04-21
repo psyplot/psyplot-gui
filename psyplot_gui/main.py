@@ -15,9 +15,7 @@ from functools import partial
 from collections import defaultdict
 import matplotlib as mpl
 from psyplot_gui import rcParams
-import logging
 from threading import Thread
-logging.captureWarnings(True)
 
 # change backend here before the project module is imported
 backend = rcParams['backend']
