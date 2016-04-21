@@ -19,7 +19,7 @@ from psyplot.warning import warn
 from psyplot.compat.pycompat import map
 
 
-__version__ = "0.0.3.dev3"
+__version__ = "0.0.3.dev5"
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
 logger = logging.getLogger(__name__)
@@ -92,7 +92,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         send_files_to_psyplot(fnames, project, engine, plot_method, name, dims)
         return
     if backend is not False:
-        rcParams['gui.backend'] = backend
+        rcParams['backend'] = backend
     from psyplot_gui.main import run_psyplot
     run_psyplot(fnames, project, engine, plot_method, name, dims)
 
@@ -104,7 +104,7 @@ def send_files_to_psyplot(fnames, project, *args):
 
     This function has to most parts been taken from spyder
     """
-    port = rcParams['gui.main.open_files_port']
+    port = rcParams['main.open_files_port']
 
     # Wait ~50 secs for the server to be up
     # Taken from http://stackoverflow.com/a/4766598/438386

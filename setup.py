@@ -11,7 +11,7 @@ def readme():
 
 
 setup(name='psyplot_gui',
-      version='0.0.3.dev3',
+      version='0.0.3.dev5',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
@@ -41,7 +41,8 @@ setup(name='psyplot_gui',
           'qtconsole',
           'fasteners',
       ],
-      package_data={'psyplot_gui': ['psyplot_gui/sphinx_supp/psyplot.rst']},
+      package_data={'psyplot_gui': ['psyplot_gui/sphinx_supp/psyplot.rst',
+                                    'psyplot_gui/icons/*.png']},
       include_package_data=True,
 #      setup_requires=pytest_runner,
 #      tests_require=['pytest'],
