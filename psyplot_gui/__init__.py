@@ -19,7 +19,7 @@ from psyplot.warning import warn
 from psyplot.compat.pycompat import map
 
 
-__version__ = "0.0.3.dev6"
+__version__ = "0.0.3.dev7"
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
 logger = logging.getLogger(__name__)
@@ -91,10 +91,12 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     elif not new_instance:
         send_files_to_psyplot(fnames, project, engine, plot_method, name, dims)
         return
+    elif new_instance:
+        rcParams['main.listen_to_port'] = False
     if backend is not False:
         rcParams['backend'] = backend
-    from psyplot_gui.main import run_psyplot
-    run_psyplot(fnames, project, engine, plot_method, name, dims)
+    from psyplot_gui.main import MainWindow
+    MainWindow.run_app(fnames, project, engine, plot_method, name, dims)
 
 
 def send_files_to_psyplot(fnames, project, *args):

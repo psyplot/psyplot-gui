@@ -11,7 +11,7 @@ def readme():
 
 
 setup(name='psyplot_gui',
-      version='0.0.3.dev6',
+      version='0.0.3.dev7',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
@@ -27,6 +27,7 @@ setup(name='psyplot_gui',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Operating System :: OS Independent',
       ],
       keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt '
@@ -41,8 +42,11 @@ setup(name='psyplot_gui',
           'qtconsole',
           'fasteners',
       ],
-      package_data={'psyplot_gui': ['psyplot_gui/sphinx_supp/psyplot.rst',
-                                    'psyplot_gui/icons/*.png']},
+      package_data={'psyplot_gui': [
+          'psyplot_gui/sphinx_supp/conf.py',
+          'psyplot_gui/sphinx_supp/psyplot.rst',
+          'psyplot_gui/sphinx_supp/_static/*',
+          'psyplot_gui/icons/*.png']},
       include_package_data=True,
 #      setup_requires=pytest_runner,
 #      tests_require=['pytest'],
