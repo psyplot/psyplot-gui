@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
-#import sys
+import sys
 
-#needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
-#pytest_runner = ['pytest-runner'] if needs_pytest else []
+needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+pytest_runner = ['pytest-runner'] if needs_pytest else []
 
 
 def readme():
@@ -48,6 +48,6 @@ setup(name='psyplot_gui',
           'psyplot_gui/sphinx_supp/_static/*',
           'psyplot_gui/icons/*.png']},
       include_package_data=True,
-#      setup_requires=pytest_runner,
-#      tests_require=['pytest'],
+      setup_requires=pytest_runner,
+      tests_require=['pytest'],
       zip_safe=False)
