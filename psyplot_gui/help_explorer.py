@@ -480,7 +480,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         """
         if self.bt_lock.isChecked():
             return
-        return super(UrlHelp, self).show_help(obj, oname='')
+        return super(UrlHelp, self).show_help(obj, oname=oname)
 
     @docstrings.dedent
     def show_intro(self, text=''):
