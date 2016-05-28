@@ -6,11 +6,12 @@ python:
   - "3.5"
 env:
   - QT_VERSION=4
-  - QT_VERSION=5
-matrix:
-  exclude:
-  - python: "3.4"
-    env: QT_VERSION=5
+# pyqt5 is currently not working on travis
+#  - QT_VERSION=5
+#matrix:
+#  exclude:
+#  - python: "3.4"
+#    env: QT_VERSION=5
 install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
@@ -19,6 +20,7 @@ install:
     else
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
     fi
+  - echo "main.listen_to_port: false" > psyplotguirc.yaml
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
