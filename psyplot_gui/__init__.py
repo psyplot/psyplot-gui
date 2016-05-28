@@ -19,7 +19,7 @@ from psyplot.warning import warn
 from psyplot.compat.pycompat import map
 
 
-__version__ = "0.0.3.dev7"
+__version__ = "0.0.3.dev8"
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
 logger = logging.getLogger(__name__)
