@@ -278,12 +278,15 @@ class MainWindow(QMainWindow):
         self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
         self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
+        # ---------------------------------------------------------------------
+        # ------------------------------ closure ------------------------------
+        # ---------------------------------------------------------------------
+        self.help_explorer.show_intro(self.console.intro_msg)
+
         # Server to open external files on a single instance
         self.open_files_server = socket.socket(socket.AF_INET,
                                                socket.SOCK_STREAM,
                                                socket.IPPROTO_TCP)
-
-        self.showMaximized()
 
         if rcParams['main.listen_to_port']:
             self._file_thread = Thread(target=self.start_open_files_server)
@@ -292,10 +295,7 @@ class MainWindow(QMainWindow):
 
             self.open_external.connect(self.open_external_files)
 
-        # ---------------------------------------------------------------------
-        # ------------------------------ closure ------------------------------
-        # ---------------------------------------------------------------------
-        self.help_explorer.show_intro(self.console.intro_msg)
+        self.showMaximized()
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
