@@ -35,12 +35,18 @@ from psyplot_gui.help_explorer import HelpExplorer
 from psyplot_gui.fmt_widget import FormatoptionWidget
 from psyplot_gui.common import PyErrorMessage, DockMixin
 
+from psyplot.docstring import docstrings
 import psyplot.plotter as psyp
 import psyplot.project as psy
 
 
 #: The :class:`PyQt4.QtGui.QMainWindow` of the graphical user interface
 mainwindow = None
+
+
+def _set_mainwindow(obj):
+    global mainwindow
+    mainwindow = obj
 
 
 class MainWindow(QMainWindow):
@@ -117,9 +123,6 @@ class MainWindow(QMainWindow):
 
         # ------------------------ Save project as ----------------------------
 
-        self.save_project_menu = QMenu('Save project', parent=self)
-        self.file_menu.addMenu(self.save_project_menu)
-
         self.save_project_as_menu = QMenu('Save project as', parent=self)
         self.file_menu.addMenu(self.save_project_as_menu)
 
@@ -184,10 +187,11 @@ class MainWindow(QMainWindow):
         self.file_menu.addMenu(self.close_project_menu)
 
         self.close_mp_action = QAction('Main project', self)
+        self.close_mp_action.setShortcut(QKeySequence(
+            'Ctrl+Shift+W', QKeySequence.NativeText))
         self.close_mp_action.setStatusTip(
             'Close the main project and delete all data and plots out of '
             'memory')
-        self.close_mp_action.setShortcut(QKeySequence.Close)
         self.close_mp_action.triggered.connect(
             lambda: psy.close(psy.gcp(True).num))
         self.close_project_menu.addAction(self.close_mp_action)
@@ -196,8 +200,7 @@ class MainWindow(QMainWindow):
         self.close_sp_action.setStatusTip(
             'Close the selected arrays project and delete all data and plots '
             'out of memory')
-        self.close_sp_action.setShortcut(QKeySequence(
-            'Ctrl+Shift+W', QKeySequence.NativeText))
+        self.close_sp_action.setShortcut(QKeySequence.Close)
         self.close_sp_action.triggered.connect(
             lambda: psy.gcp().close(True, True))
         self.close_project_menu.addAction(self.close_sp_action)
@@ -282,11 +285,12 @@ class MainWindow(QMainWindow):
 
         self.showMaximized()
 
-        self._file_thread = Thread(target=self.start_open_files_server)
-        self._file_thread.setDaemon(True)
-        self._file_thread.start()
+        if rcParams['main.listen_to_port']:
+            self._file_thread = Thread(target=self.start_open_files_server)
+            self._file_thread.setDaemon(True)
+            self._file_thread.start()
 
-        self.open_external.connect(self.open_external_files)
+            self.open_external.connect(self.open_external_files)
 
         # ---------------------------------------------------------------------
         # ------------------------------ closure ------------------------------
@@ -418,7 +422,10 @@ class MainWindow(QMainWindow):
         self.open_files_server.setsockopt(socket.SOL_SOCKET,
                                           socket.SO_REUSEADDR, 1)
         port = rcParams['main.open_files_port']
-        self.open_files_server.bind(('127.0.0.1', port))
+        try:
+            self.open_files_server.bind(('127.0.0.1', port))
+        except:
+            return
         self.open_files_server.listen(20)
         while 1:  # 1 is faster than True
             try:
@@ -456,13 +463,62 @@ class MainWindow(QMainWindow):
                         map(str, val)) for key, val in six.iteritems(
                             dims)})
 
+    docstrings.keep_params(
+        'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
+        'name', 'dims')
 
-def run_psyplot(fnames=[], project=None, engine=None, plot_method=None,
-                name=None, dims=None):
-    app = QApplication(sys.argv)
-    global mainwindow
-    mainwindow = MainWindow()
-    if fnames or project:
-        mainwindow.open_external_files(
-            [fnames, project, engine, plot_method, name, dims])
-    sys.exit(app.exec_())
+    @classmethod
+    @docstrings.get_sectionsf('MainWindow.run')
+    @docstrings.dedent
+    def run(cls, fnames=[], project=None, engine=None, plot_method=None,
+            name=None, dims=None):
+        """
+        Create a mainwindow and open the given files or project
+
+        This class method creates a new mainwindow instance and sets the
+        global :attr:`mainwindow` variable.
+
+        Parameters
+        ----------
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims)s
+
+        Notes
+        -----
+        - There can be only one mainwindow at the time
+        - This method does not create a QApplication instance! See
+          :meth:`run_app`
+
+        See Also
+        --------
+        run_app
+        """
+        mainwindow = cls()
+        _set_mainwindow(mainwindow)
+        if fnames or project:
+            mainwindow.open_external_files(
+                [fnames, project, engine, plot_method, name, dims])
+        return mainwindow
+
+    @classmethod
+    @docstrings.dedent
+    def run_app(cls, *args, **kwargs):
+        """
+        Create a QApplication, open the given files or project and enter the
+        mainloop
+
+        Parameters
+        ----------
+        %(MainWindow.run.parameters)s
+
+        See Also
+        --------
+        run
+        """
+        app = QApplication(sys.argv)
+        cls.run(*args, **kwargs)
+        sys.exit(app.exec_())
+
+    def close(self, *args, **kwargs):
+        _set_mainwindow(None)
+        self.open_files_server.close()
+        super(MainWindow, self).close(*args, **kwargs)
