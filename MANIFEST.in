@@ -1,3 +1,5 @@
 include README.rst
+include psyplot_gui/sphinx_supp/_static/*
+include psyplot_gui/sphinx_supp/conf.py
 include psyplot_gui/sphinx_supp/psyplot.rst
 include psyplot_gui/icons/*.png
