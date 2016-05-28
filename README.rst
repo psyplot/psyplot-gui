@@ -22,13 +22,13 @@ Graphical User Interface for the psyplot package
     :alt: Travis
     :target: https://travis-ci.org/Chilipp/psyplot_gui
 
-.. |coveralls|  image:: https://coveralls.io/repos/github/Chilipp/psyplot_gui/badge.svg?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/Chilipp/psyplot_gui/badge.svg?branch=master
     :alt: Coverage
     :target: https://coveralls.io/github/Chilipp/psyplot_gui?branch=master
 
 .. |requires| image:: https://requires.io/github/Chilipp/psyplot_gui/requirements.svg?branch=master
-     :alt: Requirements Status
-     :target: https://requires.io/github/Chilipp/psyplot_gui/requirements/?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/Chilipp/psyplot_gui/requirements/?branch=master
 
 .. |version| image:: https://img.shields.io/pypi/v/psyplot_gui.svg?style=flat
     :alt: PyPI Package latest release
@@ -54,7 +54,7 @@ psyplot_ with a graphical user interface using PyQt_. See the homepage of the
 main project on examples on the possibilities with psyplot_.
 
 You can see the full documentation under
-`readthedocs.org <http://psyplot_gui.readthedocs.org/en/latest/>`__
+`readthedocs.org <http://psyplot_gui.readthedocs.io/en/latest/?badge=latest>`__
 
 .. _PyQt: https://riverbankcomputing.com/software/pyqt/intro
-.. _psyplot: http://psyplot.readthedocs.org/en/latest/
+.. _psyplot: http://psyplot.readthedocs.io/en/latest/
