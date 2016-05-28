@@ -1,0 +1,23 @@
+name: psyplot_gui_py2.7_qt5
+channels:
+    - chilipp
+    - scitools
+    - spyder-ide
+dependencies:
+    - python=2.7
+    - psyplot
+    - pyqt5
+    - dask
+    - xarray
+    - netCDF4
+    - cartopy
+    - seaborn
+    - bottleneck
+    - sphinx
+    - jupyter
+    - pip:
+        - cyordereddict
+        - pytest
+        - pytest-html
+        - pytest-cov
+        - fasteners

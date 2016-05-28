@@ -1,0 +1,22 @@
+name: psyplot_gui_py3.5_qt4
+channels:
+    - chilipp
+    - scitools
+dependencies:
+    - python=3.5
+    - psyplot
+    - dask
+    - xarray
+    - netCDF4
+    - cartopy
+    - seaborn
+    - bottleneck
+    - pyqt
+    - sphinx
+    - jupyter
+    - pip:
+        - cyordereddict
+        - pytest
+        - pytest-html
+        - pytest-cov
+        - fasteners
