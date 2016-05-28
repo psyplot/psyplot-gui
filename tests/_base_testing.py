@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
-from unittest import TestCase
+import os
+import unittest
 from psyplot_gui.compat.qtcompat import QApplication
 
 
-class PsyPlotGuiTestCase(TestCase):
+def skipOnTravis(func):
+    """Convenience function to skip a test on travis-ci"""
+    return unittest.skipIf(
+        os.environ.get('TRAVIS'), "Does not work on travis-ci")(func)
+
+
+class PsyPlotGuiTestCase(unittest.TestCase):
     """A base class for testing the psyplot_gui module
 
     At the initializzation of the TestCase, a new

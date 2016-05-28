@@ -41,17 +41,17 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
                 "======", "object", "======\n\n", inspect.getdoc(object),
                 "\n" + inspect.getdoc(object.__init__)]))
 
-    @unittest.skipIf(os.environ.get('TRAVIS'), "Does not work on travis-ci")
+    @bt.skipOnTravis
     def test_questionmark(self):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('?')
 
-    @unittest.skipIf(os.environ.get('TRAVIS'), "Does not work on travis-ci")
+    @bt.skipOnTravis
     def test_bracketleft(self):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('(')
 
-    @unittest.skipIf(os.environ.get('TRAVIS'), "Does not work on travis-ci")
+    @bt.skipOnTravis
     def test_current_object(self):
         """Test whether the current object is given correctly"""
         c = self.window.console
