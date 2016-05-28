@@ -39,6 +39,7 @@ install:
   - if [[ "$QT_VERSION" == "5" ]]; then
       conda uninstall --force qt pyqt;
     fi
+  - python -c 'import ipykernel.kernelspec; ipykernel.kernelspec.install(user=True)'
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
