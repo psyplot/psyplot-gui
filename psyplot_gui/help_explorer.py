@@ -121,8 +121,9 @@ class UrlBrowser(QFrame):
         ('numpy', 'https://docs.scipy.org/doc/numpy/reference/routines.html'),
         ])
 
-    #: The initial url showed in the webview
-    default_url = six.text_type("https://psyplot.readthedocs.org/en/latest/")
+    #: The initial url showed in the webview. If None, nothing will be
+    #: displayed
+    default_url = None
 
     def __init__(self, *args, **kwargs):
         super(UrlBrowser, self).__init__(*args, **kwargs)
@@ -206,7 +207,8 @@ class UrlBrowser(QFrame):
 
         self.setLayout(vbox)
 
-        self.tb_url.addItem(self.default_url)
+        if self.default_url is not None:
+            self.tb_url.addItem(self.default_url)
 
     def browse(self, url):
         """Make a web browse on the given url and show the page on the Webview
@@ -329,9 +331,9 @@ class HelpMixin(object):
         if callable(obj):
             if inspect.isclass(obj):
                 oname = oname or obj.__name__
-                obj_sig = obj.__init__
+                obj_sig = getattr(obj, '__init__', obj)
             elif six.PY2 and type(obj) is types.InstanceType:
-                obj_sig = obj.__call__
+                obj_sig = getattr(obj, '__call__', obj)
 
             try:
                 sig = str(signature(obj_sig))
@@ -468,6 +470,19 @@ class UrlHelp(UrlBrowser, HelpMixin):
         self.button_box.addWidget(self.bt_url_menus)
 
     @docstrings.dedent
+    def show_help(self, obj, oname=''):
+        """
+        Render the rst docu for the given object with sphinx and show it
+
+        Parameters
+        ----------
+        %(HelpMixin.show_help.parameters)s
+        """
+        if self.bt_lock.isChecked():
+            return
+        return super(UrlHelp, self).show_help(obj, oname='')
+
+    @docstrings.dedent
     def show_intro(self, text=''):
         """
         Show the intro text in the explorer
@@ -486,6 +501,8 @@ class UrlHelp(UrlBrowser, HelpMixin):
         Parameters
         ----------
         %(HelpMixin.show_rst.parameters)s"""
+        if self.bt_lock.isChecked():
+            return
         if not oname and descriptor:
             oname = descriptor.name
         self.sphinx_thread.render(text, oname)
@@ -780,6 +797,9 @@ class HelpExplorer(QWidget, DockMixin):
         self.viewer.hide()
         self.viewer = viewer
         self.viewer.show()
+        if (isinstance(name, six.string_types) and
+                not self.combo.currentText() == name):
+            self.combo.setCurrentIndex(list(self.viewers).index(name))
 
     @docstrings.dedent
     def show_help(self, obj, oname=''):
@@ -794,14 +814,23 @@ class HelpExplorer(QWidget, DockMixin):
         ----------
         %(HelpMixin.show_help.parameters)s"""
         if self.viewer.can_document_object:
-            return self.viewer.show_help(obj, oname=oname)
-        for i, viewer in enumerate(six.itervalues(self.viewers)):
-            if viewer.can_document_object:
-                self.set_viewer(viewer)
+            try:
+                return self.viewer.show_help(obj, oname=oname)
+            except:
+                logger.debug("Could not document %s with %s viewer!",
+                             oname, self.combo.currentText(), exc_info=True)
+        curr_i = self.combo.currentIndex()
+        for i, (viewername, viewer) in enumerate(six.iteritems(self.viewers)):
+            if i != curr_i and viewer.can_document_object:
+                self.set_viewer(viewername)
                 self.combo.blockSignals(True)
                 self.combo.setCurrentIndex(i)
                 self.combo.blockSignals(False)
-                return viewer.show_help(obj, oname=oname)
+                try:
+                    return viewer.show_help(obj, oname=oname)
+                except:
+                    logger.debug("Could not document %s with %s viewer!",
+                                 oname, viewername, exc_info=True)
 
     @docstrings.dedent
     def show_rst(self, text, oname=''):
