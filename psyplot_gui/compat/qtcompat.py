@@ -25,6 +25,7 @@ except ImportError:
     from PyQt4 import QtCore
     from PyQt4.QtCore import Qt
     from PyQt4.QtWebKit import QWebView
+    from PyQt4.QtTest import QTest
     with_qt5 = False
 else:
     from PyQt5.QtWidgets import (
@@ -44,4 +45,5 @@ else:
     from PyQt5 import QtCore
     from PyQt5.QtCore import Qt, QSortFilterProxyModel
     from PyQt5.QtWebKitWidgets import QWebView
+    from PyQt5.QtTest import QTest
     with_qt5 = True
