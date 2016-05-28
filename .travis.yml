@@ -29,7 +29,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - 'ENVKEY=py"${TRAVIS_PYTHON_VERSION}"qt"${QT_VERSION}"'
+  - 'ENVKEY=py"${TRAVIS_PYTHON_VERSION}"_qt"${QT_VERSION}"'
 
   - conda env create -f tests/envs/environment_$ENVKEY.yml
   - source activate psyplot_gui_$ENVKEY
