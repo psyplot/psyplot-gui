@@ -5,7 +5,7 @@ Default parameters are defined in the :data:`rcsetup.defaultParams`
 dictionary, however you can set up your own configuration in a yaml file (see
 :func:`psyplot.load_rc_from_file`)"""
 import os.path as osp
-from psyplot.config.logsetup import setup_logging
+from psyplot.config.logsetup import setup_logging, psyplot_fname
 
 #: :class:`str`. Path to the yaml logging configuration file
 logcfg_path = setup_logging(
@@ -13,10 +13,8 @@ logcfg_path = setup_logging(
     env_key='LOG_PSYPLOTGUI')
 
 
-from psyplot_gui.config.rcsetup import psyplot_gui_fname
-
-
 #: class:`str` or ``None``. Path to the yaml configuration file (if found).
-#: See :func:`psyplot_gui.config.rcsetup.psyplot_gui_fname` for further
+#: See :func:`psyplot.config.rcsetup.psyplot_fname` for further
 #: information
-config_path = psyplot_gui_fname()
+config_path = psyplot_fname(env_key='PSYPLOTGUIRC',
+                            fname='psyplotguirc.yaml')

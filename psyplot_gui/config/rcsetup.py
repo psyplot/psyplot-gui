@@ -7,18 +7,6 @@ from psyplot.config.rcsetup import (
     validate_bool, validate_bool_maybe_none, psyplot_fname)
 
 
-def psyplot_gui_fname():
-    """
-    Get the location of the config file.
-
-    The file location is determined by the
-    :func:`psyplot.config.rcsetup.psyplot_fname` function"""
-    psyplot_file = psyplot_fname()
-    if psyplot_file:
-        return osp.join(osp.dirname(psyplot_file), 'psyplotguirc.yaml')
-    return None
-
-
 class GuiRcParams(RcParams):
 
     def load_from_file(self, fname=None):
@@ -36,7 +24,8 @@ class GuiRcParams(RcParams):
         See Also
         --------
         dump_to_file, psyplot_fname"""
-        fname = fname or psyplot_gui_fname()
+        fname = fname or psyplot_fname(env_key='PSYPLOTGUIRC',
+                                       fname='psyplotguirc.yaml')
         if fname:
             super(GuiRcParams, self).load_from_file(fname)
 
