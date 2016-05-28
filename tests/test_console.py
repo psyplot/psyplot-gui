@@ -32,6 +32,12 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         # we insert the text here otherwise using console _insert_plain_text
         # method because apparently the text is not inserted when using
         # QTest.keyClicks
+        from threading import Lock
+        l = Lock()
+        c.kernel_manager.kernel.shell.events.register(
+            'shell_initialized', lambda s: l.release())
+        l.acquire()
+        l.acquire()
         self.insert_text('object')
         QTest.keyClicks(c._control, symbol)
         self.assertEqual(
