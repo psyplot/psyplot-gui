@@ -35,7 +35,7 @@ install:
   - source activate psyplot_gui_$ENVKEY
   # remove qt and pyqt for Qt5 which is installed from jupyter
   - if [[ "$QT_VERSION" == "5" ]]; then
-      conda uninstall --force qt pyqt
+      conda uninstall --force qt pyqt;
     fi
   - pip install coveralls
   - pip install pytest-xdist
