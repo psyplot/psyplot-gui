@@ -9,8 +9,8 @@ env:
   - QT_VERSION=5
 matrix:
   exclude:
-    - python: "3.4"
-        env: QT_VERSION=5
+  - python: "3.4"
+    env: QT_VERSION=5
 install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
