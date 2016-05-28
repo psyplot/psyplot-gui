@@ -70,6 +70,10 @@ defaultParams = {
         "when the current sub project changes"],
     'main.open_files_port': [
         30124, validate_int, "The port number used when new files are opened"],
+    'main.listen_to_port': [
+        True, validate_bool,
+        "If True and the psyplot gui is already running, new files are opened "
+        "in that gui"]
     }
 
 #: :class:`~psyplot.config.rcsetup.RcParams` instance that stores default
