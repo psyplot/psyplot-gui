@@ -32,10 +32,8 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         # we insert the text here otherwise using console _insert_plain_text
         # method because apparently the text is not inserted when using
         # QTest.keyClicks
-        self.insert_text('object')
-        print('-' * 40, "Testing " + symbol, '-' * 40)
-        QTest.keyClicks(c._control, symbol)
-        print('-' * 40, "Done " + symbol, '-' * 40)
+#        self.insert_text('object')
+        QTest.keyClicks(c._control, 'object' + symbol)
         self.assertEqual(
             he.viewer.editor.toPlainText(),
             '\n'.join([

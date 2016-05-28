@@ -129,7 +129,6 @@ class ConsoleWidget(RichJupyterWidget):
         ``rcParams['console.connect_to_help']`` is set"""
         if not self.rc['connect_to_help']:
             return
-        print('-' * 40, "Showing help", '-' * 40)
         obj_text = self.get_current_object(to_end)
         if obj_text is not None and self.help_explorer is not None:
             found, obj = self.get_obj(obj_text)
