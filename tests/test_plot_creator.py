@@ -17,7 +17,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.pc = self.window.plot_creator
 
     def tearDown(self):
-        if self.pc.ds is not None:
+        if getattr(self.pc, 'ds', None) is not None:
             self.pc.ds.close()
         super(PlotCreatorTest, self).tearDown()
 
