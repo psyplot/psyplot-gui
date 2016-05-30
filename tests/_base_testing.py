@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """Module defining the base class for the gui test"""
 import os
+import os.path as osp
 import unittest
 from psyplot_gui.compat.qtcompat import QApplication
+
+
+test_dir = osp.dirname(__file__)
 
 
 def skipOnTravis(func):
@@ -36,3 +40,17 @@ class PsyPlotGuiTestCase(unittest.TestCase):
     def tearDown(self):
         self.window.close()
         del self.window
+
+    def get_file(self, fname):
+        """Get the path to the file `fname`
+
+        Parameters
+        ----------
+        fname: str
+            The path of the file name (relative to the test directory)
+
+        Returns
+        -------
+        str
+            The complete path to the given file"""
+        return osp.join(test_dir, fname)

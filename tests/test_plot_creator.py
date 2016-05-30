@@ -23,9 +23,9 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
 
     def test_load_external_file(self):
         """Test whether an external netCDF file can be loaded"""
-        self.pc.open_dataset(['test-t2m-u-v.nc'])
+        self.pc.open_dataset([self.get_file('test-t2m-u-v.nc')])
         vtab = self.pc.variables_table
-        ds = psy.open_dataset('test-t2m-u-v.nc')
+        ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
         self.assertRegexpMatches(self.pc.ds_combo.currentText(),
                                  '.*:\s*test-t2m-u-v.nc')
         self.assertEqual(
@@ -36,9 +36,10 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     def test_load_from_console(self):
         """Test whether a dataset can be loaded that is defined in the
         console"""
-        self.window.console.execute("ds = psy.open_dataset('test-t2m-u-v.nc')")
+        self.window.console.execute(
+            "ds = psy.open_dataset(%s)" % self.get_file('test-t2m-u-v.nc'))
         vtab = self.pc.variables_table
-        ds = psy.open_dataset('test-t2m-u-v.nc')
+        ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
         self.pc.get_ds_from_shell('ds')
         self.assertRegexpMatches(self.pc.ds_combo.currentText(),
                                  '.*:\s*ds')
