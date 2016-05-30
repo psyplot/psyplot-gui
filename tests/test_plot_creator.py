@@ -23,11 +23,12 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
 
     def test_load_external_file(self):
         """Test whether an external netCDF file can be loaded"""
-        self.pc.open_dataset([self.get_file('test-t2m-u-v.nc')])
+        fname = self.get_file('test-t2m-u-v.nc')
+        self.pc.open_dataset([fname])
         vtab = self.pc.variables_table
-        ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
+        ds = psy.open_dataset(fname)
         self.assertRegexpMatches(self.pc.ds_combo.currentText(),
-                                 '.*:\s*test-t2m-u-v.nc')
+                                 '.*:\s*%s' % fname)
         self.assertEqual(
             {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
