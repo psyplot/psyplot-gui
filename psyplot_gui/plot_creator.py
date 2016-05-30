@@ -588,12 +588,11 @@ class ArrayTable(DragDropTable):
         axes_col = self.axes_col
         # get the projection
         pm = self.plot_method
+        kwargs = {}
         if pm is not None:
             projection = self.plot_method.plotter_cls._get_sample_projection()
             if projection is not None:
-                kwargs = {'projection': projection}
-            else:
-                kwargs = {}
+                kwargs['projection'] = projection
         for irow in range(self.rowCount()):
             arr_name = self.item(irow, arr_col).text()
             if arr_name in d:
@@ -851,22 +850,23 @@ class ArrayTable(DragDropTable):
             self._open_axes_creator(items, func_name, kwargs))
         return action
 
+    def _change_axes(self, items, iterator):
+        seen = set()
+        arr_col = self.desc_cols.index(self.ARRAY_LABEL)
+        for item, text in zip(items, iterator):
+            arr_name = self.item(item.row(), arr_col).text()
+            if arr_name in seen:
+                continue
+            seen.add(arr_name)
+            item.setText(text)
+
     def _open_axes_creator(self, items, func_name, kwargs):
-        def change_vals(iterator):
-            seen = set()
-            arr_col = self.desc_cols.index(self.ARRAY_LABEL)
-            for item, text in zip(items, iterator):
-                arr_name = self.item(item.row(), arr_col).text()
-                if arr_name in seen:
-                    continue
-                seen.add(arr_name)
-                item.setText(text)
 
         def func():
             if hasattr(self, '_axes_creator'):
                 self._axes_creator.close()
             self._axes_creator = obj = AxesCreatorCollection(func_name, kwargs)
-            obj.okpressed.connect(change_vals)
+            obj.okpressed.connect(partial(self._change_axes, items))
             obj.show()
         return func
 
@@ -1717,7 +1717,7 @@ class PlotCreator(QWidget):
 
         # ----------------- dataset combo connections ------------------------
         self.bt_open_file.clicked.connect(lambda: self.open_dataset())
-        self.bt_get_ds.clicked.connect(self.get_ds_from_shell)
+        self.bt_get_ds.clicked.connect(lambda: self.get_ds_from_shell)
         self.ds_combo.currentIndexChanged[int].connect(self.set_ds)
 
         self.ds_combo.currentIndexChanged[int].connect(
@@ -2036,25 +2036,26 @@ class PlotCreator(QWidget):
         else:
             super(PlotCreator, self).keyPressEvent(e)
 
-    def get_ds_from_shell(self):
+    def get_ds_from_shell(self, oname=None):
         """Open an input dialog and receive a dataset"""
-        text, ok = QInputDialog().getText(
-            self, 'Enter a variable name from the console', '')
-        if not ok:
-            return
-        found, ds = self.get_obj(text.strip())
+        if oname is None:
+            oname, ok = QInputDialog().getText(
+                self, 'Enter a variable name from the console', '')
+            if not ok:
+                return
+        found, ds = self.get_obj(oname.strip())
         if found:
             if isinstance(ds, xarray.Dataset):
                 self.ds_descs.insert(0, {'ds': ds})
-                self.ds_combo.insertItem(0, 'New: ' + text)
+                self.ds_combo.insertItem(0, 'New: ' + oname)
                 self.ds_combo.setCurrentIndex(0)
             else:
                 self.error_msg.showMessage(
                     'Object must be an instance of xarray.Dataset, not %s' % (
                         type(ds)))
         else:
-            if not text.strip():
+            if not oname.strip():
                 msg = 'The variable name must not be empty!'
             else:
-                msg = 'Could not find object ' + text
+                msg = 'Could not find object ' + oname
             self.error_msg.showMessage(msg)
