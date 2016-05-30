@@ -38,7 +38,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         """Test whether a dataset can be loaded that is defined in the
         console"""
         self.window.console.execute(
-            "ds = psy.open_dataset(%s)" % self.get_file('test-t2m-u-v.nc'))
+            "ds = psy.open_dataset('%s')" % self.get_file('test-t2m-u-v.nc'))
         vtab = self.pc.variables_table
         ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
         self.pc.get_ds_from_shell('ds')
