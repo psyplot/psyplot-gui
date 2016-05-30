@@ -1,5 +1,5 @@
-import os
-from time import sleep
+# -*- coding: utf-8 -*-
+"""Skript to test the InProcessShell that is used in the psyplot gui"""
 import unittest
 import _base_testing as bt
 import psyplot.project as psy

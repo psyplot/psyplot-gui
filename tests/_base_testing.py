@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Module defining the base class for the gui test"""
 import os
 import unittest
 from psyplot_gui.compat.qtcompat import QApplication
