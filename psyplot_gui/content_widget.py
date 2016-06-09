@@ -5,6 +5,7 @@ additional features for an interactive usage with graphical qt user interface.
 There is no need to import this module because the
 :class:`GuiProject` class defined here replaces the project class in the
 :mod:`psyplot.project` module."""
+import sys
 import six
 import os.path as osp
 import sip
@@ -124,6 +125,9 @@ class PlotterList(QListWidget):
             self.is_empty = True
             return
         attr = self.project_attribute
+        # stop if the module of the plotter has not yet been imported
+        if attr and Project._registered_plotters[attr][0] not in sys.modules:
+            return
         try:
             arrays = project if not attr else getattr(project, attr)
         except ImportError:  # plotter could not be loaded
