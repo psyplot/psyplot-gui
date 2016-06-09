@@ -10,8 +10,8 @@ env:
   - QT_VERSION=5
 matrix:
   exclude:
-  - python: "3.4"
-    env: QT_VERSION=5
+    - python: "3.4"
+      env: QT_VERSION=5
 install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
@@ -38,9 +38,8 @@ install:
   # remove qt and pyqt for Qt5 which is installed from jupyter
   - if [[ "$QT_VERSION" == "5" ]]; then
       conda uninstall --force qt pyqt;
-      # there might still be left a remainer from PyQt4
       if [[ -d "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4" ]]; then
-          rm -r "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4"
+          rm -r "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4";
       fi
     fi
   - pip install coveralls
