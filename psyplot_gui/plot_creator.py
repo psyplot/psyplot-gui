@@ -1919,8 +1919,8 @@ class PlotCreator(QWidget):
                 'Shape files (*.shp);;'
                 'All files (*)'
                 )
-        if with_qt5:  # the filter is passed as well
-            fnames = fnames[0]
+            if with_qt5:  # the filter is passed as well
+                fnames = fnames[0]
         if not fnames:
             return
         try:
@@ -1930,7 +1930,7 @@ class PlotCreator(QWidget):
                 ds = psy.open_mfdataset(fnames, *args, **kwargs)
         except:
             self.error_msg.showTraceback(
-                '<b>Could not open dataset %s</b>' % (fnames))
+                '<b>Could not open dataset %s</b>' % (fnames, ))
             return
         fnames_str = ', '.join(fnames)
         self.ds_descs.insert(0, {'ds': ds, 'fname': fnames_str})
