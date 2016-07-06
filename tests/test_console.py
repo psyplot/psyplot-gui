@@ -58,7 +58,7 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('(')
 
-#    @bt.skipOnTravis
+    @bt.skipOnTravis
     def test_current_object(self):
         """Test whether the current object is given correctly"""
         c = self.window.console
