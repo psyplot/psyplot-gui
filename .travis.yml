@@ -38,11 +38,11 @@ install:
   # remove qt and pyqt for Qt5 which is installed from jupyter
   - if [[ "$QT_VERSION" == "5" ]]; then
       conda uninstall --force qt pyqt;
-      'echo "backend: qt5agg" > matplotlibrc';
       if [[ -d "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4" ]]; then
           rm -r "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4";
       fi
     fi
+  - 'if [[ "$QT_VERSION" == "5" ]]; then echo "backend: qt5agg" > matplotlibrc; fi'
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
