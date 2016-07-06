@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Skript to test the InProcessShell that is used in the psyplot gui"""
 import re
+import six
 import unittest
 import _base_testing as bt
 import psyplot.project as psy
@@ -37,8 +38,9 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         # QTest.keyClicks
         self.insert_text('object')
         QTest.keyClicks(c._control, symbol)
-        header = "object" + re.sub(
+        sig = '' if six.PY2 else re.sub(
             '^\(\s*self,\s*', '(', str(signature(object.__init__)))
+        header = "object" + sig
         bars = '=' * len(header)
         self.assertEqual(
             he.viewer.editor.toPlainText(),
@@ -56,7 +58,7 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('(')
 
-    @bt.skipOnTravis
+#    @bt.skipOnTravis
     def test_current_object(self):
         """Test whether the current object is given correctly"""
         c = self.window.console
