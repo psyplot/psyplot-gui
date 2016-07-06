@@ -6,7 +6,7 @@ import unittest
 import _base_testing as bt
 import psyplot.project as psy
 import inspect
-from psyplot_gui.compat.qtcompat import QTest
+from psyplot_gui.compat.qtcompat import QTest, with_qt5
 
 
 class ConsoleTest(bt.PsyPlotGuiTestCase):
@@ -48,17 +48,17 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
                 bars, header, bars + "\n\n", inspect.getdoc(object),
                 "\n" + inspect.getdoc(object.__init__)]))
 
-    @bt.skipOnTravis
+    @unittest.skip(bt.on_travis and not with_qt5)
     def test_questionmark(self):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('?')
 
-    @bt.skipOnTravis
+    @unittest.skip(bt.on_travis and not with_qt5)
     def test_bracketleft(self):
         """Test the connection to the help explorer by typing '?'"""
         self._test_object_docu('(')
 
-    @bt.skipOnTravis
+    @unittest.skip(bt.on_travis and not with_qt5)
     def test_current_object(self):
         """Test whether the current object is given correctly"""
         c = self.window.console
