@@ -9,10 +9,7 @@ from psyplot_gui.compat.qtcompat import QApplication
 test_dir = osp.dirname(__file__)
 
 
-def skipOnTravis(func):
-    """Convenience function to skip a test on travis-ci"""
-    return unittest.skipIf(
-        os.environ.get('TRAVIS'), "Does not work on travis-ci")(func)
+on_travis = os.environ.get('TRAVIS'), "Does not work on travis-ci"
 
 
 class PsyPlotGuiTestCase(unittest.TestCase):
