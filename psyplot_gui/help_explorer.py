@@ -1,9 +1,6 @@
 """Help explorer widget supplying a simple web browser and a plain text help
 viewer"""
 import os.path as osp
-import traceback as tb
-import sys
-import warnings
 from collections import namedtuple
 from itertools import chain
 import re
@@ -11,14 +8,13 @@ import six
 import types
 import inspect
 import shutil
-from psyplot.docstring import dedents, indent, docstrings
+from psyplot.docstring import indent, docstrings
 from psyplot.compat.pycompat import OrderedDict
 from psyplot.data import _TempBool
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,
-    QIcon, QtCore, QDockWidget, QComboBox, Qt,  QSortFilterProxyModel,
-    QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5,
-    QErrorMessage)
+    QIcon, QtCore, QComboBox, Qt,  QSortFilterProxyModel,
+    QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5)
 from psyplot_gui.common import get_icon, DockMixin, PyErrorMessage
 from IPython.core.oinspect import signature, getdoc
 import logging
@@ -94,7 +90,6 @@ class UrlCombo(QComboBox):
             self.add_text_on_top()
         else:
             QComboBox.keyPressEvent(self, event)
-
 
 
 class UrlBrowser(QFrame):
