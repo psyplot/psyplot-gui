@@ -24,7 +24,7 @@ except ImportError:
         QKeySequence)
     from PyQt4 import QtCore
     from PyQt4.QtCore import Qt
-    from PyQt4.QtWebKit import QWebView
+    from PyQt4.QtWebKit import QWebView as QWebEngineView
     from PyQt4.QtTest import QTest
     with_qt5 = False
 else:
