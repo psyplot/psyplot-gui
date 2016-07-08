@@ -44,6 +44,9 @@ else:
         QKeySequence)
     from PyQt5 import QtCore
     from PyQt5.QtCore import Qt, QSortFilterProxyModel
-    from PyQt5.QtWebKitWidgets import QWebView
+    try:
+        from PyQt5.QtWebEngineWidgets import QWebEngineView
+    except ImportError:
+        from PyQt5.QtWebKitWidgets import QWebView as QWebEngineView
     from PyQt5.QtTest import QTest
     with_qt5 = True

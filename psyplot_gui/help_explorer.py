@@ -15,7 +15,7 @@ from psyplot.docstring import dedents, indent, docstrings
 from psyplot.compat.pycompat import OrderedDict
 from psyplot.data import _TempBool
 from psyplot_gui.compat.qtcompat import (
-    QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebView, QToolButton,
+    QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,
     QIcon, QtCore, QDockWidget, QComboBox, Qt,  QSortFilterProxyModel,
     QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5,
     QErrorMessage)
@@ -99,7 +99,7 @@ class UrlCombo(QComboBox):
 
 class UrlBrowser(QFrame):
     """Very simple browser with session history and autocompletion based upon
-    the :class:`PyQt5.QtWebKitWidgets.QWebView` class
+    the :class:`PyQt5.QtWebEngineWidgets.QWebEngineView` class
 
     Warnings
     --------
@@ -174,7 +174,7 @@ class UrlBrowser(QFrame):
         # ---------------------------------------------------------------------
 
         #: The actual widget showing the html content
-        self.html = QWebView(parent=self)
+        self.html = QWebEngineView(parent=self)
         self.html.loadStarted.connect(self.completed)
         self.html.loadFinished.connect(self.completed)
 
