@@ -10,7 +10,8 @@ import inspect
 import shutil
 from psyplot.docstring import indent, docstrings
 from psyplot.compat.pycompat import OrderedDict
-from psyplot.data import _TempBool
+from psyplot.data import _TempBool, _temp_bool_prop
+from psyplot_gui.config.rcsetup import rcParams
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,
     QIcon, QtCore, QComboBox, Qt,  QSortFilterProxyModel,
@@ -101,7 +102,9 @@ class UrlBrowser(QFrame):
     This class is known to crash under PyQt4 when new web page domains are
     loaded. Hence it should be handled with care"""
 
-    completed = _TempBool(True)
+    completed = _temp_bool_prop(
+        'completed', "Boolean whether the html page loading is completed.",
+        default=True)
 
     url_like_re = re.compile('^\w+://')
 
@@ -211,7 +214,7 @@ class UrlBrowser(QFrame):
         if self.bt_lock.isChecked():
             return
         if not self.url_like_re.match(url):
-            url = 'http://' + url
+            url = 'https://' + url
         if self.bt_url_lock.isChecked() and url.startswith('http'):
             return
         if not self.completed:
@@ -219,7 +222,10 @@ class UrlBrowser(QFrame):
             self.html.stop()
             self.completed = True
         logger.debug('Loading %s', url)
-        self.html.load(QtCore.QUrl(url))
+        # we use :meth:`PyQt5.QtWebEngineWidgets.QWebEngineView.setUrl` instead
+        # of :meth:`PyQt5.QtWebEngineWidgets.QWebEngineView.load` because that
+        # changes the url directly and is more useful for unittests
+        self.html.setUrl(QtCore.QUrl(url))
 
     def url_changed(self, url):
         """Triggered when the url is changed to update the adress line"""
@@ -228,7 +234,7 @@ class UrlBrowser(QFrame):
         except AttributeError:
             pass
         logger.debug('url changed to %s', url)
-        self.tb_url.setEditText(url)
+        self.tb_url.setCurrentText(url)
         self.tb_url.add_text_on_top(url, block=True)
 
     def toogle_url_lock(self):
@@ -695,7 +701,10 @@ class SphinxThread(QtCore.QThread):
             self.doc = doc
             self.name = name
             # start rendering in separate process
-            self.start()
+            if rcParams['help_explorer.render_docs_parallel']:
+                self.start()
+            else:
+                self.run()
 
     def run(self):
         """Create the html file. When called the first time, it may take a
@@ -734,11 +743,12 @@ class SphinxThread(QtCore.QThread):
         try:
             self.app.build(None, [])
         except:
-            msg = '<b>Error while building sphinx document %s</b>' % (
+            msg = 'Error while building sphinx document %s' % (
                 self.name)
-            self.html_error.emit(msg)
+            self.html_error.emit('<b>' + msg + '</b>')
+            logger.debug(msg)
         else:
-            self.html_ready[str].emit('file://' + html_file)
+            self.html_ready.emit('file://' + html_file)
 
 
 class HelpExplorer(QWidget, DockMixin):
