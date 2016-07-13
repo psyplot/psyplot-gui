@@ -34,6 +34,9 @@ install:
   - 'ENVKEY=py"${TRAVIS_PYTHON_VERSION}"_qt"${QT_VERSION}"'
 
   - conda env create -f tests/envs/environment_$ENVKEY.yml
+  # checkout the current psyplot version via git
+  - git checkout "https://github.com/Chilipp/psyplot.git" -b $TRAVIS_BRANCH
+  - cd psyplot && python setup.py install && cd ..
   - source activate psyplot_gui_$ENVKEY
   # remove qt and pyqt for Qt5 which is installed from jupyter
   - if [[ "$QT_VERSION" == "5" ]]; then
