@@ -293,7 +293,7 @@ class MainWindow(QMainWindow):
             self._file_thread.setDaemon(True)
             self._file_thread.start()
 
-            self.open_external.connect(self.open_external_files)
+            self.open_external.connect(self._open_external_files)
 
         self.showMaximized()
 
@@ -442,8 +442,20 @@ class MainWindow(QMainWindow):
             self.open_external.emit(l)
             req.sendall(b' ')
 
-    def open_external_files(self, l):
-        fnames, project, engine, plot_method, name, dims = l
+    docstrings.keep_params(
+        'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
+        'name', 'dims')
+
+    @docstrings.get_sectionsf('MainWindow.open_external_files')
+    @docstrings.dedent
+    def open_external_files(self, fnames=[], project=None, engine=None,
+                            plot_method=None, name=None, dims=None):
+        """
+        Open external files
+
+        Parameters
+        ----------
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims)s"""
         if project is not None:
             fnames = [s.split(',') for s in fnames]
             single_files = (l[0] for l in fnames if len(l) == 1)
@@ -463,9 +475,8 @@ class MainWindow(QMainWindow):
                         map(str, val)) for key, val in six.iteritems(
                             dims)})
 
-    docstrings.keep_params(
-        'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims')
+    def _open_external_files(self, l):
+        self.open_external_files(*l)
 
     @classmethod
     @docstrings.get_sectionsf('MainWindow.run')
@@ -480,7 +491,7 @@ class MainWindow(QMainWindow):
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims)s
+        %(MainWindow.open_external_files.parameters)s
 
         Notes
         -----
@@ -496,7 +507,7 @@ class MainWindow(QMainWindow):
         _set_mainwindow(mainwindow)
         if fnames or project:
             mainwindow.open_external_files(
-                [fnames, project, engine, plot_method, name, dims])
+                fnames, project, engine, plot_method, name, dims)
         return mainwindow
 
     @classmethod
