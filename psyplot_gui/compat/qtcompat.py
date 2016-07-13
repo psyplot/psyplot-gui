@@ -21,12 +21,14 @@ except ImportError:
         QTableWidget, QTableWidgetItem, QRegExpValidator, QGridLayout,
         QIntValidator, QErrorMessage, QInputDialog, QTabWidget,
         QDoubleValidator, QGraphicsScene, QGraphicsRectItem, QGraphicsView,
-        QKeySequence)
+        QKeySequence, QStyleOptionViewItem)
     from PyQt4 import QtCore
     from PyQt4.QtCore import Qt
     from PyQt4.QtWebKit import QWebView as QWebEngineView
     from PyQt4.QtTest import QTest
+    from PyQt4 import QtGui
     with_qt5 = False
+    QSignalSpy = None
 else:
     from PyQt5.QtWidgets import (
         QMainWindow, QDockWidget, QToolBox, QApplication, QListWidget,
@@ -37,7 +39,7 @@ else:
         QAction, QMessageBox, QCheckBox, QFileDialog, QListView,
         QDesktopWidget, QStyledItemDelegate, QTableWidget, QTableWidgetItem,
         QGridLayout, QErrorMessage, QInputDialog, QTabWidget,
-        QGraphicsScene, QGraphicsRectItem, QGraphicsView)
+        QGraphicsScene, QGraphicsRectItem, QGraphicsView, QStyleOptionViewItem)
     from PyQt5.QtGui import (
         QIcon, QKeyEvent, QStandardItem, QStandardItemModel, QTextCursor,
         QValidator, QRegExpValidator, QIntValidator, QDoubleValidator,
@@ -48,5 +50,6 @@ else:
         from PyQt5.QtWebEngineWidgets import QWebEngineView
     except ImportError:
         from PyQt5.QtWebKitWidgets import QWebView as QWebEngineView
-    from PyQt5.QtTest import QTest
+    from PyQt5.QtTest import QTest, QSignalSpy
+    from PyQt5 import QtGui
     with_qt5 = True
