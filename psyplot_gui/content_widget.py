@@ -9,11 +9,13 @@ import sys
 import six
 import os.path as osp
 import sip
+import weakref
 from itertools import chain
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, QToolBox, QListWidget, QListWidgetItem, QAbstractItemView,
-    QWidget, QPushButton, QHBoxLayout, QVBoxLayout, Qt, QSplitter, QFrame,
-    QTreeWidget, QTreeWidgetItem, QtCore)
+    QToolBox, QListWidget, QListWidgetItem, QAbstractItemView,
+    QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QTreeWidget,
+    QTreeWidgetItem, QtCore, QMenu, QAction, Qt)
+from psyplot.config.rcsetup import safe_list
 from psyplot.compat.pycompat import OrderedDict, map, range
 from psyplot.project import scp, gcp, Project
 from psyplot.data import _TempBool, ArrayList
@@ -117,9 +119,9 @@ class PlotterList(QListWidget):
             Otherwise only the current selection changes"""
         if self._no_project_update:
             return
-        if not self.can_import_plotter or project is None:
+        if not self.can_import_plotter:
             # remove the current items
-            for item in self.array_items:
+            for item in list(self.array_items):
                 item.disconnect_from_array()
                 self.takeItem(self.indexFromItem(item).row())
             self.is_empty = True
@@ -130,14 +132,17 @@ class PlotterList(QListWidget):
             return
         try:
             arrays = project if not attr else getattr(project, attr)
+            mp = gcp(True) if project is None else project.main
+            main_arrays = mp if not attr else getattr(mp, attr)
         except ImportError:  # plotter could not be loaded
             self.is_empty = True
             self.can_import_plotter = False
             return
-        self.is_empty = not bool(arrays)
+        self.is_empty = not bool(main_arrays)
         with self._no_project_update:
             if project is None:
                 for item in self.array_items:
+                    print(item)
                     item.setSelected(False)
             elif project.is_main:
                 old_arrays = self.arrays
@@ -182,6 +187,7 @@ class ProjectContent(QToolBox):
 
     def __init__(self, *args, **kwargs):
         super(ProjectContent, self).__init__(*args, **kwargs)
+        self.lists = OrderedDict()
         for attr in chain(['All'], sorted(Project._registered_plotters)):
             self.add_plotterlist(attr)
         self.currentChanged.connect(self.update_current_list)
@@ -226,7 +232,7 @@ class SelectAllButton(QPushButton):
 
     def enable_from_project(self, project):
         """Enable the button if the given project is not empty"""
-        self.setEnabled(bool(project))
+        self.setEnabled(bool(project.main if project is not None else gcp(1)))
 
 
 class SelectNoneButton(QPushButton):
@@ -259,9 +265,9 @@ class ProjectContentWidget(QWidget, DockMixin):
         button_hbox = QHBoxLayout()
         button_hbox.addWidget(self.unselect_button)
         button_hbox.addWidget(self.select_all_button)
-        sp = gcp(True)
-        self.unselect_button.setEnabled(bool(sp))
-        self.select_all_button.setEnabled(bool(sp))
+        mp = gcp(True)
+        self.unselect_button.setEnabled(bool(mp))
+        self.select_all_button.setEnabled(bool(mp))
         # create widget showing the content of the current project
         self.content_widget = ProjectContent(parent=self)
         vbox.addLayout(button_hbox)
@@ -275,12 +281,26 @@ class DatasetTreeItem(QTreeWidgetItem):
 
     def __init__(self, ds, columns=[], *args, **kwargs):
         super(DatasetTreeItem, self).__init__(*args, **kwargs)
-        variables = QTreeWidgetItem(0)
+        self.variables = variables = QTreeWidgetItem(0)
+        self.columns = columns
         variables.setText(0, 'variables')
-        coords = QTreeWidgetItem(0)
+        self.coords = coords = QTreeWidgetItem(0)
         coords.setText(0, 'coords')
         self.addChildren([variables, coords])
         self.addChild(variables)
+        self.add_variables(ds)
+
+    def add_variables(self, ds=None):
+        """Add children of variables and coords to this TreeWidgetItem"""
+        if ds is None:
+            ds = self.ds()
+            self.variables.takeChildren()
+            self.coords.takeChildren()
+        else:
+            self.ds = weakref.ref(ds)
+        columns = self.columns
+        variables = self.variables
+        coords = self.coords
         for vname, variable in six.iteritems(ds.variables):
             item = QTreeWidgetItem(0)
             item.setText(0, vname)
@@ -301,9 +321,17 @@ class DatasetTree(QTreeWidget, DockMixin):
     """A QTreeWidget showing informations on all datasets in the main project
     """
 
+    tooltips = {
+        'Refresh': 'Refresh the selected dataset',
+        'Refresh all': 'Refresh all datasets',
+        'Add to project': ('Add this variable or a plot of it to the current '
+                           'project')}
+
     def __init__(self, *args, **kwargs):
         super(DatasetTree, self).__init__(*args, **kwargs)
         self.create_dataset_tree()
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.open_menu)
         Project.oncpchange.connect(self.add_datasets_from_cp)
 
     def create_dataset_tree(self):
@@ -354,6 +382,65 @@ class DatasetTree(QTreeWidget, DockMixin):
             for arr in ds_desc['arr']:
                 arr.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
+
+    def open_menu(self, pos):
+        menu = QMenu()
+        item = self.itemAt(pos)
+        parent, item_type = self._get_toplevel_item(item)
+        # ---- Refresh the selected item action
+        refresh_action = QAction('Refresh', self)
+        refresh_action.setToolTip(self.tooltips['Refresh'])
+        refresh_action.triggered.connect(lambda: self.refresh_items(parent))
+
+        # ---- Refresh all items action
+        refresh_all_action = QAction('Refresh all', self)
+        refresh_all_action.setToolTip(self.tooltips['Refresh all'])
+        refresh_all_action.triggered.connect(lambda: self.refresh_items())
+
+        # ---- add refresh actions
+        menu.addActions([refresh_action, refresh_all_action])
+
+        # ---- add plot option
+        if item_type == 'variable':
+            add2p_action = QAction('Add to project', self)
+            add2p_action.setToolTip(self.tooltips['Add to project'])
+            add2p_action.triggered.connect(lambda: self.make_plot(
+                parent.ds(), item.text(0)))
+            menu.addSeparator()
+            menu.addAction(add2p_action)
+
+        # ---- show menu
+        menu.exec_(self.mapToGlobal(pos))
+        return menu
+
+    def refresh_items(self, item=None):
+        if item is not None:
+            item.add_variables()
+        else:
+            for item in map(self.topLevelItem,
+                            range(self.topLevelItemCount())):
+                item.add_variables()
+
+    def make_plot(self, ds, name):
+        from psyplot_gui.main import mainwindow
+        mainwindow.new_plots()
+        mainwindow.plot_creator.switch2ds(ds)
+        mainwindow.plot_creator.insert_array(safe_list(name))
+
+    def _get_toplevel_item(self, item):
+        if item is None:
+            parent = None
+        else:
+            parent = item.parent()
+        item_type = None
+        while parent is not None:
+            if parent.text(0) == 'variables':
+                item_type = 'variable'
+            elif parent.text(0) == 'coords':
+                item_type = 'coord'
+            item = item.parent()
+            parent = item.parent()
+        return item, item_type
 
 
 class FiguresTreeItem(QTreeWidgetItem):
