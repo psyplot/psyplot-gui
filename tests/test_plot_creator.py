@@ -4,8 +4,9 @@ import unittest
 from itertools import chain, cycle
 import _base_testing as bt
 import psyplot.project as psy
-from psyplot.compat.pycompat import range
-from psyplot_gui.compat.qtcompat import QTest, Qt
+from psyplot.compat.pycompat import range, OrderedDict
+from psyplot_gui.compat.qtcompat import (
+    QTest, Qt, QStyleOptionViewItem, QWidget, QValidator, QtGui, QtCore)
 
 
 class PlotCreatorTest(bt.PsyPlotGuiTestCase):
@@ -95,6 +96,24 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(
             [atab.item(irow, 0).text() for irow in range(atab.rowCount())],
             variables)
+
+    def test_update_with_dims(self):
+        """Test the update with the given dimensions"""
+        self.test_plusplus()
+        atab = self.pc.array_table
+        atab.selectAll()
+        atab.update_selected(dims={'time': '3'})
+        icol = len(atab.desc_cols) + atab.dims.index('time')
+        vars3d = {var for var, varo in atab.get_ds().variables.items()
+                  if 'time' in varo.dims}
+        for irow in range(atab.rowCount()):
+            vname = atab.item(irow, atab.var_col).text()
+            if vname in vars3d:
+                item = atab.item(irow, icol)
+                self.assertEqual(
+                    item.text(), '3',
+                    msg='Wrong time value %s in row %s' % (
+                        item.text(), irow))
 
     def test_add_subplots(self):
         """Test the add subplots button"""
@@ -251,6 +270,101 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.assertIs(axes[1], ax2)
         # close figures
         plt.close('all')
+
+    def test_arrayname_validator(self):
+        """Test the :class:`psyplot_gui.plot_creator.ArrayNameValidator`"""
+        # open dataset
+        fname = self.get_file('test-t2m-u-v.nc')
+        ds = psy.open_dataset(fname)
+        self.pc.get_ds_from_shell(ds)
+
+        # add data arrays
+        QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)
+
+        # get names
+        atab = self.pc.array_table
+        names = atab.current_names
+
+        # get itemdelegate
+        item_delegate = atab.itemDelegateForColumn(atab.arr_col)
+
+        # create editor and validator
+        widget = QWidget()
+        option = QStyleOptionViewItem()
+        index = atab.indexFromItem(atab.item(0, atab.arr_col))
+        editor = item_delegate.createEditor(widget, option, index)
+        validator = editor.validator()
+
+        # check validation
+        self.assertEqual(validator.validate(names[1], len(names[1]))[0],
+                         validator.Intermediate)
+        self.assertEqual(validator.validate('dummy', 5)[0],
+                         validator.Acceptable)
+        self.assertNotIn(validator.fixup(names[1]), names)
+
+    def test_variablename_validator(self):
+        """Test the :class:`psyplot_gui.plot_creator.VariableItemDelegate`"""
+        # open dataset
+        fname = self.get_file('test-t2m-u-v.nc')
+        ds = psy.open_dataset(fname)
+        self.pc.get_ds_from_shell(ds)
+
+        # add data arrays
+        QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)
+
+        # get names
+        atab = self.pc.array_table
+        names = list(set(ds.variables).difference(ds.coords))
+
+        # get itemdelegate
+        item_delegate = atab.itemDelegateForColumn(atab.var_col)
+
+        # create editor and validator
+        widget = QWidget()
+        option = QStyleOptionViewItem()
+        index = atab.indexFromItem(atab.item(0, atab.arr_col))
+        editor = item_delegate.createEditor(widget, option, index)
+        validator = editor.validator()
+
+        # check validation
+        self.assertEqual(validator.validate('dummy', 5)[0], QValidator.Invalid)
+        self.assertEqual(validator.validate(names[0], len(names[0]))[0],
+                         QValidator.Acceptable)
+        self.assertEqual(validator.validate(names[0][:2], 2)[0],
+                         QValidator.Intermediate)
+        s = atab.sep.join(names)
+        self.assertEqual(validator.validate(s, len(s))[0],
+                         QValidator.Acceptable)
+        self.assertEqual(
+            validator.validate(s[:3] + 'dummy' + s[3:], len(s) + 5)[0],
+            QValidator.Invalid)
+
+    def test_drag_drop(self):
+        """Test the drag and drop of the
+        :class:`psyplot_gui.plot_creator.ArrayTable`"""
+        # XXX Try to use directly the dropEvent method by setting the source of
+        # the event!
+        point = QtCore.QPoint(0, 0)
+        data = QtCore.QMimeData()
+        event = QtGui.QDropEvent(point, Qt.MoveAction, data, Qt.LeftButton,
+                                 Qt.NoModifier, QtCore.QEvent.Drop)
+
+        # open dataset
+        fname = self.get_file('test-t2m-u-v.nc')
+        ds = psy.open_dataset(fname)
+        self.pc.get_ds_from_shell(ds)
+
+        # add data arrays
+        QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)
+
+        # move rows
+        atab = self.pc.array_table
+        old = list(atab.arr_names_dict.items())
+        atab.selectRow(2)
+        atab.dropOn(event)
+        resorted = [old[i] for i in [2, 0, 1] + list(range(3, len(old)))]
+        self.assertEqual(list(atab.arr_names_dict.items()), resorted,
+                         msg="Rows not moved correctly!")
 
 
 if __name__ == '__main__':
