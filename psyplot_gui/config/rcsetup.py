@@ -41,11 +41,14 @@ defaultParams = {
         'possible to change the backend after importing the psyplot.project '
         'module. The default backend embeds the figures into the '],
     'help_explorer.use_intersphinx': [
-        False, validate_bool_maybe_none,
+        None, validate_bool_maybe_none,
         'Use the intersphinx extension and link to the online documentations '
         'of matplotlib, pyplot, psyplot, numpy, etc. when converting rst '
         'docstrings. The inventories are loaded when the first object is '
         'documented. If None, intersphinx is only used with PyQt5'],
+    'help_explorer.render_docs_parallel': [
+        True, validate_bool,
+        'Boolean whether the html docs are rendered in a separate process'],
     'console.connect_to_help': [
         True, validate_bool,
         'Whether the console shall be connected to the help_explorer or not'],
