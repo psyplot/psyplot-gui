@@ -4,12 +4,16 @@ import os
 import os.path as osp
 import unittest
 from psyplot_gui.compat.qtcompat import QApplication
+from psyplot_gui import rcParams
 
 
 test_dir = osp.dirname(__file__)
 
 
 on_travis = os.environ.get('TRAVIS'), "Does not work on travis-ci"
+
+
+rcParams['main.listen_to_port'] = False
 
 
 class PsyPlotGuiTestCase(unittest.TestCase):
@@ -35,8 +39,10 @@ class PsyPlotGuiTestCase(unittest.TestCase):
         self.window = MainWindow.run()
 
     def tearDown(self):
+        import psyplot.project as psy
         self.window.close()
         del self.window
+        psy.gcp(True).close(True, True)
 
     def get_file(self, fname):
         """Get the path to the file `fname`
