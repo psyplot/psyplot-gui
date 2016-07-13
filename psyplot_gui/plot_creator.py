@@ -361,47 +361,43 @@ class DragDropTable(QTableWidget):
         if event.source() == self and (
                 event.dropAction() == Qt.MoveAction or
                 self.dragDropMode() == QAbstractItemView.InternalMove):
-            success, row, col, topIndex = self.dropOn(event)
-            if success:
-                selRows = sorted({ind.row() for ind in self.selectedIndexes()})
-
-                top = selRows[0]
-
-                dropRow = row
-                if dropRow == -1:
-                    dropRow = self.rowCount()
-                offset = dropRow - top
-
-                for i, row in enumerate(selRows):
-                    r = row + offset
-                    if r > self.rowCount() or r < 0:
-                        r = 0
-                    self.insertRow(r)
-
-                selRows = sorted({ind.row() for ind in self.selectedIndexes()})
-
-                top = selRows[0]
-                offset = dropRow - top
-                for i, row in enumerate(selRows):
-                    r = row + offset
-                    if r > self.rowCount() or r < 0:
-                        r = 0
-
-                    for j in range(self.columnCount()):
-                        source = QTableWidgetItem(self.item(row, j))
-                        self.setItem(r, j, source)
-
-                event.accept()
+            self.dropOn(event)
 
         else:
             super(DragDropTable, self).dropEvent(event)
 
-    def getSelectedRowsFast(self):
-        selRows = []
-        for item in self.selectedItems():
-            if item.row() not in selRows:
-                selRows.append(item.row())
-        return selRows
+    def moveRows(self, row, remove=False):
+        """Move all selected rows to the given `row`"""
+        selRows = sorted({ind.row() for ind in self.selectedIndexes()})
+        top = selRows[0]
+
+        dropRow = row
+        if dropRow == -1:
+            dropRow = self.rowCount()
+        offset = dropRow - top
+
+        for i, row in enumerate(selRows):
+            r = row + offset
+            if r > self.rowCount() or r < 0:
+                r = 0
+            self.insertRow(r)
+
+        selRows = sorted({ind.row() for ind in self.selectedIndexes()})
+
+        top = selRows[0]
+        offset = dropRow - top
+        for i, row in enumerate(selRows):
+            r = row + offset
+            if r > self.rowCount() or r < 0:
+                r = 0
+
+            for j in range(self.columnCount()):
+                source = QTableWidgetItem(self.item(row, j))
+                self.setItem(r, j, source)
+
+        if remove:
+            for row in reversed(selRows):
+                self.removeRow(row)
 
     def droppingOnItself(self, event, index):
         dropAction = event.dropAction()
@@ -427,7 +423,6 @@ class DragDropTable(QTableWidget):
 
         index = QtCore.QModelIndex()
         row = -1
-        col = -1
 
         if self.viewport().rect().contains(event.pos()):
             index = self.indexAt(event.pos())
@@ -442,20 +437,16 @@ class DragDropTable(QTableWidget):
 
                 if dropIndicatorPosition == QAbstractItemView.AboveItem:
                     row = index.row()
-                    col = index.column()
                     # index = index.parent()
                 elif dropIndicatorPosition == QAbstractItemView.BelowItem:
                     row = index.row() + 1
-                    col = index.column()
                     # index = index.parent()
                 else:
                     row = index.row()
-                    col = index.column()
 
             if not self.droppingOnItself(event, index):
-                return True, row, col, index
-
-        return False, None, None, None
+                self.moveRows(row, remove=event.source() is None)
+                event.accept()
 
     def position(self, pos, rect, index):
         r = QAbstractItemView.OnViewport
@@ -1717,7 +1708,7 @@ class PlotCreator(QWidget):
 
         # ----------------- dataset combo connections ------------------------
         self.bt_open_file.clicked.connect(lambda: self.open_dataset())
-        self.bt_get_ds.clicked.connect(lambda: self.get_ds_from_shell)
+        self.bt_get_ds.clicked.connect(lambda: self.get_ds_from_shell())
         self.ds_combo.currentIndexChanged[int].connect(self.set_ds)
 
         self.ds_combo.currentIndexChanged[int].connect(
@@ -1921,7 +1912,9 @@ class PlotCreator(QWidget):
                 )
             if with_qt5:  # the filter is passed as well
                 fnames = fnames[0]
-        if not fnames:
+        if isinstance(fnames, xarray.Dataset):
+            ds = fnames
+        elif not fnames:
             return
         try:
             if len(fnames) == 1:
@@ -2029,6 +2022,19 @@ class PlotCreator(QWidget):
         p = psy.Project.from_dataset(*args, main=psy.gcp(True), **kwargs)
         psy.scp(p)
 
+    def switch2ds(self, ds):
+        """Switch to the given dataset
+
+        Parameters
+        ----------
+        ds: xarray.Dataset
+            The dataset to use. It is assumed that this dataset is already
+            in the dataset combobox"""
+        for i, desc in enumerate(self.ds_descs):
+            if desc['ds'] is ds:
+                self.ds_combo.setCurrentIndex(i)
+                return
+
     def keyPressEvent(self, e):
         """Reimplemented to close the window when escape is hitted"""
         if e.key() == QtCore.Qt.Key_Escape:
@@ -2043,7 +2049,11 @@ class PlotCreator(QWidget):
                 self, 'Enter a variable name from the console', '')
             if not ok:
                 return
-        found, ds = self.get_obj(oname.strip())
+        if isinstance(oname, xarray.Dataset):
+            found, ds = True, oname
+            oname = 'ds'
+        else:
+            found, ds = self.get_obj(oname.strip())
         if found:
             if isinstance(ds, xarray.Dataset):
                 self.ds_descs.insert(0, {'ds': ds})
