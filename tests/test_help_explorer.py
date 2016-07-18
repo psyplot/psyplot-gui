@@ -6,7 +6,7 @@ import os.path as osp
 import _base_testing as bt
 import dummy_module as d
 from psyplot_gui import rcParams
-from psyplot_gui.compat.qtcompat import QTest, Qt
+from psyplot_gui.compat.qtcompat import QTest, Qt, with_qt5
 
 
 class UrlHelpTest(bt.PsyPlotGuiTestCase):
@@ -39,7 +39,7 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
     def _test_if_sphinx_worked(self, oname):
         html = 'file://' + osp.join(osp.join(self.viewer.sphinx_dir, '_build',
                                              'html', oname + '.html'))
-        self.assertEqual(self.viewer.html.page().url().toString(), html)
+        self.assertEqual(self.viewer.html.url().toString(), html)
         # we emit the urlChanged signal manually because it is not emitted
         # without main loop
         self.viewer.html.urlChanged.emit(self.viewer.html.url())
@@ -61,8 +61,10 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
 #    @unittest.skipIf(not with_qt5, "Not secure with Qt4")
     def test_browsing(self):
         """Test browsing"""
+        if not with_qt5:
+            QTest.mouseClick(self.viewer.bt_url_lock, Qt.LeftButton)
         self.viewer.browse('www.google.de')
-        url = self.viewer.html.page().url().toString()
+        url = self.viewer.html.url().toString()
         self.assertTrue(url.startswith('https://www.google.de'),
                         msg='Wrong url ' + url)
 
@@ -87,7 +89,7 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
 
     def test_lock(self):
         """Test the url lock"""
-        url = self.viewer.html.page().url().toString()
+        url = self.viewer.html.url().toString()
         QTest.mouseClick(self.viewer.bt_lock, Qt.LeftButton)
         self.help_explorer.show_help(int, 'int')
         fname = osp.join(self.viewer.sphinx_dir, 'int.rst')
@@ -95,9 +97,8 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         self.help_explorer.show_rst(int.__doc__, 'int')
         self.assertFalse(osp.exists(fname), msg=fname + ' exists wrongly!')
         self.viewer.browse('www.google.de')
-        self.assertEqual(self.viewer.html.page().url().toString(), url)
+        self.assertEqual(self.viewer.html.url().toString(), url)
 
-#    @unittest.skipIf(not with_qt5, "Not secure with Qt4")
     def test_url_lock(self):
         """Test whether to object documentation works"""
         self.test_browsing()

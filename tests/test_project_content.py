@@ -237,7 +237,10 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         ds = sp1[0].base
         name = 't2m'
         self.tree.make_plot(ds, name)
-        self.window.plot_creator.pm_combo.setCurrentText('mapplot')
+        try:
+            self.window.plot_creator.pm_combo.setCurrentText('mapplot')
+        except AttributeError:
+            self.window.plot_creator.pm_combo.setEditText('mapplot')
         QTest.mouseClick(self.window.plot_creator.bt_create, Qt.LeftButton)
         self.assertIs(ds, psy.gcp()[0].base)
 
