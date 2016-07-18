@@ -314,7 +314,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
 
         # get names
         atab = self.pc.array_table
-        names = list(set(ds.variables).difference(ds.coords))
+        names = sorted(list(set(ds.variables).difference(ds.coords)))
 
         # get itemdelegate
         item_delegate = atab.itemDelegateForColumn(atab.var_col)
