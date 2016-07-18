@@ -234,7 +234,10 @@ class UrlBrowser(QFrame):
         except AttributeError:
             pass
         logger.debug('url changed to %s', url)
-        self.tb_url.setCurrentText(url)
+        try:
+            self.tb_url.setCurrentText(url)
+        except AttributeError:
+            self.tb_url.setEditText(url)
         self.tb_url.add_text_on_top(url, block=True)
 
     def toogle_url_lock(self):
