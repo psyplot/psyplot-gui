@@ -304,6 +304,8 @@ class MainWindow(QMainWindow):
                 'Pickle files (*.pkl);;'
                 'All files (*)'
                 )
+            if with_qt5:  # the filter is passed as well
+                fname = fname[0]
             if not fname:
                 return
         else:
@@ -331,6 +333,10 @@ class MainWindow(QMainWindow):
             'Pickle files (*.pkl);;'
             'All files (*)'
             )
+        if with_qt5:  # the filter is passed as well
+            fname = fname[0]
+        if not fname:
+            return
         p = psy.Project.load_project(fname, *args, **kwargs)
         p.attrs['project_file'] = fname
         self.update_project_action(p.num)
@@ -354,6 +360,8 @@ class MainWindow(QMainWindow):
             'GIF image (*.gif);;'
             'All files (*)'
             )
+        if with_qt5:  # the filter is passed as well
+            fname = fname[0]
         if not fname:
             return
         try:
@@ -461,9 +469,11 @@ class MainWindow(QMainWindow):
             single_files = (l[0] for l in fnames if len(l) == 1)
             alternative_paths = defaultdict(lambda: next(single_files, None))
             alternative_paths.update(list(l for l in fnames if len(l) == 2))
-            psy.Project.load_project(
+            p = psy.Project.load_project(
                 project, alternative_paths=alternative_paths,
-                engine=engine, main=False)
+                engine=engine, main=not psy.gcp())
+            if isinstance(project, six.string_types):
+                p.attrs.setdefault('project_file', project)
         else:
             self.new_plots()
             self.plot_creator.open_dataset(fnames, engine=engine)
