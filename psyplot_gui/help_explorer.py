@@ -825,7 +825,7 @@ class HelpExplorer(QWidget, DockMixin):
             try:
                 return self.viewer.show_help(obj, oname=oname)
             except:
-                logger.debug("Could not document %s with %s viewer!",
+                logger.info("Could not document %s with %s viewer!",
                              oname, self.combo.currentText(), exc_info=True)
         curr_i = self.combo.currentIndex()
         for i, (viewername, viewer) in enumerate(six.iteritems(self.viewers)):
