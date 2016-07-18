@@ -96,6 +96,9 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     if backend is not False:
         rcParams['backend'] = backend
     from psyplot_gui.main import MainWindow
+    fnames = _get_abs_names(fnames)
+    if project is not None:
+        project = _get_abs_names([project])[0]
     MainWindow.run_app(fnames, project, engine, plot_method, name, dims)
 
 
@@ -111,10 +114,9 @@ def send_files_to_psyplot(fnames, project, *args):
     # Wait ~50 secs for the server to be up
     # Taken from http://stackoverflow.com/a/4766598/438386
     for _x in range(200):
-        for i, fname in enumerate(fnames):
-            fnames[i] = osp.abspath(fname)
+        fnames = _get_abs_names(fnames)
         if project is not None:
-            project = osp.abspath(project)
+            project = _get_abs_names([project])[0]
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM,
                                    socket.IPPROTO_TCP)
@@ -126,6 +128,15 @@ def send_files_to_psyplot(fnames, project, *args):
             time.sleep(0.25)
             continue
         break
+    
+    
+def _get_abs_names(fnames):
+    """Return the absolute paths of the given filenames"""
+    if fnames is None:
+        return
+    for i, fname in enumerate(fnames):
+        fnames[i] = ','.join(map(osp.abspath, fname.split(',')))
+    return fnames
 
 
 def get_parser(create=True):
