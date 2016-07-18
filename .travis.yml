@@ -5,9 +5,11 @@ python:
   - "3.4"
   - "3.5"
 env:
-  - QT_VERSION=4
-# pyqt5 is currently not working on travis
-  - QT_VERSION=5
+  matrix:
+    - QT_VERSION=4
+    - QT_VERSION=5
+  global:
+    - LOG_PSYPLOTGUI=psyplot_gui/config/logging_debug.yaml
 matrix:
   exclude:
     - python: "3.4"
@@ -49,7 +51,6 @@ install:
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
-  - export LOG_PSYPLOTGUI=psyplot_gui/config/logging_debug.yaml
 
 before_script:
   - "export DISPLAY=:99.0"
