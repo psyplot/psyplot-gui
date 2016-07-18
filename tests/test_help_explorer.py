@@ -28,13 +28,19 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         rcParams['help_explorer.use_intersphinx'] = cls._original_intersphinx
         rcParams['help_explorer.render_docs_parallel'] = cls._original_pdocs
 
+    def setUp(self):
+        super(UrlHelpTest, self).setUp()
+        self.help_explorer.set_viewer('HTML help')
+
     @property
     def help_explorer(self):
         return self.window.help_explorer
 
     @property
     def viewer(self):
-        return self.help_explorer.viewer
+        ret = self.help_explorer.viewer
+        self.assertIs(ret, self.help_explorer.viewers['HTML help'])
+        return ret
 
     def _test_if_sphinx_worked(self, oname):
         html = 'file://' + osp.join(osp.join(self.viewer.sphinx_dir, '_build',
