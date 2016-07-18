@@ -14,7 +14,6 @@
 
 import sphinx
 import sphinx_rtd_theme
-import os
 import re
 import six
 from itertools import product
@@ -68,8 +67,6 @@ autoclass_content = 'both'
 
 not_document_data = ['psyplot.config.rcsetup.defaultParams',
                      'psyplot.config.rcsetup.rcParams']
-
-ipython_savefig_dir = os.path.join(os.path.dirname(__file__), '_static')
 
 # General information about the project.
 project = u'Help'
@@ -238,10 +235,13 @@ intersphinx_mapping = {
     'sphinx': ('http://sphinx-doc.org/', None),
     'xarray': ('http://xarray.pydata.org/en/stable/', None),
     'cartopy': ('http://scitools.org.uk/cartopy/docs/latest/', None),
-    'psyplot': ('http://psyplot.readthedocs.org/en/latest/', None),
+    'psyplot': ('http://psyplot.readthedocs.io/en/latest/', None),
+    'psyplot_gui': ('http://psyplot_gui.readthedocs.io/en/latest/', None),
 }
-if six.PY3:
+if six.PY34:
     intersphinx_mapping['python'] = ('https://docs.python.org/3.4/', None)
+elif six.PY34:
+    intersphinx_mapping['python'] = ('https://docs.python.org/3.5/', None)
 else:
     intersphinx_mapping['python'] = ('https://docs.python.org/2.7/', None)
 
