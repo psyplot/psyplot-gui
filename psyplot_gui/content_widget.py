@@ -142,7 +142,6 @@ class PlotterList(QListWidget):
         with self._no_project_update:
             if project is None:
                 for item in self.array_items:
-                    print(item)
                     item.setSelected(False)
             elif project.is_main:
                 old_arrays = self.arrays
