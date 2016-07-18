@@ -49,6 +49,7 @@ install:
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
+  - export LOG_PSYPLOTGUI=psyplot_gui/config/logging_debug.yaml
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -60,3 +61,6 @@ script:
 
 after_success:
   coveralls
+
+after_failure:
+  cat $HOME/.debug_psyplot.log
