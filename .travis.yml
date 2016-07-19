@@ -5,11 +5,8 @@ python:
   - "3.4"
   - "3.5"
 env:
-  matrix:
-    - QT_VERSION=4
-    - QT_VERSION=5
-  global:
-    - LOG_PSYPLOTGUI=psyplot_gui/config/logging_debug.yaml
+  - QT_VERSION=4
+  - QT_VERSION=5
 matrix:
   exclude:
     - python: "3.4"
@@ -64,4 +61,4 @@ after_success:
   coveralls
 
 after_failure:
-  curl -sT $HOME/.debug_psyplot.log chunk.io
+  curl -sT debug_psyplot.log chunk.io
