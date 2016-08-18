@@ -12,9 +12,7 @@ from psyplot_gui.compat.qtcompat import QApplication
 from psyplot_gui import rcParams
 
 
-
-
-on_travis = os.environ.get('TRAVIS'), "Does not work on travis-ci"
+on_travis = os.environ.get('TRAVIS')
 
 
 rcParams['main.listen_to_port'] = False

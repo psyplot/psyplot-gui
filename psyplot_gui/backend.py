@@ -75,7 +75,6 @@ class PsyplotCanvasManager(FigureManagerQT):
         self.canvas.setFocus()
         self.window._destroying = False
 
-
         # add text label to status bar
         self.statusbar_label = QLabel()
         mainwindow.statusBar().addWidget(self.statusbar_label)

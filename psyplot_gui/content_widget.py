@@ -372,8 +372,12 @@ class DatasetTree(QTreeWidget, DockMixin):
         for i, ds_desc in six.iteritems(project._get_ds_descriptions(
                 project.array_info(ds_description='all'))):
             top_item = DatasetTreeItem(ds_desc['ds'], self.attr_columns, 0)
-            if ds_desc['fname'] is not None:
-                ds_desc['fname'] = osp.basename(ds_desc['fname'])
+            if ds_desc['fname'] is not None and not all(
+                    s is None for s in ds_desc['fname']):
+                ds_desc['fname'] = ', '.join(map(osp.basename,
+                                                 safe_list(ds_desc['fname'])))
+            else:
+                ds_desc['fname'] = None
             top_item.setText(0, '%s%i: %s' % (
                 '*' if any(arr in sp_arrs for arr in ds_desc['arr']) else '',
                 i, ds_desc['fname']))

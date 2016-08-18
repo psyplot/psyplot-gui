@@ -128,8 +128,8 @@ def send_files_to_psyplot(fnames, project, *args):
             time.sleep(0.25)
             continue
         break
-    
-    
+
+
 def _get_abs_names(fnames):
     """Return the absolute paths of the given filenames"""
     if fnames is None:
@@ -174,7 +174,7 @@ def get_parser(create=True):
 
     parser.update_arg('new_instance', short='ni', group=gui_grp)
 
-    parser.update_arg('rc_gui_file', short='rc_gui', group=gui_grp)
+    parser.update_arg('rc_gui_file', short='rc-gui', group=gui_grp)
     parser.pop_key('rc_gui_file', 'metavar')
 
     parser.set_main(start_app)

@@ -1,10 +1,10 @@
 """Common functions used for the psyplot gui"""
 import sys
-import re
 import traceback as tb
 import os.path as osp
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, Qt, QRegExpValidator, QtCore, QErrorMessage)
+    QDockWidget, QRegExpValidator, QtCore, QErrorMessage)
+
 
 def get_module_path(modname):
     """Return module `modname` base path"""
