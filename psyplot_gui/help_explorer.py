@@ -32,7 +32,6 @@ try:
         from sphinx.ext.napoleon import NumpyDocstring, GoogleDocstring
     with_sphinx = True
 except ImportError:
-    raise
     with_sphinx = False
 
 
