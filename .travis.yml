@@ -58,7 +58,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
-  - py.test -v --cov-report= --cov=psyplot_gui tests/
+  - coverage run --source=psyplot_gui setup.py pytest
 
 after_success:
   coveralls
