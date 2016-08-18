@@ -13,6 +13,7 @@ dependencies:
     - seaborn
     - bottleneck
     - pyqt5
+    - sphinx
     - jupyter
     - pip:
         - cyordereddict
