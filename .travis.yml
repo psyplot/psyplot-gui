@@ -48,6 +48,7 @@ install:
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
+  - conda env export -n psyplot_gui_$ENVKEY > final_environment.yml
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -62,4 +63,5 @@ after_success:
   coveralls
 
 after_failure:
-  curl -sT debug_psyplot.log chunk.io
+  curl -sT "{debug_psyplot.log,final_environment.yml}" chunk.io
+

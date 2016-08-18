@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 logger.debug(
     "%s: Initializing psyplot gui, version %s",
     dt.datetime.now().isoformat(), __version__)
+logger.debug("psyplot version: %s", psyplot.__version__)
 logger.debug("Logging configuration file: %s", config.logcfg_path)
 logger.debug("Configuration file: %s", config.config_path)
 
