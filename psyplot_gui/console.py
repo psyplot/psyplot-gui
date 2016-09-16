@@ -20,7 +20,7 @@ from psyplot.docstring import dedents
 
 modules2import = [
     ('psyplot.project', 'psy'),
-    ('xarray', 'xarray'),
+    ('xarray', 'xr'),
     ('pandas', 'pd'),
     ('numpy', 'np')]
 
