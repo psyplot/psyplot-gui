@@ -56,9 +56,14 @@ class PsyplotCanvasManager(FigureManagerQT):
         self.window.setWindowTitle("Figure %d" % num)
 
         self.toolbar = self._get_toolbar(canvas, parent_widget)
+
+        # add text label to status bar
+        self.statusbar_label = QLabel()
+        mainwindow.statusBar().addWidget(self.statusbar_label)
+
         if self.toolbar is not None:
             vbox.addWidget(self.toolbar)
-            self.toolbar.message.connect(self._show_message)
+            self.toolbar.message.connect(self.statusbar_label.setText)
 
         vbox.addWidget(canvas)
         parent_widget.setLayout(vbox)
@@ -75,9 +80,6 @@ class PsyplotCanvasManager(FigureManagerQT):
         self.canvas.setFocus()
         self.window._destroying = False
 
-        # add text label to status bar
-        self.statusbar_label = QLabel()
-        mainwindow.statusBar().addWidget(self.statusbar_label)
         self.main.show()
 
         def notify_axes_change(fig):
