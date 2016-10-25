@@ -21,3 +21,4 @@ dependencies:
         - pytest-html
         - pytest-cov
         - fasteners
+        - sphinx_rtd_theme
