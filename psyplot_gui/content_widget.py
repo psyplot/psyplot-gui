@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Module containing the project content widget to display the selection
 
 This module redefines the :class:`psyplot.project.Project` class with
