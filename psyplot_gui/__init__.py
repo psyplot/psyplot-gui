@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
-              tight=False, new_instance=False, rc_file=None, rc_gui_file=None):
+              tight=False, encoding=None, new_instance=False, rc_file=None, rc_gui_file=None):
     """
     Eventually start the QApplication or only make a plot
 
@@ -74,7 +74,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         return make_plot(
             fnames=fnames, name=name, dims=dims, plot_method=plot_method,
             output=output, project=project, engine=engine,
-            formatoptions=formatoptions, tight=tight, rc_file=rc_file)
+            formatoptions=formatoptions, tight=tight, rc_file=rc_file,
+            encoding=encoding)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -90,7 +91,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         # Start a new instance
         atexit.register(lock.release)
     elif not new_instance:
-        send_files_to_psyplot(fnames, project, engine, plot_method, name, dims)
+        send_files_to_psyplot(fnames, project, engine, plot_method, name, dims,
+                              encoding)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -100,7 +102,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     fnames = _get_abs_names(fnames)
     if project is not None:
         project = _get_abs_names([project])[0]
-    MainWindow.run_app(fnames, project, engine, plot_method, name, dims)
+    MainWindow.run_app(fnames, project, engine, plot_method, name, dims,
+                       encoding)
 
 
 def send_files_to_psyplot(fnames, project, *args):

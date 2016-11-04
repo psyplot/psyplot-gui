@@ -452,18 +452,20 @@ class MainWindow(QMainWindow):
 
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims')
+        'name', 'dims', 'encoding')
 
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
-                            plot_method=None, name=None, dims=None):
+                            plot_method=None, name=None, dims=None,
+                            encoding=None):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims)s"""
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding)s
+        """
         if project is not None:
             fnames = [s.split(',') for s in fnames]
             single_files = (l[0] for l in fnames if len(l) == 1)
@@ -471,7 +473,7 @@ class MainWindow(QMainWindow):
             alternative_paths.update(list(l for l in fnames if len(l) == 2))
             p = psy.Project.load_project(
                 project, alternative_paths=alternative_paths,
-                engine=engine, main=not psy.gcp())
+                engine=engine, main=not psy.gcp(), encoding=encoding)
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
         else:
@@ -492,7 +494,7 @@ class MainWindow(QMainWindow):
     @docstrings.get_sectionsf('MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None):
+            name=None, dims=None, encoding=None):
         """
         Create a mainwindow and open the given files or project
 
@@ -517,7 +519,7 @@ class MainWindow(QMainWindow):
         _set_mainwindow(mainwindow)
         if fnames or project:
             mainwindow.open_external_files(
-                fnames, project, engine, plot_method, name, dims)
+                fnames, project, engine, plot_method, name, dims, encoding)
         return mainwindow
 
     @classmethod
