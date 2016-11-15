@@ -181,7 +181,8 @@ def get_parser(create=True):
     parser.update_arg('rc_gui_file', short='rc-gui', group=gui_grp)
     parser.pop_key('rc_gui_file', 'metavar')
 
-    parser.set_main(start_app)
+    if psyplot.__version__ < '1.0':
+        parser.set_main(start_app)
 
     parser.epilog += """
 
