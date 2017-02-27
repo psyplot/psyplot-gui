@@ -39,18 +39,10 @@ install:
   # checkout the current psyplot version via git
   - git clone "https://github.com/Chilipp/psyplot.git" -b $TRAVIS_BRANCH
   - cd psyplot && python setup.py install && cd .. && rm -rf psyplot
-  # remove qt and pyqt for Qt5 which is installed from jupyter
-  - if [[ "$QT_VERSION" == "5" ]]; then
-      conda uninstall --force qt pyqt;
-      if [[ -d "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4" ]]; then
-          rm -r "$HOME/miniconda/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/PyQt4";
-      fi
-    fi
-  - 'if [[ "$QT_VERSION" == "5" ]]; then echo "backend: qt5agg" > matplotlibrc; fi'
   - pip install coveralls
   - pip install pytest-xdist
   - python setup.py install
-  - conda env export -n psyplot_gui_$ENVKEY > final_environment.yml
+  - conda env export -n psyplot_gui_$ENVKEY
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -64,5 +56,5 @@ after_success:
   coveralls
 
 after_failure:
-  curl -sT "{debug_psyplot.log,final_environment.yml}" chunk.io
+  curl -sT "debug_psyplot.log" chunk.io
 
