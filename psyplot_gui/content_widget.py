@@ -84,7 +84,9 @@ class PlotterList(QListWidget):
         """List of The InteractiveBase instances in this list"""
         return ArrayList(filter(
             lambda i: i is not None,
-            (getattr(item, 'arr', None) for item in self.array_items)))
+            (getattr(getattr(item, 'arr', None),
+                     'arr', getattr(item, 'arr', None))
+             for item in self.array_items)))
 
     @property
     def array_items(self):
@@ -175,8 +177,9 @@ class PlotterList(QListWidget):
             mp = gcp(True)
             sp = gcp()
             selected = [item.arr.arr_name for item in self.selectedItems()]
+            arrays = self.arrays
             other_selected = [
-                arr.arr_name for arr in sp if arr not in self.arrays]
+                arr.psy.arr_name for arr in sp if arr not in arrays]
             with self._no_project_update:
                 scp(mp(arr_name=selected + other_selected))
 
