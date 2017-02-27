@@ -43,7 +43,7 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
             self.assertEqual(l.count(), d[name],
                              msg='Wrong number of arrays in %s' % name)
             if name in ['All', 'maps', 'mapplot']:
-                self.assertEqual(l.item(0).text(), sp[0]._short_info(),
+                self.assertEqual(l.item(0).text(), sp[0].psy._short_info(),
                                  msg='Wrong text in %s' % name)
             if name in ['All', 'simple', 'lineplot']:
                 self.assertEqual(
@@ -125,8 +125,8 @@ class FiguresTreeTest(bt.PsyPlotGuiTestCase):
                 self.assertEqual(top.text(0),
                                  fig.canvas.get_window_title())
                 for child in map(top.child, range(top.childCount())):
-                    self.assertEqual(child.text(0), next(arrays)._short_info(),
-                                     msg=msg)
+                    self.assertEqual(child.text(0),
+                                     next(arrays).psy._short_info(), msg=msg)
         sp = psy.plot.mapplot(self.get_file('test-t2m-u-v.nc'), name='t2m',
                               time=[0, 1, 2], ax=(1, 2))
         check_figs()
@@ -151,8 +151,8 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         sp2 = psy.plot.mapplot(fname, name='t2m')
         count = next(psyd._ds_counter) - 1
         fname = osp.basename(fname)
-        ds1 = sp1[0].base
-        ds2 = sp2[0].base
+        ds1 = sp1[0].psy.base
+        ds2 = sp2[0].psy.base
 
         self.assertEqual(self.tree.topLevelItemCount(), 2)
         self.assertEqual(self._get_toplevel_item(ds1).text(0), '%i: %s' % (
@@ -199,7 +199,7 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         """Test whether the variables and coordinates are displayed correctly
         """
         sp = psy.plot.mapplot(self.get_file('test-t2m-u-v.nc'), name='t2m')
-        ds = sp[0].base
+        ds = sp[0].psy.base
         self._test_ds_representation(ds)
 
     def test_refresh(self):
@@ -207,21 +207,21 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         fname = self.get_file('test-t2m-u-v.nc')
         sp1 = psy.plot.mapplot(fname, name='t2m')
         sp2 = psy.plot.mapplot(fname, name='t2m')
-        ds = sp1[0].base
+        ds = sp1[0].psy.base
         ds['test'] = xr.Variable(('testdim', ), list(range(5)))
         item = self.tree.topLevelItem(0)
         self.tree.refresh_items(item)
         self._test_ds_representation(ds)
-        self._test_ds_representation(sp2[0].base)
+        self._test_ds_representation(sp2[0].psy.base)
 
     def test_refresh_all(self):
         """Test the refreshing of a dataset"""
         fname = self.get_file('test-t2m-u-v.nc')
         sp1 = psy.plot.mapplot(fname, name='t2m')
         sp2 = psy.plot.mapplot(fname, name='t2m')
-        ds = sp1[0].base
+        ds = sp1[0].psy.base
         ds['test'] = xr.Variable(('testdim', ), list(range(5)))
-        ds2 = sp2[0].base
+        ds2 = sp2[0].psy.base
         ds2['test2'] = list(range(10))
         self.tree.refresh_items()
         self._test_ds_representation(ds)
@@ -234,7 +234,7 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         # to make sure, have in the mean time another dataset in the current
         # subproject, we create a second plot
         psy.plot.mapplot(fname, name='t2m')
-        ds = sp1[0].base
+        ds = sp1[0].psy.base
         name = 't2m'
         self.tree.make_plot(ds, name)
         try:
@@ -242,7 +242,7 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         except AttributeError:
             self.window.plot_creator.pm_combo.setEditText('mapplot')
         QTest.mouseClick(self.window.plot_creator.bt_create, Qt.LeftButton)
-        self.assertIs(ds, psy.gcp()[0].base)
+        self.assertIs(ds, psy.gcp()[0].psy.base)
 
 
 if __name__ == '__main__':
