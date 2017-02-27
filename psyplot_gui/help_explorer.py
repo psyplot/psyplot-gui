@@ -10,7 +10,7 @@ import inspect
 import shutil
 from psyplot.docstring import indent, docstrings
 from psyplot.compat.pycompat import OrderedDict
-from psyplot.data import _TempBool, _temp_bool_prop
+from psyplot.utils import _temp_bool_prop
 from psyplot_gui.config.rcsetup import rcParams
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,

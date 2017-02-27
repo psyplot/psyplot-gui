@@ -10,7 +10,7 @@ from psyplot.config.rcsetup import psyplot_fname
 
 #: :class:`str`. Path to the yaml logging configuration file
 logcfg_path = setup_logging(
-    default_path=osp.join(osp.dirname(__file__), 'logging.yaml'),
+    default_path=osp.join(osp.dirname(__file__), 'logging.yml'),
     env_key='LOG_PSYPLOTGUI')
 
 

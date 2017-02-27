@@ -8,7 +8,7 @@ from itertools import chain
 import logging
 from IPython.core.interactiveshell import ExecutionResult
 import psyplot.project as psy
-from psyplot.data import _temp_bool_prop
+from psyplot.utils import _temp_bool_prop
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QComboBox, QLineEdit, QVBoxLayout, QToolButton,
     QIcon, QPushButton, QCheckBox)

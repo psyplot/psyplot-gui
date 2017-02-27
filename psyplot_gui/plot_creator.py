@@ -6,8 +6,6 @@ class"""
 from __future__ import division
 import os
 import logging
-import traceback as tb
-import sys
 import re
 import types
 import xarray
@@ -18,7 +16,7 @@ from math import floor
 from itertools import chain, product, cycle, repeat, starmap
 import matplotlib as mpl
 import six
-from psyplot.data import _TempBool
+from psyplot.utils import _TempBool
 from psyplot.compat.pycompat import map, range, filter, OrderedDict
 from psyplot_gui.compat.qtcompat import (
     QWidget, QComboBox, QHBoxLayout, QVBoxLayout, QFileDialog, QToolButton,
@@ -1863,7 +1861,7 @@ class PlotCreator(QWidget):
         """Takes the names of the plotting methods in the current project"""
         self.pm_combo.addItems([''] + list(filter(
             lambda s: not s.startswith('_') and isinstance(
-                getattr(psy.plot, s), psy._PlotterInterface),
+                getattr(psy.plot, s), psy.PlotterInterface),
             dir(psy.plot))))
         self.pm_combo.setToolTip(self.NO_PM_TT)
 

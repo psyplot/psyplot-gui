@@ -9,7 +9,7 @@ import pickle
 import datetime as dt
 import logging
 import psyplot
-from psyplot.main import make_plot
+from psyplot.__main__ import make_plot
 from psyplot_gui.config.rcsetup import rcParams
 import psyplot_gui.config as config
 from itertools import chain
@@ -19,7 +19,7 @@ from psyplot.warning import warn
 from psyplot.compat.pycompat import map
 
 
-__version__ = "0.0.3.dev8"
+__version__ = "1.0.0.dev0"
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
 logger = logging.getLogger(__name__)
@@ -157,7 +157,7 @@ def get_parser(create=True):
     psyplot.main.get_parser
     psyplot.parser.FuncArgParser
     psyplot.main.main"""
-    from psyplot.main import get_parser
+    from psyplot.__main__ import get_parser
     parser = get_parser(create=False)
 
     parser.setup_args(start_app)

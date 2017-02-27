@@ -1,10 +1,79 @@
 """Default management of the psyplot_gui package
 
 This module defines the necessary configuration parts for the psyplot gui"""
-import os.path as osp
+import six
 from psyplot.config.rcsetup import (
-    RcParams, try_and_error, validate_str, validate_none, validate_int,
-    validate_bool, validate_bool_maybe_none, psyplot_fname)
+    RcParams, psyplot_fname, validate_bool_maybe_none)
+from matplotlib.rcsetup import validate_int, validate_bool
+
+
+def try_and_error(*funcs):
+    """Apply multiple validation functions
+
+    Parameters
+    ----------
+    ``*funcs``
+        Validation functions to test
+
+    Returns
+    -------
+    function"""
+    def validate(value):
+        exc = None
+        for func in funcs:
+            try:
+                return func(value)
+            except (ValueError, TypeError) as e:
+                exc = e
+        raise exc
+    return validate
+
+
+# -----------------------------------------------------------------------------
+# ------------------------- validation functions ------------------------------
+# -----------------------------------------------------------------------------
+
+
+def validate_str(s):
+    """Validate a string
+
+    Parameters
+    ----------
+    s: str
+
+    Returns
+    -------
+    str
+
+    Raises
+    ------
+    ValueError"""
+    if not isinstance(s, six.string_types):
+        raise ValueError("Did not found string!")
+    return six.text_type(s)
+
+
+def validate_none(b):
+    """Validate that None is given
+
+    Parameters
+    ----------
+    b: {None, 'none'}
+        None or string (the case is ignored)
+
+    Returns
+    -------
+    None
+
+    Raises
+    ------
+    ValueError"""
+    if isinstance(b, six.string_types):
+        b = b.lower()
+    if b is None or b == 'none':
+        return None
+    else:
+        raise ValueError('Could not convert "%s" to None' % b)
 
 
 class GuiRcParams(RcParams):
@@ -25,7 +94,7 @@ class GuiRcParams(RcParams):
         --------
         dump_to_file, psyplot_fname"""
         fname = fname or psyplot_fname(env_key='PSYPLOTGUIRC',
-                                       fname='psyplotguirc.yaml')
+                                       fname='psyplotguirc.yml')
         if fname:
             super(GuiRcParams, self).load_from_file(fname)
 

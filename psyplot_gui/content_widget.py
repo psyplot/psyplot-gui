@@ -19,12 +19,17 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot.config.rcsetup import safe_list
 from psyplot.compat.pycompat import OrderedDict, map, range
 from psyplot.project import scp, gcp, Project
-from psyplot.data import _TempBool, ArrayList
+from psyplot.data import ArrayList
+from psyplot.utils import _TempBool
 from psyplot_gui.common import DockMixin
 
 
 class ArrayItem(QListWidgetItem):
     """A listwidget item that takes it's informations from a given array"""
+
+    #: The :class:`psyplot.data.InteractiveList` or
+    #: :class:`psyplot.data.InteractiveArray` instance
+    arr = None
 
     def __init__(self, arr, *args, **kwargs):
         """
@@ -35,10 +40,10 @@ class ArrayItem(QListWidgetItem):
         ``*args,**kwargs``
             Are determined by the parent class
         """
-        super(ArrayItem, self).__init__(arr._short_info(), **kwargs)
-        self.arr = arr
+        super(ArrayItem, self).__init__(arr.psy._short_info(), **kwargs)
+        self.arr = arr.psy
         # make sure that the item is updated when the array changes
-        arr.onupdate.connect(self.set_text_from_array)
+        arr.psy.onupdate.connect(self.set_text_from_array)
         self.set_text_from_array()
 
     def set_text_from_array(self):
@@ -160,7 +165,8 @@ class PlotterList(QListWidget):
                         self.addItem(item)
             else:
                 for item in self.array_items:
-                    item.setSelected(item.arr in arrays)
+                    item.setSelected(
+                        getattr(item.arr, 'arr', item.arr) in arrays)
         self.updated_from_project.emit(self)
 
     def update_cp(self, *args, **kwargs):
@@ -384,7 +390,7 @@ class DatasetTree(QTreeWidget, DockMixin):
                 i, ds_desc['fname']))
             top_item.setToolTip(0, str(ds_desc['ds']))
             for arr in ds_desc['arr']:
-                arr.onbasechange.connect(self.add_datasets_from_cp)
+                arr.psy.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
 
     def open_menu(self, pos):
@@ -459,18 +465,18 @@ class FiguresTreeItem(QTreeWidgetItem):
         super(FiguresTreeItem, self).__init__(*args, **kwargs)
         self.arr = arr
         self.set_text_from_array()
-        arr.onupdate.connect(self.set_text_from_array)
+        arr.psy.onupdate.connect(self.set_text_from_array)
 
     def set_text_from_array(self):
         """Set the text and tooltop from the
         :meth:`psyplot.data.InteractiveArray._short_info` and __str__ methods
         """
-        self.setText(0, self.arr._short_info())
+        self.setText(0, self.arr.psy._short_info())
         self.setToolTip(0, str(self.arr))
 
     def disconnect_from_array(self):
         """Disconect this item from the corresponding array"""
-        self.arr.onupdate.disconnect(self.set_text_from_array)
+        self.arr.psy.onupdate.disconnect(self.set_text_from_array)
         del self.arr
 
 

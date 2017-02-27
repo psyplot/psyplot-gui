@@ -265,7 +265,7 @@ class MainWindow(QMainWindow):
         self.console.help_explorer = help_explorer
         psyp.default_print_func = partial(help_explorer.show_rst,
                                           oname='formatoption_docs')
-        psy._PlotterInterface._print_func = psyp.default_print_func
+        psy.PlotterInterface._print_func = psyp.default_print_func
         self.setCentralWidget(self.console)
 
         # make sure that the plots are shown between the project content and
