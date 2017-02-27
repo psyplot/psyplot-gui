@@ -1,7 +1,7 @@
 name: psyplot_gui_py3.5_qt5
 channels:
     - chilipp
-    - scitools
+    - conda-forge
 dependencies:
     - python=3.5
     - psyplot
