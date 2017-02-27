@@ -4,7 +4,7 @@ channels:
     - conda-forge
 dependencies:
     - python=3.6
-    - psyplot
+    - matplotlib
     - dask
     - xarray
     - netCDF4
