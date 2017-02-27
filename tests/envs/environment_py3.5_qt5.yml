@@ -2,7 +2,6 @@ name: psyplot_gui_py3.5_qt5
 channels:
     - chilipp
     - scitools
-    - spyder-ide
 dependencies:
     - python=3.5
     - psyplot
@@ -12,7 +11,7 @@ dependencies:
     - cartopy
     - seaborn
     - bottleneck
-    - pyqt5
+    - pyqt=5
     - sphinx
     - jupyter
     - pip:

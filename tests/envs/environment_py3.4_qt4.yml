@@ -11,7 +11,7 @@ dependencies:
     - cartopy
     - seaborn
     - bottleneck
-    - pyqt
+    - pyqt=4
     - sphinx
     - jupyter
     - pip:
