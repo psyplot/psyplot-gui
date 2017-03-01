@@ -62,3 +62,8 @@ target/
 
 # Example ipython notebook checkpoints
 *.ipynb_checkpoints/
+
+# rc files
+*matplotlibrc
+*psyplotguirc.yml
+*psyplotrc.yml
