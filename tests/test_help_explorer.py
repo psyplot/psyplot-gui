@@ -7,6 +7,7 @@ import _base_testing as bt
 import dummy_module as d
 from psyplot_gui import rcParams
 from psyplot_gui.compat.qtcompat import QTest, Qt, with_qt5
+from psyplot_gui.help_explorer import html2file
 
 
 class UrlHelpTest(bt.PsyPlotGuiTestCase):
@@ -43,9 +44,9 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         return ret
 
     def _test_if_sphinx_worked(self, oname):
-        html = 'file://' + osp.join(osp.join(self.viewer.sphinx_dir, '_build',
-                                             'html', oname + '.html'))
-        self.assertEqual(self.viewer.html.url().toString(), html)
+        html = osp.join(osp.join(self.viewer.sphinx_dir, '_build',
+                                 'html', oname + '.html'))
+        self.assertEqual(html2file(self.viewer.html.url().toString()), html)
         # we emit the urlChanged signal manually because it is not emitted
         # without main loop
         self.viewer.html.urlChanged.emit(self.viewer.html.url())

@@ -1,5 +1,6 @@
 """Help explorer widget supplying a simple web browser and a plain text help
 viewer"""
+import sys
 import os.path as osp
 from collections import namedtuple
 from itertools import chain
@@ -33,6 +34,30 @@ try:
     with_sphinx = True
 except ImportError:
     with_sphinx = False
+
+if six.PY2:
+    from urlparse import urlparse
+else:
+    from urllib.parse import urlparse
+
+
+try:
+    import pathlib
+
+    def file2html(fname):
+        return pathlib.Path(fname).as_uri()
+
+except ImportError:
+
+    def file2html(fname):
+        return 'file://' + fname
+
+
+def html2file(url):
+    p = urlparse(url)
+    # skip the first '/' on windows platform
+    return osp.abspath(osp.join(p.netloc,
+                                p.path[int(sys.platform == 'win32'):]))
 
 
 logger = logging.getLogger(__name__)
@@ -525,7 +550,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         """Reimplemented to add file paths to the url string"""
         html_file = osp.join(self.sphinx_dir, '_build', 'html', url + '.html')
         if osp.exists(html_file):
-            url = 'file://' + html_file
+            url = file2html(html_file)
         super(UrlHelp, self).browse(url)
 
     def url_changed(self, url):
@@ -535,7 +560,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         except AttributeError:
             pass
         if url.startswith('file://'):
-            fname = url[7:]
+            fname = html2file(url)
             if osp.samefile(self.build_dir, osp.commonprefix([
                     fname, self.build_dir])):
                 url = osp.splitext(osp.basename(fname))[0]
@@ -751,7 +776,7 @@ class SphinxThread(QtCore.QThread):
             self.html_error.emit('<b>' + msg + '</b>')
             logger.debug(msg)
         else:
-            self.html_ready.emit('file://' + html_file)
+            self.html_ready.emit(file2html(html_file))
 
 
 class HelpExplorer(QWidget, DockMixin):

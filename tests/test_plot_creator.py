@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Skript to test the InProcessShell that is used in the psyplot gui"""
+import sys
 import unittest
 from itertools import chain, cycle
 import _base_testing as bt
@@ -28,8 +29,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.pc.open_dataset([fname])
         vtab = self.pc.variables_table
         ds = psy.open_dataset(fname)
-        self.assertRegexpMatches(self.pc.ds_combo.currentText(),
-                                 '.*:\s*%s' % fname)
+        self.assertIn(fname, self.pc.ds_combo.currentText())
         self.assertEqual(
             {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
@@ -38,13 +38,15 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     def test_load_from_console(self):
         """Test whether a dataset can be loaded that is defined in the
         console"""
+        fname = self.get_file('test-t2m-u-v.nc')
+        if sys.platform == 'win32':
+            fname = fname.replace('\\', '\\\\')
         self.window.console.execute(
-            "ds = psy.open_dataset('%s')" % self.get_file('test-t2m-u-v.nc'))
+            "ds = psy.open_dataset('%s')" % fname)
         vtab = self.pc.variables_table
         ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
         self.pc.get_ds_from_shell('ds')
-        self.assertRegexpMatches(self.pc.ds_combo.currentText(),
-                                 '.*:\s*ds')
+        self.assertIn('ds', self.pc.ds_combo.currentText())
         self.assertEqual(
             {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
