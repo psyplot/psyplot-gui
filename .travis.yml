@@ -38,9 +38,6 @@ install:
   # use the branch from psy-simple
   - git clone "https://github.com/Chilipp/psy-simple.git" -b $TRAVIS_BRANCH || git clone "https://github.com/Chilipp/psy-simple.git"
   - cd psy-simple && python setup.py install && cd .. && rm -rf psy-simple
-  # use the branch from psy-maps
-  - git clone "https://github.com/Chilipp/psy-maps.git" -b $TRAVIS_BRANCH || git clone "https://github.com/Chilipp/psy-maps.git"
-  - cd psy-maps && python setup.py install && cd .. && rm -rf psy-maps
   # install the rest
   - pip install coveralls
   - pip install pytest-xdist
@@ -57,7 +54,3 @@ script:
 
 after_success:
   coveralls
-
-after_failure:
-  curl -sT "debug_psyplot.log" chunk.io
-

@@ -15,7 +15,6 @@ dependencies:
     - sphinx
     - jupyter
     - pip:
-        - cyordereddict
         - pytest
         - pytest-html
         - pytest-cov

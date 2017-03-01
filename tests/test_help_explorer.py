@@ -64,7 +64,6 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(combo.itemText(1), 'test')
         self.assertEqual(combo.itemText(2), current)
 
-#    @unittest.skipIf(not with_qt5, "Not secure with Qt4")
     def test_browsing(self):
         """Test browsing"""
         if not with_qt5:
