@@ -22,8 +22,6 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  - conda config --add channels chilipp
-  - conda config --add channels scitools
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
@@ -40,7 +38,6 @@ install:
   - cd psy-simple && python setup.py install && cd .. && rm -rf psy-simple
   # install the rest
   - pip install coveralls
-  - pip install pytest-xdist
   - python setup.py install
   - conda env export -n psyplot_gui_$ENVKEY
 
@@ -50,7 +47,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
-  - coverage run --source=psyplot_gui setup.py test
+  - coverage run --source=psyplot_gui setup.py test -a "-v"
 
 after_success:
   coveralls
