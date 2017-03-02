@@ -22,7 +22,7 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
         return self.project_content.content_widget
 
     def get_list(self, key):
-        return self.project_content.content_widget.lists[key]
+        return self.content_widget.lists[key]
 
     def _selected_rows(self, name):
         return list(map(lambda ind: ind.row(),
@@ -30,6 +30,15 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
 
     def test_content_update(self):
         """Test whether the list is updated correctly"""
+        w = self.content_widget
+        lists = w.lists
+        # currently it should be empty
+        self.assertEqual(list(lists), ['All'], msg=lists)
+        self.assertEqual(w.count(), 1)
+        self.assertEqual(w.indexOf(lists['All']), 0)
+        self.assertFalse(w.isItemEnabled(0), msg='List "All" is enabled!')
+
+        # create some plots
         sp = psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m')
         sp2 = psy.plot.lineplot(self.get_file('test-t2m-u-v.nc'), name='t2m',
                                 t=0, x=0, y=0)
@@ -37,8 +46,10 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
         d['All'] = 2
         d['simple'] = 2
         for name in ['All', 'simple', 'lineplot', 'plot2d']:
-            l = self.get_list(name)
+            self.assertIn(name, lists)
+            l = lists[name]
             i = self.content_widget.indexOf(l)
+            self.assertNotEqual(i, -1, msg='Missing the list in the widget!')
             self.assertTrue(self.content_widget.isItemEnabled(i),
                             msg='%s is not enabled!' % name)
             self.assertEqual(l.count(), d[name],
@@ -58,6 +69,14 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
                          msg='Wrong selection!')
         self.assertEqual(self._selected_rows('All'), [1],
                          msg='Wrong selection!')
+
+        # close the project
+        full = sp + sp2
+        full.close(True, True, True)
+        self.assertEqual(list(lists), ['All'], msg=lists)
+        self.assertEqual(w.count(), 1)
+        self.assertEqual(w.indexOf(lists['All']), 0)
+        self.assertFalse(w.isItemEnabled(0), msg='List "All" is enabled!')
 
     def test_select_all_button(self):
         """Test whether the subproject is changed correctly when selecting all

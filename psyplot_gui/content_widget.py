@@ -113,7 +113,6 @@ class PlotterList(QListWidget):
         self.project_attribute = plotter_type
         self.setSelectionMode(QAbstractItemView.MultiSelection)
         self.itemSelectionChanged.connect(self.update_cp)
-        Project.oncpchange.connect(self.update_from_project)
         self.update_from_project(gcp(True))
         self.update_from_project(gcp())
 
@@ -129,10 +128,7 @@ class PlotterList(QListWidget):
             return
         if not self.can_import_plotter:
             # remove the current items
-            for item in list(self.array_items):
-                item.disconnect_from_array()
-                self.takeItem(self.indexFromItem(item).row())
-            self.is_empty = True
+            self.disconnect_items()
             return
         attr = self.project_attribute
         # stop if the module of the plotter has not yet been imported
@@ -157,7 +153,8 @@ class PlotterList(QListWidget):
                 i = 0
                 for arr in old_arrays:
                     if arr not in arrays:
-                        self.takeItem(i)
+                        item = self.takeItem(i)
+                        item.disconnect_from_array()
                     else:
                         i += 1
                 # add new items
@@ -183,6 +180,13 @@ class PlotterList(QListWidget):
             with self._no_project_update:
                 scp(mp(arr_name=selected + other_selected))
 
+    def disconnect_items(self):
+        """Disconnect the items in this list from the arrays"""
+        for item in list(self.array_items):
+            item.disconnect_from_array()
+            self.takeItem(self.indexFromItem(item).row())
+        self.is_empty = True
+
 
 class ProjectContent(QToolBox):
     """Display the content in the current project
@@ -198,31 +202,56 @@ class ProjectContent(QToolBox):
         super(ProjectContent, self).__init__(*args, **kwargs)
         self.lists = OrderedDict()
         for attr in chain(['All'], sorted(Project._registered_plotters)):
-            self.add_plotterlist(attr)
+            item = self.add_plotterlist(attr, force=(attr == 'All'))
+            if attr == 'All' or not item.is_empty:
+                self.lists[attr] = item
         self.currentChanged.connect(self.update_current_list)
+        Project.oncpchange.connect(self.update_lists)
 
     def enable_list(self, list_widget):
         """Enable a given list widget based upon whether it is empty or not"""
         self.setItemEnabled(
             self.indexOf(list_widget), not list_widget.is_empty)
 
-    def add_plotterlist(self, identifier):
+    def add_plotterlist(self, identifier, force=False):
         """Create a :class:`PlotterList` from an identifier from the
         :class:`psyplot.project.Project` class"""
         attr = identifier if identifier != 'All' else None
         item = PlotterList(attr)
         if not item.can_import_plotter:
-            return
-        item.setParent(self)
-        self.lists[identifier] = item
-        item.updated_from_project.connect(self.enable_list)
-        self.addItem(item, identifier)
-        self.setItemEnabled(len(self.lists) - 1, not item.is_empty)
+            return item
+        if force or not item.is_empty:
+            item.setParent(self)
+            item.updated_from_project.connect(self.enable_list)
+            self.addItem(item, identifier)
+            i = self.indexOf(item)
+            self.setItemEnabled(i, not item.is_empty)
+        return item
 
     def update_current_list(self):
         """Update the current list from the current main and sub project"""
         self.currentWidget().update_from_project(gcp(True))
         self.currentWidget().update_from_project(gcp())
+
+    def update_lists(self, p):
+        # check new lists
+        new = OrderedDict()
+        for attr in chain(sorted(Project._registered_plotters)):
+            if attr not in self.lists:
+                item = self.add_plotterlist(attr)
+                if not item.is_empty:
+                    new[attr] = item
+        removed = 0
+        for i, (name, l) in enumerate(list(self.lists.items())):
+            l.update_from_project(p)
+            if l.is_empty:
+                l.disconnect_items()
+            if name != 'All' and l.is_empty:
+                self.removeItem(i - removed)
+                del self.lists[name]
+                removed += 1
+        for attr, item in new.items():
+            self.lists[attr] = item
 
 
 class SelectAllButton(QPushButton):
