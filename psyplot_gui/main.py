@@ -51,7 +51,30 @@ def _set_mainwindow(obj):
 
 class MainWindow(QMainWindow):
 
+    #: A signal that is emmitted when the a signal is received through the
+    #: open_files_server
     open_external = QtCore.pyqtSignal(list)
+
+    #: Inprocess console
+    console = None
+
+    #: tree widget displaying the open datasets
+    ds_tree = None
+
+    #: list of figures from the psyplot backend
+    figures = []
+
+    #: tree widget displaying the open figures
+    figures_tree = None
+
+    #: general formatoptions widget
+    fmt_widget = None
+
+    #: help explorer
+    help_explorer = None
+
+    #: tab widget displaying the arrays in current main and sub project
+    project_content = None
 
     def __init__(self):
         super(MainWindow, self).__init__()

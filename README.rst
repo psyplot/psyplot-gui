@@ -10,7 +10,7 @@ Graphical User Interface for the psyplot package
     * - docs
       - |docs|
     * - tests
-      - |travis| |requires| |coveralls|
+      - |travis| |appveyor| |requires| |coveralls|
     * - package
       - |version| |conda| |supported-versions| |supported-implementations|
 
@@ -21,6 +21,10 @@ Graphical User Interface for the psyplot package
 .. |travis| image:: https://travis-ci.org/Chilipp/psyplot_gui.svg?branch=master
     :alt: Travis
     :target: https://travis-ci.org/Chilipp/psyplot_gui
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/e2qhtlx3t6tm6jw6?svg=true
+    :alt: AppVeyor
+    :target: https://ci.appveyor.com/project/Chilipp/psyplot_gui
 
 .. |coveralls| image:: https://coveralls.io/repos/github/Chilipp/psyplot_gui/badge.svg?branch=master
     :alt: Coverage

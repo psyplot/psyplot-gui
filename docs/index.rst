@@ -15,7 +15,7 @@ main project on examples on the possibilities with psyplot_.
     * - docs
       - |docs|
     * - tests
-      - |travis| |requires| |coveralls|
+      - |travis| |appveyor| |requires| |coveralls|
     * - package
       - |version| |conda| |supported-versions| |supported-implementations|
 
@@ -27,13 +27,17 @@ main project on examples on the possibilities with psyplot_.
     :alt: Travis
     :target: https://travis-ci.org/Chilipp/psyplot_gui
 
-.. |coveralls|  image:: https://coveralls.io/repos/github/Chilipp/psyplot_gui/badge.svg?branch=master
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/e2qhtlx3t6tm6jw6?svg=true
+    :alt: AppVeyor
+    :target: https://ci.appveyor.com/project/Chilipp/psyplot_gui
+
+.. |coveralls| image:: https://coveralls.io/repos/github/Chilipp/psyplot_gui/badge.svg?branch=master
     :alt: Coverage
     :target: https://coveralls.io/github/Chilipp/psyplot_gui?branch=master
 
 .. |requires| image:: https://requires.io/github/Chilipp/psyplot_gui/requirements.svg?branch=master
-     :alt: Requirements Status
-     :target: https://requires.io/github/Chilipp/psyplot_gui/requirements/?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/Chilipp/psyplot_gui/requirements/?branch=master
 
 .. |version| image:: https://img.shields.io/pypi/v/psyplot_gui.svg?style=flat
     :alt: PyPI Package latest release

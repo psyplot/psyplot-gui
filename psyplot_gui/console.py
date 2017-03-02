@@ -57,9 +57,9 @@ class ConsoleWidget(RichJupyterWidget):
         ----------
         help_explorer: psyplot_gui.help_explorer.HelpExplorer or None
             A widget that can be used to show the documentation of an object
-        ``*args, **kwargs``
+        ``*args,**kwargs``
             Any other keyword argument for the
-            :class:`qtconsole.rich_jupyter_widget.RichJupyterWidget
+            :class:`qtconsole.rich_jupyter_widget.RichJupyterWidget`
         """
         kernel_manager = QtInProcessKernelManager()
         kernel_manager.start_kernel(show_banner=False)

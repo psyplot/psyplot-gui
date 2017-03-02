@@ -43,8 +43,7 @@ extensions = [
     'IPython.sphinxext.ipython_directive',
     'sphinxarg.ext',
     'psyplot.sphinxext.extended_napoleon',
-    'psyplot.sphinxext.no_data',
-    'psyplot.sphinxext.extended_autodoc'
+    'autodocsumm',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -66,8 +65,7 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-autodoc_default_flags = ['show_inheritance', 'autosummary',
-                         'show-formatoptions']
+autodoc_default_flags = ['show_inheritance', 'autosummary']
 autoclass_content = 'both'
 
 not_document_data = ['psyplot_gui.config.rcsetup.defaultParams',

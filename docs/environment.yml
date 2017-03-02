@@ -13,3 +13,4 @@ dependencies:
     - pip:
         - sphinx-argparse
         - fasteners
+        - autodocsumm
