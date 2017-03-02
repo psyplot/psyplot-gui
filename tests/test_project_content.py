@@ -33,7 +33,6 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
         w = self.content_widget
         lists = w.lists
         # currently it should be empty
-        self.assertEqual(list(lists), ['All'], msg=lists)
         self.assertEqual(w.count(), 1)
         self.assertEqual(w.indexOf(lists['All']), 0)
         self.assertFalse(w.isItemEnabled(0), msg='List "All" is enabled!')
@@ -73,7 +72,6 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
         # close the project
         full = sp + sp2
         full.close(True, True, True)
-        self.assertEqual(list(lists), ['All'], msg=lists)
         self.assertEqual(w.count(), 1)
         self.assertEqual(w.indexOf(lists['All']), 0)
         self.assertFalse(w.isItemEnabled(0), msg='List "All" is enabled!')

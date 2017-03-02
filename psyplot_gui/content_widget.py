@@ -198,13 +198,16 @@ class ProjectContent(QToolBox):
     #: of the different selection attributes
     lists = OrderedDict()
 
+    @property
+    def current_names(self):
+        return [self.itemText(i) for i in range(self.count())]
+
     def __init__(self, *args, **kwargs):
         super(ProjectContent, self).__init__(*args, **kwargs)
         self.lists = OrderedDict()
         for attr in chain(['All'], sorted(Project._registered_plotters)):
             item = self.add_plotterlist(attr, force=(attr == 'All'))
-            if attr == 'All' or not item.is_empty:
-                self.lists[attr] = item
+            self.lists[attr] = item
         self.currentChanged.connect(self.update_current_list)
         Project.oncpchange.connect(self.update_lists)
 
@@ -235,23 +238,16 @@ class ProjectContent(QToolBox):
 
     def update_lists(self, p):
         # check new lists
-        new = OrderedDict()
-        for attr in chain(sorted(Project._registered_plotters)):
-            if attr not in self.lists:
-                item = self.add_plotterlist(attr)
-                if not item.is_empty:
-                    new[attr] = item
-        removed = 0
-        for i, (name, l) in enumerate(list(self.lists.items())):
+        current_items = self.current_names
+        for name, l in self.lists.items():
             l.update_from_project(p)
             if l.is_empty:
                 l.disconnect_items()
             if name != 'All' and l.is_empty:
-                self.removeItem(i - removed)
-                del self.lists[name]
-                removed += 1
-        for attr, item in new.items():
-            self.lists[attr] = item
+                i = self.indexOf(l)
+                self.removeItem(i)
+            elif not l.is_empty and name not in current_items:
+                self.addItem(l, name)
 
 
 class SelectAllButton(QPushButton):
