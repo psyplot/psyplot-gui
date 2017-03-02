@@ -12,6 +12,7 @@ import os.path as osp
 import sip
 import weakref
 from itertools import chain
+from psyplot_gui import rcParams
 from psyplot_gui.compat.qtcompat import (
     QToolBox, QListWidget, QListWidgetItem, QAbstractItemView,
     QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QTreeWidget,
@@ -19,7 +20,7 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot.config.rcsetup import safe_list
 from psyplot.compat.pycompat import OrderedDict, map, range
 from psyplot.project import scp, gcp, Project
-from psyplot.data import ArrayList
+from psyplot.data import ArrayList, InteractiveList
 from psyplot.utils import _TempBool
 from psyplot_gui.common import DockMixin
 
@@ -52,7 +53,11 @@ class ArrayItem(QListWidgetItem):
         """
         if not sip.isdeleted(self):
             self.setText(self.arr._short_info())
-            self.setToolTip(str(self.arr))
+            if rcParams['content.load_tooltips']:
+                if isinstance(self.arr, InteractiveList):
+                    self.setToolTip(str(self.arr))
+                else:
+                    self.setToolTip(str(self.arr.arr))
         else:
             self.disconnect_from_array()
 
@@ -213,8 +218,9 @@ class ProjectContent(QToolBox):
 
     def enable_list(self, list_widget):
         """Enable a given list widget based upon whether it is empty or not"""
-        self.setItemEnabled(
-            self.indexOf(list_widget), not list_widget.is_empty)
+        i = self.indexOf(list_widget)
+        if i != -1:
+            self.setItemEnabled(i, not list_widget.is_empty)
 
     def add_plotterlist(self, identifier, force=False):
         """Create a :class:`PlotterList` from an identifier from the
@@ -348,7 +354,8 @@ class DatasetTreeItem(QTreeWidgetItem):
                 coords.addChild(item)
             else:
                 variables.addChild(item)
-            item.setToolTip(0, str(variable))
+            if rcParams['content.load_tooltips']:
+                item.setToolTip(0, str(variable))
 
 
 class DatasetTree(QTreeWidget, DockMixin):
@@ -416,7 +423,8 @@ class DatasetTree(QTreeWidget, DockMixin):
             top_item.setText(0, '%s%i: %s' % (
                 '*' if any(arr in sp_arrs for arr in ds_desc['arr']) else '',
                 i, ds_desc['fname']))
-            top_item.setToolTip(0, str(ds_desc['ds']))
+            if rcParams['content.load_tooltips']:
+                top_item.setToolTip(0, str(ds_desc['ds']))
             for arr in ds_desc['arr']:
                 arr.psy.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
@@ -500,7 +508,8 @@ class FiguresTreeItem(QTreeWidgetItem):
         :meth:`psyplot.data.InteractiveArray._short_info` and __str__ methods
         """
         self.setText(0, self.arr.psy._short_info())
-        self.setToolTip(0, str(self.arr))
+        if rcParams['content.load_tooltips']:
+            self.setToolTip(0, str(self.arr))
 
     def disconnect_from_array(self):
         """Disconect this item from the corresponding array"""

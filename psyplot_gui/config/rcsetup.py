@@ -134,7 +134,13 @@ defaultParams = {
     'main.listen_to_port': [
         True, validate_bool,
         "If True and the psyplot gui is already running, new files are opened "
-        "in that gui"]
+        "in that gui"],
+    'content.load_tooltips': [
+        True, validate_bool,
+        "If True, a lazy load is performed on the arrays and data sets and "
+        "their string representation is displayed as tool tip. This part of "
+        "the data into memory. It is recommended to set this to False for "
+        "remote data."],
     }
 
 #: :class:`~psyplot.config.rcsetup.RcParams` instance that stores default
