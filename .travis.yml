@@ -40,6 +40,8 @@ install:
   - pip install coveralls
   - python setup.py install
   - conda env export -n psyplot_gui_$ENVKEY
+  # print versions of all the important requirements
+  - psyplot -aV
 
 before_script:
   - "export DISPLAY=:99.0"
