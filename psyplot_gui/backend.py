@@ -24,10 +24,11 @@ class FiguresDock(QDockWidget):
         Reimplemented to remove the dock widget from the mainwindow when closed
         """
         from psyplot_gui.main import mainwindow
-        try:
-            mainwindow.figures.remove(self)
-        except ValueError:
-            pass
+        if mainwindow is not None:
+            try:
+                mainwindow.figures.remove(self)
+            except ValueError:
+                pass
         return super(FiguresDock, self).close(*args, **kwargs)
 
 
