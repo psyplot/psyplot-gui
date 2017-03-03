@@ -35,7 +35,8 @@ class DockMixin(object):
     #: The class to use for the DockWidget
     dock_cls = QDockWidget
 
-    def to_dock(self, main, title=None, position=None, *args, **kwargs):
+    def to_dock(self, main, title=None, position=None, docktype='pane', *args,
+                **kwargs):
         if title is None:
             title = self.title
         if title is None:
@@ -48,7 +49,7 @@ class DockMixin(object):
                 title, self))
         self.dock = self.dock_cls(title, main)
         self.dock.setWidget(self)
-        main.addDockWidget(position, self.dock, 'pane', *args, **kwargs)
+        main.addDockWidget(position, self.dock, docktype, *args, **kwargs)
         return self.dock
 
 

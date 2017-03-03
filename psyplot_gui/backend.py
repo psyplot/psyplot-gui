@@ -68,7 +68,8 @@ class PsyplotCanvasManager(FigureManagerQT):
         parent_widget = FigureWidget()
         parent_widget.vbox = vbox = QVBoxLayout()
         self.window = dock = parent_widget.to_dock(
-            mainwindow, title="Figure %d" % num, position=Qt.TopDockWidgetArea)
+            mainwindow, title="Figure %d" % num, position=Qt.TopDockWidgetArea,
+            docktype=None)
         if mainwindow.figures:
             mainwindow.tabifyDockWidget(mainwindow.figures[-1], dock)
         mainwindow.figures.append(dock)
