@@ -24,7 +24,7 @@ from psyplot_gui.compat.qtcompat import (
     QLabel, QValidator, QStyledItemDelegate, QLineEdit, QCheckBox,
     QTableWidget, QTableWidgetItem, QGridLayout, QIntValidator, QMenu, QAction,
     QInputDialog, QTabWidget, QDoubleValidator, QGraphicsScene,
-    QGraphicsRectItem, QGraphicsView)
+    QGraphicsRectItem, QGraphicsView, QDialog, QDialogButtonBox)
 from psyplot_gui.common import get_icon, ListValidator, PyErrorMessage
 import psyplot.project as psy
 
@@ -1607,7 +1607,7 @@ class AxesCreatorCollection(QWidget):
         return super(AxesCreatorCollection, self).close()
 
 
-class PlotCreator(QWidget):
+class PlotCreator(QDialog):
     """
     Widget to extract data from a dataset and eventually create a plot"""
 
@@ -1755,8 +1755,10 @@ class PlotCreator(QWidget):
         self.bt_add_single_axes.clicked.connect(self.setup_subplot)
 
         # -------------------- create and cancel connections ------------------
-        self.bt_create.clicked.connect(self.create_plots)
-        self.bt_cancel.clicked.connect(lambda b: self.close())
+        self.bbox = bbox = QDialogButtonBox(QDialogButtonBox.Ok |
+                                            QDialogButtonBox.Cancel)
+        bbox.accepted.connect(self.create_plots)
+        bbox.rejected.connect(self.reject)
 
         # -------------------- other connections ------------------------------
         # allow only to select either variables or newly created arrays in
@@ -1818,7 +1820,7 @@ class PlotCreator(QWidget):
         self.vbox.addWidget(self.coords_table)
         self.vbox.addWidget(self.array_table)
         self.vbox.addLayout(self.axes_box)
-        self.vbox.addLayout(self.bt_box_ok_cancel)
+        self.vbox.addWidget(self.bbox)
 
         self.setLayout(self.vbox)
 

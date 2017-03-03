@@ -6,7 +6,7 @@ import _base_testing as bt
 import xarray as xr
 import psyplot.data as psyd
 import psyplot.project as psy
-from psyplot_gui.compat.qtcompat import QTest, Qt
+from psyplot_gui.compat.qtcompat import QTest, Qt, QDialogButtonBox
 
 
 class ProjectContentTest(bt.PsyPlotGuiTestCase):
@@ -259,7 +259,9 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
             self.window.plot_creator.pm_combo.setCurrentText('plot2d')
         except AttributeError:
             self.window.plot_creator.pm_combo.setEditText('plot2d')
-        QTest.mouseClick(self.window.plot_creator.bt_create, Qt.LeftButton)
+        QTest.mouseClick(
+            self.window.plot_creator.bbox.button(QDialogButtonBox.Ok),
+            Qt.LeftButton)
         self.assertIs(ds, psy.gcp()[0].psy.base)
 
 

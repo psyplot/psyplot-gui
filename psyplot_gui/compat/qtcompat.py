@@ -21,7 +21,7 @@ except ImportError:
         QTableWidget, QTableWidgetItem, QRegExpValidator, QGridLayout,
         QIntValidator, QErrorMessage, QInputDialog, QTabWidget,
         QDoubleValidator, QGraphicsScene, QGraphicsRectItem, QGraphicsView,
-        QKeySequence, QStyleOptionViewItem)
+        QKeySequence, QStyleOptionViewItem, QDialog, QDialogButtonBox)
     from PyQt4 import QtCore
     from PyQt4.QtCore import Qt
     from PyQt4.QtWebKit import QWebView as QWebEngineView
@@ -41,7 +41,8 @@ else:
         QAction, QMessageBox, QCheckBox, QFileDialog, QListView,
         QDesktopWidget, QStyledItemDelegate, QTableWidget, QTableWidgetItem,
         QGridLayout, QErrorMessage, QInputDialog, QTabWidget,
-        QGraphicsScene, QGraphicsRectItem, QGraphicsView, QStyleOptionViewItem)
+        QGraphicsScene, QGraphicsRectItem, QGraphicsView, QStyleOptionViewItem,
+        QDialog, QDialogButtonBox)
     from PyQt5.QtGui import (
         QIcon, QKeyEvent, QStandardItem, QStandardItemModel, QTextCursor,
         QValidator, QRegExpValidator, QIntValidator, QDoubleValidator,
