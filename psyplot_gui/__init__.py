@@ -40,19 +40,20 @@ logger = logging.getLogger(__name__)
 def get_versions(requirements=True):
     ret = {'version': __version__}
     if requirements:
+        req = ret['requirements'] = {}
         try:
             import qtconsole
         except:
             logger.error('Could not load qtconsole!', exc_info=True)
         else:
-            ret['qtconsole'] = qtconsole.__version__
+            req['qtconsole'] = qtconsole.__version__
         try:
             from psyplot_gui.compat.qtcompat import PYQT_VERSION, QT_VERSION
         except:
             logger.error('Could not load qt and pyqt!', exc_info=True)
         else:
-            ret['qt'] = QT_VERSION
-            ret['pyqt'] = PYQT_VERSION
+            req['qt'] = QT_VERSION
+            req['pyqt'] = PYQT_VERSION
     return ret
 
 
