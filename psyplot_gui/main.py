@@ -11,11 +11,13 @@ import socket
 import errno
 import pickle
 import os
+from pkg_resources import iter_entry_points
 from functools import partial
 from collections import defaultdict
 import matplotlib as mpl
 from psyplot_gui import rcParams
 from threading import Thread
+import logging
 
 # change backend here before the project module is imported
 backend = rcParams['backend']
@@ -75,6 +77,12 @@ class MainWindow(QMainWindow):
 
     #: tab widget displaying the arrays in current main and sub project
     project_content = None
+
+    @property
+    def logger(self):
+        """The logger of this instance"""
+        return logging.getLogger('%s.%s' % (self.__class__.__module__,
+                                            self.__class__.__name__))
 
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -255,27 +263,33 @@ class MainWindow(QMainWindow):
         # ---------------------------------------------------------------------
         #: tab widget displaying the arrays in current main and sub project
         self.project_content = ProjectContentWidget(parent=self)
-        self.addDockWidget(Qt.LeftDockWidgetArea,
-                           self.project_content.to_dock('Plot objects', self),
-                           'pane')
+        self.project_content.to_dock(self, 'Plot objects',
+                                     Qt.LeftDockWidgetArea)
         #: tree widget displaying the open datasets
         self.ds_tree = DatasetTree(parent=self)
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.ds_tree.to_dock(
-            'Datasets', self), 'pane')
+        self.ds_tree.to_dock(self, 'Datasets', Qt.LeftDockWidgetArea)
         #: tree widget displaying the open figures
         self.figures_tree = FiguresTree(parent=self)
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.figures_tree.to_dock(
-            'Figures', self), 'pane')
+        self.figures_tree.to_dock(self, 'Figures', Qt.LeftDockWidgetArea)
         #: help explorer
         self.help_explorer = help_explorer = HelpExplorer(parent=self)
-        self.addDockWidget(Qt.RightDockWidgetArea, help_explorer.to_dock(
-            'Help explorer', self), 'pane')
+        help_explorer.to_dock(self, 'Help explorer', Qt.RightDockWidgetArea)
         #: general formatoptions widget
         self.fmt_widget = FormatoptionWidget(
             parent=self, help_explorer=help_explorer,
             shell=self.console.kernel_client.kernel.shell)
-        self.addDockWidget(Qt.BottomDockWidgetArea, self.fmt_widget.to_dock(
-            'Formatoptions', self), 'pane')
+        self.fmt_widget.to_dock(self, 'Formatoptions', Qt.BottomDockWidgetArea)
+
+        # load plugin widgets
+        self.plugins = plugins = {}
+        logger = self.logger
+        for ep in iter_entry_points('psyplot_gui'):
+            plugin_name = '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs),
+                                        ep.name)
+            logger.debug('Loading plugin %s', plugin_name)
+            w_class = ep.load()
+            plugins[plugin_name] = w = w_class(parent=self)
+            w.to_dock(self)
 
         self.windows_menu.addSeparator()
         self.add_mp_to_menu()

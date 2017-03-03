@@ -18,10 +18,37 @@ def get_icon(name):
 
 
 class DockMixin(object):
+    """A mixin class to define psyplot_gui plugins
 
-    def to_dock(self, title, main):
-        self.dock = QDockWidget(title, main)
+    Notes
+    -----
+    Each external plugin should set the :attr:`dock_position` and the
+    :attr:`title` attribute!
+    """
+
+    #: The position of the plugin
+    dock_position = None
+
+    #: The title of the plugin
+    title = None
+
+    #: The class to use for the DockWidget
+    dock_cls = QDockWidget
+
+    def to_dock(self, main, title=None, position=None, *args, **kwargs):
+        if title is None:
+            title = self.title
+        if title is None:
+            raise ValueError(
+                "No position specified for the %s widget" % (self))
+        if position is None:
+            position = self.dock_position
+        if position is None:
+            raise ValueError("No position specified for the %s widget (%s)" % (
+                title, self))
+        self.dock = self.dock_cls(title, main)
         self.dock.setWidget(self)
+        main.addDockWidget(position, self.dock, 'pane', *args, **kwargs)
         return self.dock
 
 

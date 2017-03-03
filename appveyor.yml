@@ -41,6 +41,10 @@ install:
   - ps: Remove-Item -Recurse -Force psy-simple
   - pip install coveralls
   - python setup.py install
+  # install the test plugin
+  - cd tests/test_plugin && python setup.py install && cd ../../
+  # install psyplot_gui
+  - python setup.py install
   # export the environment for debugging
   - conda env export -n psyplot_gui_%ENVKEY%
   # print versions of all the important requirements

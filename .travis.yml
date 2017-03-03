@@ -36,6 +36,8 @@ install:
   # use the branch from psy-simple
   - git clone "https://github.com/Chilipp/psy-simple.git" -b $TRAVIS_BRANCH || git clone "https://github.com/Chilipp/psy-simple.git"
   - cd psy-simple && python setup.py install && cd .. && rm -rf psy-simple
+  # install the test plugin
+  - cd tests/test_plugin && python setup.py install && cd ../../
   # install the rest
   - pip install coveralls
   - python setup.py install
