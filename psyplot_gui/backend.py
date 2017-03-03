@@ -4,6 +4,7 @@ psyplot gui
 This backend is based upon matplotlibs qt4agg and qt5agg backends."""
 from psyplot_gui.compat.qtcompat import (
     QDockWidget, Qt, QLabel, QWidget, QVBoxLayout, with_qt5)
+from psyplot_gui.common import DockMixin
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
 if with_qt5:
@@ -12,6 +13,28 @@ if with_qt5:
 else:
     from matplotlib.backends.backend_qt4agg import (
         show, FigureManagerQT, FigureCanvasQTAgg)
+
+
+class FiguresDock(QDockWidget):
+    """Reimplemented QDockWidget to remove the dock widget when closed
+    """
+
+    def close(self, *args, **kwargs):
+        """
+        Reimplemented to remove the dock widget from the mainwindow when closed
+        """
+        from psyplot_gui.main import mainwindow
+        try:
+            mainwindow.figures.remove(self)
+        except ValueError:
+            pass
+        return super(FiguresDock, self).close(*args, **kwargs)
+
+
+class FigureWidget(DockMixin, QWidget):
+    """A simple container for figures in the psyplot backend"""
+
+    dock_cls = FiguresDock
 
 
 def new_figure_manager(num, *args, **kwargs):
@@ -42,11 +65,10 @@ class PsyplotCanvasManager(FigureManagerQT):
         self.main = mainwindow
         if mainwindow is None:
             return super(PsyplotCanvasManager, self).__init__(canvas, num)
-        self.window = dock = QDockWidget("Figure %d" % num, parent=mainwindow)
-        parent_widget = QWidget()
-        dock.setWidget(parent_widget)
+        parent_widget = FigureWidget()
         parent_widget.vbox = vbox = QVBoxLayout()
-        mainwindow.addDockWidget(Qt.TopDockWidgetArea, dock)
+        self.window = dock = parent_widget.to_dock(
+            mainwindow, title="Figure %d" % num, position=Qt.TopDockWidgetArea)
         if mainwindow.figures:
             mainwindow.tabifyDockWidget(mainwindow.figures[-1], dock)
         mainwindow.figures.append(dock)
