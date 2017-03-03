@@ -37,6 +37,25 @@ rcParams.HEADER += "\n\npsyplot gui version: " + __version__
 logger = logging.getLogger(__name__)
 
 
+def get_versions(requirements=True):
+    ret = {'version': __version__}
+    if requirements:
+        try:
+            import qtconsole
+        except:
+            logger.error('Could not load qtconsole!', exc_info=True)
+        else:
+            ret['qtconsole'] = qtconsole.__version__
+        try:
+            from psyplot_gui.compat.qtcompat import PYQT_VERSION, QT_VERSION
+        except:
+            logger.error('Could not load qt and pyqt!', exc_info=True)
+        else:
+            ret['qt'] = QT_VERSION
+            ret['pyqt'] = PYQT_VERSION
+    return ret
+
+
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
@@ -165,9 +184,6 @@ def get_parser(create=True):
     gui_grp = parser.add_argument_group(
         'Gui options',
         'Options specific to the graphical user interface')
-
-    parser.update_arg('version', version="psyplot: %s\npsyplot_gui: %s" % (
-        psyplot.__version__, __version__))
 
     parser.update_arg(
         'backend', short='b', const=None, nargs='?', metavar='backend',

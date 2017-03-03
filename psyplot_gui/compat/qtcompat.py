@@ -27,6 +27,8 @@ except ImportError:
     from PyQt4.QtWebKit import QWebView as QWebEngineView
     from PyQt4.QtTest import QTest
     from PyQt4 import QtGui
+    from PyQt4.Qt import PYQT_VERSION_STR as PYQT_VERSION
+    from PyQt4.Qt import QT_VERSION_STR as QT_VERSION
     with_qt5 = False
     QSignalSpy = None
 else:
@@ -52,4 +54,6 @@ else:
         from PyQt5.QtWebKitWidgets import QWebView as QWebEngineView
     from PyQt5.QtTest import QTest, QSignalSpy
     from PyQt5 import QtGui
+    from PyQt5.Qt import PYQT_VERSION_STR as PYQT_VERSION
+    from PyQt5.Qt import QT_VERSION_STR as QT_VERSION
     with_qt5 = True
