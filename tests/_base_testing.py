@@ -10,12 +10,15 @@ setup_logging(osp.join(test_dir, 'logging.yml'), env_key='')
 
 from psyplot_gui.compat.qtcompat import QApplication
 from psyplot_gui import rcParams
+from psyplot import rcParams as psy_rcParams
 
 
 on_travis = os.environ.get('TRAVIS')
 
-
-rcParams['main.listen_to_port'] = False
+rcParams.defaultParams['main.listen_to_port'][0] = False
+rcParams.defaultParams['help_explorer.render_docs_parallel'][0] = False
+rcParams.defaultParams['help_explorer.use_intersphinx'][0] = False
+rcParams.update_from_defaultParams
 
 
 class PsyPlotGuiTestCase(unittest.TestCase):
@@ -45,6 +48,10 @@ class PsyPlotGuiTestCase(unittest.TestCase):
         self.window.close()
         del self.window
         psy.gcp(True).close(True, True)
+        rcParams.update_from_defaultParams()
+        psy_rcParams.update_from_defaultParams()
+        rcParams.disconnect()
+        psy_rcParams.disconnect()
 
     def get_file(self, fname):
         """Get the path to the file `fname`
