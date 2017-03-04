@@ -35,6 +35,10 @@ class DockMixin(object):
     #: The class to use for the DockWidget
     dock_cls = QDockWidget
 
+    #: The config page for this widget. Should inherit the
+    #: :class:`psyplot_gui.preferences.ConfigPage` widget
+    config_page = None
+
     def to_dock(self, main, title=None, position=None, docktype='pane', *args,
                 **kwargs):
         if title is None:
@@ -50,6 +54,9 @@ class DockMixin(object):
         self.dock = self.dock_cls(title, main)
         self.dock.setWidget(self)
         main.addDockWidget(position, self.dock, docktype, *args, **kwargs)
+        config_page = self.config_page
+        if config_page is not None:
+            main.config_pages.append(config_page)
         return self.dock
 
 

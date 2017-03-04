@@ -35,7 +35,9 @@ from psyplot_gui.content_widget import (
 from psyplot_gui.plot_creator import PlotCreator
 from psyplot_gui.help_explorer import HelpExplorer
 from psyplot_gui.fmt_widget import FormatoptionWidget
-from psyplot_gui.common import PyErrorMessage, DockMixin
+from psyplot_gui.common import PyErrorMessage
+from psyplot_gui.preferences import (
+    Prefences, GuiRcParamsWidget, PsyRcParamsWidget)
 
 from psyplot.docstring import docstrings
 import psyplot.plotter as psyp
@@ -97,6 +99,8 @@ class MainWindow(QMainWindow):
         self.console = ConsoleWidget(parent=self)
         self.project_actions = {}
 
+        self.config_pages = []
+
         # ---------------------------------------------------------------------
         # ----------------------------- Menus ---------------------------------
         # ---------------------------------------------------------------------
@@ -111,7 +115,7 @@ class MainWindow(QMainWindow):
             'Use an existing dataset (or open a new one) to create one or '
             'more plots')
         self.new_plot_action.setShortcut(QKeySequence.New)
-        self.new_plot_action.triggered.connect(self.new_plots)
+        self.new_plot_action.triggered.connect(lambda: self.new_plots(True))
         self.file_menu.addAction(self.new_plot_action)
 
         # --------------------------- Open project ----------------------------
@@ -236,7 +240,7 @@ class MainWindow(QMainWindow):
             lambda: psy.gcp().close(True, True))
         self.close_project_menu.addAction(self.close_sp_action)
 
-        # ------------------------ Quit ------------------------------
+        # ----------------------------- Quit ----------------------------------
 
         if sys.platform != 'darwin':  # mac os makes this anyway
             self.quit_action = QAction('Quit', self)
@@ -257,6 +261,18 @@ class MainWindow(QMainWindow):
 
         self.windows_menu = QMenu('Windows', self)
         self.menuBar().addMenu(self.windows_menu)
+
+        # ############################ Help menu ##############################
+
+        self.help_menu = QMenu('Help', parent=self)
+        self.menuBar().addMenu(self.help_menu)
+
+        # -------------------------- Preferences ------------------------------
+
+        self.help_action = QAction('Preferences', self)
+        self.help_action.triggered.connect(lambda: self.edit_preferences(True))
+        self.help_action.setShortcut(QKeySequence.Preferences)
+        self.help_menu.addAction(self.help_action)
 
         # ---------------------------------------------------------------------
         # -------------------------- Dock windows -----------------------------
@@ -332,6 +348,10 @@ class MainWindow(QMainWindow):
 
             self.open_external.connect(self._open_external_files)
 
+        self.config_pages.extend([GuiRcParamsWidget, PsyRcParamsWidget])
+
+        # display the statusBar
+        self.statusBar()
         self.showMaximized()
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
@@ -413,9 +433,12 @@ class MainWindow(QMainWindow):
     def export_sp(self, *args, **kwargs):
         self._export_project(psy.gcp(), **kwargs)
 
-    def new_plots(self):
+    def new_plots(self, exec_=None):
         if hasattr(self, 'plot_creator'):
-            self.plot_creator.close()
+            try:
+                self.plot_creator.close()
+            except RuntimeError:
+                pass
         self.plot_creator = PlotCreator(
             self.console.get_obj, help_explorer=self.help_explorer)
         available_width = QDesktopWidget().availableGeometry().width() / 3.
@@ -424,6 +447,33 @@ class MainWindow(QMainWindow):
         # The plot creator window shoul cover at least one third of the screen
         self.plot_creator.resize(max(available_width, width), height)
         self.plot_creator.show()
+        if exec_:
+            self.plot_creator.exec_()
+
+    def edit_preferences(self, exec_=None):
+        """Edit Spyder preferences"""
+        if hasattr(self, 'preferences'):
+            try:
+                self.preferences.close()
+            except RuntimeError:
+                pass
+        self.preferences = dlg = Prefences(self)
+        for PrefPageClass in self.config_pages:
+            widget = PrefPageClass(dlg)
+            widget.initialize()
+            dlg.add_page(widget)
+        available_width = 0.667 * QDesktopWidget().availableGeometry().width()
+        width = dlg.sizeHint().width()
+        height = dlg.sizeHint().height()
+        # The plot creator window shoul cover at least one third of the screen
+        dlg.resize(max(available_width, width), height)
+        dlg.show()
+        if exec_:
+            dlg.exec_()
+
+    def reset_rcParams(self):
+        rcParams.update_from_defaultParams()
+        psy.rcParams.update_from_defaultParams()
 
     def add_mp_to_menu(self):
         mp = psy.gcp(True)
@@ -514,7 +564,7 @@ class MainWindow(QMainWindow):
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
         else:
-            self.new_plots()
+            self.new_plots(True)
             self.plot_creator.open_dataset(fnames, engine=engine)
             self.plot_creator.insert_array(name)
             if dims is not None:
@@ -523,6 +573,7 @@ class MainWindow(QMainWindow):
                     dims={key: ', '.join(
                         map(str, val)) for key, val in six.iteritems(
                             dims)})
+            self.plot_creator.exec_()
 
     def _open_external_files(self, l):
         self.open_external_files(*l)

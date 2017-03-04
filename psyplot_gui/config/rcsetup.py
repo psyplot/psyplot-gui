@@ -145,7 +145,6 @@ defaultParams = {
 
 #: :class:`~psyplot.config.rcsetup.RcParams` instance that stores default
 #: formatoptions and configuration settings.
-rcParams = GuiRcParams()
-rcParams.defaultParams = defaultParams
+rcParams = GuiRcParams(defaultParams=defaultParams)
 rcParams.update({key: val[0] for key, val in defaultParams.items()})
 rcParams.load_from_file()
