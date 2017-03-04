@@ -179,10 +179,16 @@ class UrlBrowser(QFrame):
         self.bt_lock.setCheckable(True)
         self.bt_url_lock.setCheckable(True)
 
-        if not with_qt5:
+        if not with_qt5 and rcParams['help_explorer.online'] is None:
             # We now that the browser can crash with Qt4, therefore we disable
             # the browing in the internet
             self.bt_url_lock.click()
+            rcParams['help_explorer.online'] = False
+        elif rcParams['help_explorer.online'] is False:
+            self.bt_url_lock.click()
+        elif rcParams['help_explorer.online'] is None:
+            rcParams['help_explorer.online'] = True
+        rcParams.connect('help_explorer.online', self.update_url_lock_from_rc)
 
         self.bt_url_lock.clicked.connect(self.toogle_url_lock)
         self.bt_lock.clicked.connect(self.toogle_lock)
@@ -265,17 +271,24 @@ class UrlBrowser(QFrame):
             self.tb_url.setEditText(url)
         self.tb_url.add_text_on_top(url, block=True)
 
+    def update_url_lock_from_rc(self, online):
+        if (online and self.bt_url_lock.isChecked() or
+                not online and not self.bt_url_lock.isChecked()):
+            self.bt_url_lock.click()
+
     def toogle_url_lock(self):
         """Disable (or enable) the loading of web pages in www"""
         bt = self.bt_url_lock
+        offline = bt.isChecked()
         bt.setIcon(QIcon(get_icon(
-            'world_red.png' if bt.isChecked() else 'world.png')))
+            'world_red.png' if offline else 'world.png')))
         online_message = "Go online"
         if not with_qt5:
             online_message += ("\nWARNING: This mode is unstable under Qt4 "
                                "and might result in a complete program crash!")
-        bt.setToolTip(online_message if bt.isChecked() else
-                      "Offline mode")
+        bt.setToolTip(online_message if offline else "Offline mode")
+        if rcParams['help_explorer.online'] is offline:
+            rcParams['help_explorer.online'] = not offline
 
     def toogle_lock(self):
         """Disable (or enable) the changing of the current webpage"""
@@ -478,8 +491,29 @@ class UrlHelp(UrlBrowser, HelpMixin):
             self.sphinx_thread.html_error[str].connect(
                 self.error_msg.showTraceback)
             self.sphinx_thread.html_error[str].connect(logger.debug)
+            rcParams.connect('help_explorer.render_docs_parallel',
+                             self.reset_sphinx)
+            rcParams.connect('help_explorer.use_intersphinx',
+                             self.reset_sphinx)
+            rcParams.connect('help_explorer.online',
+                             self.reset_sphinx)
+
         else:
-            self.sphinx_thread = None
+            self.sphinx_thread = Nonec
+
+        self.bt_connect_console = QToolButton(self)
+        self.bt_connect_console.setCheckable(True)
+        if rcParams['console.connect_to_help']:
+            self.bt_connect_console.setIcon(QIcon(get_icon(
+                'ipython_console.png')))
+            self.bt_connect_console.click()
+        else:
+            self.bt_connect_console.setIcon(QIcon(get_icon(
+                'ipython_console_t.png')))
+        self.bt_connect_console.clicked.connect(self.toogle_connect_console)
+        rcParams.connect('console.connect_to_help',
+                         self.update_connect_console)
+        self.toogle_connect_console()
 
         #: menu button with different urls
         self.bt_url_menus = QToolButton(self)
@@ -496,7 +530,29 @@ class UrlHelp(UrlBrowser, HelpMixin):
             docu_menu.addAction(action)
         self.bt_url_menus.setMenu(docu_menu)
 
+        self.button_box.addWidget(self.bt_connect_console)
         self.button_box.addWidget(self.bt_url_menus)
+
+    def update_connect_console(self, connect):
+        if (connect and not self.bt_connect_console.isChecked() or
+                not connect and self.bt_connect_console.isChecked()):
+            self.bt_connect_console.click()
+
+    def toogle_connect_console(self):
+        """Disable (or enable) the loading of web pages in www"""
+        bt = self.bt_connect_console
+        connect = bt.isChecked()
+        bt.setIcon(QIcon(get_icon(
+            'ipython_console.png' if connect else 'ipython_console_t.png')))
+        bt.setToolTip("%sonnect the console to the help explorer" % (
+            "Don't c" if connect else "C"))
+        if rcParams['console.connect_to_help'] is not connect:
+            rcParams['console.connect_to_help'] = connect
+
+    def reset_sphinx(self, value):
+        """Method that is called if the configuration changes"""
+        if with_sphinx and hasattr(self.sphinx_thread, 'app'):
+            del self.sphinx_thread.app
 
     @docstrings.dedent
     def show_help(self, obj, oname=''):

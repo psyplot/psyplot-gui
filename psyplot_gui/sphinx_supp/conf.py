@@ -31,7 +31,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'psyplot.sphinxext.extended_napoleon',
 ]
-use_intersphinx = psyplot_gui.rcParams['help_explorer.use_intersphinx']
+use_intersphinx = (psyplot_gui.rcParams['help_explorer.online'] and
+                   psyplot_gui.rcParams['help_explorer.use_intersphinx'])
 if use_intersphinx or (use_intersphinx is None and with_qt5):
     extensions.append('sphinx.ext.intersphinx')
 del use_intersphinx

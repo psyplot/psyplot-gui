@@ -118,6 +118,11 @@ defaultParams = {
     'help_explorer.render_docs_parallel': [
         True, validate_bool,
         'Boolean whether the html docs are rendered in a separate process'],
+    'help_explorer.online': [
+        None, validate_bool_maybe_none,
+        'Switch that controls whether the online functions of the help '
+        'explorer shall be enabled. False implies that '
+        'help_explorer.use_intersphinx is set to False'],
     'console.connect_to_help': [
         True, validate_bool,
         'Whether the console shall be connected to the help_explorer or not'],

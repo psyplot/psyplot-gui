@@ -6,7 +6,7 @@ from psyplot_gui.compat.qtcompat import (
     QWidget, QVBoxLayout, QHBoxLayout, QtCore, QDialog, QScrollArea,
     QDialogButtonBox, QStackedWidget, QListWidget, QListView, QSplitter,
     QListWidgetItem, QPushButton, QFileDialog, with_qt5,
-    QAbstractItemView, QToolButton)
+    QAbstractItemView, QToolButton, QLabel)
 from psyplot_gui.common import get_icon
 from psyplot_gui import rcParams as rcParams
 from psyplot.config.rcsetup import (
@@ -337,6 +337,12 @@ class RcParamsWidget(ConfigPage, QWidget):
     def __init__(self, *args, **kwargs):
         super(RcParamsWidget, self).__init__(*args, **kwargs)
         self.vbox = vbox = QVBoxLayout()
+
+        self.description = QLabel(
+            '<p>Modify the rcParams for your need. Changes will not be applied'
+            ' until you click the Apply or Ok button.</p>'
+            '<p>Values must be entered in yaml syntax</p>', parent=self)
+        vbox.addWidget(self.description)
 
         self.tree = tree = RcParamsTree(self.rc, parent=self)
         tree.setSelectionMode(QAbstractItemView.MultiSelection)
