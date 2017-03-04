@@ -1618,6 +1618,8 @@ class PlotCreator(QDialog):
         self.help_explorer = kwargs.pop('help_explorer', None)
         self.get_obj = get_obj
         super(PlotCreator, self).__init__(*args, **kwargs)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setWindowTitle('Create plots')
         self.error_msg = PyErrorMessage(self)
         mp = psy.gcp(True)
 
@@ -1697,8 +1699,6 @@ class PlotCreator(QDialog):
         self.bt_add_single_axes = QPushButton('Add one subplot', self)
         self.bt_add_single_axes.setToolTip(
             'Add one subplot for the specified row and column')
-        self.bt_create = QPushButton('Create plots', self)
-        self.bt_cancel = QPushButton('Cancel', self)
 
         # ---------------------------------------------------------------------
         # ---------------------------- connections ----------------------------
@@ -1792,11 +1792,6 @@ class PlotCreator(QDialog):
         self.tree_box.addWidget(self.bt_remove)
         self.tree_box.addWidget(self.bt_add)
         self.tree_box.addWidget(self.bt_add_all)
-
-        self.bt_box_ok_cancel = QHBoxLayout()
-        self.bt_box_ok_cancel.addStretch(0)
-        self.bt_box_ok_cancel.addWidget(self.bt_cancel)
-        self.bt_box_ok_cancel.addWidget(self.bt_create)
 
         self.axes_box = QGridLayout()
         self.axes_box.addWidget(self.max_axis_label, 0, 0)

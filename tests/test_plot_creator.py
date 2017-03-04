@@ -21,6 +21,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     def tearDown(self):
         if getattr(self.pc, 'ds', None) is not None:
             self.pc.ds.close()
+        # make sure the plot creator is closed completely
+        self.pc.exec_()
         super(PlotCreatorTest, self).tearDown()
 
     def test_load_external_file(self):
