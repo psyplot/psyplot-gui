@@ -67,3 +67,4 @@ target/
 *matplotlibrc
 *psyplotguirc.yml
 *psyplotrc.yml
+*.debug_psyplot.log*
