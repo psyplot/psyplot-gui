@@ -1,3 +1,4 @@
+import os.path as osp
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import sys
@@ -57,10 +58,10 @@ setup(name='psyplot_gui',
           'fasteners',
       ],
       package_data={'psyplot_gui': [
-          'psyplot_gui/sphinx_supp/conf.py',
-          'psyplot_gui/sphinx_supp/psyplot.rst',
-          'psyplot_gui/sphinx_supp/_static/*',
-          'psyplot_gui/icons/*.png']},
+          osp.join('psyplot_gui', 'sphinx_supp', 'conf.py'),
+          osp.join('psyplot_gui', 'sphinx_supp', 'psyplot.rst'),
+          osp.join('psyplot_gui', 'sphinx_supp', '_static', '*'),
+          osp.join('psyplot_gui', 'icons', '*.png')]},
       include_package_data=True,
       tests_require=['pytest'],
       cmdclass={'test': PyTest},
