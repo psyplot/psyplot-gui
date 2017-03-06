@@ -532,6 +532,8 @@ class UrlHelp(UrlBrowser, HelpMixin):
 
         self.button_box.addWidget(self.bt_connect_console)
         self.button_box.addWidget(self.bt_url_menus)
+        # toogle the lock again to set the bt_url_menus enabled state
+        self.toogle_url_lock()
 
     def update_connect_console(self, connect):
         if (connect and not self.bt_connect_console.isChecked() or
@@ -608,6 +610,17 @@ class UrlHelp(UrlBrowser, HelpMixin):
         if osp.exists(html_file):
             url = file2html(html_file)
         super(UrlHelp, self).browse(url)
+
+    def toogle_url_lock(self):
+        """Disable (or enable) the loading of web pages in www"""
+        super(UrlHelp, self).toogle_url_lock()
+        # enable or disable documentation button
+        bt = self.bt_url_lock
+        offline = bt.isChecked()
+        try:
+            self.bt_url_menus.setEnabled(not offline)
+        except AttributeError:  # not yet initialized
+            pass
 
     def url_changed(self, url):
         """Reimplemented to remove file paths from the url string"""
