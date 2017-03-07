@@ -633,7 +633,7 @@ class MainWindow(QMainWindow):
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
         else:
-            self.new_plots(True)
+            self.new_plots(False)
             self.plot_creator.open_dataset(fnames, engine=engine)
             self.plot_creator.insert_array(name)
             if dims is not None:
@@ -642,6 +642,8 @@ class MainWindow(QMainWindow):
                     dims={key: ', '.join(
                         map(str, val)) for key, val in six.iteritems(
                             dims)})
+            if plot_method:
+                self.plot_creator.pm_combo.setCurrentText(plot_method)
             self.plot_creator.exec_()
 
     def _open_external_files(self, l):
