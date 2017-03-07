@@ -24,8 +24,9 @@ from psyplot_gui.compat.qtcompat import (
     QLabel, QValidator, QStyledItemDelegate, QLineEdit, QCheckBox,
     QTableWidget, QTableWidgetItem, QGridLayout, QIntValidator, QMenu, QAction,
     QInputDialog, QTabWidget, QDoubleValidator, QGraphicsScene,
-    QGraphicsRectItem, QGraphicsView, QDialog, QDialogButtonBox)
+    QGraphicsRectItem, QGraphicsView, QDialog, QDialogButtonBox, QSplitter)
 from psyplot_gui.common import get_icon, ListValidator, PyErrorMessage
+from psyplot_gui.preferences import RcParamsTree
 import psyplot.project as psy
 
 
@@ -1623,82 +1624,97 @@ class PlotCreator(QDialog):
         self.error_msg = PyErrorMessage(self)
         mp = psy.gcp(True)
 
+        self.splitter = splitter = QSplitter(Qt.Vertical, parent=self)
+        self.w = w = QWidget(self)
+        self.fmt_tree_widget = QWidget(self)
+
         # ---------------------------------------------------------------------
         # -------------------------- children ---------------------------------
         # ---------------------------------------------------------------------
 
-        self.ds_combo = QComboBox(parent=self)
+        self.ds_combo = QComboBox(parent=w)
         self.ds_combo.setToolTip('The data source to use the data from')
         self.fill_ds_combo(mp)
-        self.bt_open_file = QToolButton(parent=self)
+        self.bt_open_file = QToolButton(parent=w)
         self.bt_open_file.setIcon(QIcon(get_icon('run_arrow.png')))
         self.bt_open_file.setToolTip('Open a new dataset from the hard disk')
-        self.bt_get_ds = QToolButton(parent=self)
+        self.bt_get_ds = QToolButton(parent=w)
         self.bt_get_ds.setIcon(QIcon(get_icon('console-go.png')))
         self.bt_get_ds.setToolTip(
             'Use a dataset already defined in the console')
 
-        self.pm_label = QLabel('Plot method: ', self)
-        self.pm_combo = QComboBox(self)
+        self.pm_label = QLabel('Plot method: ', w)
+        self.pm_combo = QComboBox(w)
         self.fill_plot_method_combo()
-        self.pm_info = QToolButton(self)
+        self.pm_info = QToolButton(w)
         self.pm_info.setIcon(QIcon(get_icon('info.png')))
         self.pm_info.setToolTip('Show information in the help explorer')
 
-        self.variables_table = VariablesTable(self.get_ds, parent=self)
+        self.variables_table = VariablesTable(self.get_ds, parent=w)
         self.variables_table.fill_from_ds()
 
-        self.coords_table = CoordsTable(self.get_ds, parent=self)
+        self.coords_table = CoordsTable(self.get_ds, parent=w)
         self.coords_table.fill_from_ds()
 
-        self.array_table = ArrayTable(self.get_ds, parent=self)
+        self.array_table = ArrayTable(self.get_ds, parent=w)
         self.array_table.setup_from_ds(plot_method=self.pm_combo.currentText())
 
-        self.cbox_close_popups = QCheckBox('close dropdowns', self)
+        self.cbox_close_popups = QCheckBox('close dropdowns', w)
         self.cbox_close_popups.setChecked(True)
         self.cbox_close_popups.setToolTip(
             'Close drop down menues after selecting indices to plot')
-        self.cbox_use_coords = QCheckBox('show coordinates', self)
+        self.cbox_use_coords = QCheckBox('show coordinates', w)
         self.cbox_use_coords.setChecked(False)
         self.cbox_use_coords.setToolTip(
             'Show the real coordinates instead of the indices in the drop '
             'down menues')
-        self.bt_remove_all = QToolButton(self)
+        self.bt_remove_all = QToolButton(w)
         self.bt_remove_all.setIcon(QIcon(get_icon('minusminus.png')))
         self.bt_remove_all.setToolTip('Remove all arrays')
-        self.bt_remove = QToolButton(self)
+        self.bt_remove = QToolButton(w)
         self.bt_remove.setIcon(QIcon(get_icon('minus.png')))
         self.bt_remove.setToolTip('Remove selected arrays')
-        self.bt_add = QToolButton(self)
+        self.bt_add = QToolButton(w)
         self.bt_add.setIcon(QIcon(get_icon('plus.png')))
         self.bt_add.setToolTip('Add arrays for the selected variables')
-        self.bt_add_all = QToolButton(self)
+        self.bt_add_all = QToolButton(w)
         self.bt_add_all.setIcon(QIcon(get_icon('plusplus.png')))
         self.bt_add_all.setToolTip(
             'Add arrays for all variables in the dataset')
 
-        self.rows_axis_label = QLabel('No. of rows', self)
-        self.rows_axis_edit = QLineEdit(self)
+        self.rows_axis_label = QLabel('No. of rows', w)
+        self.rows_axis_edit = QLineEdit(w)
         self.rows_axis_edit.setText('1')
-        self.cols_axis_label = QLabel('No. of columns', self)
-        self.cols_axis_edit = QLineEdit(self)
+        self.cols_axis_label = QLabel('No. of columns', w)
+        self.cols_axis_edit = QLineEdit(w)
         self.cols_axis_edit.setText('1')
-        self.max_axis_label = QLabel('No. of axes per figure', self)
-        self.max_axis_edit = QLineEdit(self)
-        self.bt_add_axes = QPushButton('Add new subplots', self)
+        self.max_axis_label = QLabel('No. of axes per figure', w)
+        self.max_axis_edit = QLineEdit(w)
+        self.bt_add_axes = QPushButton('Add new subplots', w)
         self.bt_add_axes.setToolTip(
             'Adds subplots for the selected arrays based the specified number '
             'of rows and columns')
 
-        self.row_axis_label = QLabel('Row number:', self)
-        self.row_axis_edit = QLineEdit(self)
+        self.row_axis_label = QLabel('Row number:', w)
+        self.row_axis_edit = QLineEdit(w)
         self.row_axis_edit.setText('1')
-        self.col_axis_label = QLabel('Column number', self)
-        self.col_axis_edit = QLineEdit(self)
+        self.col_axis_label = QLabel('Column number', w)
+        self.col_axis_edit = QLineEdit(w)
         self.col_axis_edit.setText('1')
-        self.bt_add_single_axes = QPushButton('Add one subplot', self)
+        self.bt_add_single_axes = QPushButton('Add one subplot', w)
         self.bt_add_single_axes.setToolTip(
             'Add one subplot for the specified row and column')
+
+        self.fmt_tree_label = QLabel(
+            "Modify the formatoptions of the newly created plots."
+            "Values must be entered in yaml syntax",
+            parent=self.fmt_tree_widget)
+
+        self.fmt_tree = RcParamsTree(None, None, None,
+                                     parent=self.fmt_tree_widget)
+        self.fmt_tree.value_col = 3
+        self.fmt_tree.setColumnCount(4)
+        self.fmt_tree.setHeaderLabels(['Formatoption', '', '', 'Value'])
 
         # ---------------------------------------------------------------------
         # ---------------------------- connections ----------------------------
@@ -1724,6 +1740,7 @@ class PlotCreator(QDialog):
                 getattr(psy.plot, s)._summary) if s else self.NO_PM_TT)
         self.pm_info.clicked.connect(self.show_pm_info)
         self.pm_combo.currentIndexChanged[str].connect(self.array_table.set_pm)
+        self.pm_combo.currentIndexChanged[str].connect(self.fill_fmt_tree)
 
         # --------------------- Combo box connections -------------------------
         self.cbox_close_popups.clicked.connect(CoordComboBox.close_popups)
@@ -1817,7 +1834,46 @@ class PlotCreator(QDialog):
         self.vbox.addLayout(self.axes_box)
         self.vbox.addWidget(self.bbox)
 
-        self.setLayout(self.vbox)
+        w.setLayout(self.vbox)
+
+        fmt_tree_layout = QVBoxLayout()
+        fmt_tree_layout.addWidget(self.fmt_tree_label)
+        fmt_tree_layout.addWidget(self.fmt_tree)
+        self.fmt_tree_widget.setLayout(fmt_tree_layout)
+
+        splitter.addWidget(w)
+
+        splitter.addWidget(self.fmt_tree_widget)
+
+        hbox = QHBoxLayout(self)
+        hbox.addWidget(splitter)
+        self.setLayout(hbox)
+        self.fill_fmt_tree(self.pm_combo.currentText())
+
+    def fill_fmt_tree(self, pm):
+        self.fmt_tree.clear()
+        if not pm:
+            self.fmt_tree_widget.setVisible(False)
+        else:
+            pm = getattr(psy.plot, pm)
+            plotter = pm.plotter_cls()
+            self.fmt_tree.rc = plotter
+            self.fmt_tree.validators = {
+                key: getattr(plotter, key).validate for key in plotter}
+            self.fmt_tree.descriptions = {
+                key: getattr(plotter, key).name for key in plotter}
+            self.fmt_tree.initialize()
+            icon = QIcon(get_icon('info.png'))
+            docs_funcs = {
+                key: partial(plotter.show_docs, key) for key in plotter}
+            for item in self.fmt_tree.top_level_items:
+                key = item.text(0)
+                bt = QToolButton()
+                bt.setIcon(icon)
+                bt.clicked.connect(docs_funcs[key])
+                self.fmt_tree.setItemWidget(item, 2, bt)
+            self.fmt_tree.resizeColumnToContents(2)
+            self.fmt_tree_widget.setVisible(True)
 
     def setup_subplots(self):
         """Method to be emitted to setup the subplots for the selected arrays
@@ -1856,10 +1912,7 @@ class PlotCreator(QDialog):
 
     def fill_plot_method_combo(self):
         """Takes the names of the plotting methods in the current project"""
-        self.pm_combo.addItems([''] + list(filter(
-            lambda s: not s.startswith('_') and isinstance(
-                getattr(psy.plot, s), psy.PlotterInterface),
-            dir(psy.plot))))
+        self.pm_combo.addItems([''] + sorted(psy.plot._plot_methods))
         self.pm_combo.setToolTip(self.NO_PM_TT)
 
     def set_pm(self, plot_method):
@@ -1880,7 +1933,8 @@ class PlotCreator(QDialog):
             for d, (default_dim, default_slice) in product(
                     six.itervalues(names), six.iteritems(pm._default_dims)):
                 d.setdefault(default_dim, default_slice)
-            kwargs = {'ax': self.array_table.axes}
+            kwargs = {'ax': self.array_table.axes,
+                      'fmt': {t[1]: t[2] for t in self.fmt_tree._get_rc()}}
         else:
             pm = self.open_data
             kwargs = {}

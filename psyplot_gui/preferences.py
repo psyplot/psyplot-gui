@@ -6,7 +6,7 @@ from psyplot_gui.compat.qtcompat import (
     QWidget, QVBoxLayout, QHBoxLayout, QtCore, QDialog, QScrollArea,
     QDialogButtonBox, QStackedWidget, QListWidget, QListView, QSplitter,
     QListWidgetItem, QPushButton, QFileDialog, with_qt5,
-    QAbstractItemView, QToolButton, QLabel)
+    QAbstractItemView, QToolButton, QLabel, QtGui)
 from psyplot_gui.common import get_icon
 from psyplot_gui import rcParams as rcParams
 from psyplot.config.rcsetup import (
@@ -69,12 +69,16 @@ class RcParamsTree(QTreeWidget):
     #: whether the proposed value is valid or not
     valid = []
 
-    def __init__(self, rcParams, *args, **kwargs):
+    value_col = 2
+
+    def __init__(self, rcParams, validators, descriptions, *args, **kwargs):
         super(RcParamsTree, self).__init__(*args, **kwargs)
         self.rc = rcParams
+        self.validators = validators
+        self.descriptions = descriptions
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.open_menu)
-        self.setColumnCount(3)
+        self.setColumnCount(self.value_col + 1)
         self.setHeaderLabels(['RcParams key', '', 'Value'])
 
     @property
@@ -90,9 +94,10 @@ class RcParamsTree(QTreeWidget):
     def initialize(self):
         """Fill the items of the :attr:`rc` into the tree"""
         rcParams = self.rc
-        descriptions = rcParams.descriptions
+        descriptions = self.descriptions
         self.valid = [True] * len(rcParams)
-        validators = rcParams.validate
+        validators = self.validators
+        vcol = self.value_col
         for i, (key, val) in enumerate(sorted(rcParams.items())):
             item = QTreeWidgetItem(0)
             item.setText(0, key)
@@ -100,14 +105,17 @@ class RcParamsTree(QTreeWidget):
             item.setIcon(1, QIcon(get_icon('valid.png')))
             desc = descriptions.get(key)
             if desc:
-                item.setText(2, desc)
-                item.setToolTip(2, desc)
+                item.setText(vcol, desc)
+                item.setToolTip(vcol, desc)
             child = QTreeWidgetItem(0)
             item.addChild(child)
             self.addTopLevelItem(item)
             editor = QTextEdit(self)
+            # set maximal height of the editor to 3 rows
+            editor.setMaximumHeight(
+                4 * QtGui.QFontMetrics(editor.font()).height())
             editor.setPlainText(yaml.dump(val))
-            self.setItemWidget(child, 2, editor)
+            self.setItemWidget(child, vcol, editor)
             editor.textChanged.connect(
                 self.set_icon_func(i, item, validators[key]))
         self.resizeColumnToContents(0)
@@ -136,7 +144,7 @@ class RcParamsTree(QTreeWidget):
         function
             The function that can be called to set the correct icon"""
         def func():
-            editor = self.itemWidget(item.child(0), 2)
+            editor = self.itemWidget(item.child(0), self.value_col)
             s = editor.toPlainText()
             try:
                 val = yaml.load(s)
@@ -267,7 +275,7 @@ class RcParamsTree(QTreeWidget):
         filter_func = filter_func or no_check
         for item in self.top_level_items:
             key = item.text(0)
-            editor = self.itemWidget(item.child(0), 2)
+            editor = self.itemWidget(item.child(0), self.value_col)
             val = yaml.load(editor.toPlainText())
             try:
                 val = rc.validate[key](val)
@@ -343,8 +351,9 @@ class RcParamsWidget(ConfigPage, QWidget):
             ' until you click the Apply or Ok button.</p>'
             '<p>Values must be entered in yaml syntax</p>', parent=self)
         vbox.addWidget(self.description)
-
-        self.tree = tree = RcParamsTree(self.rc, parent=self)
+        self.tree = tree = RcParamsTree(
+            self.rc, getattr(self.rc, 'validate', None),
+            getattr(self.rc, 'descriptions', None), parent=self)
         tree.setSelectionMode(QAbstractItemView.MultiSelection)
         vbox.addWidget(self.tree)
 
@@ -419,10 +428,14 @@ class RcParamsWidget(ConfigPage, QWidget):
         action.triggered.connect(func)
         return action
 
-    def initialize(self, rcParams=None):
+    def initialize(self, rcParams=None, validators=None, descriptions=None):
         """Initialize the config page"""
         if rcParams is not None:
             self.tree.rc = rcParams
+        if validators is not None:
+            self.tree.validators = validators
+        if descriptions is not None:
+            self.tree.descriptions = descriptions
         self.tree.initialize()
 
     def apply_changes(self):
@@ -585,6 +598,8 @@ class Prefences(QDialog):
     def load_plugin_pages(self):
         """Load the rcParams for the plugins in separate pages"""
         from pkg_resources import iter_entry_points
+        validators = psy_rcParams.validate
+        descriptions = psy_rcParams.descriptions
         for ep in iter_entry_points('psyplot', name='plugin'):
             plugin = ep.load()
             rc = getattr(plugin, 'rcParams', None)
@@ -593,7 +608,8 @@ class Prefences(QDialog):
             w = RcParamsWidget(parent=self)
             w.title = 'rcParams of ' + ep.module_name
             w.default_path = PsyRcParamsWidget.default_path
-            w.initialize(rcParams=rc)
+            w.initialize(rcParams=rc, validators=validators,
+                         descriptions=descriptions)
             # use the full rcParams after initialization
             w.rc = psy_rcParams
             self.add_page(w)
