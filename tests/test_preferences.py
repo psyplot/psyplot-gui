@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Skript to test the InProcessShell that is used in the psyplot gui"""
+"""Script to test the :mod:`psyplot_gui.preferences` module"""
 import os
 import os.path as osp
 import shutil
