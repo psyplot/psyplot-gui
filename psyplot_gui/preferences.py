@@ -72,6 +72,10 @@ class RcParamsTree(QTreeWidget):
     def __init__(self, rcParams, *args, **kwargs):
         super(RcParamsTree, self).__init__(*args, **kwargs)
         self.rc = rcParams
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.open_menu)
+        self.setColumnCount(3)
+        self.setHeaderLabels(['RcParams key', '', 'Value'])
 
     @property
     def is_valid(self):
@@ -88,10 +92,6 @@ class RcParamsTree(QTreeWidget):
         rcParams = self.rc
         descriptions = rcParams.descriptions
         self.valid = [True] * len(rcParams)
-        self.setColumnCount(3)
-        self.setHeaderLabels(['RcParams key', '', 'Value'])
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.open_menu)
         validators = rcParams.validate
         for i, (key, val) in enumerate(sorted(rcParams.items())):
             item = QTreeWidgetItem(0)
@@ -463,6 +463,7 @@ class Prefences(QDialog):
 
     def __init__(self, main=None):
         super(Prefences, self).__init__(parent=main)
+        self.setWindowTitle('Preferences')
 
         # Widgets
         self.pages_widget = QStackedWidget()
