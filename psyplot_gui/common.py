@@ -3,7 +3,13 @@ import sys
 import traceback as tb
 import os.path as osp
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, QRegExpValidator, QtCore, QErrorMessage)
+    QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget)
+import six
+
+if six.PY2:
+    from StringIO import StringIO
+else:
+    from io import StringIO
 
 
 def get_module_path(modname):
@@ -84,7 +90,15 @@ class PyErrorMessage(QErrorMessage):
     method"""
 
     def showTraceback(self, header=None):
-        last_tb = '<p>' + ''.join(tb.format_exception(*sys.exc_info())) + \
+        s = StringIO()
+        tb.print_exc(file=s)
+        last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
             '</p>'
         header = header + '\n' if header else ''
         self.showMessage(header + last_tb)
+        available_width = QDesktopWidget().availableGeometry().width() / 3.
+        available_height = QDesktopWidget().availableGeometry().height() / 3.
+        width = self.sizeHint().width()
+        height = self.sizeHint().height()
+        # The plot creator window should cover at least one third of the screen
+        self.resize(max(available_width, width), max(available_height, height))
