@@ -29,7 +29,7 @@ if backend is not None:
 from psyplot_gui.console import ConsoleWidget
 from psyplot_gui.compat.qtcompat import (
     QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget,
-    QFileDialog, QKeySequence, QtCore, with_qt5)
+    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox)
 from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
 from psyplot_gui.plot_creator import PlotCreator
@@ -38,10 +38,13 @@ from psyplot_gui.fmt_widget import FormatoptionWidget
 from psyplot_gui.common import PyErrorMessage
 from psyplot_gui.preferences import (
     Prefences, GuiRcParamsWidget, PsyRcParamsWidget)
+from psyplot_gui.dependencies import DependenciesDialog
 
 from psyplot.docstring import docstrings
 import psyplot.plotter as psyp
 import psyplot.project as psy
+import psyplot
+import psyplot_gui
 
 
 #: The :class:`PyQt4.QtGui.QMainWindow` of the graphical user interface
@@ -274,6 +277,19 @@ class MainWindow(QMainWindow):
         self.help_action.setShortcut(QKeySequence.Preferences)
         self.help_menu.addAction(self.help_action)
 
+        # ---------------------------- About ----------------------------------
+
+        self.about_action = QAction('About', self)
+        self.about_action.triggered.connect(self.about)
+        self.help_menu.addAction(self.about_action)
+
+        # ---------------------------- Dependencies ---------------------------
+
+        self.dependencies_action = QAction('Dependencies', self)
+        self.dependencies_action.triggered.connect(
+            lambda: self.show_dependencies(True))
+        self.help_menu.addAction(self.dependencies_action)
+
         # ---------------------------------------------------------------------
         # -------------------------- Dock windows -----------------------------
         # ---------------------------------------------------------------------
@@ -444,7 +460,7 @@ class MainWindow(QMainWindow):
         available_width = QDesktopWidget().availableGeometry().width() / 3.
         width = self.plot_creator.sizeHint().width()
         height = self.plot_creator.sizeHint().height()
-        # The plot creator window shoul cover at least one third of the screen
+        # The plot creator window should cover at least one third of the screen
         self.plot_creator.resize(max(available_width, width), height)
         self.plot_creator.show()
         if exec_:
@@ -465,8 +481,61 @@ class MainWindow(QMainWindow):
         available_width = 0.667 * QDesktopWidget().availableGeometry().width()
         width = dlg.sizeHint().width()
         height = dlg.sizeHint().height()
-        # The plot creator window shoul cover at least one third of the screen
+        # The preferences window should cover at least one third of the screen
         dlg.resize(max(available_width, width), height)
+        dlg.show()
+        if exec_:
+            dlg.exec_()
+
+    def about(self):
+        """About the tool"""
+        versions = {
+            key: d['version'] for key, d in psyplot.get_versions(False).items()
+            }
+        versions.update(psyplot_gui.get_versions()['requirements'])
+        versions.update(psyplot._get_versions()['requirements'])
+        versions['github'] = 'https://github.com/Chilipp/psyplot'
+        versions['author'] = psyplot.__author__
+        QMessageBox.about(
+            self, "About",
+            u"""<b>psyplot: Interactive data visualization with python</b>
+            <br>Copyright &copy; 2017- Philipp Sommer
+            <br>Licensed under the terms of the GNU General Public License v2
+            (GPLv2)
+            <p>Created by %(author)s</p>
+            <p>Most of the icons come from the
+            <a href="https://www.iconfinder.com/"> iconfinder</a>.</p>
+            <p>For bug reports and feature requests, please go
+            to our <a href="%(github)s">Github website</a> or contact the
+            author via mail.</p>
+            <p>This package uses (besides others) the following packages:<br>
+            <ul>
+                <li>psyplot %(psyplot)s</li>
+                <li>Python %(python)s </li>
+                <li>numpy %(numpy)s</li>
+                <li>xarray %(xarray)s</li>
+                <li>pandas %(pandas)s</li>
+                <li>psyplot_gui %(psyplot_gui)s</li>
+                <li>Qt %(qt)s</li>
+                <li>PyQt %(pyqt)s</li>
+                <li>qtconsole %(qtconsole)s</li>
+            </ul></p>
+            <p>For a full list of requirements see the <em>dependencies</em>
+            in the <em>Help</em> menu.</p>
+            <p>This software is provided "as is", without warranty or support
+            of any kind.</p>"""
+            % versions)
+
+    def show_dependencies(self, exec_=None):
+        """Open a dialog that shows the dependencies"""
+        if hasattr(self, 'dependencies'):
+            try:
+                self.dependencies.close()
+            except RuntimeError:
+                pass
+        self.dependencies = dlg = DependenciesDialog(psyplot.get_versions(),
+                                                     parent=self)
+        dlg.resize(630, 420)
         dlg.show()
         if exec_:
             dlg.exec_()
