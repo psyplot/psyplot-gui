@@ -1,7 +1,0 @@
-psyplot_gui.console module
-==========================
-
-.. automodule:: psyplot_gui.console
-    :members:
-    :undoc-members:
-    :show-inheritance:

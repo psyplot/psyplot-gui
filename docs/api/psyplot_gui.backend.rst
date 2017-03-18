@@ -1,7 +1,0 @@
-psyplot_gui.backend module
-==========================
-
-.. automodule:: psyplot_gui.backend
-    :members:
-    :undoc-members:
-    :show-inheritance:
