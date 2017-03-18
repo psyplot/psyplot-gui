@@ -56,7 +56,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
-  - coverage run --source=psyplot_gui setup.py test -a "-v"
+  - coverage run --source=psyplot_gui setup.py test -a "-vs"
 
 after_success:
   coveralls
