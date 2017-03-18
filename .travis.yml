@@ -29,12 +29,12 @@ install:
   - 'ENVKEY=py"${TRAVIS_PYTHON_VERSION}"_qt"${QT_VERSION}"'
 
   - conda env create -f tests/envs/environment_$ENVKEY.yml
+  - source activate psyplot_gui_$ENVKEY
   # install pyqt5 via pip because the conda version does not have
   # QtWebEngineWidgets
   - if [[ $QT_VERSION == 5 ]]; then
       pip install pyqt5;
     fi
-  - source activate psyplot_gui_$ENVKEY
   # checkout the current psyplot version via git
   - git clone "https://github.com/Chilipp/psyplot.git" -b $TRAVIS_BRANCH
   - cd psyplot && python setup.py install && cd .. && rm -rf psyplot
