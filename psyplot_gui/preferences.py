@@ -1,4 +1,7 @@
-import os.path as osp
+"""Preferences widget for psyplot_gui
+
+This module defines the :class:`Preferences` widget that creates an interface
+to the rcParams of psyplot and psyplot_gui"""
 import yaml
 from warnings import warn
 from psyplot_gui.compat.qtcompat import (
@@ -10,7 +13,7 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot_gui.common import get_icon
 from psyplot_gui import rcParams as rcParams
 from psyplot.config.rcsetup import (
-    get_configdir, RcParams, rcParams as psy_rcParams)
+    psyplot_fname, RcParams, rcParams as psy_rcParams)
 
 
 class ConfigPage(object):
@@ -53,6 +56,10 @@ class ConfigPage(object):
 
 
 class RcParamsTree(QTreeWidget):
+    """A QTreeWidget that can be used to display a RcParams instance
+
+    This widget is populated by a :class:`psyplot.config.rcsetup.RcParams`
+    instance and displays whether the values are valid or not"""
 
     #: A signal that shall be emitted if the validation state changes
     validChanged = QtCore.pyqtSignal(bool)
@@ -72,6 +79,23 @@ class RcParamsTree(QTreeWidget):
     value_col = 2
 
     def __init__(self, rcParams, validators, descriptions, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        rcParams: dict
+            The dictionary that contains the rcParams
+        validators: dict
+            A mapping from the `rcParams` key to the validation function for
+            the corresponding value
+        descriptions: dict
+            A mapping from the `rcParams` key to it's description
+
+        See Also
+        --------
+        psyplot.config.rcsetup.RcParams
+        psyplot.config.rcsetup.RcParams.validate
+        psyplot.config.rcsetup.RcParams.descriptions
+        """
         super(RcParamsTree, self).__init__(*args, **kwargs)
         self.rc = rcParams
         self.validators = validators
@@ -307,7 +331,11 @@ class RcParamsWidget(ConfigPage, QWidget):
     """A configuration page for RcParams instances
 
     This page displays the :class:`psyplot.config.rcsetup.RcParams` instance in
-    the :attr:`rc` attribute and let's the user modify it"""
+    the :attr:`rc` attribute and let's the user modify it.
+
+    Notes
+    -----
+    After the initialization, you have to call the :meth:`initialize` method"""
 
     #: the rcParams to use (must be implemented by subclasses)
     rc = None
@@ -429,8 +457,24 @@ class RcParamsWidget(ConfigPage, QWidget):
         return action
 
     def initialize(self, rcParams=None, validators=None, descriptions=None):
-        """Initialize the config page"""
+        """Initialize the config page
+
+        Parameters
+        ----------
+        rcParams: dict
+            The rcParams to use. If None, the :attr:`rc` attribute of this
+            instance is used
+        validators: dict
+            A mapping from the `rcParams` key to the corresponding validation
+            function for the value. If None, the
+            :attr:`~psyplot.config.rcsetup.RcParams.validate` attribute of the
+            :attr:`rc` attribute is used
+        descriptions: dict
+            A mapping from the `rcParams` key to it's description. If None, the
+            :attr:`~psyplot.config.rcsetup.RcParams.descriptions` attribute of
+            the :attr:`rc` attribute is used"""
         if rcParams is not None:
+            self.rc = rcParams
             self.tree.rc = rcParams
         if validators is not None:
             self.tree.validators = validators
@@ -450,7 +494,8 @@ class GuiRcParamsWidget(RcParamsWidget):
 
     title = 'GUI defaults'
 
-    default_path = osp.join(get_configdir(), 'psyplotguirc.yml')
+    default_path = psyplot_fname('PSYPLOTGUIRC', 'psyplotguirc.yml',
+                                 if_exists=False)
 
 
 class PsyRcParamsWidget(RcParamsWidget):
@@ -460,7 +505,7 @@ class PsyRcParamsWidget(RcParamsWidget):
 
     title = 'psyplot defaults'
 
-    default_path = osp.join(get_configdir(), 'psyplotrc.yml')
+    default_path = psyplot_fname(if_exists=False)
 
 
 class Prefences(QDialog):
@@ -597,10 +642,9 @@ class Prefences(QDialog):
 
     def load_plugin_pages(self):
         """Load the rcParams for the plugins in separate pages"""
-        from pkg_resources import iter_entry_points
         validators = psy_rcParams.validate
         descriptions = psy_rcParams.descriptions
-        for ep in iter_entry_points('psyplot', name='plugin'):
+        for ep in psy_rcParams._load_plugin_entrypoints():
             plugin = ep.load()
             rc = getattr(plugin, 'rcParams', None)
             if rc is None:

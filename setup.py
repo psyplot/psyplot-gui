@@ -56,6 +56,8 @@ setup(name='psyplot_gui',
           'psyplot',
           'qtconsole',
           'fasteners',
+          'sphinx',
+          'sphinx_rtd_theme',
       ],
       package_data={'psyplot_gui': [
           osp.join('psyplot_gui', 'sphinx_supp', 'conf.py'),

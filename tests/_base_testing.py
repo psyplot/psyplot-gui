@@ -3,6 +3,9 @@
 import os
 import os.path as osp
 import unittest
+
+os.environ['PSYPLOT_PLUGINS'] = 'yes:psyplot_gui_test.plugin::yes:psy_simple.plugin'
+
 from psyplot.config import setup_logging
 
 test_dir = osp.dirname(__file__)
@@ -18,7 +21,9 @@ on_travis = os.environ.get('TRAVIS')
 rcParams.defaultParams['main.listen_to_port'][0] = False
 rcParams.defaultParams['help_explorer.render_docs_parallel'][0] = False
 rcParams.defaultParams['help_explorer.use_intersphinx'][0] = False
-rcParams.update_from_defaultParams
+rcParams.defaultParams['plugins.include'][0] = ['psyplot_gui_test.plugin']
+rcParams.defaultParams['plugins.exclude'][0] = 'all'
+rcParams.update_from_defaultParams()
 
 
 class PsyPlotGuiTestCase(unittest.TestCase):
