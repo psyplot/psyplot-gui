@@ -1,8 +1,8 @@
 name: psyplot_gui_docs
 channels:
     - chilipp
+    - conda-forge
 dependencies:
-    - python=3.4
     - psyplot
     - qtconsole
     - ipykernel
