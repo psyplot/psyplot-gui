@@ -17,6 +17,11 @@ class TestDependencies(bt.PsyPlotGuiTestCase):
         self.window.show_dependencies()
         self.deps = self.window.dependencies
 
+    def tearDown(self):
+        # make sure the preferences widget is closed completely
+        self.deps.exec_()
+        super(TestDependencies, self).tearDown()
+
     def test_widget(self):
         """Test whether the tree is filled correctly"""
         deps = self.deps

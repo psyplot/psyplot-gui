@@ -3,7 +3,7 @@
 This module defines the necessary configuration parts for the psyplot gui"""
 import six
 from psyplot.config.rcsetup import (
-    RcParams, psyplot_fname, validate_bool_maybe_none)
+    RcParams, psyplot_fname, validate_bool_maybe_none, validate_stringlist)
 from matplotlib.rcsetup import validate_int, validate_bool
 
 
@@ -76,6 +76,13 @@ def validate_none(b):
         raise ValueError('Could not convert "%s" to None' % b)
 
 
+def validate_all(v):
+    """Test if ``v == 'all'``"""
+    if v != 'all':
+        raise ValueError("The value must be 'all'")
+    return six.text_type(v)
+
+
 class GuiRcParams(RcParams):
 
     def load_from_file(self, fname=None):
@@ -146,6 +153,16 @@ defaultParams = {
         "their string representation is displayed as tool tip. This part of "
         "the data into memory. It is recommended to set this to False for "
         "remote data."],
+    'plugins.include': [
+        None, try_and_error(validate_none, validate_stringlist),
+        "The plugins to load. Can be either None to load all that are not "
+        "explicitly excluded by the 'plugins.exclude' key or a list of "
+        "plugins to include. List items can be either module names, plugin "
+        "names or the module name and widget via '<module_name>:<widget>'"],
+    'plugins.exclude': [
+        [], try_and_error(validate_all, validate_stringlist),
+        "The plugins to exclude from loading. Can be either 'all' to exclude "
+        "all plugins or a list like in 'plugins.include'."],
     }
 
 #: :class:`~psyplot.config.rcsetup.RcParams` instance that stores default

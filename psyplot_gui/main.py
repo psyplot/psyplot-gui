@@ -315,9 +315,28 @@ class MainWindow(QMainWindow):
         # load plugin widgets
         self.plugins = plugins = {}
         logger = self.logger
+        inc = rcParams['plugins.include']
+        exc = rcParams['plugins.exclude']
         for ep in iter_entry_points('psyplot_gui'):
             plugin_name = '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs),
                                         ep.name)
+            # check if the user wants to explicitly this plugin
+            include_user = None
+            if inc:
+                include_user = (
+                    ep.module_name in inc or ep.name in inc or
+                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in inc)
+            if include_user is None and exc == 'all':
+                include_user = False
+            elif include_user is None:
+                # check for exclude
+                include_user = not (
+                    ep.module_name in exc or ep.name in exc or
+                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in exc)
+            if not include_user:
+                logger.debug('Skipping plugin %s: Excluded by user',
+                             plugin_name)
+                continue
             logger.debug('Loading plugin %s', plugin_name)
             w_class = ep.load()
             plugins[plugin_name] = w = w_class(parent=self)

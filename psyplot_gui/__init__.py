@@ -60,7 +60,9 @@ def get_versions(requirements=True):
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
-              tight=False, encoding=None, new_instance=False, rc_file=None, rc_gui_file=None):
+              tight=False, encoding=None, new_instance=False, rc_file=None,
+              rc_gui_file=None, include_plugins=rcParams['plugins.include'],
+              exclude_plugins=rcParams['plugins.exclude'], offline=False):
     """
     Eventually start the QApplication or only make a plot
 
@@ -78,14 +80,34 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     rc_gui_file: str
         The path to a yaml configuration file that can be used to update  the
         :attr:`psyplot_gui.rcParams`
+    include_plugins: list of str
+        The plugin widget to include. Can be either None to load all that are
+        not explicitly excluded by `exclude_plugins` or a list of
+        plugins to include. List items can be either module names, plugin
+        names or the module name and widget via ``'<module_name>:<widget>'``
+    exclude_plugins: list of str
+        The plugin widgets to exclude. Can be either ``'all'`` to exclude
+        all plugins or a list like in `include_plugins`.
+    offline: bool
+        If True/set, psyplot will be started in offline mode without
+        intersphinx and remote access for the help explorer
     """
 
     if project is not None and (name != [] or dims is not None):
         warn('The `name` and `dims` parameter are ignored if the `project`'
              ' parameter is set!')
 
+    # load rcParams from file
     if rc_gui_file is not None:
         rcParams.load_from_file(rc_gui_file)
+
+    # set plugins
+    rcParams['plugins.include'] = include_plugins
+    rcParams['plugins.exclude'] = exclude_plugins
+
+    if offline:
+        rcParams['help_explorer.online'] = False
+        rcParams['help_explorer.use_intersphinx'] = False
 
     if dims is not None and not isinstance(dims, dict):
         dims = dict(chain(*map(six.iteritems, dims)))
@@ -197,6 +219,15 @@ def get_parser(create=True):
 
     parser.update_arg('rc_gui_file', short='rc-gui', group=gui_grp)
     parser.pop_key('rc_gui_file', 'metavar')
+    parser.update_arg('include_plugins', short='inc', group=gui_grp,
+                      default=rcParams['plugins.include'])
+    parser.append2help('include_plugins', '. Default: %(default)s')
+    parser.update_arg('exclude_plugins', short='exc', group=gui_grp,
+                      default=rcParams['plugins.exclude'])
+    parser.append2help('exclude_plugins', '. Default: %(default)s')
+
+    parser.update_arg('offline', group=gui_grp)
+    parser.pop_key('offline', 'short')
 
     if psyplot.__version__ < '1.0':
         parser.set_main(start_app)
