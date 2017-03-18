@@ -3,6 +3,7 @@ channels:
     - chilipp
     - conda-forge
 dependencies:
+    - python=3.5
     - psyplot
     - qtconsole
     - ipykernel
