@@ -4,19 +4,14 @@ channels:
     - conda-forge
 dependencies:
     - python=3.5
+    - qtconsole
     - matplotlib
-    - dask
     - xarray
     - netCDF4
-    - cartopy
-    - seaborn
-    - bottleneck
     - pyqt=5
     - sphinx
-    - jupyter
     - pip:
         - pytest
-        - pytest-html
         - pytest-cov
         - fasteners
         - sphinx_rtd_theme
