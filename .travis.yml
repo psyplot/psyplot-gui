@@ -9,6 +9,12 @@ matrix:
       env: QT_VERSION=5
     - python: "3.6"
       env: QT_VERSION=5
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - libstdc++6
 install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
