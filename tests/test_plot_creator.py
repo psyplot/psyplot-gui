@@ -2,10 +2,10 @@
 """Skript to test the InProcessShell that is used in the psyplot gui"""
 import sys
 import unittest
-from itertools import chain, cycle
+from itertools import chain
 import _base_testing as bt
 import psyplot.project as psy
-from psyplot.compat.pycompat import range, OrderedDict
+from psyplot.compat.pycompat import range
 from psyplot_gui.compat.qtcompat import (
     QTest, Qt, QStyleOptionViewItem, QWidget, QValidator, QtGui, QtCore)
 
@@ -54,6 +54,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
             {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
         ds.close()
+        self.window.console.execute("ds.close()")
 
     def test_plusplus(self):
         """Test the add all button"""
@@ -306,6 +307,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(validator.validate('dummy', 5)[0],
                          validator.Acceptable)
         self.assertNotIn(validator.fixup(names[1]), names)
+        ds.close()
 
     def test_variablename_validator(self):
         """Test the :class:`psyplot_gui.plot_creator.VariableItemDelegate`"""
@@ -343,6 +345,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(
             validator.validate(s[:3] + 'dummy' + s[3:], len(s) + 5)[0],
             QValidator.Invalid)
+        ds.close()
 
     def test_drag_drop(self):
         """Test the drag and drop of the
@@ -370,6 +373,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         resorted = [old[i] for i in [2, 0, 1] + list(range(3, len(old)))]
         self.assertEqual(list(atab.arr_names_dict.items()), resorted,
                          msg="Rows not moved correctly!")
+        ds.close()
 
 
 if __name__ == '__main__':

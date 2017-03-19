@@ -42,7 +42,8 @@ class PsyPlotGuiTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        QApplication.quit()
+        cls._app.quit()
+        del cls._app
 
     def setUp(self):
         from psyplot_gui.main import MainWindow
@@ -52,7 +53,7 @@ class PsyPlotGuiTestCase(unittest.TestCase):
         import psyplot.project as psy
         self.window.close()
         del self.window
-        psy.gcp(True).close(True, True)
+        psy.close('all')
         rcParams.update_from_defaultParams()
         psy_rcParams.update_from_defaultParams()
         rcParams.disconnect()

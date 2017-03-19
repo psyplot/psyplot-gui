@@ -80,6 +80,8 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
     def test_mp_sp(self):
         """Test whether the mp and sp variables are set correctly"""
         from xarray import DataArray
+        psy.Project.oncpchange.emit(psy.gcp(True))
+        psy.Project.oncpchange.emit(psy.gcp())
         self.assertIs(self.window.console.get_obj('mp')[1], psy.gcp(True))
         self.assertIs(self.window.console.get_obj('sp')[1], psy.gcp())
         sp = psy.plot.lineplot(DataArray([1, 2, 3], name='test').to_dataset())
