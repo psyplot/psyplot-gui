@@ -189,7 +189,8 @@ class TestPreferences(bt.PsyPlotGuiTestCase):
 
     def tearDown(self):
         # make sure the preferences widget is closed completely
-        self.prefs.exec_()
+        self.prefs.close()
+        del self.prefs
         super(TestPreferences, self).tearDown()
 
     def test_pages(self):

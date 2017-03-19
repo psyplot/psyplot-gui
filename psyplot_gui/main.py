@@ -475,7 +475,8 @@ class MainWindow(QMainWindow):
             except RuntimeError:
                 pass
         self.plot_creator = PlotCreator(
-            self.console.get_obj, help_explorer=self.help_explorer)
+            self.console.get_obj, help_explorer=self.help_explorer,
+            parent=self)
         available_width = QDesktopWidget().availableGeometry().width() / 3.
         width = self.plot_creator.sizeHint().width()
         height = self.plot_creator.sizeHint().height()

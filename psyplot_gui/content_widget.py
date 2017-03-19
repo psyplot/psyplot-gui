@@ -246,6 +246,8 @@ class ProjectContent(QToolBox):
         # check new lists
         current_items = self.current_names
         for name, l in self.lists.items():
+            if not p.is_main:
+                l.update_from_project(p.main)
             l.update_from_project(p)
             if l.is_empty:
                 l.disconnect_items()

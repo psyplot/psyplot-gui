@@ -19,7 +19,8 @@ class TestDependencies(bt.PsyPlotGuiTestCase):
 
     def tearDown(self):
         # make sure the preferences widget is closed completely
-        self.deps.exec_()
+        self.deps.close()
+        del self.deps
         super(TestDependencies, self).tearDown()
 
     def test_widget(self):
@@ -34,7 +35,6 @@ class TestDependencies(bt.PsyPlotGuiTestCase):
         self.assertIn('numpy', d)
         self.assertEqual(d['numpy'], np.__version__)
         label.close()
-        del label
 
 
 if __name__ == '__main__':
