@@ -32,19 +32,20 @@ class ArrayItem(QListWidgetItem):
     #: :class:`psyplot.data.InteractiveArray` instance
     arr = None
 
-    def __init__(self, arr, *args, **kwargs):
+    def __init__(self, ref, *args, **kwargs):
         """
         Parameters
         ----------
-        arr: :class:`psyplot.data.InteractiveBase` object
-            The array to display
+        ref: weakref
+            The weak reference to the array to display
         ``*args,**kwargs``
             Are determined by the parent class
         """
-        super(ArrayItem, self).__init__(arr.psy._short_info(), **kwargs)
-        self.arr = arr.psy
+        arr = ref()
+        super(ArrayItem, self).__init__(arr._short_info(), **kwargs)
+        self.arr = ref
         # make sure that the item is updated when the array changes
-        arr.psy.onupdate.connect(self.set_text_from_array)
+        arr.onupdate.connect(self.set_text_from_array)
         self.set_text_from_array()
 
     def set_text_from_array(self):
@@ -52,17 +53,17 @@ class ArrayItem(QListWidgetItem):
         :meth:`psyplot.data.InteractiveArray._short_info` and __str__ methods
         """
         if not sip.isdeleted(self):
-            self.setText(self.arr._short_info())
+            self.setText(self.arr()._short_info())
             if rcParams['content.load_tooltips']:
-                if isinstance(self.arr, InteractiveList):
-                    self.setToolTip(str(self.arr))
+                if isinstance(self.arr(), InteractiveList):
+                    self.setToolTip(str(self.arr()))
                 else:
-                    self.setToolTip(str(self.arr.arr))
+                    self.setToolTip(str(self.arr().arr))
         else:
             self.disconnect_from_array()
 
     def disconnect_from_array(self):
-        self.arr.onupdate.disconnect(self.set_text_from_array)
+        self.arr().onupdate.disconnect(self.set_text_from_array)
         del self.arr
 
 
@@ -87,11 +88,9 @@ class PlotterList(QListWidget):
     @property
     def arrays(self):
         """List of The InteractiveBase instances in this list"""
-        return ArrayList(filter(
-            lambda i: i is not None,
-            (getattr(getattr(item, 'arr', None),
-                     'arr', getattr(item, 'arr', None))
-             for item in self.array_items)))
+        return ArrayList([
+            getattr(item.arr(), 'arr', item.arr())
+            for item in self.array_items])
 
     @property
     def array_items(self):
@@ -165,12 +164,12 @@ class PlotterList(QListWidget):
                 # add new items
                 for arr in arrays:
                     if arr not in old_arrays:
-                        item = ArrayItem(arr, parent=self)
+                        item = ArrayItem(weakref.ref(arr.psy), parent=self)
                         self.addItem(item)
             else:
                 for item in self.array_items:
                     item.setSelected(
-                        getattr(item.arr, 'arr', item.arr) in arrays)
+                        getattr(item.arr(), 'arr', item.arr()) in arrays)
         self.updated_from_project.emit(self)
 
     def update_cp(self, *args, **kwargs):
@@ -178,7 +177,7 @@ class PlotterList(QListWidget):
         if not self._no_project_update:
             mp = gcp(True)
             sp = gcp()
-            selected = [item.arr.arr_name for item in self.selectedItems()]
+            selected = [item.arr().arr_name for item in self.selectedItems()]
             arrays = self.arrays
             other_selected = [
                 arr.psy.arr_name for arr in sp if arr not in arrays]
@@ -494,28 +493,28 @@ class DatasetTree(QTreeWidget, DockMixin):
 class FiguresTreeItem(QTreeWidgetItem):
     """An item displaying the information on a data object in one figure"""
 
-    def __init__(self, arr, *args, **kwargs):
+    def __init__(self, ref, *args, **kwargs):
         """
         Parameters
         ----------
-        arr: psyplot.data.InteractiveBase
-            The array containing the data"""
+        ref: weakref
+            The weak reference to the array containing the data"""
         super(FiguresTreeItem, self).__init__(*args, **kwargs)
-        self.arr = arr
+        self.arr = ref
         self.set_text_from_array()
-        arr.psy.onupdate.connect(self.set_text_from_array)
+        ref().psy.onupdate.connect(self.set_text_from_array)
 
     def set_text_from_array(self):
         """Set the text and tooltop from the
         :meth:`psyplot.data.InteractiveArray._short_info` and __str__ methods
         """
-        self.setText(0, self.arr.psy._short_info())
+        self.setText(0, self.arr().psy._short_info())
         if rcParams['content.load_tooltips']:
-            self.setToolTip(0, str(self.arr))
+            self.setToolTip(0, str(self.arr()))
 
     def disconnect_from_array(self):
         """Disconect this item from the corresponding array"""
-        self.arr.psy.onupdate.disconnect(self.set_text_from_array)
+        self.arr().psy.onupdate.disconnect(self.set_text_from_array)
         del self.arr
 
 
@@ -542,5 +541,6 @@ class FiguresTree(QTreeWidget, DockMixin):
         for fig, arrays in six.iteritems(project.figs):
             item = QTreeWidgetItem(0)
             item.setText(0, fig.canvas.get_window_title())
-            item.addChildren([FiguresTreeItem(arr, 0) for arr in arrays])
+            item.addChildren(
+                [FiguresTreeItem(weakref.ref(arr), 0) for arr in arrays])
             self.addTopLevelItem(item)
