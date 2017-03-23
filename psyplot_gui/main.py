@@ -89,7 +89,15 @@ class MainWindow(QMainWindow):
         return logging.getLogger('%s.%s' % (self.__class__.__module__,
                                             self.__class__.__name__))
 
-    def __init__(self):
+    @docstrings.get_sectionsf('MainWindow')
+    @docstrings.dedent
+    def __init__(self, show=True):
+        """
+        Parameters
+        ----------
+        show: bool
+            If True, the created mainwindow is show
+        """
         super(MainWindow, self).__init__()
 
         #: list of figures from the psyplot backend
@@ -369,7 +377,8 @@ class MainWindow(QMainWindow):
         # ---------------------------------------------------------------------
         # ------------------------------ closure ------------------------------
         # ---------------------------------------------------------------------
-        self.help_explorer.show_intro(self.console.intro_msg)
+        if show:
+            self.help_explorer.show_intro(self.console.intro_msg)
 
         # Server to open external files on a single instance
         self.open_files_server = socket.socket(socket.AF_INET,
@@ -387,7 +396,13 @@ class MainWindow(QMainWindow):
 
         # display the statusBar
         self.statusBar()
-        self.showMaximized()
+        if show:
+            self.showMaximized()
+
+        # hide plugin widgets that should be hidden at startup
+        for w in self.plugins.values():
+            if w.hidden:
+                w.hide_plugin()
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
@@ -482,7 +497,6 @@ class MainWindow(QMainWindow):
         height = self.plot_creator.sizeHint().height()
         # The plot creator window should cover at least one third of the screen
         self.plot_creator.resize(max(available_width, width), height)
-        self.plot_creator.show()
         if exec_:
             self.plot_creator.exec_()
 
@@ -503,7 +517,6 @@ class MainWindow(QMainWindow):
         height = dlg.sizeHint().height()
         # The preferences window should cover at least one third of the screen
         dlg.resize(max(available_width, width), height)
-        dlg.show()
         if exec_:
             dlg.exec_()
 
@@ -556,7 +569,6 @@ class MainWindow(QMainWindow):
         self.dependencies = dlg = DependenciesDialog(psyplot.get_versions(),
                                                      parent=self)
         dlg.resize(630, 420)
-        dlg.show()
         if exec_:
             dlg.exec_()
 
@@ -673,7 +685,7 @@ class MainWindow(QMainWindow):
     @docstrings.get_sectionsf('MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None, encoding=None):
+            name=None, dims=None, encoding=None, show=True):
         """
         Create a mainwindow and open the given files or project
 
@@ -683,6 +695,7 @@ class MainWindow(QMainWindow):
         Parameters
         ----------
         %(MainWindow.open_external_files.parameters)s
+        %(MainWindow.parameters)s
 
         Notes
         -----
@@ -694,7 +707,7 @@ class MainWindow(QMainWindow):
         --------
         run_app
         """
-        mainwindow = cls()
+        mainwindow = cls(show=show)
         _set_mainwindow(mainwindow)
         if fnames or project:
             mainwindow.open_external_files(

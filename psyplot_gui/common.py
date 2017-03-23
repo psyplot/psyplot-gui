@@ -45,6 +45,10 @@ class DockMixin(object):
     #: :class:`psyplot_gui.preferences.ConfigPage` widget
     config_page = None
 
+    #: Boolean that is True if the dock widget should be hidden automatically
+    #: after startup
+    hidden = False
+
     def to_dock(self, main, title=None, position=None, docktype='pane', *args,
                 **kwargs):
         if title is None:
@@ -64,6 +68,18 @@ class DockMixin(object):
         if config_page is not None:
             main.config_pages.append(config_page)
         return self.dock
+
+    def show_plugin(self):
+        """Show the plugin widget"""
+        a = self.dock.toggleViewAction()
+        if not a.isChecked():
+            a.trigger()
+
+    def hide_plugin(self):
+        """Hide the plugin widget"""
+        a = self.dock.toggleViewAction()
+        if a.isChecked():
+            a.trigger()
 
 
 class ListValidator(QRegExpValidator):
