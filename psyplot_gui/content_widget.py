@@ -424,8 +424,6 @@ class DatasetTree(QTreeWidget, DockMixin):
             top_item.setText(0, '%s%i: %s' % (
                 '*' if any(arr in sp_arrs for arr in ds_desc['arr']) else '',
                 i, ds_desc['fname']))
-            if rcParams['content.load_tooltips']:
-                top_item.setToolTip(0, str(ds_desc['ds']))
             for arr in ds_desc['arr']:
                 arr.psy.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
