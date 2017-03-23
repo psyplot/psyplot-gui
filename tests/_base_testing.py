@@ -47,7 +47,7 @@ class PsyPlotGuiTestCase(unittest.TestCase):
 
     def setUp(self):
         from psyplot_gui.main import MainWindow
-        self.window = MainWindow.run()
+        self.window = MainWindow.run(show=False)
 
     def tearDown(self):
         import psyplot.project as psy

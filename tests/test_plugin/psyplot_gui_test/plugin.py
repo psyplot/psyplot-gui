@@ -11,6 +11,7 @@ class W1(QWidget, DockMixin):
 class W2(QWidget, DockMixin):
     title = 'w2'
     dock_position = Qt.BottomDockWidgetArea
+    hidden = True
 
 
 rcParams = RcParams(

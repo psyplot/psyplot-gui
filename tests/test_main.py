@@ -18,6 +18,12 @@ class TestMainWindow(bt.PsyPlotGuiTestCase):
             mainwindow.plugins['psyplot_gui_test.plugin:W1:w1'], W1)
         self.assertIsInstance(
             mainwindow.plugins['psyplot_gui_test.plugin:W2:w2'], W2)
+        w = mainwindow.plugins['psyplot_gui_test.plugin:W2:w2']
+        a = w.dock.toggleViewAction()
+        # the plugin should be hidden
+        self.assertFalse(a.isChecked())
+        w.show_plugin()
+        self.assertTrue(a.isChecked())
 
 
 if __name__ == "__main__":
