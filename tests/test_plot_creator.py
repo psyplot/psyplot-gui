@@ -350,6 +350,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     def test_drag_drop(self):
         """Test the drag and drop of the
         :class:`psyplot_gui.plot_creator.ArrayTable`"""
+        self.pc.show()
         # XXX Try to use directly the dropEvent method by setting the source of
         # the event!
         point = QtCore.QPoint(0, 0)
