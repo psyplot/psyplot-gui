@@ -24,7 +24,7 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
-setup(name='psyplot_gui',
+setup(name='psyplot-gui',
       version='1.0.0.dev0',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
