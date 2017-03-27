@@ -712,6 +712,7 @@ class MainWindow(QMainWindow):
         if fnames or project:
             mainwindow.open_external_files(
                 fnames, project, engine, plot_method, name, dims, encoding)
+        psyplot.with_gui = True
         return mainwindow
 
     @classmethod

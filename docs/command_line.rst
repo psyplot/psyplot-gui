@@ -1,3 +1,5 @@
+.. _command-line:
+
 Command line usage
 ==================
 The ``psyplot_gui`` module extends the
