@@ -69,3 +69,6 @@ target/
 *psyplotguirc.yml
 *psyplotrc.yml
 *debug_psyplot.log*
+
+# conda build files
+recipe/meta.yaml
