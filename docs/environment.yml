@@ -12,6 +12,6 @@ dependencies:
     - pyqt
     - sphinx
     - pip:
-        - sphinx-argparse
+        - sphinx-argparse==0.1.17
         - fasteners
         - autodocsumm
