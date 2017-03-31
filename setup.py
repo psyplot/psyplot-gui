@@ -24,8 +24,13 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
+# read the version from version.py
+with open(osp.join('psyplot_gui', 'version.py')) as f:
+    exec(f.read())
+
+
 setup(name='psyplot-gui',
-      version='1.0.0.dev0',
+      version=__version__,
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
@@ -63,7 +68,14 @@ setup(name='psyplot-gui',
           osp.join('psyplot_gui', 'sphinx_supp', 'conf.py'),
           osp.join('psyplot_gui', 'sphinx_supp', 'psyplot.rst'),
           osp.join('psyplot_gui', 'sphinx_supp', '_static', '*'),
-          osp.join('psyplot_gui', 'icons', '*.png')]},
+          osp.join('psyplot_gui', 'icons', '*.png'),
+          # mac app files
+          osp.join('psyplot_gui', 'app', 'Psyplot.app', 'Contents', '*'),
+          osp.join('psyplot_gui', 'app', 'Psyplot.app', 'Contents',
+                   'Resources', '*'),
+          osp.join('psyplot_gui', 'app', 'Psyplot.app', 'Contents',
+                   'MacOs', '*'),
+          ]},
       include_package_data=True,
       tests_require=['pytest'],
       cmdclass={'test': PyTest},

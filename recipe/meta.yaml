@@ -1,0 +1,38 @@
+{% set path = PWD %}
+{% set version = VERSION %}
+{% set name = "psyplot-gui" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: file://{{ path }}/dist/{{ name }}-{{ version }}.tar.gz
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - psyplot
+    - qtconsole
+    - fasteners
+    - sphinx
+    - sphinx_rtd_theme
+
+test:
+  imports:
+    - psyplot_gui
+    - psyplot_gui.compat
+    - psyplot_gui.config
+    - psyplot_gui.sphinx_supp
+about:
+  home: https://github.com/Chilipp/psyplot-gui
+  license: GNU General Public License v2 (GPLv2)
+  summary: 'Graphical user interface for the psyplot package'
+  license_family: GPL2
+  license_file: LICENSE
+  doc_url: http://psyplot.readthedocs.io/projects/psyplot-gui
+  dev_url: https://github.com/Chilipp/psyplot-gui

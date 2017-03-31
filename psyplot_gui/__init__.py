@@ -1,4 +1,5 @@
 """Core package for the psyplot graphical user interface"""
+import os
 import os.path as osp
 import six
 import socket
@@ -17,9 +18,8 @@ from psyplot.config.rcsetup import get_configdir
 from psyplot.docstring import docstrings
 from psyplot.warning import warn
 from psyplot.compat.pycompat import map
+from psyplot_gui.version import __version__
 
-
-__version__ = "1.0.0.dev0"
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
 logger = logging.getLogger(__name__)
@@ -62,7 +62,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
               tight=False, encoding=None, new_instance=False, rc_file=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
-              exclude_plugins=rcParams['plugins.exclude'], offline=False):
+              exclude_plugins=rcParams['plugins.exclude'], offline=False,
+              pwd=None):
     """
     Eventually start the QApplication or only make a plot
 
@@ -91,7 +92,12 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     offline: bool
         If True/set, psyplot will be started in offline mode without
         intersphinx and remote access for the help explorer
+    pwd: str
+        The path to the working directory to use
     """
+
+    if pwd is not None:
+        os.chdir(pwd)
 
     if project is not None and (name != [] or dims is not None):
         warn('The `name` and `dims` parameter are ignored if the `project`'
@@ -227,6 +233,7 @@ def get_parser(create=True):
     parser.append2help('exclude_plugins', '. Default: %(default)s')
 
     parser.update_arg('offline', group=gui_grp)
+    parser.update_arg('pwd', group=gui_grp)
     parser.pop_key('offline', 'short')
 
     if psyplot.__version__ < '1.0':
