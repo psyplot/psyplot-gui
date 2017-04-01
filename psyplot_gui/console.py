@@ -160,7 +160,10 @@ class ConsoleWidget(RichJupyterWidget):
     def get_current_object(self, to_end=False):
         """Get the name of the object at cursor position"""
         c = self._control
-        cursor = c.textCursor()
+        try:  # qtconsole >4.3 uses the _prompt_cursor attribute
+            cursor = self._prompt_cursor
+        except AttributeError:
+            cursor = c._control.textCursor()
         curr = cursor.position()
         start = curr - cursor.positionInBlock()
         txt = c.toPlainText()[start:curr]

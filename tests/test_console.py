@@ -67,10 +67,13 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         c = self.window.console
         self.insert_text('print(test.anything(object')
         self.assertEqual(c.get_current_object(True), 'object')
-        cursor = c._control.textCursor()
+        try:  # qtconsole >4.3 uses the _prompt_cursor attribute
+            cursor = c._prompt_cursor
+        except AttributeError:
+            cursor = c._control.textCursor()
         curr = cursor.position()
         self.insert_text(') + 3')
-        cursor.movePosition(curr)
+        cursor.setPosition(curr)
         self.assertEqual(c.get_current_object(), 'object')
 
     def test_command(self):
