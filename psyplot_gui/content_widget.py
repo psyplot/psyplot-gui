@@ -422,7 +422,8 @@ class DatasetTree(QTreeWidget, DockMixin):
             else:
                 ds_desc['fname'] = None
             top_item.setText(0, '%s%i: %s' % (
-                '*' if any(arr in sp_arrs for arr in ds_desc['arr']) else '',
+                '*' if any(any(arr is arr2 for arr2 in sp_arrs)
+                           for arr in ds_desc['arr']) else '',
                 i, ds_desc['fname']))
             for arr in ds_desc['arr']:
                 arr.psy.onbasechange.connect(self.add_datasets_from_cp)
