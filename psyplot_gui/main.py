@@ -29,13 +29,13 @@ if backend is not None:
 from psyplot_gui.console import ConsoleWidget
 from psyplot_gui.compat.qtcompat import (
     QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget,
-    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox)
+    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon)
 from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
 from psyplot_gui.plot_creator import PlotCreator
 from psyplot_gui.help_explorer import HelpExplorer
 from psyplot_gui.fmt_widget import FormatoptionWidget
-from psyplot_gui.common import PyErrorMessage
+from psyplot_gui.common import PyErrorMessage, get_icon
 from psyplot_gui.preferences import (
     Prefences, GuiRcParamsWidget, PsyRcParamsWidget)
 from psyplot_gui.dependencies import DependenciesDialog
@@ -99,6 +99,7 @@ class MainWindow(QMainWindow):
             If True, the created mainwindow is show
         """
         super(MainWindow, self).__init__()
+        self.setWindowIcon(QIcon(get_icon('logo.png')))
 
         #: list of figures from the psyplot backend
         self.figures = []
@@ -530,7 +531,7 @@ class MainWindow(QMainWindow):
         versions['github'] = 'https://github.com/Chilipp/psyplot'
         versions['author'] = psyplot.__author__
         QMessageBox.about(
-            self, "About",
+            self, "About psyplot",
             u"""<b>psyplot: Interactive data visualization with python</b>
             <br>Copyright &copy; 2017- Philipp Sommer
             <br>Licensed under the terms of the GNU General Public License v2
