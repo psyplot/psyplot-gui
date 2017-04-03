@@ -4,14 +4,8 @@ from setuptools.command.test import test as TestCommand
 import sys
 
 
-setup_dir = osp.dirname(__file__)
-
-# is set down below
-__version__ = None
-
-
 def readme():
-    with open(osp.join(setup_dir, 'README.rst')) as f:
+    with open('README.rst') as f:
         return f.read()
 
 
@@ -31,7 +25,7 @@ class PyTest(TestCommand):
 
 
 # read the version from version.py
-with open(osp.join(setup_dir, 'psyplot_gui', 'version.py')) as f:
+with open(osp.join('psyplot_gui', 'version.py')) as f:
     exec(f.read())
 
 
