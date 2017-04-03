@@ -20,7 +20,7 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot_gui.common import get_icon, DockMixin, PyErrorMessage
 from IPython.core.oinspect import signature, getdoc
 import logging
-from psyplot_gui.common import get_module_path
+from psyplot_gui.common import get_module_path, StreamToLogger
 from tempfile import mkdtemp
 try:
     from sphinx.application import Sphinx
@@ -749,20 +749,6 @@ class UrlHelp(UrlBrowser, HelpMixin):
             obj=descriptor.obj).lines()
         return indent(super(UrlHelp, self).process_docstring(
             lines, descriptor))
-
-
-class StreamToLogger(object):
-    """
-    Fake file-like stream object that redirects writes to a logger instance.
-    """
-    def __init__(self, logger, log_level=logging.INFO):
-        self.logger = logger
-        self.log_level = log_level
-        self.linebuf = ''
-
-    def write(self, buf):
-        for line in buf.rstrip().splitlines():
-            self.logger.log(self.log_level, line.rstrip())
 
 
 class SphinxThread(QtCore.QThread):

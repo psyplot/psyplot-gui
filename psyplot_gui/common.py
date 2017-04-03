@@ -4,12 +4,8 @@ import traceback as tb
 import os.path as osp
 from psyplot_gui.compat.qtcompat import (
     QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget)
-import six
-
-if six.PY2:
-    from StringIO import StringIO
-else:
-    from io import StringIO
+import logging
+from io import StringIO
 
 
 def get_module_path(modname):
@@ -118,3 +114,17 @@ class PyErrorMessage(QErrorMessage):
         height = self.sizeHint().height()
         # The plot creator window should cover at least one third of the screen
         self.resize(max(available_width, width), max(available_height, height))
+
+
+class StreamToLogger(object):
+    """
+    Fake file-like stream object that redirects writes to a logger instance.
+    """
+    def __init__(self, logger, log_level=logging.INFO):
+        self.logger = logger
+        self.log_level = log_level
+        self.linebuf = ''
+
+    def write(self, buf):
+        for line in buf.rstrip().splitlines():
+            self.logger.log(self.log_level, line.rstrip())

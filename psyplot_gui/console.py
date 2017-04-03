@@ -6,16 +6,22 @@ Based on the earlier example in the IPython repository, this has
 been updated to use qtconsole.
 """
 import re
+import sys
+from io import StringIO
 
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
 from psyplot_gui.compat.qtcompat import (
     with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence)
+from psyplot_gui.common import StreamToLogger
 import psyplot
 import psyplot_gui
 from psyplot_gui import rcParams
 import psyplot.project as psy
 from psyplot.docstring import dedents
+
+
+import logging
 
 
 modules2import = [
@@ -25,6 +31,9 @@ modules2import = [
     ('numpy', 'np')]
 
 symbols_patt = re.compile(r"[^\'\"a-zA-Z0-9_.]")
+
+
+logger = logging.getLogger(__name__)
 
 
 class IPythonControl(QTextEdit):
@@ -62,7 +71,17 @@ class ConsoleWidget(RichJupyterWidget):
             :class:`qtconsole.rich_jupyter_widget.RichJupyterWidget`
         """
         kernel_manager = QtInProcessKernelManager()
+        # on windows, sys.stdout may be None when using pythonw.exe. Therefore
+        # we just us a StringIO for security
+        orig_stdout = sys.stdout
+        if sys.stdout is None:
+            sys.stdout = StreamToLogger(logger)
+        orig_stderr = sys.stderr
+        if sys.stderr is None:
+            sys.stderr = StreamToLogger(logger)
         kernel_manager.start_kernel(show_banner=False)
+        sys.stdout = orig_stdout
+        sys.stderr = orig_stderr
         kernel = kernel_manager.kernel
         kernel.gui = 'qt4' if not with_qt5 else 'qt'
 
