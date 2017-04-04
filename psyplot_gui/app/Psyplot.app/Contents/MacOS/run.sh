@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # if psyplot-bins.txt is existent, loop through it until an existing binary is
 # found
