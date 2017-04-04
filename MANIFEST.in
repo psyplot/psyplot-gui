@@ -4,6 +4,8 @@ include psyplot_gui/sphinx_supp/_static/*
 include psyplot_gui/sphinx_supp/conf.py
 include psyplot_gui/sphinx_supp/psyplot.rst
 include psyplot_gui/icons/*.png
+include psyplot_gui/app/*
+include psyplot_gui/app/Psyplot.app/*
 include psyplot_gui/app/Psyplot.app/Contents/*
 include psyplot_gui/app/Psyplot.app/Contents/Resources/*
 include psyplot_gui/app/Psyplot.app/Contents/MacOs/*
