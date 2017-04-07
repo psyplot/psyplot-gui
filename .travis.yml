@@ -5,6 +5,10 @@ matrix:
         - PYTHON_VERSION=2.7
         - QT_VERSION=4
       os: linux
+    - env:
+        - PYTHON_VERSION=2.7
+        - QT_VERSION=5
+      os: linux
     - env: 
         - PYTHON_VERSION=3.5
         - QT_VERSION=4
@@ -20,6 +24,10 @@ matrix:
     - env:
         - PYTHON_VERSION=2.7
         - QT_VERSION=4
+      os: osx
+    - env:
+        - PYTHON_VERSION=2.7
+        - QT_VERSION=5
       os: osx
     - env: 
         - PYTHON_VERSION=3.6
