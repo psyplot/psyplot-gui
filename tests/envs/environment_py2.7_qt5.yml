@@ -1,4 +1,4 @@
-name: psyplot_gui_py2.7_qt5
+name: psyplot_gui_py2.7_qt4
 channels:
     - chilipp
     - conda-forge
