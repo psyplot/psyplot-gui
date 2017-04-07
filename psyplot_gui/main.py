@@ -641,19 +641,19 @@ class MainWindow(QMainWindow):
 
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims', 'encoding')
+        'name', 'dims', 'encoding', 'enable_post')
 
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
                             plot_method=None, name=None, dims=None,
-                            encoding=None):
+                            encoding=None, enable_post=False):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post)s
         """
         if project is not None:
             fnames = [s.split(',') for s in fnames]
@@ -662,7 +662,8 @@ class MainWindow(QMainWindow):
             alternative_paths.update(list(l for l in fnames if len(l) == 2))
             p = psy.Project.load_project(
                 project, alternative_paths=alternative_paths,
-                engine=engine, main=not psy.gcp(), encoding=encoding)
+                engine=engine, main=not psy.gcp(), encoding=encoding,
+                enable_post=enable_post)
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
         else:
@@ -686,7 +687,8 @@ class MainWindow(QMainWindow):
     @docstrings.get_sectionsf('MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None, encoding=None, show=True):
+            name=None, dims=None, encoding=None, show=True,
+            enable_post=False):
         """
         Create a mainwindow and open the given files or project
 
@@ -712,7 +714,8 @@ class MainWindow(QMainWindow):
         _set_mainwindow(mainwindow)
         if fnames or project:
             mainwindow.open_external_files(
-                fnames, project, engine, plot_method, name, dims, encoding)
+                fnames, project, engine, plot_method, name, dims, encoding,
+                enable_post)
         psyplot.with_gui = True
         return mainwindow
 

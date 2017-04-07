@@ -60,8 +60,9 @@ def get_versions(requirements=True):
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
-              tight=False, encoding=None, new_instance=False, rc_file=None,
-              rc_gui_file=None, include_plugins=rcParams['plugins.include'],
+              tight=False, encoding=None, enable_post=False, 
+              new_instance=False, rc_file=None, rc_gui_file=None, 
+              include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None):
     """
@@ -123,7 +124,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
             fnames=fnames, name=name, dims=dims, plot_method=plot_method,
             output=output, project=project, engine=engine,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
-            encoding=encoding)
+            encoding=encoding, enable_post=enable_post)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -140,7 +141,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         atexit.register(lock.release)
     elif not new_instance:
         send_files_to_psyplot(fnames, project, engine, plot_method, name, dims,
-                              encoding)
+                              encoding, enable_post)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -151,7 +152,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     if project is not None:
         project = _get_abs_names([project])[0]
     MainWindow.run_app(fnames, project, engine, plot_method, name, dims,
-                       encoding)
+                       encoding, enable_post)
 
 
 def send_files_to_psyplot(fnames, project, *args):
