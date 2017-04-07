@@ -17,10 +17,6 @@ matrix:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
       os: linux
-    - env:
-        - PYTHON_VERSION=2.7
-        - QT_VERSION=4
-      os: osx
     - env: 
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
