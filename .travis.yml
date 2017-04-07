@@ -1,14 +1,26 @@
-language: python
+language: generic
 matrix:
   include:
-    - python: "2.7"
-      env: QT_VERSION=4
-    - python: "3.5"
-      env: QT_VERSION=4
-    - python: "3.5"
-      env: QT_VERSION=5
-    - python: "3.6"
-      env: QT_VERSION=5
+    - env:
+        - PYTHON_VERSION=2.7
+        - QT_VERSION=4
+      os: linux
+    - env: 
+        - PYTHON_VERSION=3.5
+        - QT_VERSION=4
+      os: linux
+    - env: 
+        - PYTHON_VERSION=3.5
+        - QT_VERSION=5
+      os: linux
+    - env: 
+        - PYTHON_VERSION=3.6
+        - QT_VERSION=5
+      os: linux
+    - env: 
+        - PYTHON_VERSION=3.6
+        - QT_VERSION=5
+      os: osx
 addons:
   apt:
     sources:
@@ -16,12 +28,18 @@ addons:
     packages:
     - libstdc++6
 install:
+  # select the os name for the conda installer
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+        OS_NAME=MacOSX;
+    else
+        OS_NAME=Linux;
+    fi
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+  - if [[ "$PYTHON_VERSION" == "2.7" ]]; then
+        wget https://repo.continuum.io/miniconda/Miniconda2-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
     else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
     fi
   - 'echo "backend : module://psyplot_gui.backend" > matplotlibrc'
   - bash miniconda.sh -b -p $HOME/miniconda
@@ -32,7 +50,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - 'ENVKEY=py"${TRAVIS_PYTHON_VERSION}"_qt"${QT_VERSION}"'
+  - 'ENVKEY=py"${PYTHON_VERSION}"_qt"${QT_VERSION}"'
 
   - conda env create -f tests/envs/environment_$ENVKEY.yml
   - source activate psyplot_gui_$ENVKEY
@@ -57,9 +75,11 @@ install:
   - psyplot -aV
 
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+        export "DISPLAY=:99.0";
+        sh -e /etc/init.d/xvfb start;
+        sleep 3;
+    fi
 
 script:
   - coverage run --source=psyplot_gui setup.py test -a "-vs"
