@@ -68,7 +68,7 @@ install:
   - source activate psyplot_gui_$ENVKEY
   # install pyqt5 via pip because the conda version does not have
   # QtWebEngineWidgets
-  - if [[ $QT_VERSION == 5 and $PYTHON_VERSION != 2.7 ]]; then
+  - if [[ $QT_VERSION == 5 ]]; then
       pip install pyqt5;
     fi
   # checkout the current psyplot version via git
