@@ -15,6 +15,10 @@ matrix:
       os: linux
     - env: 
         - PYTHON_VERSION=3.6
+        - QT_VERSION=4
+      os: linux
+    - env:
+        - PYTHON_VERSION=3.6
         - QT_VERSION=5
       os: linux
     - env: 
