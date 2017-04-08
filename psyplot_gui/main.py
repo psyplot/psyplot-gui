@@ -687,8 +687,7 @@ class MainWindow(QMainWindow):
     @docstrings.get_sectionsf('MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None, encoding=None, show=True,
-            enable_post=False):
+            name=None, dims=None, encoding=None, enable_post=False, show=True):
         """
         Create a mainwindow and open the given files or project
 
