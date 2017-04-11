@@ -64,7 +64,7 @@ install:
       pip install pyqt5;
     fi
   # checkout the current psyplot version via git
-  - git clone "https://github.com/Chilipp/psyplot.git" -b $TRAVIS_BRANCH
+  - git clone "https://github.com/Chilipp/psyplot.git" -b $TRAVIS_BRANCH || git clone "https://github.com/Chilipp/psyplot.git"
   - cd psyplot && python setup.py install && cd .. && rm -rf psyplot
   # use the branch from psy-simple
   - git clone "https://github.com/Chilipp/psy-simple.git" -b $TRAVIS_BRANCH || git clone "https://github.com/Chilipp/psy-simple.git"
