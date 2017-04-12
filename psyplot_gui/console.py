@@ -23,6 +23,10 @@ from psyplot.docstring import dedents
 
 import logging
 
+#: HACK: Boolean that is True if the prompt should be used. This unfortunately
+#: is necessary for qtconsole >= 4.3 when running the tests
+_with_prompt = True
+
 
 modules2import = [
     ('psyplot.project', 'psy'),
@@ -179,10 +183,13 @@ class ConsoleWidget(RichJupyterWidget):
     def get_current_object(self, to_end=False):
         """Get the name of the object at cursor position"""
         c = self._control
-        try:  # qtconsole >4.3 uses the _prompt_cursor attribute
-            cursor = self._prompt_cursor
-        except AttributeError:
-            cursor = c._control.textCursor()
+        if not _with_prompt:
+            try:  # qtconsole >4.3 uses the _prompt_cursor attribute
+                cursor = self._prompt_cursor
+            except AttributeError:
+                cursor = c.textCursor()
+        else:
+            cursor = c.textCursor()
         curr = cursor.position()
         start = curr - cursor.positionInBlock()
         txt = c.toPlainText()[start:curr]

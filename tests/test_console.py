@@ -15,6 +15,20 @@ travis_qt_msg = "Does not work on Travis with Qt4"
 class ConsoleTest(bt.PsyPlotGuiTestCase):
     """A testcase to test the InProcess IPython console of the psyplot GUI"""
 
+    def setUp(self):
+        import psyplot_gui.console
+        # XXX HACK: Set the _with_prompt attribute to False to tell the
+        # ConsoleWidget to use the _prompt_cursor
+        psyplot_gui.console._with_prompt = False
+        super(ConsoleTest, self).setUp()
+
+    def tearDown(self):
+        import psyplot_gui.console
+        # XXX HACK: Set the _with_prompt attribute to True again to tell the
+        # ConsoleWidget to use the _prompt_cursor
+        psyplot_gui.console._with_prompt = True
+        super(ConsoleTest, self).tearDown()
+
     def insert_text(self, text):
         """Convenience method to insert a single line into the console"""
         c = self.window.console
