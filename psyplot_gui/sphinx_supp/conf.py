@@ -126,10 +126,8 @@ intersphinx_mapping = {
     'psyplot': ('http://psyplot.readthedocs.io/en/latest/', None),
     'psyplot_gui': ('http://psyplot_gui.readthedocs.io/en/latest/', None),
 }
-if six.PY34:
-    intersphinx_mapping['python'] = ('https://docs.python.org/3.4/', None)
-elif six.PY34:
-    intersphinx_mapping['python'] = ('https://docs.python.org/3.5/', None)
+if six.PY3:
+    intersphinx_mapping['python'] = ('https://docs.python.org/3.6/', None)
 else:
     intersphinx_mapping['python'] = ('https://docs.python.org/2.7/', None)
 
