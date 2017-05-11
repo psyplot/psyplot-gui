@@ -7,12 +7,11 @@ been updated to use qtconsole.
 """
 import re
 import sys
-from io import StringIO
 
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
 from psyplot_gui.compat.qtcompat import (
-    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence)
+    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence, asstring)
 from psyplot_gui.common import StreamToLogger
 import psyplot
 import psyplot_gui
@@ -205,6 +204,7 @@ class ConsoleWidget(RichJupyterWidget):
 
         if not txt:
             return txt
+        txt = asstring(txt)
         txt = txt.rsplit('\n', 1)[-1]
         txt_end = ""
         for startchar, endchar in ["[]", "()"]:

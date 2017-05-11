@@ -6,7 +6,7 @@ import os.path as osp
 import _base_testing as bt
 import dummy_module as d
 from psyplot_gui import rcParams
-from psyplot_gui.compat.qtcompat import QTest, Qt, with_qt5
+from psyplot_gui.compat.qtcompat import QTest, Qt, asstring
 from psyplot_gui.help_explorer import html2file
 
 
@@ -69,7 +69,7 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         """Test browsing"""
         rcParams['help_explorer.online'] = True
         self.viewer.browse('www.google.de')
-        url = self.viewer.html.url().toString()
+        url = asstring(self.viewer.html.url().toString())
         self.assertTrue(url.startswith('https://www.google.de'),
                         msg='Wrong url ' + url)
 

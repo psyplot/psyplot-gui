@@ -15,7 +15,7 @@ from psyplot.utils import _temp_bool_prop
 from psyplot_gui.config.rcsetup import rcParams
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,
-    QIcon, QtCore, QComboBox, Qt,  QSortFilterProxyModel,
+    QIcon, QtCore, QComboBox, Qt,  QSortFilterProxyModel, isstring, asstring,
     QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5)
 from psyplot_gui.common import get_icon, DockMixin, PyErrorMessage
 from IPython.core.oinspect import signature, getdoc
@@ -54,7 +54,7 @@ except ImportError:
 
 
 def html2file(url):
-    p = urlparse(url)
+    p = urlparse(asstring(url))
     # skip the first '/' on windows platform
     return osp.abspath(osp.join(p.netloc,
                                 p.path[int(sys.platform == 'win32'):]))
@@ -606,6 +606,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
 
     def browse(self, url):
         """Reimplemented to add file paths to the url string"""
+        url = asstring(url)
         html_file = osp.join(self.sphinx_dir, '_build', 'html', url + '.html')
         if osp.exists(html_file):
             url = file2html(html_file)
@@ -625,7 +626,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
     def url_changed(self, url):
         """Reimplemented to remove file paths from the url string"""
         try:
-            url = url.toString()
+            url = asstring(url.toString())
         except AttributeError:
             pass
         if url.startswith('file://'):
@@ -876,16 +877,17 @@ class HelpExplorer(QWidget, DockMixin):
         name: str or object
             A string must be one of the :attr:`viewers` attribute. An object
             can be one of the values in the :attr:`viewers` attribute"""
-        if isinstance(name, six.string_types) and name not in self.viewers:
+        if isstring(name) and asstring(name) not in self.viewers:
             raise ValueError("Don't have a viewer named %s" % (name, ))
-        elif not isinstance(name, six.string_types):
+        elif not isstring(name):
             viewer = name
         else:
+            name = asstring(name)
             viewer = self.viewers[name]
         self.viewer.hide()
         self.viewer = viewer
         self.viewer.show()
-        if (isinstance(name, six.string_types) and
+        if (isstring(name) and
                 not self.combo.currentText() == name):
             self.combo.setCurrentIndex(list(self.viewers).index(name))
 
@@ -901,6 +903,7 @@ class HelpExplorer(QWidget, DockMixin):
         Parameters
         ----------
         %(HelpMixin.show_help.parameters)s"""
+        oname = asstring(oname)
         if self.viewer.can_document_object:
             try:
                 return self.viewer.show_help(obj, oname=oname)

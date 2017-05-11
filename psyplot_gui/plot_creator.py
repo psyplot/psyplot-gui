@@ -21,9 +21,9 @@ from psyplot.compat.pycompat import map, range, filter, OrderedDict
 from psyplot_gui.compat.qtcompat import (
     QWidget, QComboBox, QHBoxLayout, QVBoxLayout, QFileDialog, QToolButton,
     QIcon, Qt, QListView, QtCore, with_qt5, QAbstractItemView, QPushButton,
-    QLabel, QValidator, QStyledItemDelegate, QLineEdit, QCheckBox,
+    QLabel, QValidator, QStyledItemDelegate, QLineEdit, QCheckBox, isstring,
     QTableWidget, QTableWidgetItem, QGridLayout, QIntValidator, QMenu, QAction,
-    QInputDialog, QTabWidget, QDoubleValidator, QGraphicsScene,
+    QInputDialog, QTabWidget, QDoubleValidator, QGraphicsScene, asstring,
     QGraphicsRectItem, QGraphicsView, QDialog, QDialogButtonBox, QSplitter)
 from psyplot_gui.common import get_icon, ListValidator, PyErrorMessage
 from psyplot_gui.preferences import RcParamsTree
@@ -170,11 +170,13 @@ class ArrayNameValidator(QValidator):
         self.current_names = list(table.current_names)
 
     def fixup(self, s):
+        s = asstring(s)
         if not s:
             return self.table.next_available_name()
         return self.table.next_available_name(s + '_{0}')
 
     def validate(self, s, pos):
+        s = asstring(s)
         if not s:
             return QValidator.Intermediate, s, pos
         elif s == self.current_text:
@@ -546,7 +548,7 @@ class ArrayTable(DragDropTable):
         """The names that are currently in use"""
         if self.prefer_list:
             return []
-        return [item.text() for item in filter(None, map(
+        return [asstring(item.text()) for item in filter(None, map(
             lambda i: self.item(i, 1), range(self.rowCount())))]
 
     @property
@@ -556,7 +558,7 @@ class ArrayTable(DragDropTable):
         :meth:`psyplot.data.ArrayList.from_dataset` method """
         ret = OrderedDict()
         for irow in range(self.rowCount()):
-            arr_name = self.item(irow, 1).text()
+            arr_name = asstring(self.item(irow, 1).text())
             if self.plot_method and self.plot_method._prefer_list:
                 d = ret.setdefault(arr_name, defaultdict(list))
                 d['name'].append(self._get_variables(irow))
@@ -698,6 +700,7 @@ class ArrayTable(DragDropTable):
 
     def insert_array(self, name, check=True, **kwargs):
         """Appends the settings for an array the the list in a new row"""
+        name = asstring(name)
         dims = set(self.get_ds().variables[name].dims)
         irow = self.rowCount()
         self.setRowCount(irow + 1)
@@ -739,12 +742,13 @@ class ArrayTable(DragDropTable):
         irows = {item.row() for item in self.selectedItems()}
         var_col = self.desc_cols.index(self.VARIABLE_LABEL)
         for irow in irows:
-            vname = self.item(irow, var_col).text().split(self.sep)[0].strip()
+            vname = asstring(
+                self.item(irow, var_col).text()).split(self.sep)[0].strip()
             var_dims = set(ds.variables[vname].dims)
             for dim in var_dims.intersection(dims):
                 icol = len(self.desc_cols) + self.dims.index(dim)
                 item = self.item(irow, icol)
-                curr_text = item.text()
+                curr_text = asstring(item.text())
                 if curr_text:
                     curr_text += ', '
                 item.setText(curr_text + dims[dim])
@@ -862,7 +866,7 @@ class ArrayTable(DragDropTable):
 
     def axes_info(self, s):
         """Interpretes an axes information"""
-        s = s if isinstance(s, six.string_types) else s.text()
+        s = asstring(s) if isstring(s) else asstring(s.text())
         m = self.subplot_patt.match(s)
         if m:
             return 'subplot', list(map(int, m.groups()))
@@ -874,6 +878,7 @@ class ArrayTable(DragDropTable):
 
     def set_pm(self, s):
         """Set the plot method"""
+        s = asstring(s)
         self.plot_method = getattr(psy.plot, s, None)
         self.check_arrays()
 
@@ -947,7 +952,7 @@ class ArrayTable(DragDropTable):
         # ---------------------------------------------------------------------
 
         var_item = self.item(row, self.desc_cols.index(self.VARIABLE_LABEL))
-        if var_item is not None and not var_item.text().strip():
+        if var_item is not None and not asstring(var_item.text()).strip():
             valid = False
             msg = 'At least one variable name must be provided!'
 
@@ -1009,7 +1014,7 @@ class ArrayTable(DragDropTable):
                              map(lambda col: self.item(row, col),
                                  range(start, self.columnCount()))):
             if item:
-                text = item.text()
+                text = asstring(item.text())
                 if text:
                     slices = list(
                         chain(*map(self._str2slice, text.split(','))))
@@ -1020,8 +1025,8 @@ class ArrayTable(DragDropTable):
 
     def _get_variables(self, row):
         var_col = self.desc_cols.index(self.VARIABLE_LABEL)
-        ret = [s.strip() for s in self.item(row, var_col).text().split(
-            self.sep)]
+        ret = [s.strip() for s in asstring(
+                   self.item(row, var_col).text()).split(self.sep)]
         if len(ret) == 1:
             return ret[0]
         return ret

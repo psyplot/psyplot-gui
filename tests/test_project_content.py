@@ -6,7 +6,7 @@ import _base_testing as bt
 import xarray as xr
 import psyplot.data as psyd
 import psyplot.project as psy
-from psyplot_gui.compat.qtcompat import QTest, Qt, QDialogButtonBox
+from psyplot_gui.compat.qtcompat import QTest, Qt, QDialogButtonBox, asstring
 
 
 class ProjectContentTest(bt.PsyPlotGuiTestCase):
@@ -54,11 +54,12 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
             self.assertEqual(l.count(), d[name],
                              msg='Wrong number of arrays in %s' % name)
             if name == 'plot2d':
-                self.assertEqual(l.item(0).text(), sp[0].psy._short_info(),
+                self.assertEqual(asstring(l.item(0).text()),
+                                 sp[0].psy._short_info(),
                                  msg='Wrong text in plot2d')
             else:
                 self.assertEqual(
-                    l.item(d[name] - 1).text(), sp2[0]._short_info(),
+                    asstring(l.item(d[name] - 1).text()), sp2[0]._short_info(),
                     msg='Wrong text in %s' % name)
         self.assertEqual(self._selected_rows('plot2d'), [],
                          msg='Array in %s is wrongly selected!' % name)
@@ -79,11 +80,13 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
     def test_select_all_button(self):
         """Test whether the subproject is changed correctly when selecting all
         """
+        self.window.showMaximized()
         sp = psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m',
                              time=[0, 1])
         psy.scp(None)
         QTest.mouseClick(self.project_content.select_all_button, Qt.LeftButton)
-        self.assertIs(psy.gcp()[0], sp[0])
+        self.assertIs(psy.gcp()[0], sp[0],
+                      msg='actual: %s, expected: %s' % (psy.gcp(), sp))
         self.assertIs(psy.gcp()[1], sp[1])
         self.assertEqual(self._selected_rows('All'), [0, 1],
                          msg='Not all arrays selected!')
@@ -91,6 +94,7 @@ class ProjectContentTest(bt.PsyPlotGuiTestCase):
     def test_unselect_all_button(self):
         """Test whether the subproject is changed cleared when unselecting all
         """
+        self.window.showMaximized()
         psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m',
                         time=[0, 1])
         # test whether the current subproject is not empty
@@ -126,7 +130,7 @@ class FiguresTreeTest(bt.PsyPlotGuiTestCase):
             figs = iter(sp.figs)
             for item in map(self.tree.topLevelItem,
                             range(self.tree.topLevelItemCount())):
-                self.assertEqual(item.text(0),
+                self.assertEqual(asstring(item.text(0)),
                                  next(figs).canvas.get_window_title(), msg=msg)
         sp = psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m',
                              time=[0, 1])
@@ -140,10 +144,10 @@ class FiguresTreeTest(bt.PsyPlotGuiTestCase):
             arrays = iter(sp)
             for i, (fig, val) in enumerate(sp.figs.items()):
                 top = self.tree.topLevelItem(i)
-                self.assertEqual(top.text(0),
+                self.assertEqual(asstring(top.text(0)),
                                  fig.canvas.get_window_title())
                 for child in map(top.child, range(top.childCount())):
-                    self.assertEqual(child.text(0),
+                    self.assertEqual(asstring(child.text(0)),
                                      next(arrays).psy._short_info(), msg=msg)
         sp = psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m',
                              time=[0, 1, 2], ax=(1, 2))
@@ -173,18 +177,18 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         ds2 = sp2[0].psy.base
 
         self.assertEqual(self.tree.topLevelItemCount(), 2)
-        self.assertEqual(self._get_toplevel_item(ds1).text(0), '%i: %s' % (
-                             count - 1, fname))
-        self.assertEqual(self._get_toplevel_item(ds2).text(0), '*%i: %s' % (
-                             count, fname))
+        self.assertEqual(asstring(self._get_toplevel_item(ds1).text(0)),
+                         '%i: %s' % (count - 1, fname))
+        self.assertEqual(asstring(self._get_toplevel_item(ds2).text(0)),
+                         '*%i: %s' % (count, fname))
         psy.scp(sp1)
-        self.assertEqual(self._get_toplevel_item(ds1).text(0), '*%i: %s' % (
-                             count - 1, fname))
-        self.assertEqual(self._get_toplevel_item(ds2).text(0), '%i: %s' % (
-                             count, fname))
+        self.assertEqual(asstring(self._get_toplevel_item(ds1).text(0)),
+                         '*%i: %s' % (count - 1, fname))
+        self.assertEqual(asstring(self._get_toplevel_item(ds2).text(0)),
+                         '%i: %s' % (count, fname))
         sp2.close(True, True)
-        self.assertEqual(self._get_toplevel_item(ds1).text(0), '*%i: %s' % (
-                             count - 1, fname))
+        self.assertEqual(asstring(self._get_toplevel_item(ds1).text(0)),
+                         '*%i: %s' % (count - 1, fname))
         self.assertEqual(self.tree.topLevelItemCount(), 1)
 
     def _get_toplevel_item(self, ds):
@@ -204,12 +208,12 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         variables = set(ds.variables) - coords
         for child in map(toplevel.variables.child,
                          range(toplevel.variables.childCount())):
-            variables.remove(child.text(0))
+            variables.remove(asstring(child.text(0)))
         self.assertEqual(len(variables), 0, msg='Variables not found: %s' % (
             variables))
         for child in map(toplevel.coords.child,
                          range(toplevel.coords.childCount())):
-            coords.remove(child.text(0))
+            coords.remove(asstring(child.text(0)))
         self.assertEqual(len(coords), 0, msg='Coordinates not found: %s' % (
             coords))
 
