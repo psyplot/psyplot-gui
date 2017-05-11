@@ -9,7 +9,7 @@ from psyplot_gui.compat.qtcompat import (
     QWidget, QVBoxLayout, QHBoxLayout, QtCore, QDialog, QScrollArea,
     QDialogButtonBox, QStackedWidget, QListWidget, QListView, QSplitter,
     QListWidgetItem, QPushButton, QFileDialog, with_qt5,
-    QAbstractItemView, QToolButton, QLabel, QtGui)
+    QAbstractItemView, QToolButton, QLabel, QtGui, asstring)
 from psyplot_gui.common import get_icon
 from psyplot_gui import rcParams as rcParams
 from psyplot.config.rcsetup import (
@@ -169,7 +169,7 @@ class RcParamsTree(QTreeWidget):
             The function that can be called to set the correct icon"""
         def func():
             editor = self.itemWidget(item.child(0), self.value_col)
-            s = editor.toPlainText()
+            s = asstring(editor.toPlainText())
             try:
                 val = yaml.load(s)
             except Exception as e:
@@ -298,9 +298,9 @@ class RcParamsTree(QTreeWidget):
         rc = self.rc
         filter_func = filter_func or no_check
         for item in self.top_level_items:
-            key = item.text(0)
+            key = asstring(item.text(0))
             editor = self.itemWidget(item.child(0), self.value_col)
-            val = yaml.load(editor.toPlainText())
+            val = yaml.load(asstring(editor.toPlainText()))
             try:
                 val = rc.validate[key](val)
             except:

@@ -63,7 +63,9 @@ class ArrayItem(QListWidgetItem):
             self.disconnect_from_array()
 
     def disconnect_from_array(self):
-        self.arr().onupdate.disconnect(self.set_text_from_array)
+        arr = self.arr()
+        if arr is not None:
+            arr.onupdate.disconnect(self.set_text_from_array)
         del self.arr
 
 
@@ -513,7 +515,9 @@ class FiguresTreeItem(QTreeWidgetItem):
 
     def disconnect_from_array(self):
         """Disconect this item from the corresponding array"""
-        self.arr().psy.onupdate.disconnect(self.set_text_from_array)
+        arr = self.arr()
+        if arr is not None:
+            arr.psy.onupdate.disconnect(self.set_text_from_array)
         del self.arr
 
 

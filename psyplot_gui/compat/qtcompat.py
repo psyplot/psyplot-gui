@@ -2,6 +2,8 @@
 
 # make sure that the right pyqt version suitable for the IPython console is
 # loaded
+import six
+
 try:
     from qtconsole.rich_jupyter_widget import RichJupyterWidget
 except ImportError:
@@ -32,6 +34,17 @@ except ImportError:
     from PyQt4.Qt import QT_VERSION_STR as QT_VERSION
     with_qt5 = False
     QSignalSpy = None
+
+    try:
+        from PyQt4.QtCore import QString, QByteArray
+    except ImportError:
+        def isstring(s):
+            return isinstance(s, six.string_types)
+    else:
+        def isstring(s):
+            return isinstance(
+                s, tuple(list(six.string_types) + [QString, QByteArray]))
+
 else:
     from PyQt5.QtWidgets import (
         QMainWindow, QDockWidget, QToolBox, QApplication, QListWidget,
@@ -59,3 +72,10 @@ else:
     from PyQt5.Qt import PYQT_VERSION_STR as PYQT_VERSION
     from PyQt5.Qt import QT_VERSION_STR as QT_VERSION
     with_qt5 = True
+
+    def isstring(s):
+        return isinstance(s, six.string_types)
+
+
+def asstring(s):
+    return six.text_type(s)

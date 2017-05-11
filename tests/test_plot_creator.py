@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """Skript to test the InProcessShell that is used in the psyplot gui"""
 import sys
+import six
 import unittest
 from itertools import chain
 import _base_testing as bt
 import psyplot.project as psy
 from psyplot.compat.pycompat import range
 from psyplot_gui.compat.qtcompat import (
-    QTest, Qt, QStyleOptionViewItem, QWidget, QValidator, QtGui, QtCore)
+    QTest, Qt, QStyleOptionViewItem, QWidget, QValidator, QtGui, QtCore,
+    asstring)
 
 
 class PlotCreatorTest(bt.PsyPlotGuiTestCase):
@@ -34,7 +36,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         ds = psy.open_dataset(fname)
         self.assertIn(fname, self.pc.ds_combo.currentText())
         self.assertEqual(
-            {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
+            {asstring(vtab.item(irow, 0).text()) for irow in range(
+                vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
         ds.close()
 
@@ -51,7 +54,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.pc.get_ds_from_shell('ds')
         self.assertIn('ds', self.pc.ds_combo.currentText())
         self.assertEqual(
-            {vtab.item(irow, 0).text() for irow in range(vtab.rowCount())},
+            {asstring(vtab.item(irow, 0).text()) for irow in range(
+                vtab.rowCount())},
             set(ds.variables) - set(ds.coords))
         ds.close()
         self.window.console.execute("ds.close()")
@@ -64,8 +68,10 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         atab = self.pc.array_table
         vtab = self.pc.variables_table
         self.assertEqual(
-            [atab.item(irow, 0).text() for irow in range(atab.rowCount())],
-            [vtab.item(irow, 0).text() for irow in range(vtab.rowCount())])
+            [asstring(atab.item(irow, 0).text()) for irow in range(
+                atab.rowCount())],
+            [asstring(vtab.item(irow, 0).text()) for irow in range(
+                vtab.rowCount())])
 
     def test_minusminus(self):
         """Test the remove all button"""
@@ -84,8 +90,9 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
             vtab.item(row, 0).setSelected(True)
         QTest.mouseClick(self.pc.bt_add, Qt.LeftButton)
         self.assertEqual(
-            [atab.item(irow, 0).text() for irow in range(atab.rowCount())],
-            [vtab.item(irow, 0).text() for irow in rows])
+            [asstring(atab.item(irow, 0).text()) for irow in range(
+                atab.rowCount())],
+            [asstring(vtab.item(irow, 0).text()) for irow in rows])
 
     def test_minus(self):
         """Test the minus button"""
@@ -97,10 +104,11 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         for row in rows:
             atab.item(row, 0).setSelected(True)
         QTest.mouseClick(self.pc.bt_remove, Qt.LeftButton)
-        variables = [vtab.item(row, 0).text() for row in range(vtab.rowCount())
-                     if row not in rows]
+        variables = [asstring(vtab.item(row, 0).text())
+                     for row in range(vtab.rowCount()) if row not in rows]
         self.assertEqual(
-            [atab.item(irow, 0).text() for irow in range(atab.rowCount())],
+            [asstring(atab.item(irow, 0).text()) for irow in range(
+                atab.rowCount())],
             variables)
 
     def test_update_with_dims(self):
@@ -312,6 +320,10 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     def test_variablename_validator(self):
         """Test the :class:`psyplot_gui.plot_creator.VariableItemDelegate`"""
         # open dataset
+        try:
+            from psyplot_gui.compat.qtcompat import QString
+        except ImportError:
+            QString = six.text_type
         fname = self.get_file('test-t2m-u-v.nc')
         ds = psy.open_dataset(fname)
         self.pc.get_ds_from_shell(ds)
@@ -334,16 +346,19 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         validator = editor.validator()
 
         # check validation
-        self.assertEqual(validator.validate('dummy', 5)[0], QValidator.Invalid)
-        self.assertEqual(validator.validate(names[0], len(names[0]))[0],
+        self.assertEqual(validator.validate(QString('dummy'), 5)[0],
+                         QValidator.Invalid)
+        self.assertEqual(validator.validate(QString(names[0]),
+                                            len(names[0]))[0],
                          QValidator.Acceptable)
-        self.assertEqual(validator.validate(names[0][:2], 2)[0],
+        self.assertEqual(validator.validate(QString(names[0])[:2], 2)[0],
                          QValidator.Intermediate)
         s = atab.sep.join(names)
-        self.assertEqual(validator.validate(s, len(s))[0],
+        self.assertEqual(validator.validate(QString(s), len(s))[0],
                          QValidator.Acceptable)
         self.assertEqual(
-            validator.validate(s[:3] + 'dummy' + s[3:], len(s) + 5)[0],
+            validator.validate(
+                QString(s[:3] + 'dummy' + s[3:]), len(s) + 5)[0],
             QValidator.Invalid)
         ds.close()
 

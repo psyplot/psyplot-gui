@@ -8,7 +8,7 @@ import yaml
 import tempfile
 from itertools import islice
 import _base_testing as bt
-from psyplot_gui.compat.qtcompat import QTest, Qt, QDialogButtonBox
+from psyplot_gui.compat.qtcompat import QTest, Qt, QDialogButtonBox, asstring
 from psyplot_gui import rcParams as gui_rcParams
 from psyplot import rcParams as psy_rcParams
 from psyplot_gui.config.rcsetup import GuiRcParams
@@ -43,13 +43,13 @@ class TestRcParamsWidget(bt.PsyPlotGuiTestCase):
         # test keys
         keys = set(gui_rcParams)
         for item in items:
-            keys.remove(item.text(0))
+            keys.remove(asstring(item.text(0)))
         self.assertFalse(keys)
 
         # test values
         for item in items:
-            key = item.text(0)
-            s_val = w.tree.itemWidget(item.child(0), 2).toPlainText()
+            key = asstring(item.text(0))
+            s_val = asstring(w.tree.itemWidget(item.child(0), 2).toPlainText())
             val = yaml.load(s_val)
             self.assertEqual(val, gui_rcParams[key],
                              msg='Failed item %s: %s' % (key, s_val))
@@ -83,12 +83,13 @@ class TestRcParamsWidget(bt.PsyPlotGuiTestCase):
 
     def test_validation(self):
         """Test whether the validation works correctly"""
+        self.window.showMaximized()
         w = prefs.GuiRcParamsWidget()
         w.initialize()
 
         # choose an item
         for i, item in enumerate(w.tree.top_level_items):
-            if item.text(0) == 'console.auto_set_mp':
+            if asstring(item.text(0)) == 'console.auto_set_mp':
                 break
 
         self.assertTrue(w.is_valid, msg=w.tree.valid)
@@ -133,7 +134,7 @@ class TestRcParamsWidget(bt.PsyPlotGuiTestCase):
 
         for item in islice(w.tree.top_level_items, 0, None, 2):
             item.setSelected(True)
-            keys.append(item.text(0))
+            keys.append(asstring(item.text(0)))
 
         self.assertEqual(len(w.tree.selectedItems()), len(keys))
 
@@ -161,9 +162,9 @@ class TestRcParamsWidget(bt.PsyPlotGuiTestCase):
         keys = []
 
         for item in w.tree.top_level_items:
-            if item.text(0).startswith('help_explorer'):
+            if asstring(item.text(0)).startswith('help_explorer'):
                 item.setSelected(True)
-                keys.append(item.text(0))
+                keys.append(asstring(item.text(0)))
 
         self.assertEqual(len(w.tree.selectedItems()), len(keys))
 
