@@ -1,0 +1,47 @@
+# template for psyplot-gui recipe. Please change ``PWD`` and ``VERSION`` to the
+# correct path and version number. See also ci/enhance_recipe.pypackage:
+package:
+  name: psyplot-gui
+  version: VERSION
+
+source:
+  fn: psyplot-gui-VERSION.tar.gz
+  url: file://PWD/dist/psyplot-gui-VERSION.tar.gz
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - psyplot
+    - qtconsole
+    - fasteners
+    - sphinx
+    - sphinx_rtd_theme
+
+test:
+  imports:
+    - psyplot_gui
+    - psyplot_gui.compat
+    - psyplot_gui.config
+    - psyplot_gui.sphinx_supp
+
+app:
+  entry: psyplot
+  icon: logo.png
+  summary: Psyplot visualization software
+  type: desk
+
+about:
+  home: https://github.com/Chilipp/psyplot-gui
+  license: GNU General Public License v2 (GPLv2)
+  summary: 'Graphical user interface for the psyplot package'
+  license_family: GPL2
+  license_file: LICENSE
+  doc_url: http://psyplot.readthedocs.io/projects/psyplot-gui
+  dev_url: https://github.com/Chilipp/psyplot-gui
+  description: |
+    psyplot is an interactive python visualization framework for
+    multi-dimensional data. Being easy scriptable, it can also be used through
+    a graphical user interface.
