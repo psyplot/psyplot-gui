@@ -77,7 +77,6 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         """Test whether an html help of a python object can be shown"""
         self.help_explorer.show_help(obj, oname)
         fname = osp.join(self.viewer.sphinx_dir, oname + '.rst')
-        print(osp.exists(self.viewer.sphinx_dir))
         self.assertTrue(osp.exists(fname), msg=fname + " is not existent!")
         self._test_if_sphinx_worked(oname)
 
