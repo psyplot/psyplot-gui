@@ -65,6 +65,6 @@ test_script:
 after_test:
   - coverage report
   # deploy to anaconda cloud
-  - IF "%APPVEYOR_REPO_TAG_NAME%"!="" (
+  - IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
       python ci/deploy_anaconda.py
     )
