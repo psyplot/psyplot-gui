@@ -28,6 +28,10 @@ parser.add_argument('outdir', type=get_directory, help="""
     this directory already contains a `meta.template` file, this one will be
     used.""")
 
+parser.add_argument('-n', '--name',
+                    help=("The name of the package. If not specified, it will "
+                          "be inferred from the package path"))
+
 
 args = parser.parse_args()
 
@@ -48,7 +52,7 @@ outdir = args.outdir
 
 
 #: The name of the package
-package = osp.basename(path)
+package = args.name or osp.basename(path)
 
 #: Run setup.py sdist
 spr.check_call([sys.executable, 'setup.py', 'sdist'],
