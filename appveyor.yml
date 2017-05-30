@@ -51,7 +51,7 @@ install:
   # export the environment for debugging
   - conda env export -n psyplot_gui_%ENVKEY%
   # prepare the conda receipt
-  - python ci/recipe_from_setup.py . ci/conda_recipe
+  - python ci/recipe_from_setup.py ../psyplot-gui ci/conda_recipe
   # print versions of all the important requirements
   - psyplot -aV
   - endlocal
