@@ -37,7 +37,7 @@ addons:
 install:
   # Save the token to a local variable
   - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
-  - unset $CONDA_REPO_TOKEN
+  - unset CONDA_REPO_TOKEN
   # select the os name for the conda installer
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         OS_NAME=MacOSX;
