@@ -82,7 +82,7 @@ install:
   - pip install coveralls
   - python setup.py install
   # prepare the conda receipt
-  - python recipe_from_setup.py . ci/conda_recipe
+  - python ci/recipe_from_setup.py . ci/conda_recipe
   - conda env export -n psyplot_gui_$ENVKEY
   # print versions of all the important requirements
   - psyplot -aV
@@ -100,13 +100,13 @@ before_script:
 
 script:
   - coverage run --source=psyplot_gui setup.py test -a "-vs"
-  - conda build ci/conda_recipe --no-test
+  - conda build ci/conda_recipe --no-test --python $PYTHON_VERSION
 
 after_success:
   coveralls
 
 before_deploy:
-  - export BUILDS=`conda build --output ci/conda_recipe
+  - export BUILDS=`conda build --output ci/conda_recipe --python $PYTHON_VERSION
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       mkdir builds;
       conda convert -p linux-32 -o builds $BUILDS;
