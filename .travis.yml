@@ -103,7 +103,7 @@ before_script:
 
 script:
   - coverage run --source=psyplot_gui setup.py test -a "-vs"
-  - conda build ci/conda_recipe --no-test --python $PYTHON_VERSION
+  - conda build ci/conda_recipe/psyplot-gui --no-test --python $PYTHON_VERSION
 
 after_success:
   coveralls
