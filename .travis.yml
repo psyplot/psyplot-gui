@@ -1,19 +1,22 @@
 language: generic
+env:
+  global:
+    - secure: uVa4t/sEiCblQbSzzyamO21prHyZWJqDQJ1+f5IAe+5jRPChl/tLt1n8Bu4t+w56FSX1ejmnG6Ho+z10HV/j8ANno21uv7mlw7zfbqzYYnJjlaxCMNMs+GyaEKWkoFZZN96pb2fOwl0D3HEVSD+7FyDwOBWRZVlFXbOKpa6PYFWwm+6Zequpq3ARjn26emAsk8aBHbK5xrMLbfR6M3jzW7RAYobHmgwmHqa+SwOXJvvHdsR6tbCvY4dLRh5CiwXRPa9BNuFGtopjKiBvSrdGLLvTGN9Uxa9ewn7qDRbuZz9pKS7IdKZhQUSrL2xn6tFS4TWq8t56VUuFwKDcR7/KM+P549ZDvJxXUZaczfWFKjD3+KjnZ9d9U5gPwBJ5EY9W9MD9juAL1w1sn8pzPa8qBhzPea1Iecp0vyTytwUWtkUsGeo47oEPcxSpvKxkN50EoRDzWBKJ9dDwKvkgBFMef82n6OaQbvZ7uqOONd4pQtpz2/NSw2xbPNVGWXsh1Wq/81kQ5kv7SHgzMpT1/PzJBZzt1E4cggUtTjAr8Oxe/rJtb9GR07nMSABacq0aJN06qN60ajY7OYQHCH/jtKOYAzq1OdhFEBFDXLoP/6P84aARjxZ27R7MZZsKxCOKRcuGLwGes/LWZzpzjaH3kQMuyzQqZVS3d/rIwStnyNaXOMg=
 matrix:
   include:
     - env:
         - PYTHON_VERSION=2.7
         - QT_VERSION=4
       os: linux
-    - env: 
+    - env:
         - PYTHON_VERSION=3.5
         - QT_VERSION=4
       os: linux
-    - env: 
+    - env:
         - PYTHON_VERSION=3.5
         - QT_VERSION=5
       os: linux
-    - env: 
+    - env:
         - PYTHON_VERSION=3.6
         - QT_VERSION=4
       os: linux
@@ -21,7 +24,7 @@ matrix:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
       os: linux
-    - env: 
+    - env:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
       os: osx
@@ -32,6 +35,9 @@ addons:
     packages:
     - libstdc++6
 install:
+  # Save the token to a local variable
+  - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
+  - unset $CONDA_REPO_TOKEN
   # select the os name for the conda installer
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         OS_NAME=MacOSX;
@@ -51,6 +57,7 @@ install:
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
+  - conda install conda-build
   # Useful for debugging any issues with conda
   - conda info -a
 
@@ -74,9 +81,15 @@ install:
   # install the rest
   - pip install coveralls
   - python setup.py install
+  # prepare the conda receipt
+  - python recipe_from_setup.py . ci/conda_recipe
   - conda env export -n psyplot_gui_$ENVKEY
   # print versions of all the important requirements
   - psyplot -aV
+  # restore the conda token
+  - if [[ $TRAVIS_TAG != "" ]]; then
+      export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
+    fi
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
@@ -87,6 +100,22 @@ before_script:
 
 script:
   - coverage run --source=psyplot_gui setup.py test -a "-vs"
+  - conda build ci/conda_recipe --no-test
 
 after_success:
   coveralls
+
+before_deploy:
+  - export BUILDS=`conda build --output ci/conda_recipe
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      mkdir builds;
+      conda convert -p linux-32 -o builds $BUILDS;
+      export BUILDS=$BUILDS $(ls builds/*/*.bz2);
+    fi
+
+deploy:
+  - provider: script
+    script: ci/deploy_anaconda.sh
+    skip_cleanup: true
+    on:
+      tags: true
