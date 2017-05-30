@@ -77,7 +77,7 @@ if osp.exists(template_file):
         path, 'dist', meta['source']['fn']))
 
     # write out the recipe
-    with open(osp.join('recipes', package, 'meta.yaml'), 'w') as f:
+    with open(osp.join(outdir, package, 'meta.yaml'), 'w') as f:
         yaml.dump(meta, f, default_flow_style=False)
 
 else:
