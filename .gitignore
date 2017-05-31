@@ -71,4 +71,4 @@ target/
 *debug_psyplot.log*
 
 # conda build files
-recipe/meta.yaml
+ci/conda_recipe/psyplot-gui/meta.yaml
