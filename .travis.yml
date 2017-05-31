@@ -34,6 +34,11 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - libstdc++6
+before_install:
+  # make sure, gfortran and gnu-sed are installed
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew install gnu-sed --with-default-names;
+    fi
 install:
   # Save the token to a local variable
   - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
