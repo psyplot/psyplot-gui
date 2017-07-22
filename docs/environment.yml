@@ -11,7 +11,7 @@ dependencies:
     - pygments
     - pyqt
     - sphinx
-    - sphinx-argparse
     - pip:
+        - sphinx-argparse==0.1.17
         - fasteners
         - autodocsumm
