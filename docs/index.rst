@@ -9,7 +9,7 @@ Welcome! This package enhances the interactive visualization framework
 psyplot_ with a graphical user interface using PyQt_. See the homepage of the
 main project on examples on the possibilities with psyplot_.
 
-.. only:: html
+.. only:: html and not epub
 
     .. list-table::
         :stub-columns: 1
