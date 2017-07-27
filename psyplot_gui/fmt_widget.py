@@ -25,11 +25,53 @@ ALLGROUP = '__all'
 
 
 class FormatoptionWidget(QWidget, DockMixin):
+    """
+    Widget to update the formatoptions of the current project
+
+    This widget, mainly made out of a combobox for the formatoption group,
+    a combobox for the formatoption, and a one-line text editor, is designed
+    for updating the selected formatoptions for the current subproject.
+
+    The widget is connected to the :attr:`psyplot.project.Project.oncpchange`
+    signal and refills the comboboxes if the current subproject changes.
+
+    The one-line text editor accepts python code that will be executed in side
+    the given `shell`.
+    """
 
     no_fmtos_update = _temp_bool_prop(
         'no_fmtos_update', """update the fmto combo box or not""")
 
+    #: The combobox for the formatoption groups
+    group_combo = None
+
+    #: The combobox for the formatoptions
+    fmt_combo = None
+
+    #: The help_explorer to display the documentation of the formatoptions
+    help_explorer = None
+
+    #: The shell to execute the update of the formatoptions in the current
+    #: project
+    shell = None
+
     def __init__(self, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        help_explorer: psyplot_gui.help_explorer.HelpExplorer
+            The help explorer to show the documentation of one formatoption
+        shell: IPython.core.interactiveshell.InteractiveShell
+            The shell that can be used to update the current subproject via::
+
+                psy.gcp().update(**kwargs)
+
+            where ``**kwargs`` is defined through the selected formatoption
+            in the :attr:`fmt_combo` combobox and the value in the
+            :attr:`line_edit` editor
+        ``*args, **kwargs``
+            Any other keyword for the QWidget class
+        """
         help_explorer = kwargs.pop('help_explorer', None)
         shell = kwargs.pop('shell', None)
         super(FormatoptionWidget, self).__init__(*args, **kwargs)
@@ -126,6 +168,12 @@ class FormatoptionWidget(QWidget, DockMixin):
         psy.Project.oncpchange.connect(self.fill_combos_from_project)
 
     def fill_combos_from_project(self, project):
+        """Fill :attr:`group_combo` and :attr:`fmt_combo` from a project
+
+        Parameters
+        ----------
+        project: psyplot.project.Project
+            The project to use"""
         current_text = self.group_combo.currentText()
         with self.no_fmtos_update:
             self.group_combo.clear()
@@ -167,11 +215,14 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.fill_fmt_combo(self.group_combo.currentIndex())
 
     def get_name(self, fmto):
+        """Get the name of a :class:`psyplot.plotter.Formatoption` instance"""
         if isinstance(fmto, six.string_types):
             return fmto
         return '%s (%s)' % (fmto.name, fmto.key) if fmto.name else fmto.key
 
     def fill_fmt_combo(self, i):
+        """Fill the :attr:`fmt_combo` combobox based on the current group name
+        """
         if not self.no_fmtos_update:
             with self.no_fmtos_update:
                 current_text = self.fmt_combo.currentText()
@@ -183,6 +234,8 @@ class FormatoptionWidget(QWidget, DockMixin):
             self.show_fmt_info(self.fmt_combo.currentIndex())
 
     def show_fmt_info(self, i):
+        """Show the documentation of the formatoption in the help explorer
+        """
         group_ind = self.group_combo.currentIndex()
         if (not self.no_fmtos_update and
                 self.groups[group_ind] != COORDSGROUP):
@@ -191,6 +244,7 @@ class FormatoptionWidget(QWidget, DockMixin):
                 fmto.key, include_links=self.include_links_cb.isChecked())
 
     def run_code(self):
+        """Run the update of the project inside the :attr:`shell`"""
         text = str(self.line_edit.text())
         if not text or not self.fmtos:
             return
