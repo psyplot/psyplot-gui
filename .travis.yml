@@ -115,7 +115,7 @@ before_deploy:
       conda convert -p linux-32 -o builds $BUILDS;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      export BUILDS=$BUILDS builds/*/*.bz2;
+      export BUILDS="$BUILDS builds/*/*.bz2";
     fi
 
 deploy:
