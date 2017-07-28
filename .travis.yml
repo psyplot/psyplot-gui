@@ -109,7 +109,7 @@ after_success:
   coveralls
 
 before_deploy:
-  - export BUILDS=`conda build --output ci/conda_recipe --python $PYTHON_VERSION
+  - export BUILDS=`conda build --output ci/conda_recipe --python $PYTHON_VERSION`
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       mkdir builds;
       conda convert -p linux-32 -o builds $BUILDS;
