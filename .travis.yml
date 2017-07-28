@@ -63,6 +63,10 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda install conda-build
+  # install anaconda-client to upload the conda builds
+  - if [[ $TRAVIS_TAG != "" ]]; then
+      conda install anaconda-client;
+    fi
   # Useful for debugging any issues with conda
   - conda info -a
 
