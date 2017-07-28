@@ -113,7 +113,9 @@ before_deploy:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       mkdir builds;
       conda convert -p linux-32 -o builds $BUILDS;
-      export BUILDS=$BUILDS $(ls builds/*/*.bz2);
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export BUILDS=$BUILDS builds/*/*.bz2;
     fi
 
 deploy:
