@@ -22,7 +22,7 @@ function UploadToAnaconda ($architecture, $python_home) {
 
 
 function main () {
-    UploadToAnaconda $env:PYTHON_ARCH $env:PSYPLOT_PYTHON
+    UploadToAnaconda $env:PYTHON_ARCH $env:PYTHON
 }
 
 main
