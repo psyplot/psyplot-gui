@@ -20,13 +20,13 @@ try:
 except FileExistsError:  # directory exists already
     pass
 
-print('Start conversion of %s' % fname)
+#print('Start conversion of %s' % fname)
+#
+#spr.call(['conda', 'convert', fname, '-p', 'win-32', '-o', 'builds'])
+#
+#print('Done')
 
-spr.call(['conda', 'convert', fname, '-p', 'win-32', '-o', 'builds'])
-
-print('Done')
-
-files = [fname] + glob.glob(osp.join('builds', 'win-32', '*'))
+files = [fname]  # + glob.glob(osp.join('builds', 'win-32', '*'))
 
 print('Uploading %s' % files)
 
