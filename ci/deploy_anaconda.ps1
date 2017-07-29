@@ -16,7 +16,7 @@ function UploadToAnaconda ($architecture, $python_home) {
     $conda_path = $python_home + "\Scripts\conda.exe"
 
     Write-Host "Converting to win-" + $architecture2
-    $args = "-p " + "win-" + $architecture2 + " $filepath"
+    $args = "convert -p " + "win-" + $architecture2 + " $filepath"
     Write-Host $conda_path $args
     $proc = (Start-Process -FilePath $conda_path -ArgumentList $args -Wait -Passthru)
     if ($proc.ExitCode -ne 0) {
