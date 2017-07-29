@@ -63,7 +63,7 @@ test_script:
   - conda build ci/conda_recipe/psyplot-gui --no-test --python %PYTHON_VERSION%
 
 after_test:
-  - coverage report
+  #- coverage report
   # deploy to anaconda cloud
   #- IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
   #    python ci/deploy_anaconda.py
