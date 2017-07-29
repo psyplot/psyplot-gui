@@ -59,12 +59,15 @@ install:
 build: false
 
 test_script:
-  - coverage run -a --source=psyplot_gui setup.py test -a "-v"
+  #- coverage run -a --source=psyplot_gui setup.py test -a "-v"
   - conda build ci/conda_recipe/psyplot-gui --no-test --python %PYTHON_VERSION%
 
 after_test:
   - coverage report
   # deploy to anaconda cloud
+  #- IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
+  #    python ci/deploy_anaconda.py
+  #  )
   - IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
-      python ci/deploy_anaconda.py
+      conda convert "C:\Python36-conda64\conda-bld\win-64\psyplot-gui-1.0.0-py35hfe27934_0.tar.bz2" -p win-32
     )
