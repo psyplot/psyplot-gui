@@ -59,15 +59,12 @@ install:
 build: false
 
 test_script:
-  #- coverage run -a --source=psyplot_gui setup.py test -a "-v"
+  - coverage run -a --source=psyplot_gui setup.py test -a "-v"
   - conda build ci/conda_recipe/psyplot-gui --no-test --python %PYTHON_VERSION%
 
 after_test:
-  #- coverage report
+  - coverage report
   # deploy to anaconda cloud
-  #- IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
-  #    python ci/deploy_anaconda.py
-  #  )
   - IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
         powershell "./ci/deploy_anaconda.ps1"
     )
