@@ -12,17 +12,19 @@ import subprocess as spr
 if six.PY2:
     FileExistsError = OSError
 
-fname = spr.check_output(
-    ['conda', 'build', osp.join('ci', 'conda_recipe'), '--output',
-     '--python', os.getenv('PYTHON_VERSION')]).decode(
-        'utf-8').strip().splitlines()[-1]
+fname = glob.glob(osp.join(
+    os.getenv('PYTHON'), 'conda-bld\win-64\psyplot-gui-*.tar.bz2'))[0]
 
 try:
     os.makedirs('builds')
 except FileExistsError:  # directory exists already
     pass
 
-spr.check_call(['conda', 'convert', fname, '-p', 'win-32', '-o', 'builds'])
+print('Start conversion of %s' % fname)
+
+spr.call(['conda', 'convert', fname, '-p', 'win-32', '-o', 'builds'])
+
+print('Done')
 
 files = [fname] + glob.glob(osp.join('builds', 'win-32', '*'))
 
