@@ -52,7 +52,7 @@ setup(name='psyplot-gui',
       ],
       keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt '
                 'ipython jupyter qtconsole'),
-      url='https://github.com/Chilipp/psyplot_gui',
+      url='https://github.com/Chilipp/psyplot-gui',
       author='Philipp Sommer',
       author_email='philipp.sommer@unil.ch',
       license="GPLv2",
