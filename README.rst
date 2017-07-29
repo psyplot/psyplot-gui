@@ -20,7 +20,7 @@ Graphical User Interface for the psyplot package
 
 .. |travis| image:: https://travis-ci.org/Chilipp/psyplot-gui.svg?branch=master
     :alt: Travis
-    :target: https://travis-ci.org/Chilipp/psyplot-gui
+    :target: https://travis-ci.org/Chilipp/psyplot-gui-q726s
 
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/e2qhtlx3t6tm6jw6?svg=true
     :alt: AppVeyor
