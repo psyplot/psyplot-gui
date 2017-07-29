@@ -22,7 +22,7 @@ try:
 except FileExistsError:  # directory exists already
     pass
 
-spr.check_call(['conda', 'convert', fname, '-p', 'builds'])
+spr.check_call(['conda', 'convert', fname, '-p', 'win-32', '-o', 'builds'])
 
 files = [fname] + glob.glob(osp.join('builds', 'win-32', '*'))
 
