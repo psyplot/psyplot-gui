@@ -65,6 +65,7 @@ test_script:
 after_test:
   #- coverage report
   # deploy to anaconda cloud
-  - IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
-      python ci/deploy_anaconda.py
-    )
+  #- IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
+  #    python ci/deploy_anaconda.py
+  #  )
+  - anaconda -t %CONDA_REPO_TOKEN% upload "C:\Python36-conda64\conda-bld\win-64\psyplot-gui-1.0.0-py35hfe27934_0.tar.bz2"
