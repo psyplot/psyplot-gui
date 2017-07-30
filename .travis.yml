@@ -32,6 +32,7 @@ matrix:
         - QT_VERSION=5
         - UPLOAD_CONDA=True
       os: osx
+
 addons:
   apt:
     sources:
