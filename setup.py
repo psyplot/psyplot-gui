@@ -34,7 +34,7 @@ setup(name='psyplot-gui',
       description='Graphical user interface for the psyplot package',
       long_description=readme(),
       classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Scientific/Engineering :: GIS',
