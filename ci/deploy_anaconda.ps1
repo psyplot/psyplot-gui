@@ -31,7 +31,7 @@ function UploadToAnaconda ($architecture, $python_home) {
 
     Write-Host "Uploading" $filepath
     $anaconda_path = $python_home + "\Scripts\anaconda.exe"
-    $args = "-t " + $env:CONDA_REPO_TOKEN +" upload " + $filepath + " " + $filepath2
+    $args = "-t " + $env:CONDA_REPO_TOKEN +" upload --force " + $filepath + " " + $filepath2
     Write-Host $anaconda_path $args
     $proc = (Start-Process -FilePath $anaconda_path -ArgumentList $args -Wait -Passthru)
     if ($proc.ExitCode -ne 0) {
