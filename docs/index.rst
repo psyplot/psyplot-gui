@@ -46,9 +46,9 @@ main project on examples on the possibilities with psyplot_.
         :alt: PyPI Package latest release
         :target: https://pypi.python.org/pypi/psyplot-gui
 
-    .. |conda| image:: https://anaconda.org/chilipp/psyplot-gui/badges/installer/conda.svg
+    .. |conda| image:: https://anaconda.org/conda-forge/psyplot-gui/badges/version.svg
         :alt: conda
-        :target: https://conda.anaconda.org/chilipp
+        :target: https://conda.anaconda.org/conda-forge/psyplot-gui
 
     .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/psyplot-gui.svg?style=flat
         :alt: Supported versions

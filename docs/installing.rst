@@ -17,7 +17,7 @@ We highly recommend to use conda_ for installing psyplot-gui.
 
 You can then install psyplot-gui simply via::
 
-    $ conda install -c chilipp psyplot-gui
+    $ conda install -c conda-forge psyplot-gui
 
 If you do not want to use PyQt4 (we indeed recommend to use PyQt5), you should
 remove the ``'pyqt'`` and and ``'qt'`` package from anaconda::
