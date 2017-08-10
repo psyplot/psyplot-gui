@@ -2,8 +2,6 @@ environment:
 
   PYTHON_ARCH: "64"
   PYTHON: "C:\\Python36-conda64"
-  CONDA_REPO_TOKEN:
-    secure: wgEYc1u7fC0RFxu8N/GT9Onne7hQMoutIC6FepuWmL0EaD0ABLHY6izFxdawOqjF
 
   matrix:
     - PYTHON_VERSION: "3.5"
@@ -12,8 +10,6 @@ environment:
       QT_VERSION: "5"
 os: unstable
 install:
-  - setlocal
-  - set CONDA_REPO_TOKEN=
   # Install miniconda Python
   - "powershell ./ci/install_python.ps1"
    # Prepend newly installed Python to the PATH of this build (this cannot be
@@ -50,21 +46,13 @@ install:
   - python setup.py install
   # export the environment for debugging
   - conda env export -n psyplot_gui_%ENVKEY%
-  # prepare the conda receipt
-  - python ci/recipe_from_setup.py . ci/conda_recipe -n psyplot-gui
   # print versions of all the important requirements
   - psyplot -aV
-  - endlocal
 
 build: false
 
 test_script:
   - coverage run -a --source=psyplot_gui setup.py test -a "-v"
-  - conda build ci/conda_recipe/psyplot-gui --no-test --python %PYTHON_VERSION%
 
 after_test:
   - coverage report
-  # deploy to anaconda cloud
-  - IF NOT "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        powershell "./ci/deploy_anaconda.ps1"
-    )

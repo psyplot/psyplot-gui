@@ -1,13 +1,9 @@
 language: generic
-env:
-  global:
-    - secure: RaYOKDnkaK4+7LOYrk7Q6wmcF0a3azEnY28HcdVTQRDvZ5Pw6FuuZsUMT+HJYa1esdLT9OIwFnml5eFDPjEPGcjdScLP7cjKrVQLZoh92fyQi5qDPl6P00l8fVxew6qaKp+wkpT6re38QPS1kzFBtKVp+65ig8Af2pr9e9lgpprR8dnhTZfniPMbMM+oXl/bmG184xtJZy3/XdgtswuYkZ1cm6iE2ZklV23avIj6I20xwpQfASjfs/hW24gdOtet4OFuPxNOBRdwLg8YAciBShz87E4hQzlD+Nk/oHdYxARl2OBaNHM6WT+EmJMNK6sGxi+nkAmxTIjmUrKugDEI9ZqBI+2+33yZao5IQOZ1sq53s6Ti9NkVnWjsMwBz5e+VbDwAHiFVULf+gmHgaArp7lnOvzfWW1S8Y3baTOqxfa5zpszeZ09QwCTm/IJYTjj8YXcApyygmvs3Ms0TuMKX7eS2HPOGgs7OQfEd/lJGcDLGqYsR+bqkf1uh/yNo67CTKL62GahoNponXNvlI2PPSoD8O85i2vIE1olpxc9WF9ncDCdi0yZmpkJd5YQeQA30rsMunS+FKuEBxobODkiMbrydxguF5w8cx4Qx6sb0dt4uXOXuxYRZP6RQUhxyrRovniH8zThQBwcGmsNfhqkob1IuJBJmZBMl3rFEa4qqVR0=
 matrix:
   include:
     - env:
         - PYTHON_VERSION=2.7
         - QT_VERSION=4
-        - UPLOAD_CONDA=True
       os: linux
     - env:
         - PYTHON_VERSION=3.5
@@ -16,7 +12,6 @@ matrix:
     - env:
         - PYTHON_VERSION=3.5
         - QT_VERSION=5
-        - UPLOAD_CONDA=True
       os: linux
     - env:
         - PYTHON_VERSION=3.6
@@ -25,12 +20,10 @@ matrix:
     - env:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
-        - UPLOAD_CONDA=True
       os: linux
     - env:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
-        - UPLOAD_CONDA=True
       os: osx
 addons:
   apt:
@@ -44,9 +37,6 @@ before_install:
       brew install gnu-sed --with-default-names;
     fi
 install:
-  # Save the token to a local variable
-  - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
-  - unset CONDA_REPO_TOKEN
   # select the os name for the conda installer
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         OS_NAME=MacOSX;
@@ -66,11 +56,6 @@ install:
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
-  - conda install conda-build
-  # install anaconda-client to upload the conda builds
-  - if [[ $TRAVIS_TAG != "" ]]; then
-      conda install anaconda-client;
-    fi
   # Useful for debugging any issues with conda
   - conda info -a
 
@@ -89,18 +74,9 @@ install:
   # install the rest
   - pip install coveralls
   - python setup.py install
-  # prepare the conda receipt
-  - if [[ "$PYTHON_VERSION" == "2.7" ]]; then
-        pip install pathlib;
-    fi
-  - python ci/recipe_from_setup.py ../psyplot-gui ci/conda_recipe
   - conda env export -n psyplot_gui_$ENVKEY
   # print versions of all the important requirements
   - psyplot -aV
-  # restore the conda token
-  - if [[ $TRAVIS_TAG != "" ]]; then
-      export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
-    fi
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
@@ -110,26 +86,7 @@ before_script:
     fi
 
 script:
-  - coverage run --source=psyplot_gui setup.py test -a "-vs"
-  - conda build ci/conda_recipe/psyplot-gui --no-test --python $PYTHON_VERSION
+  - coverage run --source=psyplot_gui setup.py test -a "-v"
 
 after_success:
   coveralls
-
-before_deploy:
-  - export BUILDS=`conda build --output ci/conda_recipe --python $PYTHON_VERSION`
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      mkdir builds;
-      conda convert -p linux-32 -o builds $BUILDS;
-    fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      export BUILDS="$BUILDS builds/*/*.bz2";
-    fi
-
-deploy:
-  - provider: script
-    script: ci/deploy_anaconda.sh
-    skip_cleanup: true
-    on:
-      tags: true
-      condition: '$UPLOAD_CONDA != ""'
