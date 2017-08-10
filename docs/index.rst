@@ -68,6 +68,7 @@ Documentation
     installing
     command_line
     api/psyplot_gui
+    changelog
     todos
 
 .. _PyQt: https://riverbankcomputing.com/software/pyqt/intro
