@@ -35,7 +35,7 @@ from psyplot_gui.content_widget import (
 from psyplot_gui.plot_creator import PlotCreator
 from psyplot_gui.help_explorer import HelpExplorer
 from psyplot_gui.fmt_widget import FormatoptionWidget
-from psyplot_gui.common import PyErrorMessage, get_icon
+from psyplot_gui.common import PyErrorMessage, get_icon, StreamToLogger
 from psyplot_gui.preferences import (
     Prefences, GuiRcParamsWidget, PsyRcParamsWidget)
 from psyplot_gui.dependencies import DependenciesDialog
@@ -98,6 +98,10 @@ class MainWindow(QMainWindow):
         show: bool
             If True, the created mainwindow is show
         """
+        if sys.stdout is None:
+            sys.stdout = StreamToLogger(self.logger)
+        if sys.stderr is None:
+            sys.stderr = StreamToLogger(self.logger)
         super(MainWindow, self).__init__()
         self.setWindowIcon(QIcon(get_icon('logo.png')))
 
