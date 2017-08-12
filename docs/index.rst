@@ -66,6 +66,8 @@ Documentation
     :maxdepth: 1
 
     installing
+    getting_started
+    configuration
     command_line
     api/psyplot_gui
     changelog
