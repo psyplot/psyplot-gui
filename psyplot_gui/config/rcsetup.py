@@ -84,9 +84,15 @@ def validate_all(v):
 
 
 class GuiRcParams(RcParams):
+    """RcParams for the psyplot-gui package."""
+
+    HEADER = RcParams.HEADER.replace(
+        'psyplotrc.yml', 'psyplotguirc.yml').replace(
+            'PSYPLOTRC', 'psyplotrc.yml')
 
     def load_from_file(self, fname=None):
-        """Update rcParams from user-defined settings
+        """
+        Update rcParams from user-defined settings
 
         This function updates the instance with what is found in `fname`
 
