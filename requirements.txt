@@ -1,6 +1,6 @@
 # QtConsole
 #   https://github.com/jupyter/qtconsole/blob/master/docs/source/changelog.rst
-qtconsole==4.3.0 # rq.filter: >=4.2, <4.4
+qtconsole==4.3.1 # rq.filter: >=4.2, <4.4
 
 # IPython kernel
 #   https://ipython.readthedocs.io/en/stable/whatsnew/index.html
