@@ -1,6 +1,5 @@
 name: psyplot_gui_docs
 channels:
-    - chilipp
     - conda-forge
 dependencies:
     - python=3.5
@@ -11,6 +10,7 @@ dependencies:
     - pygments
     - pyqt
     - sphinx
+    - psy-simple
     - pip:
         - sphinx-argparse==0.1.17
         - fasteners
