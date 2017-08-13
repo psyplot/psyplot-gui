@@ -13,7 +13,8 @@ widget (on MacOS, ⌘ + , on Windows and Linux:
 
 As for ``psyplot``, the rcParams are stored in the psyplot configuration
 directory, which is, under Linux and OSX by default, located at
-``$HOME/.config/psyplot`` and under Windows at ``$HOME/.psyplot``.
+``$HOME/.config/psyplot/psyplotguirc.yml`` and under Windows at
+``$HOME/.psyplot/psyplotguirc.yml``.
 This file might look like
 
 .. ipython::
