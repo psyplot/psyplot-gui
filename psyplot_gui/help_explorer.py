@@ -148,23 +148,47 @@ class UrlBrowser(QFrame):
     #: displayed
     default_url = None
 
+    #: adress line
+    tb_url = None
+
+    #: button to go to previous url
+    bt_back = None
+
+    #: button to go to next url
+    bt_ahead = None
+
+    #: refresh the current url
+    bt_refresh = None
+
+    #: button to go lock to the current url
+    bt_lock = None
+
+    #: button to disable browsing in www
+    bt_url_lock = None
+
+    #: The upper part of the browser containing all the buttons
+    button_box = None
+
+    #: The upper most layout aranging the button box and the html widget
+    vbox = None
+
     def __init__(self, *args, **kwargs):
         super(UrlBrowser, self).__init__(*args, **kwargs)
 
         # ---------------------------------------------------------------------
         # ---------------------------- upper buttons --------------------------
         # ---------------------------------------------------------------------
-        #: adress line
+        # adress line
         self.tb_url = UrlCombo(self)
-        #: button to go to previous url
+        # button to go to previous url
         self.bt_back = QToolButton(self)
-        #: button to go to next url
+        # button to go to next url
         self.bt_ahead = QToolButton(self)
-        #: refresh the current url
+        # refresh the current url
         self.bt_refresh = QToolButton(self)
-        #: button to go lock to the current url
+        # button to go lock to the current url
         self.bt_lock = QToolButton(self)
-        #: button to disable browsing in www
+        # button to disable browsing in www
         self.bt_url_lock = QToolButton(self)
 
         # ---------------------------- buttons settings -----------------------
@@ -217,7 +241,7 @@ class UrlBrowser(QFrame):
         # ---------------------------- layouts --------------------------------
         # ---------------------------------------------------------------------
 
-        #: The upper part of the browser containing all the buttons
+        # The upper part of the browser containing all the buttons
         self.button_box = button_box = QHBoxLayout()
 
         button_box.addWidget(self.bt_back)
@@ -227,7 +251,7 @@ class UrlBrowser(QFrame):
         button_box.addWidget(self.bt_lock)
         button_box.addWidget(self.bt_url_lock)
 
-        #: The upper most layout aranging the button box and the html widget
+        # The upper most layout aranging the button box and the html widget
         self.vbox = vbox = QVBoxLayout()
         self.vbox.setContentsMargins(0, 0, 0, 0)
         vbox.addLayout(button_box)
@@ -479,6 +503,9 @@ class UrlHelp(UrlBrowser, HelpMixin):
     can_document_object = with_sphinx
     can_show_rst = with_sphinx
 
+    #: menu button with different urls
+    bt_url_menus = None
+
     def __init__(self, *args, **kwargs):
         self.sphinx_dir = kwargs.pop('sphinx_dir', mkdtemp())
         self.build_dir = osp.join(self.sphinx_dir, '_build', 'html')
@@ -515,7 +542,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
                          self.update_connect_console)
         self.toogle_connect_console()
 
-        #: menu button with different urls
+        # menu button with different urls
         self.bt_url_menus = QToolButton(self)
         self.bt_url_menus.setIcon(QIcon(get_icon('docu_button.png')))
         self.bt_url_menus.setToolTip('Browse documentations')
