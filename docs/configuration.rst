@@ -7,8 +7,8 @@ As psyplot is configured by the :attr:`psyplot.config.rcsetup.rcParams`,
 psyplot-gui is configured by the :attr:`psyplot_gui.config.rcsetup.rcParams`
 dictionary.
 
-Both dictionaries can also be modified through the ``Preferences``
-widget (on MacOS, ⌘ + , on Windows and Linux:
+Both dictionaries can also be modified through the *Preferences*
+widget (on MacOS, :kbd:`Command+,`, on Windows and Linux:
 :menuselection:`Help --> Preferences`).
 
 As for ``psyplot``, the rcParams are stored in the psyplot configuration
