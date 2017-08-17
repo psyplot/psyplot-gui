@@ -14,6 +14,19 @@ The Screenshot above shows you the essential parts of the GUI:
 - :ref:`project-content`: A widget to interact with the psyplot project
 - :ref:`formatoptions`: A widget to update and change formatoptions
 
+Starting the GUI
+----------------
+Starting the GUI is straight forward but depends on how you installed it. If
+you installed it via `conda` or `pip`, just open a terminal (or Command Window
+``cmd`` on Windows) and type ``psyplot``. If you installed it through the
+standalone-installers (see :ref:`psyplot:install-standalone`) and decided to
+add the binaries to your ``PATH`` variable (the default setting), just type
+``psyplot`` in the terminal/cmd.
+
+Otherwise, on MacOSX, look for the `Psyplot` app, e.g. via spotlight, and on 
+Windows look in the  :menuselection:`Start --> All Programs --> Psyplot`
+directory in your Windows start menu.
+
 .. _console:
 
 The Console
