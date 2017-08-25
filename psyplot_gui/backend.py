@@ -81,8 +81,7 @@ class PsyplotCanvasManager(FigureManagerQT):
         self.toolbar = self._get_toolbar(canvas, parent_widget)
 
         # add text label to status bar
-        self.statusbar_label = QLabel()
-        mainwindow.statusBar().addWidget(self.statusbar_label)
+        self.statusbar_label = mainwindow.figures_label
 
         if self.toolbar is not None:
             vbox.addWidget(self.toolbar)

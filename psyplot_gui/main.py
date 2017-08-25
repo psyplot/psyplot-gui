@@ -28,7 +28,7 @@ if backend is not None:
 
 from psyplot_gui.console import ConsoleWidget
 from psyplot_gui.compat.qtcompat import (
-    QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget,
+    QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget, QLabel,
     QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon)
 from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
@@ -400,7 +400,9 @@ class MainWindow(QMainWindow):
         self.config_pages.extend([GuiRcParamsWidget, PsyRcParamsWidget])
 
         # display the statusBar
-        self.statusBar()
+        statusbar = self.statusBar()
+        self.figures_label = QLabel()
+        statusbar.addWidget(self.figures_label)
         if show:
             self.showMaximized()
 
