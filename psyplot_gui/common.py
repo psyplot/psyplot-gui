@@ -51,12 +51,14 @@ class DockMixin(object):
             title = self.title
         if title is None:
             raise ValueError(
-                "No position specified for the %s widget" % (self))
+                "No title specified for the %s widget" % (self))
         if position is None:
             position = self.dock_position
         if position is None:
             raise ValueError("No position specified for the %s widget (%s)" % (
                 title, self))
+        self.title = title
+        self.dock_position = position
         self.dock = self.dock_cls(title, main)
         self.dock.setWidget(self)
         main.addDockWidget(position, self.dock, docktype, *args, **kwargs)
