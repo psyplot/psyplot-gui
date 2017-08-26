@@ -338,7 +338,7 @@ class HelpMixin(object):
 
     @docstrings.get_sectionsf('HelpMixin.show_help')
     @docstrings.dedent
-    def show_help(self, obj, oname=''):
+    def show_help(self, obj, oname='', files=None):
         """
         Show the rst documentation for the given object
 
@@ -347,10 +347,13 @@ class HelpMixin(object):
         obj: object
             The object to get the documentation for
         oname: str
-            The name to use for the object in the documentation"""
+            The name to use for the object in the documentation
+        files: list of str
+            A path to additional files that shall be used to process show the
+            docs"""
         descriptor = self.describe_object(obj, oname)
         doc = self.get_doc(descriptor)
-        self.show_rst(doc, descriptor=descriptor)
+        self.show_rst(doc, descriptor=descriptor, files=files)
 
     def header(self, descriptor, sig):
         """Format the header and include object name and signature `sig`
@@ -436,7 +439,7 @@ class HelpMixin(object):
 
     @docstrings.get_sectionsf('HelpMixin.show_rst')
     @docstrings.dedent
-    def show_rst(self, text, oname='', descriptor=None):
+    def show_rst(self, text, oname='', descriptor=None, files=None):
         """
         Abstract method which needs to be implemented by th widget to show
         restructured text
@@ -448,7 +451,10 @@ class HelpMixin(object):
         oname: str
             The object name
         descriptor: instance of :attr:`object_descriptor`
-            The object descriptor holding the informations"""
+            The object descriptor holding the informations
+        files: list of str
+            A path to additional files that shall be used to display the docs
+        """
         pass
 
     @docstrings.get_sectionsf('HelpMixin.show_intro')
@@ -584,7 +590,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
             del self.sphinx_thread.app
 
     @docstrings.dedent
-    def show_help(self, obj, oname=''):
+    def show_help(self, obj, oname='', files=None):
         """
         Render the rst docu for the given object with sphinx and show it
 
@@ -594,7 +600,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         """
         if self.bt_lock.isChecked():
             return
-        return super(UrlHelp, self).show_help(obj, oname=oname)
+        return super(UrlHelp, self).show_help(obj, oname=oname, files=files)
 
     @docstrings.dedent
     def show_intro(self, text=''):
@@ -609,7 +615,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
                 f.write(text)
             self.sphinx_thread.render(None, None)
 
-    def show_rst(self, text, oname='', descriptor=None):
+    def show_rst(self, text, oname='', descriptor=None, files=None):
         """Render restructured text with sphinx and show it
 
         Parameters
@@ -619,6 +625,8 @@ class UrlHelp(UrlBrowser, HelpMixin):
             return
         if not oname and descriptor:
             oname = descriptor.name
+        for f in files or []:
+            shutil.copyfile(f, osp.join(self.sphinx_dir, osp.basename(f)))
         self.sphinx_thread.render(text, oname)
 
     def describe_object(self, obj, oname=''):
@@ -919,7 +927,7 @@ class HelpExplorer(QWidget, DockMixin):
             self.combo.setCurrentIndex(list(self.viewers).index(name))
 
     @docstrings.dedent
-    def show_help(self, obj, oname=''):
+    def show_help(self, obj, oname='', files=None):
         """
         Show the documentaion of the given object
 
@@ -933,8 +941,8 @@ class HelpExplorer(QWidget, DockMixin):
         oname = asstring(oname)
         if self.viewer.can_document_object:
             try:
-                return self.viewer.show_help(obj, oname=oname)
-            except:
+                return self.viewer.show_help(obj, oname=oname, files=files)
+            except Exception:
                 logger.debug("Could not document %s with %s viewer!",
                              oname, self.combo.currentText(), exc_info=True)
         curr_i = self.combo.currentIndex()
@@ -945,13 +953,13 @@ class HelpExplorer(QWidget, DockMixin):
                 self.combo.setCurrentIndex(i)
                 self.combo.blockSignals(False)
                 try:
-                    return viewer.show_help(obj, oname=oname)
-                except:
+                    return viewer.show_help(obj, oname=oname, files=files)
+                except Exception:
                     logger.debug("Could not document %s with %s viewer!",
                                  oname, viewername, exc_info=True)
 
     @docstrings.dedent
-    def show_rst(self, text, oname=''):
+    def show_rst(self, text, oname='', files=None):
         """
         Show restructured text
 
@@ -963,11 +971,11 @@ class HelpExplorer(QWidget, DockMixin):
         ----------
         %(HelpMixin.show_rst.parameters)s"""
         if self.viewer.can_show_rst:
-            return self.viewer.show_rst(text, oname=oname)
+            return self.viewer.show_rst(text, oname=oname, files=files)
         for viewer in six.itervalues(self.viewers):
             if viewer.can_show_rst:
                 self.set_viewer(viewer)
-                return viewer.show_rst(text, oname=oname)
+                return viewer.show_rst(text, oname=oname, files=files)
 
     @docstrings.dedent
     def show_intro(self, text=''):
