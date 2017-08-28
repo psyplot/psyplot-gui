@@ -45,6 +45,9 @@ class DockMixin(object):
     #: after startup
     hidden = False
 
+    #: The instance of :class:`QDockWidget` of this plugin
+    dock = None
+
     def to_dock(self, main, title=None, position=None, docktype='pane', *args,
                 **kwargs):
         if title is None:
@@ -59,8 +62,10 @@ class DockMixin(object):
                 title, self))
         self.title = title
         self.dock_position = position
-        self.dock = self.dock_cls(title, main)
-        self.dock.setWidget(self)
+        if self.dock is None:
+            self.dock = self.dock_cls(title, main)
+            self.dock.setWidget(self)
+            main.dockwidgets.append(self.dock)
         main.addDockWidget(position, self.dock, docktype, *args, **kwargs)
         config_page = self.config_page
         if config_page is not None:
