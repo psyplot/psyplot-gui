@@ -413,6 +413,8 @@ class MainWindow(QMainWindow):
         self.figures_label = QLabel()
         statusbar.addWidget(self.figures_label)
 
+        self.default_widths = {}
+
         self.setup_default_layout()
 
         if show:
@@ -447,7 +449,7 @@ class MainWindow(QMainWindow):
                   self.help_explorer, self.fmt_widget]:
             w.show_plugin()
 
-            if modify_widths:
+            if modify_widths and with_qt5:
                 self.resizeDocks([w.dock], [self.default_widths[w]],
                                  Qt.Horizontal)
 
