@@ -11,6 +11,7 @@ import socket
 import errno
 import pickle
 import os
+from itertools import chain
 from pkg_resources import iter_entry_points
 from functools import partial
 from collections import defaultdict
@@ -82,6 +83,12 @@ class MainWindow(QMainWindow):
 
     #: tab widget displaying the arrays in current main and sub project
     project_content = None
+
+    #: The dockwidgets of this instance
+    dockwidgets = []
+
+    #: default widths of the dock widgets
+    default_widths = {}
 
     @property
     def logger(self):
@@ -303,27 +310,23 @@ class MainWindow(QMainWindow):
             lambda: self.show_dependencies(True))
         self.help_menu.addAction(self.dependencies_action)
 
+        self.dockwidgets = []
+
         # ---------------------------------------------------------------------
         # -------------------------- Dock windows -----------------------------
         # ---------------------------------------------------------------------
         #: tab widget displaying the arrays in current main and sub project
-        self.project_content = ProjectContentWidget(parent=self)
-        self.project_content.to_dock(self, 'Plot objects',
-                                     Qt.LeftDockWidgetArea)
         #: tree widget displaying the open datasets
+        self.project_content = ProjectContentWidget(parent=self)
         self.ds_tree = DatasetTree(parent=self)
-        self.ds_tree.to_dock(self, 'Datasets', Qt.LeftDockWidgetArea)
         #: tree widget displaying the open figures
         self.figures_tree = FiguresTree(parent=self)
-        self.figures_tree.to_dock(self, 'Figures', Qt.LeftDockWidgetArea)
         #: help explorer
         self.help_explorer = help_explorer = HelpExplorer(parent=self)
-        help_explorer.to_dock(self, 'Help explorer', Qt.RightDockWidgetArea)
         #: general formatoptions widget
         self.fmt_widget = FormatoptionWidget(
             parent=self, help_explorer=help_explorer,
             shell=self.console.kernel_client.kernel.shell)
-        self.fmt_widget.to_dock(self, 'Formatoptions', Qt.BottomDockWidgetArea)
 
         # load plugin widgets
         self.plugins = plugins = {}
@@ -352,12 +355,18 @@ class MainWindow(QMainWindow):
                 continue
             logger.debug('Loading plugin %s', plugin_name)
             w_class = ep.load()
-            plugins[plugin_name] = w = w_class(parent=self)
-            w.to_dock(self)
+            plugins[plugin_name] = w_class(parent=self)
 
-        self.windows_menu.addSeparator()
         self.add_mp_to_menu()
         psy.Project.oncpchange.connect(self.eventually_add_mp_to_menu)
+        self.windows_menu.addSeparator()
+        self.window_layouts_menu = QMenu('Window layouts', self)
+        self.restore_layout_action = QAction('Restore default layout', self)
+        self.restore_layout_action.triggered.connect(self.setup_default_layout)
+        self.window_layouts_menu.addAction(self.restore_layout_action)
+        self.windows_menu.addMenu(self.window_layouts_menu)
+        self.panes_menu = QMenu('Panes', self)
+        self.windows_menu.addMenu(self.panes_menu)
 
         # ---------------------------------------------------------------------
         # -------------------------- connections ------------------------------
@@ -403,11 +412,48 @@ class MainWindow(QMainWindow):
         statusbar = self.statusBar()
         self.figures_label = QLabel()
         statusbar.addWidget(self.figures_label)
+
+        self.setup_default_layout()
+
         if show:
             self.showMaximized()
 
+        # save the default widths after they have been shown
+        for w in chain(
+                [self.project_content, self.ds_tree, self.figures_tree,
+                 self.help_explorer, self.fmt_widget], self.plugins.values()):
+            self.default_widths[w] = w.dock.size().width()
+
+        # hide plugin widgets that should be hidden at startup. Although this
+        # has been executed by :meth:`setup_default_layout`, we have to execute
+        # it again after the call of showMaximized
+        for w in self.plugins.values():
+            w.to_dock(self)
+            if w.hidden:
+                w.hide_plugin()
+
+    def setup_default_layout(self):
+        """Set up the default window layout"""
+        self.project_content.to_dock(self, 'Plot objects',
+                                     Qt.LeftDockWidgetArea)
+        self.ds_tree.to_dock(self, 'Datasets', Qt.LeftDockWidgetArea)
+        self.figures_tree.to_dock(self, 'Figures', Qt.LeftDockWidgetArea)
+        self.help_explorer.to_dock(self, 'Help explorer',
+                                   Qt.RightDockWidgetArea)
+        self.fmt_widget.to_dock(self, 'Formatoptions', Qt.BottomDockWidgetArea)
+
+        modify_widths = bool(self.default_widths)
+        for w in [self.project_content, self.ds_tree, self.figures_tree,
+                  self.help_explorer, self.fmt_widget]:
+            w.show_plugin()
+
+            if modify_widths:
+                self.resizeDocks([w.dock], [self.default_widths[w]],
+                                 Qt.Horizontal)
+
         # hide plugin widgets that should be hidden at startup
         for w in self.plugins.values():
+            w.to_dock(self)
             if w.hidden:
                 w.hide_plugin()
 
@@ -426,7 +472,7 @@ class MainWindow(QMainWindow):
             fname = p.attrs['project_file']
         try:
             p.save_project(fname, *args, **kwargs)
-        except:
+        except Exception:
             self.error_msg.showTraceback('<b>Could not save the project!</b>')
         else:
             p.attrs['project_file'] = fname
@@ -443,7 +489,7 @@ class MainWindow(QMainWindow):
 
     def _open_project(self, *args, **kwargs):
         fname = QFileDialog.getOpenFileName(
-            self, 'Project destination', os.getcwd(),
+            self, 'Project file', os.getcwd(),
             'Pickle files (*.pkl);;'
             'All files (*)'
             )
@@ -480,7 +526,7 @@ class MainWindow(QMainWindow):
             return
         try:
             p.export(fname, *args, **kwargs)
-        except:
+        except Exception:
             self.error_msg.showTraceback(
                 '<b>Could not export the figures!</b>')
 
@@ -614,7 +660,7 @@ class MainWindow(QMainWindow):
         ret = super(MainWindow, self).addDockWidget(area, dockwidget, *args,
                                                     **kwargs)
         if docktype == 'pane':
-            self.windows_menu.addAction(dockwidget.toggleViewAction())
+            self.panes_menu.addAction(dockwidget.toggleViewAction())
         return ret
 
     def start_open_files_server(self):
@@ -627,7 +673,7 @@ class MainWindow(QMainWindow):
         port = rcParams['main.open_files_port']
         try:
             self.open_files_server.bind(('127.0.0.1', port))
-        except:
+        except Exception:
             return
         self.open_files_server.listen(20)
         while 1:  # 1 is faster than True
@@ -641,8 +687,7 @@ class MainWindow(QMainWindow):
                 if e.args[0] == eintr:
                     continue
                 raise
-            l = pickle.loads(req.recv(1024))
-            self.open_external.emit(l)
+            self.open_external.emit(pickle.loads(req.recv(1024)))
             req.sendall(b' ')
 
     docstrings.keep_params(
