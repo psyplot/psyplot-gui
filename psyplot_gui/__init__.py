@@ -60,11 +60,11 @@ def get_versions(requirements=True):
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
-              tight=False, encoding=None, enable_post=False, 
-              new_instance=False, rc_file=None, rc_gui_file=None, 
+              tight=False, encoding=None, enable_post=False,
+              new_instance=False, rc_file=None, rc_gui_file=None,
               include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
-              pwd=None):
+              pwd=None, exec_=True):
     """
     Eventually start the QApplication or only make a plot
 
@@ -95,6 +95,14 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         intersphinx and remote access for the help explorer
     pwd: str
         The path to the working directory to use
+    exec_: bool
+        If True, the main loop is entered.
+
+    Returns
+    -------
+    None or :class:`psyplot_gui.main.MainWindow`
+        ``None`` if `exec_` is True, otherwise the created
+        :class:`~psyplot_gui.main.MainWindow` instance
     """
 
     if pwd is not None:
@@ -151,8 +159,12 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     fnames = _get_abs_names(fnames)
     if project is not None:
         project = _get_abs_names([project])[0]
-    MainWindow.run_app(fnames, project, engine, plot_method, name, dims,
-                       encoding, enable_post)
+    if exec_:
+        MainWindow.run_app(fnames, project, engine, plot_method, name, dims,
+                           encoding, enable_post)
+    else:
+        return MainWindow.run(fnames, project, engine, plot_method, name, dims,
+                              encoding, enable_post)
 
 
 def send_files_to_psyplot(fnames, project, *args):
@@ -236,6 +248,8 @@ def get_parser(create=True):
     parser.update_arg('offline', group=gui_grp)
     parser.update_arg('pwd', group=gui_grp)
     parser.pop_key('offline', 'short')
+
+    parser.pop_arg('exec_')
 
     if psyplot.__version__ < '1.0':
         parser.set_main(start_app)
