@@ -115,6 +115,9 @@ class PsyplotCanvasManager(FigureManagerQT):
             return super(PsyplotCanvasManager, self).statusBar(*args, **kwargs)
         return self.main.statusBar(*args, **kwargs)
 
+    def resize(self, width, height):
+        self.window.resize(width, height + self.toolbar.sizeHint().height())
+
 
 class PsyplotCanvas(FigureCanvasQTAgg):
     """The canvas class with reimplemented resizing"""
