@@ -48,6 +48,12 @@ class DockMixin(object):
     #: The instance of :class:`QDockWidget` of this plugin
     dock = None
 
+    @property
+    def is_shown(self):
+        """Boolean that is True, if the dock widget is shown"""
+        return (self.dock is not None and
+                self.dock.toggleViewAction().isChecked())
+
     def to_dock(self, main, title=None, position=None, docktype='pane', *args,
                 **kwargs):
         if title is None:
