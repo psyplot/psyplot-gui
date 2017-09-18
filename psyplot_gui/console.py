@@ -63,6 +63,10 @@ class ConsoleWidget(RichJupyterWidget):
 
     intro_msg = ''
 
+    run_script = QtCore.pyqtSignal(list)
+
+    run_command = QtCore.pyqtSignal(list)
+
     def __init__(self, *args, **kwargs):
         """
         Parameters
@@ -133,6 +137,9 @@ class ConsoleWidget(RichJupyterWidget):
 
         psy.Project.oncpchange.connect(self.update_mp)
         psy.Project.oncpchange.connect(self.update_sp)
+
+        self.run_script.connect(self._run_script_in_shell)
+        self.run_command.connect(self._run_command_in_shell)
 
     def update_mp(self, project):
         """Update the `mp` variable in the shell is
@@ -228,3 +235,20 @@ class ConsoleWidget(RichJupyterWidget):
                 return token + eol
         except IndexError:
             return None
+
+    def _run_script_in_shell(self, args):
+        self.run_script_in_shell(args[0][0])
+
+    def run_script_in_shell(self, script):
+        """Run a script in the shell"""
+        self.kernel_manager.kernel.shell.run_line_magic('run', script)
+
+    def _run_command_in_shell(self, args):
+        # 0: filenames
+        # 1: project
+        # 2: command
+        self.run_command_in_shell(args[2])
+
+    def run_command_in_shell(self, command):
+        """Run a script in the shell"""
+        self.kernel_manager.kernel.shell.run_code(command)

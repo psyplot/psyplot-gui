@@ -1,4 +1,5 @@
 """Core package for the psyplot graphical user interface"""
+import sys
 import os
 import os.path as osp
 import six
@@ -43,13 +44,13 @@ def get_versions(requirements=True):
         req = ret['requirements'] = {}
         try:
             import qtconsole
-        except:
+        except Exception:
             logger.error('Could not load qtconsole!', exc_info=True)
         else:
             req['qtconsole'] = qtconsole.__version__
         try:
             from psyplot_gui.compat.qtcompat import PYQT_VERSION, QT_VERSION
-        except:
+        except Exception:
             logger.error('Could not load qt and pyqt!', exc_info=True)
         else:
             req['qt'] = QT_VERSION
@@ -57,14 +58,16 @@ def get_versions(requirements=True):
     return ret
 
 
+@docstrings.get_sectionsf('psyplot_gui.start_app')
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
               output=None, project=None, engine=None, formatoptions=None,
               tight=False, encoding=None, enable_post=False,
+              seaborn_style=None,
               new_instance=False, rc_file=None, rc_gui_file=None,
               include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
-              pwd=None, exec_=True):
+              pwd=None, script=None, command=None, exec_=True, callback=None):
     """
     Eventually start the QApplication or only make a plot
 
@@ -94,9 +97,20 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         If True/set, psyplot will be started in offline mode without
         intersphinx and remote access for the help explorer
     pwd: str
-        The path to the working directory to use
+        The path to the working directory to use. Note if you do not provide
+        any `fnames` or `project`, but set the `pwd`, it will switch the
+        `pwd` of the current GUI.
+    script: str
+        The path to a python script that shall be run in the GUI. If the GUI
+        is already running, the commands will be executed in this GUI.
+    command: str
+        Python commands that shall be run in the GUI. If the GUI is already
+        running, the commands will be executed in this GUI
     exec_: bool
         If True, the main loop is entered.
+    callback: str
+        A unique identifier for the method that should be used if psyplot is
+        already running. Set this parameter to None to avoid sending
 
     Returns
     -------
@@ -104,9 +118,10 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         ``None`` if `exec_` is True, otherwise the created
         :class:`~psyplot_gui.main.MainWindow` instance
     """
-
     if pwd is not None:
         os.chdir(pwd)
+    if script is not None:
+        script = osp.abspath(script)
 
     if project is not None and (name != [] or dims is not None):
         warn('The `name` and `dims` parameter are ignored if the `project`'
@@ -132,7 +147,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
             fnames=fnames, name=name, dims=dims, plot_method=plot_method,
             output=output, project=project, engine=engine,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
-            encoding=encoding, enable_post=enable_post)
+            encoding=encoding, enable_post=enable_post,
+            seaborn_style=seaborn_style)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -148,8 +164,22 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         # Start a new instance
         atexit.register(lock.release)
     elif not new_instance:
-        send_files_to_psyplot(fnames, project, engine, plot_method, name, dims,
-                              encoding, enable_post)
+        if callback is None:
+            if fnames or project:
+                callback = 'new_plot'
+            elif pwd is not None:
+                callback = 'change_cwd'
+                fnames = [pwd]
+            elif script is not None:
+                callback = 'run_script'
+                fnames = [script]
+            elif command is not None:
+                callback = 'command'
+                engine = command
+        if callback:
+            send_files_to_psyplot(
+                callback, fnames, project, engine, plot_method, name, dims,
+                encoding, enable_post)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -160,14 +190,21 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
     if project is not None:
         project = _get_abs_names([project])[0]
     if exec_:
-        MainWindow.run_app(fnames, project, engine, plot_method, name, dims,
-                           encoding, enable_post)
+        from psyplot_gui.compat.qtcompat import QApplication
+        app = QApplication(sys.argv)
+    mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
+                                dims, encoding, enable_post, seaborn_style)
+    if script is not None:
+        mainwindow.console.run_script_in_shell(script)
+    if command is not None:
+        mainwindow.console.kernel_manager.kernel.shell.run_code(command)
+    if exec_:
+        sys.exit(app.exec_())
     else:
-        return MainWindow.run(fnames, project, engine, plot_method, name, dims,
-                              encoding, enable_post)
+        return mainwindow
 
 
-def send_files_to_psyplot(fnames, project, *args):
+def send_files_to_psyplot(callback, fnames, project, *args):
     """
     Simple socket client used to send the args passed to the psyplot
     executable to an already running instance.
@@ -186,8 +223,7 @@ def send_files_to_psyplot(fnames, project, *args):
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM,
                                    socket.IPPROTO_TCP)
             client.connect(("127.0.0.1", port))
-
-            client.send(pickle.dumps([fnames, project] + list(args)))
+            client.send(pickle.dumps([callback, fnames, project] + list(args)))
             client.close()
         except socket.error:
             time.sleep(0.25)
@@ -247,9 +283,12 @@ def get_parser(create=True):
 
     parser.update_arg('offline', group=gui_grp)
     parser.update_arg('pwd', group=gui_grp)
+    parser.update_arg('script', short='s', group=gui_grp)
+    parser.update_arg('command', short='c', group=gui_grp)
     parser.pop_key('offline', 'short')
 
     parser.pop_arg('exec_')
+    parser.pop_arg('callback')
 
     if psyplot.__version__ < '1.0':
         parser.set_main(start_app)
@@ -257,7 +296,21 @@ def get_parser(create=True):
     parser.epilog += """
 
 If you omit the ``'-o'`` option, the file is opened in the graphical user
-interface"""
+interface and if you run::
+
+    $ psyplot -pwd .
+
+It will switch the directory of the already running GUI (if existent) to the
+current working directory in your terminal. Additionally,::
+
+    $ psyplot -s myscript.py
+
+will run the file ``'myscript.py'`` in the GUI and::
+
+    $ psyplot -c 'print("Hello World!")'
+
+will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
+`-c` options, will, however, be shown in the terminal."""
 
     if create:
         parser.create_arguments()

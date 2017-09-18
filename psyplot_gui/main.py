@@ -394,6 +394,15 @@ class MainWindow(QMainWindow):
         if show:
             self.help_explorer.show_intro(self.console.intro_msg)
 
+        # ---------------------------------------------------------------------
+        # ------------------------- open_files_server -------------------------
+        # ---------------------------------------------------------------------
+        self.callbacks = {'new_plot': self.open_external.emit,
+                          'change_cwd': self.change_cwd,
+                          'run_script': self.console.run_script.emit,
+                          'command': self.console.run_command.emit,
+                          }
+
         # Server to open external files on a single instance
         self.open_files_server = socket.socket(socket.AF_INET,
                                                socket.SOCK_STREAM,
@@ -689,25 +698,42 @@ class MainWindow(QMainWindow):
                 if e.args[0] == eintr:
                     continue
                 raise
-            self.open_external.emit(pickle.loads(req.recv(1024)))
+            args = pickle.loads(req.recv(1024))
+            callback = args[0]
+            func = self.callbacks[callback]
+            self.logger.debug('Emitting %s callback %s', callback, func)
+            func(args[1:])
             req.sendall(b' ')
+
+    def change_cwd(self, path):
+        """Change the current working directory"""
+        import os
+        os.chdir(path)
+
+    def _change_cwd(self, args):
+        path = args[0][0]
+        self.change_cwd(path)
 
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims', 'encoding', 'enable_post')
+        'name', 'dims', 'encoding', 'enable_post', 'seaborn_style')
 
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
                             plot_method=None, name=None, dims=None,
-                            encoding=None, enable_post=False):
+                            encoding=None, enable_post=False,
+                            seaborn_style=None):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style)s
         """
+        if seaborn_style is not None:
+            import seaborn as sns
+            sns.set_style(seaborn_style)
         if project is not None:
             fnames = [s.split(',') for s in fnames]
             single_files = (l[0] for l in fnames if len(l) == 1)
@@ -733,14 +759,15 @@ class MainWindow(QMainWindow):
                 self.plot_creator.pm_combo.setCurrentText(plot_method)
             self.plot_creator.exec_()
 
-    def _open_external_files(self, l):
-        self.open_external_files(*l)
+    def _open_external_files(self, args):
+        self.open_external_files(*args)
 
     @classmethod
     @docstrings.get_sectionsf('MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None, encoding=None, enable_post=False, show=True):
+            name=None, dims=None, encoding=None, enable_post=False,
+            seaborn_style=None, show=True):
         """
         Create a mainwindow and open the given files or project
 

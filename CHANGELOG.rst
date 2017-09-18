@@ -3,6 +3,12 @@ v1.0.2
 Added
 -----
 - Added layout windows menu and default layout
+- Added ``script`` and ``command`` command line arguments
+- The ``pwd`` command line arguments now changes the working directory of the
+  running GUI
+- Added callbacks to the ``MainWindow`` class. This framework can be used on a
+  low level to interact with the current GUI.
+
 
 v1.0.1
 ======
