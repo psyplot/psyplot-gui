@@ -1,9 +1,13 @@
 """Common functions used for the psyplot gui"""
 import sys
+import six
+import inspect
 import traceback as tb
+from functools import partial
 import os.path as osp
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget)
+    QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget,
+    QToolButton, QInputDialog, QIcon)
 import logging
 from io import StringIO
 
@@ -89,6 +93,90 @@ class DockMixin(object):
         a = self.dock.toggleViewAction()
         if a.isChecked():
             a.trigger()
+
+    def show_status_message(self, msg):
+        """Show a status message"""
+        try:
+            self.dock.parent().plugin_label.setText(msg)
+        except AttributeError:
+            pass
+
+
+class LoadFromConsoleButton(QToolButton):
+    """A toolbutton to load an object from the console"""
+
+    #: The signal that is emitted when an object has been loaded. The first
+    #: argument is the object name, the second the object itself
+    object_loaded = QtCore.pyqtSignal(str, object)
+
+    @property
+    def instances2check_str(self):
+        return ', '.join('%s.%s' % (cls.__module__, cls.__name__)
+                         for cls in self._instances2check)
+
+    @property
+    def potential_object_names(self):
+        from ipykernel.inprocess.ipkernel import InProcessInteractiveShell
+        shell = InProcessInteractiveShell.instance()
+        return sorted(name for name, obj in shell.user_global_ns.items()
+                      if not name.startswith('_') and self.check(obj))
+
+    def __init__(self, instances=None, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        instances: class or tuple of classes
+            The classes that should be used for an instance check
+        """
+        super(LoadFromConsoleButton, self).__init__(*args, **kwargs)
+        self.setIcon(QIcon(get_icon('console-go.png')))
+        if instances is not None and inspect.isclass(instances):
+            instances = (instances, )
+        self._instances2check = instances
+        self.error_msg = PyErrorMessage(self)
+        self.clicked.connect(partial(self.get_from_shell, None))
+
+    def check(self, obj):
+        return True if not self._instances2check else isinstance(
+            obj, self._instances2check)
+
+    def get_from_shell(self, oname=None):
+        """Open an input dialog, receive an object and emit the
+        :attr:`object_loaded` signal"""
+        if oname is None:
+            oname, ok = QInputDialog.getItem(
+                self, 'Select variable',
+                'Select a variable to import from the console',
+                self.potential_object_names)
+            if not ok:
+                return
+        if self.check(oname) and (self._instances2check or
+                                  not isinstance(oname, six.string_types)):
+            obj = oname
+            oname = 'object'
+        else:
+            found, obj = self.get_obj(oname.strip())
+            if found:
+                if not self.check(obj):
+                    self.error_msg.showMessage(
+                        'Object must be an instance of %r, not %r' % (
+                            self.instances2check_str,
+                            '%s.%s' % (type(obj).__module__,
+                                       type(obj).__name__)))
+                    return
+            else:
+                if not oname.strip():
+                    msg = 'The variable name must not be empty!'
+                else:
+                    msg = 'Could not find object ' + oname
+                self.error_msg.showMessage(msg)
+                return
+        self.object_loaded.emit(oname, obj)
+
+    def get_obj(self, oname):
+        """Load an object from the current shell"""
+        from psyplot_gui.main import mainwindow
+        return mainwindow.console.get_obj(oname)
 
 
 class ListValidator(QRegExpValidator):

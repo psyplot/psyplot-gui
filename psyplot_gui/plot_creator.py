@@ -25,7 +25,8 @@ from psyplot_gui.compat.qtcompat import (
     QTableWidget, QTableWidgetItem, QGridLayout, QIntValidator, QMenu, QAction,
     QInputDialog, QTabWidget, QDoubleValidator, QGraphicsScene, asstring,
     QGraphicsRectItem, QGraphicsView, QDialog, QDialogButtonBox, QSplitter)
-from psyplot_gui.common import get_icon, ListValidator, PyErrorMessage
+from psyplot_gui.common import (get_icon, ListValidator, PyErrorMessage,
+                                LoadFromConsoleButton)
 from psyplot_gui.preferences import RcParamsTree
 import psyplot.project as psy
 
@@ -1620,9 +1621,8 @@ class PlotCreator(QDialog):
     #: Tooltip for not making a plot
     NO_PM_TT = 'Choose a plot method (or choose none to only extract the data)'
 
-    def __init__(self, get_obj=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         self.help_explorer = kwargs.pop('help_explorer', None)
-        self.get_obj = get_obj
         super(PlotCreator, self).__init__(*args, **kwargs)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowTitle('Create plots')
@@ -1643,8 +1643,7 @@ class PlotCreator(QDialog):
         self.bt_open_file = QToolButton(parent=w)
         self.bt_open_file.setIcon(QIcon(get_icon('run_arrow.png')))
         self.bt_open_file.setToolTip('Open a new dataset from the hard disk')
-        self.bt_get_ds = QToolButton(parent=w)
-        self.bt_get_ds.setIcon(QIcon(get_icon('console-go.png')))
+        self.bt_get_ds = LoadFromConsoleButton(xarray.Dataset, parent=w)
         self.bt_get_ds.setToolTip(
             'Use a dataset already defined in the console')
 
@@ -1727,7 +1726,7 @@ class PlotCreator(QDialog):
 
         # ----------------- dataset combo connections ------------------------
         self.bt_open_file.clicked.connect(lambda: self.open_dataset())
-        self.bt_get_ds.clicked.connect(lambda: self.get_ds_from_shell())
+        self.bt_get_ds.object_loaded.connect(self.add_new_ds)
         self.ds_combo.currentIndexChanged[int].connect(self.set_ds)
 
         self.ds_combo.currentIndexChanged[int].connect(
@@ -1946,7 +1945,7 @@ class PlotCreator(QDialog):
         fig_nums = plt.get_fignums()[:]
         try:
             pm(self.ds, arr_names=names, **kwargs)
-        except:
+        except Exception:
             for num in set(plt.get_fignums()).difference(fig_nums):
                 plt.close(num)
             self.error_msg.showTraceback('<b>Failed to create the plots!</b>')
@@ -1968,20 +1967,29 @@ class PlotCreator(QDialog):
                 fnames = fnames[0]
         if isinstance(fnames, xarray.Dataset):
             ds = fnames
+            self.add_new_ds('ds', ds)
         elif not fnames:
             return
-        try:
-            if len(fnames) == 1:
-                ds = psy.open_dataset(fnames[0], *args, **kwargs)
-            else:
-                ds = psy.open_mfdataset(fnames, *args, **kwargs)
-        except:
-            self.error_msg.showTraceback(
-                '<b>Could not open dataset %s</b>' % (fnames, ))
-            return
-        fnames_str = ', '.join(fnames)
-        self.ds_descs.insert(0, {'ds': ds, 'fname': fnames_str})
-        self.ds_combo.insertItem(0, 'New: ' + fnames_str)
+        else:
+            try:
+                if len(fnames) == 1:
+                    kwargs.pop('concat_dim', None)
+                    ds = psy.open_dataset(fnames[0], *args, **kwargs)
+                else:
+                    ds = psy.open_mfdataset(fnames, *args, **kwargs)
+            except Exception:
+                self.error_msg.showTraceback(
+                    '<b>Could not open dataset %s</b>' % (fnames, ))
+                return
+            fnames_str = ', '.join(fnames)
+            self.add_new_ds(fnames_str, ds, fnames_str)
+
+    def add_new_ds(self, oname, ds, fname=None):
+        d = {'ds': ds}
+        if fname:
+            d['fname'] = fname
+        self.ds_descs.insert(0, d)
+        self.ds_combo.insertItem(0, 'New: ' + oname)
         self.ds_combo.setCurrentIndex(0)
 
     def set_ds(self, i):
@@ -2095,31 +2103,3 @@ class PlotCreator(QDialog):
             self.close()
         else:
             super(PlotCreator, self).keyPressEvent(e)
-
-    def get_ds_from_shell(self, oname=None):
-        """Open an input dialog and receive a dataset"""
-        if oname is None:
-            oname, ok = QInputDialog().getText(
-                self, 'Enter a variable name from the console', '')
-            if not ok:
-                return
-        if isinstance(oname, xarray.Dataset):
-            found, ds = True, oname
-            oname = 'ds'
-        else:
-            found, ds = self.get_obj(oname.strip())
-        if found:
-            if isinstance(ds, xarray.Dataset):
-                self.ds_descs.insert(0, {'ds': ds})
-                self.ds_combo.insertItem(0, 'New: ' + oname)
-                self.ds_combo.setCurrentIndex(0)
-            else:
-                self.error_msg.showMessage(
-                    'Object must be an instance of xarray.Dataset, not %s' % (
-                        type(ds)))
-        else:
-            if not oname.strip():
-                msg = 'The variable name must not be empty!'
-            else:
-                msg = 'Could not find object ' + oname
-            self.error_msg.showMessage(msg)

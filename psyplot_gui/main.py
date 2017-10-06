@@ -14,8 +14,9 @@ import os
 from itertools import chain
 from pkg_resources import iter_entry_points
 from functools import partial
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import matplotlib as mpl
+from psyplot.compat.pycompat import get_default_value
 from psyplot_gui import rcParams
 from threading import Thread
 import logging
@@ -35,6 +36,7 @@ from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
 from psyplot_gui.plot_creator import PlotCreator
 from psyplot_gui.help_explorer import HelpExplorer
+from psyplot_gui.dataframeeditor import DataFrameEditor
 from psyplot_gui.fmt_widget import FormatoptionWidget
 from psyplot_gui.common import PyErrorMessage, get_icon, StreamToLogger
 from psyplot_gui.preferences import (
@@ -46,9 +48,10 @@ import psyplot.plotter as psyp
 import psyplot.project as psy
 import psyplot
 import psyplot_gui
+import xarray as xr
 
 
-#: The :class:`PyQt4.QtGui.QMainWindow` of the graphical user interface
+#: The :class:`PyQt5.QtWidgets.QMainWindow` of the graphical user interface
 mainwindow = None
 
 
@@ -80,6 +83,9 @@ class MainWindow(QMainWindow):
 
     #: help explorer
     help_explorer = None
+
+    #: the DataFrameEditor widgets, a widget to show and edit data frames
+    dataframeeditors = None
 
     #: tab widget displaying the arrays in current main and sub project
     project_content = None
@@ -323,13 +329,26 @@ class MainWindow(QMainWindow):
         self.figures_tree = FiguresTree(parent=self)
         #: help explorer
         self.help_explorer = help_explorer = HelpExplorer(parent=self)
+        if help_explorer.viewers['HTML help'].sphinx_thread is not None:
+            help_explorer.viewers[
+                'HTML help'].sphinx_thread.html_ready.connect(
+                    self.focus_on_console)
+        #: the DataFrameEditor widgets
+        self.dataframeeditors = []
         #: general formatoptions widget
         self.fmt_widget = FormatoptionWidget(
             parent=self, help_explorer=help_explorer,
             shell=self.console.kernel_client.kernel.shell)
 
         # load plugin widgets
-        self.plugins = plugins = {}
+        self.plugins = plugins = OrderedDict([
+            ('project_content', self.project_content),
+            ('ds_tree', self.ds_tree),
+            ('figures_tree', self.figures_tree),
+            ('help_explorer', self.help_explorer),
+            ('fmt_widget', self.fmt_widget),
+            ])
+        self.default_plugins = list(plugins)
         logger = self.logger
         inc = rcParams['plugins.include']
         exc = rcParams['plugins.exclude']
@@ -367,6 +386,11 @@ class MainWindow(QMainWindow):
         self.windows_menu.addMenu(self.window_layouts_menu)
         self.panes_menu = QMenu('Panes', self)
         self.windows_menu.addMenu(self.panes_menu)
+
+        self.dataframe_menu = QMenu('DataFrame editors', self)
+        self.dataframe_menu.addAction('New Editor', self.new_data_frame_editor)
+        self.dataframe_menu.addSeparator()
+        self.windows_menu.addMenu(self.dataframe_menu)
 
         # ---------------------------------------------------------------------
         # -------------------------- connections ------------------------------
@@ -421,6 +445,8 @@ class MainWindow(QMainWindow):
         statusbar = self.statusBar()
         self.figures_label = QLabel()
         statusbar.addWidget(self.figures_label)
+        self.plugin_label = QLabel()
+        statusbar.addWidget(self.plugin_label)
 
         self.default_widths = {}
 
@@ -430,9 +456,7 @@ class MainWindow(QMainWindow):
             self.showMaximized()
 
         # save the default widths after they have been shown
-        for w in chain(
-                [self.project_content, self.ds_tree, self.figures_tree,
-                 self.help_explorer, self.fmt_widget], self.plugins.values()):
+        for w in self.plugins.values():
             self.default_widths[w] = w.dock.size().width()
 
         # hide plugin widgets that should be hidden at startup. Although this
@@ -442,6 +466,21 @@ class MainWindow(QMainWindow):
             w.to_dock(self)
             if w.hidden:
                 w.hide_plugin()
+
+    def focus_on_console(self, *args, **kwargs):
+        """Put focus on the ipython console"""
+        self.console._control.setFocus()
+
+    def new_data_frame_editor(self, df=None):
+        editor = DataFrameEditor()
+        self.dataframeeditors.append(editor)
+        editor.to_dock(self, 'DataFrame Editor',
+                       Qt.RightDockWidgetArea, docktype='df')
+        if df is not None:
+            editor.set_df(df)
+        editor.show_plugin()
+        editor.maybe_tabify()
+        editor.raise_()
 
     def setup_default_layout(self):
         """Set up the default window layout"""
@@ -454,8 +493,7 @@ class MainWindow(QMainWindow):
         self.fmt_widget.to_dock(self, 'Formatoptions', Qt.BottomDockWidgetArea)
 
         modify_widths = bool(self.default_widths)
-        for w in [self.project_content, self.ds_tree, self.figures_tree,
-                  self.help_explorer, self.fmt_widget]:
+        for w in map(self.plugins.__getitem__, self.default_plugins):
             w.show_plugin()
 
             if modify_widths and with_qt5:
@@ -554,8 +592,7 @@ class MainWindow(QMainWindow):
             except RuntimeError:
                 pass
         self.plot_creator = PlotCreator(
-            self.console.get_obj, help_explorer=self.help_explorer,
-            parent=self)
+            help_explorer=self.help_explorer, parent=self)
         available_width = QDesktopWidget().availableGeometry().width() / 3.
         width = self.plot_creator.sizeHint().width()
         height = self.plot_creator.sizeHint().height()
@@ -672,6 +709,8 @@ class MainWindow(QMainWindow):
                                                     **kwargs)
         if docktype == 'pane':
             self.panes_menu.addAction(dockwidget.toggleViewAction())
+        elif docktype == 'df':
+            self.dataframe_menu.addAction(dockwidget.toggleViewAction())
         return ret
 
     def start_open_files_server(self):
@@ -716,20 +755,22 @@ class MainWindow(QMainWindow):
 
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims', 'encoding', 'enable_post', 'seaborn_style')
+        'name', 'dims', 'encoding', 'enable_post', 'seaborn_style',
+        'concat_dim')
 
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
                             plot_method=None, name=None, dims=None,
                             encoding=None, enable_post=False,
-                            seaborn_style=None):
+                            seaborn_style=None, concat_dim=get_default_value(
+                                xr.open_mfdataset, 'concat_dim')):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim)s
         """
         if seaborn_style is not None:
             import seaborn as sns
@@ -747,7 +788,8 @@ class MainWindow(QMainWindow):
                 p.attrs.setdefault('project_file', project)
         else:
             self.new_plots(False)
-            self.plot_creator.open_dataset(fnames, engine=engine)
+            self.plot_creator.open_dataset(fnames, engine=engine,
+                                           concat_dim=concat_dim)
             self.plot_creator.insert_array(name)
             if dims is not None:
                 self.plot_creator.array_table.selectAll()
@@ -767,7 +809,9 @@ class MainWindow(QMainWindow):
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
             name=None, dims=None, encoding=None, enable_post=False,
-            seaborn_style=None, show=True):
+            seaborn_style=None,
+            concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
+            show=True):
         """
         Create a mainwindow and open the given files or project
 
@@ -794,7 +838,7 @@ class MainWindow(QMainWindow):
         if fnames or project:
             mainwindow.open_external_files(
                 fnames, project, engine, plot_method, name, dims, encoding,
-                enable_post)
+                enable_post, seaborn_style, concat_dim)
         psyplot.with_gui = True
         return mainwindow
 

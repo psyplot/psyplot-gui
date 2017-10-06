@@ -11,7 +11,8 @@ import sys
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
 from psyplot_gui.compat.qtcompat import (
-    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence, asstring)
+    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence, asstring,
+    QApplication)
 from psyplot_gui.common import StreamToLogger
 import psyplot
 import psyplot_gui
@@ -48,7 +49,7 @@ class IPythonControl(QTextEdit):
         if key == Qt.Key_Question or key == Qt.Key_ParenLeft:
             self.parentWidget().show_current_help()
         elif key == Qt.Key_I and (event.modifiers() & Qt.ControlModifier):
-            self.parentWidget().show_current_help(True)
+            self.parentWidget().show_current_help(True, True)
         # Let the parent widget handle the key press event
         QTextEdit.keyPressEvent(self, event)
 
@@ -153,16 +154,17 @@ class ConsoleWidget(RichJupyterWidget):
         if self.rc['auto_set_sp'] and (project is None or not project.is_main):
             self.kernel_manager.kernel.shell.run_code('sp = psy.gcp()')
 
-    def show_current_help(self, to_end=False):
+    def show_current_help(self, to_end=False, force=False):
         """Show the help of the object at the cursor position if
         ``rcParams['console.connect_to_help']`` is set"""
-        if not self.rc['connect_to_help']:
+        if not force and not self.rc['connect_to_help']:
             return
         obj_text = self.get_current_object(to_end)
         if obj_text is not None and self.help_explorer is not None:
             found, obj = self.get_obj(obj_text)
             if found:
                 self.help_explorer.show_help(obj, obj_text)
+                self._control.setFocus()
 
     def get_obj(self, obj_text):
         """

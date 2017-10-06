@@ -8,6 +8,7 @@ Added
   running GUI
 - Added callbacks to the ``MainWindow`` class. This framework can be used on a
   low level to interact with the current GUI.
+- The DataFrameEditor. A widget to display dataframes
 
 
 v1.0.1

@@ -51,7 +51,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
             "ds = psy.open_dataset('%s')" % fname)
         vtab = self.pc.variables_table
         ds = psy.open_dataset(self.get_file('test-t2m-u-v.nc'))
-        self.pc.get_ds_from_shell('ds')
+        self.pc.bt_get_ds.get_from_shell('ds')
         self.assertIn('ds', self.pc.ds_combo.currentText())
         self.assertEqual(
             {asstring(vtab.item(irow, 0).text()) for irow in range(
@@ -290,7 +290,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # open dataset
         fname = self.get_file('test-t2m-u-v.nc')
         ds = psy.open_dataset(fname)
-        self.pc.get_ds_from_shell(ds)
+        self.pc.bt_get_ds.get_from_shell(ds)
 
         # add data arrays
         QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)
@@ -326,7 +326,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
             QString = six.text_type
         fname = self.get_file('test-t2m-u-v.nc')
         ds = psy.open_dataset(fname)
-        self.pc.get_ds_from_shell(ds)
+        self.pc.bt_get_ds.get_from_shell(ds)
 
         # add data arrays
         QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)
@@ -376,7 +376,7 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # open dataset
         fname = self.get_file('test-t2m-u-v.nc')
         ds = psy.open_dataset(fname)
-        self.pc.get_ds_from_shell(ds)
+        self.pc.bt_get_ds.get_from_shell(ds)
 
         # add data arrays
         QTest.mouseClick(self.pc.bt_add_all, Qt.LeftButton)

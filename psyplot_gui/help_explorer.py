@@ -16,7 +16,8 @@ from psyplot_gui.config.rcsetup import rcParams
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QFrame, QVBoxLayout, QWebEngineView, QToolButton,
     QIcon, QtCore, QComboBox, Qt,  QSortFilterProxyModel, isstring, asstring,
-    QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5)
+    QCompleter, QStandardItemModel, QPlainTextEdit, QAction, QMenu, with_qt5,
+    QtGui)
 from psyplot_gui.common import get_icon, DockMixin, PyErrorMessage
 from IPython.core.oinspect import signature, getdoc
 import logging
@@ -353,7 +354,7 @@ class HelpMixin(object):
             docs"""
         descriptor = self.describe_object(obj, oname)
         doc = self.get_doc(descriptor)
-        self.show_rst(doc, descriptor=descriptor, files=files)
+        return self.show_rst(doc, descriptor=descriptor, files=files)
 
     def header(self, descriptor, sig):
         """Format the header and include object name and signature `sig`
@@ -454,8 +455,13 @@ class HelpMixin(object):
             The object descriptor holding the informations
         files: list of str
             A path to additional files that shall be used to display the docs
+
+        Returns
+        -------
+        bool
+            True if the text is displayed
         """
-        pass
+        return True
 
     @docstrings.get_sectionsf('HelpMixin.show_intro')
     def show_intro(self, text=''):
@@ -481,6 +487,7 @@ class TextHelp(QFrame, HelpMixin):
         #: The :class:`PyQt5.QtWidgets.QPlainTextEdit` instance used for
         #: displaying the documentation
         self.editor = QPlainTextEdit(parent=self)
+        self.editor.setFont(QtGui.QFont('Courier New'))
         self.vbox.addWidget(self.editor)
         self.setLayout(self.vbox)
 
@@ -495,6 +502,7 @@ class TextHelp(QFrame, HelpMixin):
             Are ignored"""
         self.editor.clear()
         self.editor.insertPlainText(text)
+        return True
 
 
 class UrlHelp(UrlBrowser, HelpMixin):
@@ -532,7 +540,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
                              self.reset_sphinx)
 
         else:
-            self.sphinx_thread = Nonec
+            self.sphinx_thread = None
 
         self.bt_connect_console = QToolButton(self)
         self.bt_connect_console.setCheckable(True)
@@ -612,7 +620,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         %(HelpMixin.show_intro.parameters)s"""
         if self.sphinx_thread is not None:
             with open(self.sphinx_thread.index_file, 'a') as f:
-                f.write(text)
+                f.write('\n' + text.strip() + '\n\n.. toctree::\n    :hidden:')
             self.sphinx_thread.render(None, None)
 
     def show_rst(self, text, oname='', descriptor=None, files=None):
@@ -622,12 +630,13 @@ class UrlHelp(UrlBrowser, HelpMixin):
         ----------
         %(HelpMixin.show_rst.parameters)s"""
         if self.bt_lock.isChecked():
-            return
+            return False
         if not oname and descriptor:
             oname = descriptor.name
         for f in files or []:
             shutil.copyfile(f, osp.join(self.sphinx_dir, osp.basename(f)))
         self.sphinx_thread.render(text, oname)
+        return True
 
     def describe_object(self, obj, oname=''):
         """Describe an object using additionaly the object type from the
@@ -714,7 +723,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         try:
             get_module_source(modname)
             return True
-        except:
+        except Exception:
             return False
 
     def get_doc(self, descriptor):
@@ -861,7 +870,7 @@ class SphinxThread(QtCore.QThread):
                 self.outdir, '_build', 'html', 'psyplot.html'))
         try:
             self.app.build(None, [])
-        except:
+        except Exception:
             msg = 'Error while building sphinx document %s' % (
                 self.name)
             self.html_error.emit('<b>' + msg + '</b>')
@@ -939,24 +948,30 @@ class HelpExplorer(QWidget, DockMixin):
         ----------
         %(HelpMixin.show_help.parameters)s"""
         oname = asstring(oname)
+        ret = None
         if self.viewer.can_document_object:
             try:
-                return self.viewer.show_help(obj, oname=oname, files=files)
+                ret = self.viewer.show_help(obj, oname=oname, files=files)
             except Exception:
                 logger.debug("Could not document %s with %s viewer!",
                              oname, self.combo.currentText(), exc_info=True)
-        curr_i = self.combo.currentIndex()
-        for i, (viewername, viewer) in enumerate(six.iteritems(self.viewers)):
-            if i != curr_i and viewer.can_document_object:
-                self.set_viewer(viewername)
-                self.combo.blockSignals(True)
-                self.combo.setCurrentIndex(i)
-                self.combo.blockSignals(False)
-                try:
-                    return viewer.show_help(obj, oname=oname, files=files)
-                except Exception:
-                    logger.debug("Could not document %s with %s viewer!",
-                                 oname, viewername, exc_info=True)
+        else:
+            curr_i = self.combo.currentIndex()
+            for i, (viewername, viewer) in enumerate(
+                    six.iteritems(self.viewers)):
+                if i != curr_i and viewer.can_document_object:
+                    self.set_viewer(viewername)
+                    self.combo.blockSignals(True)
+                    self.combo.setCurrentIndex(i)
+                    self.combo.blockSignals(False)
+                    try:
+                        ret = viewer.show_help(obj, oname=oname, files=files)
+                    except Exception:
+                        logger.debug("Could not document %s with %s viewer!",
+                                     oname, viewername, exc_info=True)
+        if ret:
+            self.dock.raise_()
+        return ret
 
     @docstrings.dedent
     def show_rst(self, text, oname='', files=None):
@@ -970,12 +985,18 @@ class HelpExplorer(QWidget, DockMixin):
         Parameters
         ----------
         %(HelpMixin.show_rst.parameters)s"""
+        ret = None
         if self.viewer.can_show_rst:
-            return self.viewer.show_rst(text, oname=oname, files=files)
-        for viewer in six.itervalues(self.viewers):
-            if viewer.can_show_rst:
-                self.set_viewer(viewer)
-                return viewer.show_rst(text, oname=oname, files=files)
+            ret = self.viewer.show_rst(text, oname=oname, files=files)
+        else:
+            for viewer in six.itervalues(self.viewers):
+                if viewer.can_show_rst:
+                    self.set_viewer(viewer)
+                    ret = viewer.show_rst(text, oname=oname, files=files)
+                    break
+        if ret:
+            self.dock.raise_()
+        return ret
 
     @docstrings.dedent
     def show_intro(self, text=''):

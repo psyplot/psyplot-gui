@@ -453,7 +453,7 @@ class DatasetTree(QTreeWidget, DockMixin):
             add2p_action = QAction('Add to project', self)
             add2p_action.setToolTip(self.tooltips['Add to project'])
             add2p_action.triggered.connect(lambda: self.make_plot(
-                parent.ds(), item.text(0)))
+                parent.ds(), item.text(0), True))
             menu.addSeparator()
             menu.addAction(add2p_action)
 
@@ -469,11 +469,13 @@ class DatasetTree(QTreeWidget, DockMixin):
                             range(self.topLevelItemCount())):
                 item.add_variables()
 
-    def make_plot(self, ds, name):
+    def make_plot(self, ds, name, exec_=None):
         from psyplot_gui.main import mainwindow
         mainwindow.new_plots()
         mainwindow.plot_creator.switch2ds(ds)
         mainwindow.plot_creator.insert_array(safe_list(name))
+        if exec_:
+            mainwindow.plot_creator.exec_()
 
     def _get_toplevel_item(self, item):
         if item is None:

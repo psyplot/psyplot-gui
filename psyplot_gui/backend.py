@@ -3,7 +3,7 @@ psyplot gui
 
 This backend is based upon matplotlibs qt4agg and qt5agg backends."""
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, Qt, QLabel, QWidget, QVBoxLayout, with_qt5)
+    QDockWidget, Qt, QWidget, QVBoxLayout, with_qt5)
 from psyplot_gui.common import DockMixin
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
@@ -23,10 +23,14 @@ class FiguresDock(QDockWidget):
         """
         Reimplemented to remove the dock widget from the mainwindow when closed
         """
+        from psyplot_gui.main import mainwindow
         try:
-            from psyplot_gui.main import mainwindow
             mainwindow.figures.remove(self)
-        except:
+        except Exception:
+            pass
+        try:
+            mainwindow.removeDockWidget(self)
+        except Exception:
             pass
         return super(FiguresDock, self).close(*args, **kwargs)
 

@@ -10,6 +10,7 @@ import time
 import pickle
 import datetime as dt
 import logging
+import xarray as xr
 import psyplot
 from psyplot.__main__ import make_plot
 from psyplot_gui.config.rcsetup import rcParams
@@ -20,6 +21,8 @@ from psyplot.docstring import docstrings
 from psyplot.warning import warn
 from psyplot.compat.pycompat import map
 from psyplot_gui.version import __version__
+
+from psyplot.compat.pycompat import get_default_value
 
 __author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
 
@@ -60,12 +63,13 @@ def get_versions(requirements=True):
 
 @docstrings.get_sectionsf('psyplot_gui.start_app')
 @docstrings.dedent
-def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
+def start_app(fnames=[], name=[], dims=None, plot_method=None,
               output=None, project=None, engine=None, formatoptions=None,
               tight=False, encoding=None, enable_post=False,
               seaborn_style=None,
-              new_instance=False, rc_file=None, rc_gui_file=None,
-              include_plugins=rcParams['plugins.include'],
+              concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
+              backend=False, new_instance=False, rc_file=None,
+              rc_gui_file=None, include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None, script=None, command=None, exec_=True, callback=None):
     """
@@ -148,7 +152,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
             output=output, project=project, engine=engine,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
             encoding=encoding, enable_post=enable_post,
-            seaborn_style=seaborn_style)
+            seaborn_style=seaborn_style, concat_dim=concat_dim)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -179,7 +183,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         if callback:
             send_files_to_psyplot(
                 callback, fnames, project, engine, plot_method, name, dims,
-                encoding, enable_post)
+                encoding, enable_post, concat_dim)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -193,7 +197,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None, backend=False,
         from psyplot_gui.compat.qtcompat import QApplication
         app = QApplication(sys.argv)
     mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
-                                dims, encoding, enable_post, seaborn_style)
+                                dims, encoding, enable_post, seaborn_style,
+                                concat_dim)
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
