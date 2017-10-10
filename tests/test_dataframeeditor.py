@@ -64,7 +64,7 @@ class DataFrameEditorTest(bt.PsyPlotGuiTestCase):
                          [1.11, "float"],
                          [1, "int"],
                          [np.random.rand(3, 3), "Unkown type"],
-                         ["áéí", "unicode"]
+                         [u"áéí", "unicode"]
                         ],
                         index=['a', 'b', np.nan, np.nan, np.nan, 'c',
                                'd'],

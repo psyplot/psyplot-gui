@@ -365,8 +365,10 @@ class FrozenTableView(QTableView):
         self.setModel(parent.model())
         self.setFocusPolicy(Qt.NoFocus)
         self.verticalHeader().hide()
-
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        if with_qt5:
+            self.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        else:
+            self.horizontalHeader().setResizeMode(QHeaderView.Fixed)
 
         parent.viewport().stackUnder(self)
 
