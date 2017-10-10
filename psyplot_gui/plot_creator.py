@@ -1494,7 +1494,10 @@ class AxesSelector(QWidget):
 
     def get_picked_ax(self, event):
         """Function to be called when an axes is picked"""
-        ax = event.artist.get_axes()
+        try:
+            ax = event.artist.axes
+        except AttributeError:
+            ax = event.artist.get_axes()
         text = self.result_label.text()
         if text:
             text += ';;'
