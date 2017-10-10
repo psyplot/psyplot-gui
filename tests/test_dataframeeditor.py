@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Test module for the :mod:`psyplot_gui.dataframeeditor` module"""
 import six
 import pandas as pd
@@ -64,7 +65,7 @@ class DataFrameEditorTest(bt.PsyPlotGuiTestCase):
                          [1.11, "float"],
                          [1, "int"],
                          [np.random.rand(3, 3), "Unkown type"],
-                         [u"áéí", "unicode"]
+                         ["áéí", "unicode"],
                         ],
                         index=['a', 'b', np.nan, np.nan, np.nan, 'c',
                                'd'],
