@@ -195,14 +195,14 @@ class MainWindow(QMainWindow):
             'Save the entire project into a pickle file')
         self.save_mp_as_action.setShortcut(QKeySequence.SaveAs)
         self.save_mp_as_action.triggered.connect(
-            partial(self.save_mp, new_name=True))
+            partial(self.save_mp, new_fname=True))
         self.save_project_as_menu.addAction(self.save_mp_as_action)
 
         self.save_sp_as_action = QAction('Selected', self)
         self.save_sp_as_action.setStatusTip(
             'Save the selected sub project into a pickle file')
         self.save_sp_as_action.triggered.connect(
-            partial(self.save_sp, new_name=True))
+            partial(self.save_sp, new_fname=True))
         self.save_project_as_menu.addAction(self.save_sp_as_action)
 
         # -------------------------- Pack project -----------------------------
@@ -481,6 +481,7 @@ class MainWindow(QMainWindow):
         editor.show_plugin()
         editor.maybe_tabify()
         editor.raise_()
+        return editor
 
     def setup_default_layout(self):
         """Set up the default window layout"""
