@@ -183,7 +183,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         if callback:
             send_files_to_psyplot(
                 callback, fnames, project, engine, plot_method, name, dims,
-                encoding, enable_post, concat_dim)
+                encoding, enable_post, seaborn_style, concat_dim)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
