@@ -109,7 +109,8 @@ class DataFrameEditorTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(list(df.index.values), [0, 1])
 
         # test false sorting
-        self.assertFalse(self.model.sort(2, return_check=True))
+        if not six.PY2:
+            self.assertFalse(self.model.sort(2, return_check=True))
 
         # test complex numbers
         self.assertTrue(self.model.sort(3, Qt.AscendingOrder,
@@ -243,7 +244,7 @@ class DataFrameEditorTest(bt.PsyPlotGuiTestCase):
         df.to_csv(f.name, index=False)
         self.editor.open_dataframe(f.name)
         self.assertIsNone(df_equals(self.model.df, df))
-        self.editor.open_dataframe('NONEXISTENT.csv')
+        self.editor.open_dataframe(u'NONEXISTENT.csv')
         self.assertIsNone(df_equals(self.model.df, df))
 
     def test_close(self):

@@ -9,7 +9,14 @@ from psyplot_gui.compat.qtcompat import (
     QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget,
     QToolButton, QInputDialog, QIcon)
 import logging
-from io import StringIO
+
+if six.PY2:
+    try:
+        import CStringIO as io
+    except ImportError:
+        import StringIO as io
+else:
+    import io
 
 
 def get_module_path(modname):
@@ -203,7 +210,7 @@ class PyErrorMessage(QErrorMessage):
     method"""
 
     def showTraceback(self, header=None):
-        s = StringIO()
+        s = io.StringIO()
         tb.print_exc(file=s)
         last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
             '</p>'
