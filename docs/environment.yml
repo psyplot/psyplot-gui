@@ -1,5 +1,6 @@
 name: psyplot_gui_docs
 channels:
+    - chilipp/label/dev
     - conda-forge
 dependencies:
     - python=3.5
