@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """Test module for the :mod:`psyplot_gui.dataframeeditor` module"""
 import six
+import sys
 import pandas as pd
 import numpy as np
 import _base_testing as bt
+import unittest
 from pandas.util.testing import assert_frame_equal
 from psyplot_gui.compat.qtcompat import Qt, QApplication
 
@@ -234,6 +236,8 @@ class DataFrameEditorTest(bt.PsyPlotGuiTestCase):
         arr = np.loadtxt(stream)
         self.assertEqual(arr.tolist(), [1, 4])
 
+    @unittest.skipIf(sys.platform == 'win32',
+                     'Avoid potential troubles with temporary csv files.')
     def test_open_dataframe(self):
         """Test the opening of a dataframe"""
         from tempfile import NamedTemporaryFile
