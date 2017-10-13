@@ -58,7 +58,7 @@ setup(name='psyplot-gui',
       license="GPLv2",
       packages=find_packages(exclude=['docs', 'tests*', 'examples']),
       install_requires=[
-          'psyplot',
+          'psyplot>1.0.1',
           'qtconsole',
           'fasteners',
           'sphinx',
