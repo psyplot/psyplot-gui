@@ -11,7 +11,6 @@ import socket
 import errno
 import pickle
 import os
-from itertools import chain
 from pkg_resources import iter_entry_points
 from functools import partial
 from collections import defaultdict, OrderedDict
@@ -121,6 +120,7 @@ class MainWindow(QMainWindow):
         #: list of figures from the psyplot backend
         self.figures = []
         self.error_msg = PyErrorMessage(self)
+        sys.excepthook = self.excepthook
         self.setDockOptions(
             QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks |
             QMainWindow.AllowTabbedDocks)
@@ -349,31 +349,7 @@ class MainWindow(QMainWindow):
             ('fmt_widget', self.fmt_widget),
             ])
         self.default_plugins = list(plugins)
-        logger = self.logger
-        inc = rcParams['plugins.include']
-        exc = rcParams['plugins.exclude']
-        for ep in iter_entry_points('psyplot_gui'):
-            plugin_name = '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs),
-                                        ep.name)
-            # check if the user wants to explicitly this plugin
-            include_user = None
-            if inc:
-                include_user = (
-                    ep.module_name in inc or ep.name in inc or
-                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in inc)
-            if include_user is None and exc == 'all':
-                include_user = False
-            elif include_user is None:
-                # check for exclude
-                include_user = not (
-                    ep.module_name in exc or ep.name in exc or
-                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in exc)
-            if not include_user:
-                logger.debug('Skipping plugin %s: Excluded by user',
-                             plugin_name)
-                continue
-            logger.debug('Loading plugin %s', plugin_name)
-            w_class = ep.load()
+        for plugin_name, w_class in six.iteritems(rcParams.load_plugins()):
             plugins[plugin_name] = w_class(parent=self)
 
         self.add_mp_to_menu()
@@ -601,6 +577,10 @@ class MainWindow(QMainWindow):
         self.plot_creator.resize(max(available_width, width), height)
         if exec_:
             self.plot_creator.exec_()
+
+    def excepthook(self, type, value, traceback):
+        """A method to replace the sys.excepthook"""
+        self.error_msg.excepthook(type, value, traceback)
 
     def edit_preferences(self, exec_=None):
         """Edit Spyder preferences"""

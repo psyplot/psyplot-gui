@@ -220,7 +220,21 @@ class PyErrorMessage(QErrorMessage):
         available_height = QDesktopWidget().availableGeometry().height() / 3.
         width = self.sizeHint().width()
         height = self.sizeHint().height()
-        # The plot creator window should cover at least one third of the screen
+        # The message window should cover at least one third of the screen
+        self.resize(max(available_width, width), max(available_height, height))
+
+    def excepthook(self, type, value, traceback):
+        s = io.StringIO()
+        tb.print_exception(type, value, traceback, file=s)
+        last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
+            '</p>'
+        header = value.message if six.PY2 else str(value)
+        self.showMessage(header + '\n' + last_tb)
+        available_width = QDesktopWidget().availableGeometry().width() / 3.
+        available_height = QDesktopWidget().availableGeometry().height() / 3.
+        width = self.sizeHint().width()
+        height = self.sizeHint().height()
+        # The message window should cover at least one third of the screen
         self.resize(max(available_width, width), max(available_height, height))
 
 
