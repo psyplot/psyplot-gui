@@ -10,6 +10,7 @@ import time
 import pickle
 import datetime as dt
 import logging
+import argparse
 import xarray as xr
 import psyplot
 from psyplot.__main__ import make_plot
@@ -290,6 +291,17 @@ def get_parser(create=True):
     parser.update_arg('pwd', group=gui_grp)
     parser.update_arg('script', short='s', group=gui_grp)
     parser.update_arg('command', short='c', group=gui_grp)
+    # add an action to display the GUI plugins
+    info_grp = parser.unfinished_arguments['list_plugins'].get('group')
+    parser.update_arg(
+        'list_gui_plugins', short='lgp', long='list-gui-plugins',
+        action=ListGuiPluginsAction, if_existent=False,
+        help=("Print the names of the GUI plugins and exit. Note that the "
+              "displayed plugins are not affected by the `include-plugins` "
+              "and `exclude-plugins` options"))
+    if info_grp is not None:
+        parser.unfinished_arguments['list_gui_plugins']['group'] = info_grp
+
     parser.pop_key('offline', 'short')
 
     parser.pop_arg('exec_')
@@ -321,3 +333,21 @@ will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
         parser.create_arguments()
 
     return parser
+
+
+class ListGuiPluginsAction(argparse.Action):
+
+    def __init__(self, option_strings, dest=argparse.SUPPRESS, nargs=None,
+                 **kwargs):
+        if nargs is not None:
+            raise ValueError("nargs not allowed")
+        super(ListGuiPluginsAction, self).__init__(
+            option_strings, nargs=0, dest=dest,
+            **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        import yaml
+        if not rcParams._plugins:
+            list(rcParams._load_plugin_entrypoints())
+        print(yaml.dump(rcParams._plugins, default_flow_style=False))
+        sys.exit(0)

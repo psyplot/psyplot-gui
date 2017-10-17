@@ -2,6 +2,7 @@
 
 This module defines the necessary configuration parts for the psyplot gui"""
 import six
+import logging
 from psyplot.config.rcsetup import (
     RcParams, psyplot_fname, validate_bool_maybe_none, validate_stringlist)
 from matplotlib.rcsetup import validate_int, validate_bool
@@ -110,6 +111,58 @@ class GuiRcParams(RcParams):
                                        fname='psyplotguirc.yml')
         if fname:
             super(GuiRcParams, self).load_from_file(fname)
+
+    def _load_plugin_entrypoints(self):
+        """Load the modules for the psyplot plugins
+
+        Yields
+        ------
+        pkg_resources.EntryPoint
+            The entry point for the psyplot plugin module"""
+        from pkg_resources import iter_entry_points
+        inc = self['plugins.include']
+        exc = self['plugins.exclude']
+        logger = logging.getLogger(__name__)
+        self._plugins = self._plugins or []
+        for ep in iter_entry_points('psyplot_gui'):
+            plugin_name = '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs),
+                                        ep.name)
+            # check if the user wants to explicitly this plugin
+            include_user = None
+            if inc:
+                include_user = (
+                    ep.module_name in inc or ep.name in inc or
+                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in inc)
+            if include_user is None and exc == 'all':
+                include_user = False
+            elif include_user is None:
+                # check for exclude
+                include_user = not (
+                    ep.module_name in exc or ep.name in exc or
+                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in exc)
+            if not include_user:
+                logger.debug('Skipping plugin %s: Excluded by user',
+                             plugin_name)
+            else:
+                logger.debug('Loading plugin %s', plugin_name)
+                self._plugins.append(str(ep))
+                yield ep
+
+    def load_plugins(self, *args, **kwargs):
+        """
+        Load the plugins for the psyplot_gui MainWindow
+
+        Returns
+        -------
+        dict
+            A mapping from entry point name to the imported widget class
+
+        Notes
+        -----
+        ``*args`` and ``**kwargs`` are ignored
+        """
+        return {str(ep): ep.load() for ep in self._load_plugin_entrypoints()}
+
 
 #: :class:`dict` with default values and validation functions
 defaultParams = {

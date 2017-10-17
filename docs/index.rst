@@ -69,6 +69,7 @@ Documentation
     getting_started
     configuration
     command_line
+    plugins
     api/psyplot_gui
     changelog
     todos
