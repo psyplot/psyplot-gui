@@ -161,7 +161,10 @@ class GuiRcParams(RcParams):
         -----
         ``*args`` and ``**kwargs`` are ignored
         """
-        return {str(ep): ep.load() for ep in self._load_plugin_entrypoints()}
+        def format_ep(ep):
+            return '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs), ep.name)
+        return {
+            format_ep(ep): ep.load() for ep in self._load_plugin_entrypoints()}
 
 
 #: :class:`dict` with default values and validation functions
