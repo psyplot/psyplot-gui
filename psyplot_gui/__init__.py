@@ -81,15 +81,15 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     %(make_plot.parameters)s
     backend: None or str
         The backend to use. By default, the ``'gui.backend'`` key in the
-        :attr:`psyplot.rcParams` dictionary is used. Otherwise it can be None
-        to use the standard matplotlib backend or a string identifying the
-        backend
+        :attr:`~psyplot_gui.config.rcsetup.rcParams` dictionary is used.
+        Otherwise it can be None to use the standard matplotlib backend or a
+        string identifying the backend
     new_instance: bool
         If True/set and the `output` parameter is not set, a new application is
         created
     rc_gui_file: str
         The path to a yaml configuration file that can be used to update  the
-        :attr:`psyplot_gui.rcParams`
+        :attr:`~psyplot_gui.config.rcsetup.rcParams`
     include_plugins: list of str
         The plugin widget to include. Can be either None to load all that are
         not explicitly excluded by `exclude_plugins` or a list of
