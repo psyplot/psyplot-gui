@@ -12,7 +12,7 @@ dependencies:
     - pyqt
     - sphinx
     - psy-simple
+    - sphinx-argparse
     - pip:
-        - sphinx-argparse==0.1.17
         - fasteners
         - autodocsumm
