@@ -273,8 +273,9 @@ def get_parser(create=True):
         'backend', short='b', const=None, nargs='?', metavar='backend',
         help="""
         The backend to use. By default, the ``'gui.backend'`` key in the
-        :attr:`psyplot_gui.rcParams` dictionary is used. If used without
-        options, the default matplotlib backend is used.""", group=gui_grp)
+        :attr:`~psyplot_gui.config.rcsetup.rcParams` dictionary is used. If
+        used without options, the default matplotlib backend is used.""",
+        group=gui_grp)
 
     parser.update_arg('new_instance', short='ni', group=gui_grp)
 
