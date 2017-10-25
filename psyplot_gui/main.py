@@ -364,7 +364,9 @@ class MainWindow(QMainWindow):
         self.windows_menu.addMenu(self.panes_menu)
 
         self.dataframe_menu = QMenu('DataFrame editors', self)
-        self.dataframe_menu.addAction('New Editor', self.new_data_frame_editor)
+        self.dataframe_menu.addAction(
+            'New Editor', partial(self.new_data_frame_editor, None,
+                                  'DataFrame Editor'))
         self.dataframe_menu.addSeparator()
         self.windows_menu.addMenu(self.dataframe_menu)
 
@@ -447,10 +449,23 @@ class MainWindow(QMainWindow):
         """Put focus on the ipython console"""
         self.console._control.setFocus()
 
-    def new_data_frame_editor(self, df=None):
+    def new_data_frame_editor(self, df=None, title='DataFrame Editor'):
+        """Open a new dataframe editor
+
+        Parameters
+        ----------
+        df: pandas.DataFrame
+            The dataframe to display
+        title: str
+            The title of the dock window
+
+        Returns
+        -------
+        psyplot_gui.dataframeeditor.DataFrameEditor
+            The newly created editor"""
         editor = DataFrameEditor()
         self.dataframeeditors.append(editor)
-        editor.to_dock(self, 'DataFrame Editor',
+        editor.to_dock(self, title,
                        Qt.RightDockWidgetArea, docktype='df')
         if df is not None:
             editor.set_df(df)
