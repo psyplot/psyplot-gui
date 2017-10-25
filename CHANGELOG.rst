@@ -13,6 +13,9 @@ Added
 
 v1.0.1
 ======
+.. image:: https://zenodo.org/badge/55793611.svg
+   :target: https://zenodo.org/badge/latestdoi/55793611
+
 Added
 -----
 - added changelog
