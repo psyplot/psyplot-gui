@@ -4,12 +4,16 @@ import os
 import os.path as osp
 import unittest
 
-os.environ['PSYPLOT_PLUGINS'] = 'yes:psyplot_gui_test.plugin::yes:psy_simple.plugin'
+os.environ['PSYPLOT_PLUGINS'] = ('yes:psyplot_gui_test.plugin::'
+                                 'yes:psy_simple.plugin')
+
 
 from psyplot.config import setup_logging
 
+
 test_dir = osp.dirname(__file__)
 setup_logging(osp.join(test_dir, 'logging.yml'), env_key='')
+
 
 from psyplot_gui.compat.qtcompat import QApplication
 from psyplot_gui import rcParams
