@@ -549,8 +549,16 @@ class ArrayTable(DragDropTable):
         """The names that are currently in use"""
         if self.prefer_list:
             return []
+        arr_col = self.arr_col
         return [asstring(item.text()) for item in filter(None, map(
-            lambda i: self.item(i, 1), range(self.rowCount())))]
+            lambda i: self.item(i, arr_col), range(self.rowCount())))]
+
+    @property
+    def vnames(self):
+        """The list of variable names per array"""
+        var_col = self.var_col
+        return [self.item(i, var_col).text().split(';;')
+                for i in range(self.rowCount())]
 
     @property
     def arr_names_dict(self):
@@ -558,8 +566,9 @@ class ArrayTable(DragDropTable):
         `arr_names` parameter in the
         :meth:`psyplot.data.ArrayList.from_dataset` method """
         ret = OrderedDict()
+        arr_col = self.arr_col
         for irow in range(self.rowCount()):
-            arr_name = asstring(self.item(irow, 1).text())
+            arr_name = asstring(self.item(irow, arr_col).text())
             if self.plot_method and self.plot_method._prefer_list:
                 d = ret.setdefault(arr_name, defaultdict(list))
                 d['name'].append(self._get_variables(irow))

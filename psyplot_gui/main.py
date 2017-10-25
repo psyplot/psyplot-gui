@@ -120,7 +120,6 @@ class MainWindow(QMainWindow):
         #: list of figures from the psyplot backend
         self.figures = []
         self.error_msg = PyErrorMessage(self)
-        sys.excepthook = self.excepthook
         self.setDockOptions(
             QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks |
             QMainWindow.AllowTabbedDocks)
@@ -786,13 +785,25 @@ class MainWindow(QMainWindow):
             self.new_plots(False)
             self.plot_creator.open_dataset(fnames, engine=engine,
                                            concat_dim=concat_dim)
-            self.plot_creator.insert_array(name)
+            if name == 'all':
+                ds = self.plot_creator.get_ds()
+                name = set(ds.variables) - set(ds.coords)
+            self.plot_creator.insert_array(
+                list(filter(None, psy.safe_list(name))))
             if dims is not None:
+                ds = self.plot_creator.get_ds()
+                dims = {key: ', '.join(
+                    map(str, val)) for key, val in six.iteritems(
+                        dims)}
+                for i, vname in enumerate(
+                        self.plot_creator.array_table.vnames):
+                    self.plot_creator.array_table.selectRow(i)
+                    self.plot_creator.array_table.update_selected(
+                        )
                 self.plot_creator.array_table.selectAll()
+                var = ds[vname[0]]
                 self.plot_creator.array_table.update_selected(
-                    dims={key: ', '.join(
-                        map(str, val)) for key, val in six.iteritems(
-                            dims)})
+                    dims=var.psy.decoder.correct_dims(var, dims.copy()))
             if plot_method:
                 self.plot_creator.pm_combo.setCurrentText(plot_method)
             self.plot_creator.exec_()

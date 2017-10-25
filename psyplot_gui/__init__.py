@@ -17,7 +17,7 @@ from psyplot.__main__ import make_plot
 from psyplot_gui.config.rcsetup import rcParams
 import psyplot_gui.config as config
 from itertools import chain
-from psyplot.config.rcsetup import get_configdir
+from psyplot.config.rcsetup import get_configdir, safe_list
 from psyplot.docstring import docstrings
 from psyplot.warning import warn
 from psyplot.compat.pycompat import map
@@ -72,7 +72,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               backend=False, new_instance=False, rc_file=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
-              pwd=None, script=None, command=None, exec_=True, callback=None):
+              pwd=None, script=None, command=None, exec_=True, use_all=False,
+              callback=None):
     """
     Eventually start the QApplication or only make a plot
 
@@ -111,6 +112,9 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     command: str
         Python commands that shall be run in the GUI. If the GUI is already
         running, the commands will be executed in this GUI
+    use_all: bool
+        If True, use all variables. Note that this is the default if the
+        `output` is specified and not `name`
     exec_: bool
         If True, the main loop is entered.
     callback: str
@@ -155,6 +159,10 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
             encoding=encoding, enable_post=enable_post,
             seaborn_style=seaborn_style, output_project=output_project,
             concat_dim=concat_dim)
+    if use_all:
+        name = 'all'
+    else:
+        name = safe_list(name)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -206,6 +214,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     if command is not None:
         mainwindow.console.kernel_manager.kernel.shell.run_code(command)
     if exec_:
+        sys.excepthook = mainwindow.excepthook
         sys.exit(app.exec_())
     else:
         return mainwindow
@@ -309,6 +318,8 @@ def get_parser(create=True):
     parser.append2help('output_project',
                        '. This option has only an effect if the `output` '
                        ' option is set.')
+
+    parser.update_arg('use_all', short='a')
 
     parser.pop_arg('exec_')
     parser.pop_arg('callback')
