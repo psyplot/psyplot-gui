@@ -67,7 +67,7 @@ def get_versions(requirements=True):
 def start_app(fnames=[], name=[], dims=None, plot_method=None,
               output=None, project=None, engine=None, formatoptions=None,
               tight=False, encoding=None, enable_post=False,
-              seaborn_style=None,
+              seaborn_style=None, output_project=None,
               concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
               backend=False, new_instance=False, rc_file=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
@@ -153,7 +153,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
             output=output, project=project, engine=engine,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
             encoding=encoding, enable_post=enable_post,
-            seaborn_style=seaborn_style, concat_dim=concat_dim)
+            seaborn_style=seaborn_style, output_project=output_project,
+            concat_dim=concat_dim)
 
     # Lock file creation
     lock_file = osp.join(get_configdir(), 'psyplot.lock')
@@ -304,6 +305,10 @@ def get_parser(create=True):
         parser.unfinished_arguments['list_gui_plugins']['group'] = info_grp
 
     parser.pop_key('offline', 'short')
+
+    parser.append2help('output_project',
+                       '. This option has only an effect if the `output` '
+                       ' option is set.')
 
     parser.pop_arg('exec_')
     parser.pop_arg('callback')
