@@ -751,7 +751,7 @@ class MainWindow(QMainWindow):
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
         'name', 'dims', 'encoding', 'enable_post', 'seaborn_style',
-        'concat_dim')
+        'concat_dim', 'chname')
 
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
@@ -759,13 +759,13 @@ class MainWindow(QMainWindow):
                             plot_method=None, name=None, dims=None,
                             encoding=None, enable_post=False,
                             seaborn_style=None, concat_dim=get_default_value(
-                                xr.open_mfdataset, 'concat_dim')):
+                                xr.open_mfdataset, 'concat_dim'), chname={}):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname)s
         """
         if seaborn_style is not None:
             import seaborn as sns
@@ -778,7 +778,7 @@ class MainWindow(QMainWindow):
             p = psy.Project.load_project(
                 project, alternative_paths=alternative_paths,
                 engine=engine, main=not psy.gcp(), encoding=encoding,
-                enable_post=enable_post)
+                enable_post=enable_post, chname=chname)
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
         else:
@@ -787,7 +787,7 @@ class MainWindow(QMainWindow):
                                            concat_dim=concat_dim)
             if name == 'all':
                 ds = self.plot_creator.get_ds()
-                name = set(ds.variables) - set(ds.coords)
+                name = sorted(set(ds.variables) - set(ds.coords))
             self.plot_creator.insert_array(
                 list(filter(None, psy.safe_list(name))))
             if dims is not None:
@@ -818,7 +818,7 @@ class MainWindow(QMainWindow):
             name=None, dims=None, encoding=None, enable_post=False,
             seaborn_style=None,
             concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
-            show=True):
+            chname={}, show=True):
         """
         Create a mainwindow and open the given files or project
 
@@ -845,7 +845,7 @@ class MainWindow(QMainWindow):
         if fnames or project:
             mainwindow.open_external_files(
                 fnames, project, engine, plot_method, name, dims, encoding,
-                enable_post, seaborn_style, concat_dim)
+                enable_post, seaborn_style, concat_dim, chname)
         psyplot.with_gui = True
         return mainwindow
 

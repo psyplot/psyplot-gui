@@ -69,6 +69,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               tight=False, encoding=None, enable_post=False,
               seaborn_style=None, output_project=None,
               concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
+              chname={},
               backend=False, new_instance=False, rc_file=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
@@ -158,7 +159,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
             encoding=encoding, enable_post=enable_post,
             seaborn_style=seaborn_style, output_project=output_project,
-            concat_dim=concat_dim)
+            concat_dim=concat_dim, chname=chname)
     if use_all:
         name = 'all'
     else:
@@ -173,6 +174,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     # new one. If *not*, then there is an instance already
     # running, which is locking that file
     lock_created = lock.acquire(False)
+
+    chname = dict(chname)
 
     if lock_created:
         # Start a new instance
@@ -193,7 +196,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         if callback:
             send_files_to_psyplot(
                 callback, fnames, project, engine, plot_method, name, dims,
-                encoding, enable_post, seaborn_style, concat_dim)
+                encoding, enable_post, seaborn_style, concat_dim, chname)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -208,7 +211,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         app = QApplication(sys.argv)
     mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
                                 dims, encoding, enable_post, seaborn_style,
-                                concat_dim)
+                                concat_dim, chname)
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
