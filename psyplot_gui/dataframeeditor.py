@@ -681,7 +681,7 @@ class DataFrameView(QTableView):
 class DataFrameDock(QDockWidget):
     """The QDockWidget for the :class:`DataFrameEditor"""
 
-    def close(self, *args, **kwargs):
+    def close(self):
         """
         Reimplemented to remove the dock widget from the mainwindow when closed
         """
@@ -694,7 +694,7 @@ class DataFrameDock(QDockWidget):
             mainwindow.removeDockWidget(self)
         except Exception:
             pass
-        return super(DataFrameDock, self).close(*args, **kwargs)
+        return super(DataFrameDock, self).close()
 
 
 class DataFrameEditor(DockMixin, QWidget):

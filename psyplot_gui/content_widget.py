@@ -395,7 +395,7 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.setHeaderLabels(['Dataset'] + list(columns))
         self.attr_columns = columns
 
-    def add_datasets_from_cp(self, project):
+    def add_datasets_from_cp(self, project=None):
         """Clear the tree and add the datasets based upon the given `project`
 
         Parameters
