@@ -8,11 +8,16 @@ been updated to use qtconsole.
 import re
 import sys
 
-from qtconsole.rich_jupyter_widget import RichJupyterWidget
+try:
+    from qtconsole.inprocess import QtInProcessRichJupyterWidget
+except ImportError:
+    from qtconsole.rich_jupyter_widget import (
+        RichJupyterWidget as QtInProcessRichJupyterWidget)
+from tornado import ioloop
+from zmq.eventloop import ioloop as zmq_ioloop
 from qtconsole.inprocess import QtInProcessKernelManager
 from psyplot_gui.compat.qtcompat import (
-    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence, asstring,
-    QApplication)
+    with_qt5, QtCore, Qt, QTextEdit, QTextCursor, QKeySequence, asstring)
 from psyplot_gui.common import StreamToLogger
 import psyplot
 import psyplot_gui
@@ -54,7 +59,7 @@ class IPythonControl(QTextEdit):
         QTextEdit.keyPressEvent(self, event)
 
 
-class ConsoleWidget(RichJupyterWidget):
+class ConsoleWidget(QtInProcessRichJupyterWidget):
     """A console widget to access an inprocess shell"""
 
     custom_control = IPythonControl
@@ -141,6 +146,15 @@ class ConsoleWidget(RichJupyterWidget):
 
         self.run_script.connect(self._run_script_in_shell)
         self.run_command.connect(self._run_command_in_shell)
+
+        # HACK: we set the IOloop for the InProcessKernel here manually without
+        # starting it (not necessary because QApplication has a blocking
+        # IOLoop). However, we need this because the ZMQInteractiveShell wants
+        # to call
+        #     loop = self.kernel.io_loop
+        #     loop.call_later(0.1, loop.stop)``
+        zmq_ioloop.install()
+        self.kernel_manager.kernel.io_loop = ioloop.IOLoop.current()
 
     def update_mp(self, project):
         """Update the `mp` variable in the shell is
