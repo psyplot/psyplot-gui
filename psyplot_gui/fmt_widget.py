@@ -51,9 +51,11 @@ class FormatoptionWidget(QWidget, DockMixin):
     #: The help_explorer to display the documentation of the formatoptions
     help_explorer = None
 
-    #: The shell to execute the update of the formatoptions in the current
-    #: project
-    shell = None
+    @property
+    def shell(self):
+        """The shell to execute the update of the formatoptions in the current
+        project"""
+        return self.console.kernel_manager.kernel.shell
 
     def __init__(self, *args, **kwargs):
         """
@@ -61,8 +63,8 @@ class FormatoptionWidget(QWidget, DockMixin):
         ----------
         help_explorer: psyplot_gui.help_explorer.HelpExplorer
             The help explorer to show the documentation of one formatoption
-        shell: IPython.core.interactiveshell.InteractiveShell
-            The shell that can be used to update the current subproject via::
+        console: psyplot_gui.console.ConsoleWidget
+            The console that can be used to update the current subproject via::
 
                 psy.gcp().update(**kwargs)
 
@@ -73,10 +75,10 @@ class FormatoptionWidget(QWidget, DockMixin):
             Any other keyword for the QWidget class
         """
         help_explorer = kwargs.pop('help_explorer', None)
-        shell = kwargs.pop('shell', None)
+        console = kwargs.pop('console', None)
         super(FormatoptionWidget, self).__init__(*args, **kwargs)
         self.help_explorer = help_explorer
-        self.shell = shell
+        self.console = console
 
         # ---------------------------------------------------------------------
         # -------------------------- Child widgets ----------------------------
@@ -258,7 +260,11 @@ class FormatoptionWidget(QWidget, DockMixin):
         e = ExecutionResult()
         self.shell.run_code("psy.gcp().update(%s={'%s': %s})" % (
             param, key, text), e)
-        e.raise_error()
+        try:
+            e.raise_error()
+        except Exception:  # reset the console and clear the error message
+            self.console.reset()
+            raise
 
     def show_all_fmt_info(self, what):
         """Show the keys, summaries or docs of the formatoptions

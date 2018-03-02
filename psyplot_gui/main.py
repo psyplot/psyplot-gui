@@ -337,7 +337,7 @@ class MainWindow(QMainWindow):
         #: general formatoptions widget
         self.fmt_widget = FormatoptionWidget(
             parent=self, help_explorer=help_explorer,
-            shell=self.console.kernel_client.kernel.shell)
+            console=self.console)
 
         # load plugin widgets
         self.plugins = plugins = OrderedDict([
