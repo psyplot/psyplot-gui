@@ -938,6 +938,7 @@ class DataFrameEditor(DockMixin, QWidget):
             self.set_df(df)
 
     def close(self, *args, **kwargs):
-        from psyplot_gui.main import mainwindow
-        super(DataFrameEditor, self).close(*args, **kwargs)
-        mainwindow.removeDockWidget(self.dock)
+        if self.dock is not None:
+            self.dock.close(*args, **kwargs)  # removes the dock window
+            del self.dock
+        return super(DataFrameEditor, self).close(*args, **kwargs)
