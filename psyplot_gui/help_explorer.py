@@ -520,8 +520,12 @@ class UrlHelp(UrlBrowser, HelpMixin):
     #: menu button with different urls
     bt_url_menus = None
 
+    #:
+    sphinx_thread = None
+
     def __init__(self, *args, **kwargs):
-        self.sphinx_dir = kwargs.pop('sphinx_dir', mkdtemp())
+        self._temp_dir = 'sphinx_dir' not in kwargs
+        self.sphinx_dir = kwargs.pop('sphinx_dir', mkdtemp(prefix='psyplot_'))
         self.build_dir = osp.join(self.sphinx_dir, '_build', 'html')
         super(UrlHelp, self).__init__(*args, **kwargs)
 
@@ -538,9 +542,6 @@ class UrlHelp(UrlBrowser, HelpMixin):
                              self.reset_sphinx)
             rcParams.connect('help_explorer.online',
                              self.reset_sphinx)
-
-        else:
-            self.sphinx_thread = None
 
         self.bt_connect_console = QToolButton(self)
         self.bt_connect_console.setCheckable(True)
@@ -795,6 +796,18 @@ class UrlHelp(UrlBrowser, HelpMixin):
         return indent(super(UrlHelp, self).process_docstring(
             lines, descriptor))
 
+    def close(self, *args, **kwargs):
+        if self.sphinx_thread is not None:
+            try:
+                del self.sphinx_thread.app
+            except AttributeError:
+                pass
+            shutil.rmtree(self.build_dir, ignore_errors=True)
+            if self._temp_dir:
+                shutil.rmtree(self.sphinx_dir, ignore_errors=True)
+            del self.sphinx_thread
+        return super(UrlHelp, self).close(*args, **kwargs)
+
 
 class SphinxThread(QtCore.QThread):
     """A thread to render sphinx documentation in a separate process"""
@@ -1017,3 +1030,7 @@ class HelpExplorer(QWidget, DockMixin):
                 if i:
                     self.set_viewer(viewer)
                 found = True
+
+    def close(self, *args, **kwargs):
+        self.viewers['HTML help'].close(*args, **kwargs)
+        return super(HelpExplorer, self).close(*args, **kwargs)

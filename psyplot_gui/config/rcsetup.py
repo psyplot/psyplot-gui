@@ -192,6 +192,9 @@ defaultParams = {
         'Switch that controls whether the online functions of the help '
         'explorer shall be enabled. False implies that '
         'help_explorer.use_intersphinx is set to False'],
+    'console.start_channels': [
+        True, validate_bool,
+        'Start the different channels of the KernelClient'],
     'console.connect_to_help': [
         True, validate_bool,
         'Whether the console shall be connected to the help_explorer or not'],

@@ -20,14 +20,25 @@ from psyplot_gui import rcParams
 from psyplot import rcParams as psy_rcParams
 
 
+def is_running_in_gui():
+    from psyplot_gui.main import mainwindow
+    return mainwindow is not None
+
+
+running_in_gui = is_running_in_gui()
+
+
 on_travis = os.environ.get('TRAVIS')
 
-rcParams.defaultParams['main.listen_to_port'][0] = False
-rcParams.defaultParams['help_explorer.render_docs_parallel'][0] = False
-rcParams.defaultParams['help_explorer.use_intersphinx'][0] = False
-rcParams.defaultParams['plugins.include'][0] = ['psyplot_gui_test.plugin']
-rcParams.defaultParams['plugins.exclude'][0] = 'all'
-rcParams.update_from_defaultParams()
+
+def setup_rcparams():
+    rcParams.defaultParams['console.start_channels'][0] = False
+    rcParams.defaultParams['main.listen_to_port'][0] = False
+    rcParams.defaultParams['help_explorer.render_docs_parallel'][0] = False
+    rcParams.defaultParams['help_explorer.use_intersphinx'][0] = False
+    rcParams.defaultParams['plugins.include'][0] = ['psyplot_gui_test.plugin']
+    rcParams.defaultParams['plugins.exclude'][0] = 'all'
+    rcParams.update_from_defaultParams()
 
 
 class PsyPlotGuiTestCase(unittest.TestCase):
@@ -39,29 +50,42 @@ class PsyPlotGuiTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        from psyplot_gui.main import mainwindow
+        cls._close_app = mainwindow is None
         cls._app = QApplication.instance()
-        if cls._app is None:
-            cls._app = QApplication([])
-        cls._app.setQuitOnLastWindowClosed(False)
+        if not running_in_gui:
+            if cls._app is None:
+                cls._app = QApplication([])
+            cls._app.setQuitOnLastWindowClosed(False)
 
     @classmethod
     def tearDownClass(cls):
-        cls._app.quit()
-        del cls._app
+        if not running_in_gui:
+            cls._app.quit()
+            del cls._app
 
     def setUp(self):
-        from psyplot_gui.main import MainWindow
-        self.window = MainWindow.run(show=False)
+        import psyplot_gui.main as main
+        if not running_in_gui:
+            setup_rcparams()
+            self.window = main.MainWindow.run(show=False)
+        else:
+            self.window = main.mainwindow
 
     def tearDown(self):
         import psyplot.project as psy
-        self.window.close()
+        import matplotlib.pyplot as plt
+        import psyplot_gui.main as main
+        if not running_in_gui:
+            self.window.close()
+            rcParams.update_from_defaultParams()
+            psy_rcParams.update_from_defaultParams()
+            rcParams.disconnect()
+            psy_rcParams.disconnect()
+            main._set_mainwindow(None)
         del self.window
         psy.close('all')
-        rcParams.update_from_defaultParams()
-        psy_rcParams.update_from_defaultParams()
-        rcParams.disconnect()
-        psy_rcParams.disconnect()
+        plt.close('all')
 
     def get_file(self, fname):
         """Get the path to the file `fname`

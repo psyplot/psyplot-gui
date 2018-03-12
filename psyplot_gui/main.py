@@ -65,6 +65,9 @@ class MainWindow(QMainWindow):
     #: open_files_server
     open_external = QtCore.pyqtSignal(list)
 
+    #: The server to open external files
+    open_files_server = None
+
     #: Inprocess console
     console = None
 
@@ -94,6 +97,8 @@ class MainWindow(QMainWindow):
 
     #: default widths of the dock widgets
     default_widths = {}
+
+    _is_open = False
 
     @property
     def logger(self):
@@ -272,6 +277,7 @@ class MainWindow(QMainWindow):
 
         if sys.platform != 'darwin':  # mac os makes this anyway
             self.quit_action = QAction('Quit', self)
+            self.quit_action.triggered.connect(self.close)
             self.quit_action.triggered.connect(
                 QtCore.QCoreApplication.instance().quit)
             self.quit_action.setShortcut(QKeySequence.Quit)
@@ -443,6 +449,8 @@ class MainWindow(QMainWindow):
             w.to_dock(self)
             if w.hidden:
                 w.hide_plugin()
+
+        self._is_open = True
 
     def focus_on_console(self, *args, **kwargs):
         """Put focus on the ipython console"""
@@ -731,6 +739,11 @@ class MainWindow(QMainWindow):
                 # To avoid a traceback after closing on Windows
                 if e.args[0] == eintr:
                     continue
+                # handle a connection abort on close error
+                enotsock = (errno.WSAENOTSOCK if os.name == 'nt'
+                            else errno.ENOTSOCK)
+                if e.args[0] in [errno.ECONNABORTED, enotsock]:
+                    return
                 raise
             args = pickle.loads(req.recv(1024))
             callback = args[0]
@@ -868,7 +881,18 @@ class MainWindow(QMainWindow):
         cls.run(*args, **kwargs)
         sys.exit(app.exec_())
 
-    def close(self, *args, **kwargs):
+    def closeEvent(self, event):
+        """closeEvent reimplementation"""
+        if not self._is_open or (self._is_open and self.close()):
+            self._is_open = False
+            event.accept()
+
+    def close(self):
         _set_mainwindow(None)
-        self.open_files_server.close()
-        super(MainWindow, self).close(*args, **kwargs)
+        if self.open_files_server is not None:
+            self.open_files_server.close()
+            del self.open_files_server
+        for widget in self.plugins.values():
+            widget.close()
+        self.plugins.clear()
+        return super(MainWindow, self).close()

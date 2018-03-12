@@ -1158,7 +1158,9 @@ class SubplotCreator(QWidget):
         # yes, return it
         for ax in fig.axes:
             ss = ax.get_subplotspec()
-            if ss.num1 == num1 and ss.num2 == num2:
+            if ss.num1 == num1 and (
+                    ss.num2 == num2 or (ss.num2 is None and num1 == num2) or
+                    (num2 is None and ss.num2 == num1)):
                 gs = ss.get_gridspec()
                 if gs.get_geometry() == (rows, cols):
                     return ax

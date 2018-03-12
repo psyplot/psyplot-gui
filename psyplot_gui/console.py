@@ -99,7 +99,8 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
         kernel.gui = 'qt4' if not with_qt5 else 'qt'
 
         kernel_client = kernel_manager.client()
-        kernel_client.start_channels()
+        if rcParams['console.start_channels']:
+            kernel_client.start_channels()
 
         self.help_explorer = kwargs.pop('help_explorer', None)
 
@@ -134,6 +135,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
 
         self.kernel_manager.kernel.shell.run_code(
             '\n'.join('import %s as %s' % t for t in modules2import))
+        self.exit_requested.connect(self._close_mainwindow)
         self.exit_requested.connect(QtCore.QCoreApplication.instance().quit)
 
         # we overwrite the short cut here because the 'Ctrl+S' shortcut is
@@ -268,3 +270,15 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
     def run_command_in_shell(self, command):
         """Run a script in the shell"""
         self.kernel_manager.kernel.shell.run_code(command)
+
+    def _close_mainwindow(self):
+        from psyplot_gui.main import mainwindow
+        if mainwindow is not None:
+            mainwindow.close()
+        else:
+            self.close()
+
+    def close(self):
+        if self.kernel_client.channels_running:
+            self.kernel_client.stop_channels()
+        return super(ConsoleWidget, self).close()

@@ -382,6 +382,11 @@ class FrozenTableView(QTableView):
         self.show()
         self.setVerticalScrollMode(QTableView.ScrollPerPixel)
 
+        self.verticalScrollBar().valueChanged.connect(
+            parent.verticalScrollBar().setValue)
+        parent.verticalScrollBar().valueChanged.connect(
+            self.verticalScrollBar().setValue)
+
     def update_geometry(self):
         """Update the frozen column size when an update occurs in its parent
         table"""
@@ -430,9 +435,6 @@ class DataFrameView(QTableView):
         self.verticalHeader().sectionResized.connect(
             self.update_section_height)
 
-        self.frozen_table_view.verticalScrollBar().valueChanged.connect(
-            self.verticalScrollBar().setValue)
-
         self.sort_old = [None]
         self.header_class = self.horizontalHeader()
         self.header_class.sectionClicked.connect(self.sortByColumn)
@@ -442,8 +444,6 @@ class DataFrameView(QTableView):
                         lambda val: self.load_more_data(val, columns=True))
         self.verticalScrollBar().valueChanged.connect(
                         lambda val: self.load_more_data(val, rows=True))
-        self.verticalScrollBar().valueChanged.connect(
-            self.frozen_table_view.verticalScrollBar().setValue)
 
     def update_section_width(self, logical_index, old_size, new_size):
         """Update the horizontal width of the frozen column when a
