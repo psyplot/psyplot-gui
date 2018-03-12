@@ -75,8 +75,8 @@ class PsyPlotGuiTestCase(unittest.TestCase):
     def tearDown(self):
         import psyplot.project as psy
         import matplotlib.pyplot as plt
-        import psyplot_gui.main as main
         if not running_in_gui:
+            import psyplot_gui.main as main
             self.window.close()
             rcParams.update_from_defaultParams()
             psy_rcParams.update_from_defaultParams()
