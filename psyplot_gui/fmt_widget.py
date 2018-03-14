@@ -13,7 +13,8 @@ import psyplot.project as psy
 from psyplot.utils import _temp_bool_prop, unique_everseen
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QComboBox, QLineEdit, QVBoxLayout, QToolButton,
-    QIcon, QPushButton, QCheckBox, QTextEdit, QListView)
+    QIcon, QPushButton, QCheckBox, QTextEdit, QListView, QCompleter, Qt,
+    QStandardItemModel, QStandardItem)
 from psyplot_gui.plot_creator import CoordComboBox
 from psyplot_gui.config.rcsetup import rcParams
 from psyplot.compat.pycompat import OrderedDict, map
@@ -188,6 +189,18 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.line_edit = QLineEdit(parent=self)
         self.text_edit = QTextEdit(parent=self)
         self.run_button = QToolButton(parent=self)
+
+        # completer for the fmto widget
+        self.fmt_combo.setEditable(True)
+        self.fmt_combo.setInsertPolicy(QComboBox.NoInsert)
+        self.fmto_completer = completer = QCompleter(
+            ['time', 'lat', 'lon', 'lev'])
+        completer.setCompletionMode(
+            QCompleter.PopupCompletion)
+        completer.activated[str].connect(self.set_fmto)
+        completer.setFilterMode(Qt.MatchContains)
+        completer.setModel(QStandardItemModel())
+        self.fmt_combo.setCompleter(completer)
 
         self.dim_widget = DimensionsWidget(parent=self)
         self.dim_widget.setVisible(False)
@@ -370,6 +383,23 @@ class FormatoptionWidget(QWidget, DockMixin):
             return fmto
         return '%s (%s)' % (fmto.name, fmto.key) if fmto.name else fmto.key
 
+    @property
+    def fmto(self):
+        return self.fmtos[self.group_combo.currentIndex()][
+            self.fmt_combo.currentIndex()]
+
+    @fmto.setter
+    def fmto(self, value):
+        name = self.get_name(value)
+        for i, fmtos in enumerate(self.fmtos):
+            if i == 1:  # all formatoptions
+                continue
+            if name in map(self.get_name, fmtos):
+                with self.no_fmtos_update:
+                    self.group_combo.setCurrentIndex(i)
+                self.fill_fmt_combo(i, name)
+                return
+
     def toggle_line_edit(self):
         """Switch between the :attr:`line_edit` and :attr:`text_edit`
 
@@ -389,21 +419,35 @@ class FormatoptionWidget(QWidget, DockMixin):
             self.text_edit.setVisible(False)
             self.line_edit.setText(self.text_edit.toPlainText())
 
-    def fill_fmt_combo(self, i):
+    def fill_fmt_combo(self, i, current_text=None):
         """Fill the :attr:`fmt_combo` combobox based on the current group name
         """
         if not self.no_fmtos_update:
             with self.no_fmtos_update:
-                current_text = self.fmt_combo.currentText()
+                if current_text is None:
+                    current_text = self.fmt_combo.currentText()
                 self.fmt_combo.clear()
                 self.fmt_combo.addItems(
                     list(map(self.get_name, self.fmtos[i])))
                 ind = self.fmt_combo.findText(current_text)
                 self.fmt_combo.setCurrentIndex(ind if ind >= 0 else 0)
+                # update completer model
+                self.setup_fmt_completion_model()
             idx = self.fmt_combo.currentIndex()
             self.show_fmt_info(idx)
             self.load_fmt_widget(idx)
             self.set_current_fmt_value(idx)
+
+    def set_fmto(self, name):
+        self.fmto = name
+
+    def setup_fmt_completion_model(self):
+        fmtos = list(unique_everseen(map(
+            self.get_name, chain.from_iterable(self.fmtos))))
+        model = self.fmto_completer.model()
+        model.setRowCount(len(fmtos))
+        for i, name in enumerate(fmtos):
+            model.setItem(i, QStandardItem(name))
 
     def load_fmt_widget(self, i):
         """Load the formatoption specific widget
@@ -416,14 +460,7 @@ class FormatoptionWidget(QWidget, DockMixin):
         ----------
         i: int
             The index of the current formatoption"""
-        if self.fmt_widget is not None:
-            if self.fmt_widget is self.dim_widget:
-                self.fmt_widget.setVisible(False)
-                self.fmt_widget.reset_combobox()
-            else:
-                self.vbox.removeWidget(self.fmt_widget)
-                self.fmt_widget.close()
-            self.fmt_widget = None
+        self.remove_fmt_widget()
         group_ind = self.group_combo.currentIndex()
         if not self.no_fmtos_update:
             from psyplot.project import gcp
@@ -439,6 +476,16 @@ class FormatoptionWidget(QWidget, DockMixin):
                 self.fmt_widget = fmto.get_fmt_widget(self, gcp())
                 if self.fmt_widget is not None:
                     self.vbox.insertWidget(2, self.fmt_widget)
+
+    def remove_fmt_widget(self):
+        if self.fmt_widget is not None:
+            self.fmt_widget.hide()
+            if self.fmt_widget is self.dim_widget:
+                self.fmt_widget.reset_combobox()
+            else:
+                self.vbox.removeWidget(self.fmt_widget)
+                self.fmt_widget.close()
+            del self.fmt_widget
 
     def set_current_fmt_value(self, i):
         """Add the value of the current formatoption to the line text"""
