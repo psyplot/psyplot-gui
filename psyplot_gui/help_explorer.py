@@ -630,7 +630,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         Parameters
         ----------
         %(HelpMixin.show_rst.parameters)s"""
-        if self.bt_lock.isChecked():
+        if self.bt_lock.isChecked() or self.sphinx_thread is None:
             return False
         if not oname and descriptor:
             oname = descriptor.name
