@@ -292,7 +292,7 @@ class UrlBrowser(QFrame):
         logger.debug('url changed to %s', url)
         try:
             self.tb_url.setCurrentText(url)
-        except AttributeError:
+        except AttributeError:  # Qt4
             self.tb_url.setEditText(url)
         self.tb_url.add_text_on_top(url, block=True)
 
