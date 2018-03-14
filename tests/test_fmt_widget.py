@@ -1,7 +1,13 @@
 """Test module for the psyplot_gui.fmt_widget module"""
 import yaml
 import _base_testing as bt
-from psyplot_gui.compat.qtcompat import QTest, Qt, QPushButton, QtCore
+from psyplot_gui.compat.qtcompat import (
+    QTest, Qt, QPushButton, QtCore, QtGui, with_qt5)
+
+if with_qt5:
+    ClearAndSelect = QtCore.QItemSelectionModel.ClearAndSelect
+else:
+    ClearAndSelect = QtGui.QItemSelectionModel.ClearAndSelect
 
 
 class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
@@ -53,14 +59,12 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         model = fmt_w.dim_widget.coord_combo.model()
         selection_model = fmt_w.dim_widget.coord_combo.view().selectionModel()
         item = model.item(2)
-        selection_model.select(model.indexFromItem(item),
-                               QtCore.QItemSelectionModel.ClearAndSelect)
+        selection_model.select(model.indexFromItem(item), ClearAndSelect)
         fmt_w.dim_widget.insert_from_combo()
         self.assertEqual(fmt_w.get_text(), '[1]')
         # select a second item
         item = model.item(3)
-        selection_model.select(model.indexFromItem(item),
-                               QtCore.QItemSelectionModel.ClearAndSelect)
+        selection_model.select(model.indexFromItem(item), ClearAndSelect)
         fmt_w.dim_widget.insert_from_combo()
         self.assertEqual(fmt_w.get_text(), '[1, 2]')
 
@@ -72,10 +76,8 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
     def test_fmtos(self):
         """Test whether the fmto combo for formatoptions is filled correctly"""
         fmt_w = self.fmt_widget
-        try:
-            fmt_w.group_combo.setCurrentText('Miscallaneous formatoptions')
-        except AttributeError:  # Qt4
-            fmt_w.group_combo.setEditText('Miscallaneous formatoptions')
+        fmt_w.group_combo.setCurrentIndex(fmt_w.group_combo.findText(
+            'Miscallaneous formatoptions'))
         # test groups
         self.assertEqual(
             list(map(fmt_w.fmt_combo.itemText,
@@ -108,10 +110,8 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         """Test updating the plot"""
         fmt_w = self.fmt_widget
         self.assertTrue(fmt_w.yaml_cb.isChecked())
-        try:
-            fmt_w.group_combo.setCurrentText('Miscallaneous formatoptions')
-        except AttributeError:  # Qt4
-            fmt_w.group_combo.setEditText('Miscallaneous formatoptions')
+        fmt_w.group_combo.setCurrentIndex(fmt_w.group_combo.findText(
+            'Miscallaneous formatoptions'))
         fmt_w.set_obj('test')
         QTest.keyClick(fmt_w.line_edit, Qt.Key_Return)
         self.assertEqual(self.project.plotters[0].fmt1.value, 'test')
@@ -128,10 +128,8 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         """
         fmt_w = self.fmt_widget
         self.assertIs(fmt_w.fmt_widget, fmt_w.dim_widget)
-        try:
-            fmt_w.group_combo.setCurrentText('Miscallaneous formatoptions')
-        except AttributeError:  # Qt4
-            fmt_w.group_combo.setEditText('Miscallaneous formatoptions')
+        fmt_w.group_combo.setCurrentIndex(fmt_w.group_combo.findText(
+            'Miscallaneous formatoptions'))
         self.assertIsInstance(fmt_w.fmt_widget, QPushButton)
         self.assertFalse(yaml.load(fmt_w.line_edit.text()))
         fmt_w.line_edit.setText('')

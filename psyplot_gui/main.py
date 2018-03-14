@@ -818,10 +818,8 @@ class MainWindow(QMainWindow):
                 self.plot_creator.array_table.update_selected(
                     dims=var.psy.decoder.correct_dims(var, dims.copy()))
             if plot_method:
-                try:
-                    self.plot_creator.pm_combo.setCurrentText(plot_method)
-                except AttributeError:  # Qt4
-                    self.plot_creator.pm_combo.setEditText(plot_method)
+                self.plot_creator.pm_combo.setCurrentIndex(
+                    self.plot_creator.pm_combo.findText(plot_method))
             self.plot_creator.exec_()
 
     def _open_external_files(self, args):
