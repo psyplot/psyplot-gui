@@ -47,6 +47,7 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
     def test_dim_widget(self):
         """Test the :class:`psyplot_gui.fmt_widget.DimensionsWidget`"""
         fmt_w = self.fmt_widget
+        fmt_w.clear_text()
         self.assertTrue(fmt_w.dim_widget.isVisible())
         fmt_w.dim_widget.coord_combo.load_coord()
         model = fmt_w.dim_widget.coord_combo.model()
@@ -86,7 +87,7 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         fmt_w = self.fmt_widget
         self.assertTrue(fmt_w.line_edit.isVisible())
         self.assertFalse(fmt_w.text_edit.isVisible())
-        fmt_w.insert_obj('test')
+        fmt_w.set_obj('test')
         self.assertEqual(fmt_w.line_edit.text()[1:-1], 'test')
 
         # now toggle the button

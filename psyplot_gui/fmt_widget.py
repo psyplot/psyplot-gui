@@ -55,6 +55,11 @@ class DimensionsWidget(QWidget):
     def set_dim(self, dim):
         self.dim = self.coord_combo.dim = dim
 
+    def slice2list(self, sl):
+        if not isinstance(sl, slice):
+            return sl
+        return list(range(*sl.indices(self.coord_combo.count() - 1)))
+
     def reset_combobox(self):
         """Clear all comboboxes"""
         self.coord_combo.use_coords = self.cb_use_coord.isChecked()
@@ -79,6 +84,7 @@ class DimensionsWidget(QWidget):
                 pass
             else:
                 if current:
+                    current = self.slice2list(current)
                     inserts = sorted(set(chain(inserts, safe_list(current))))
         else:
             inserts = inserts[0]
