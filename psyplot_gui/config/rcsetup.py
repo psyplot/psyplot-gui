@@ -218,6 +218,10 @@ defaultParams = {
         "their string representation is displayed as tool tip. This part of "
         "the data into memory. It is recommended to set this to False for "
         "remote data."],
+    'fmt.sort_by_key': [
+        True, validate_bool,
+        "If True, the formatoptions in the Formatoptions widget are sorted by "
+        "their formatoption key rather than by their name."],
     'plugins.include': [
         None, try_and_error(validate_none, validate_stringlist),
         "The plugins to load. Can be either None to load all that are not "
