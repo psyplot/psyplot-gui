@@ -14,7 +14,7 @@ from psyplot.utils import _temp_bool_prop, unique_everseen
 from psyplot_gui.compat.qtcompat import (
     QWidget, QHBoxLayout, QComboBox, QLineEdit, QVBoxLayout, QToolButton,
     QIcon, QPushButton, QCheckBox, QTextEdit, QListView, QCompleter, Qt,
-    QStandardItemModel, QStandardItem)
+    QStandardItemModel, QStandardItem, with_qt5)
 from psyplot_gui.plot_creator import CoordComboBox
 from psyplot_gui.config.rcsetup import rcParams
 from psyplot.compat.pycompat import OrderedDict, map
@@ -198,7 +198,8 @@ class FormatoptionWidget(QWidget, DockMixin):
         completer.setCompletionMode(
             QCompleter.PopupCompletion)
         completer.activated[str].connect(self.set_fmto)
-        completer.setFilterMode(Qt.MatchContains)
+        if with_qt5:
+            completer.setFilterMode(Qt.MatchContains)
         completer.setModel(QStandardItemModel())
         self.fmt_combo.setCompleter(completer)
 
