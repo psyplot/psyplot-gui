@@ -437,10 +437,14 @@ class FormatoptionWidget(QWidget, DockMixin):
     def set_current_fmt_value(self, i):
         """Add the value of the current formatoption to the line text"""
         group_ind = self.group_combo.currentIndex()
-        if (not self.no_fmtos_update and
-                self.groups[group_ind] != COORDSGROUP):
-            fmto = self.fmtos[self.group_combo.currentIndex()][i]
-            self.set_obj(fmto.value)
+        if not self.no_fmtos_update:
+            if self.groups[group_ind] == COORDSGROUP:
+                from psyplot.project import gcp
+                dim = self.fmtos[group_ind][i]
+                self.set_obj(gcp().arrays[0].psy.idims[dim])
+            else:
+                fmto = self.fmtos[group_ind][i]
+                self.set_obj(fmto.value)
 
     def show_fmt_info(self, i):
         """Show the documentation of the formatoption in the help explorer
