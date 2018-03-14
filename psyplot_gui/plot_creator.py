@@ -16,7 +16,7 @@ from math import floor
 from itertools import chain, product, cycle, repeat, starmap
 import matplotlib as mpl
 import six
-from psyplot.utils import _TempBool
+from psyplot.utils import _temp_bool_prop
 from psyplot.compat.pycompat import map, range, filter, OrderedDict
 from psyplot_gui.compat.qtcompat import (
     QWidget, QComboBox, QHBoxLayout, QVBoxLayout, QFileDialog, QToolButton,
@@ -42,8 +42,8 @@ class CoordComboBox(QComboBox):
     emitted when the popup is about to be closed because the user clicked on a
     value"""
 
-    close_popups = _TempBool(True)
-    use_coords = _TempBool(False)
+    close_popups = _temp_bool_prop('close_popups', default=True)
+    use_coords = _temp_bool_prop('use_coords', default=False)
     leftclick = QtCore.pyqtSignal(QComboBox)
 
     def __init__(self, ds_func, dim, parent=None):
@@ -324,12 +324,6 @@ class CoordsTable(QTableWidget):
             header_item = QTableWidgetItem(dim)
             self.setHorizontalHeaderItem(i, header_item)
             self.setCellWidget(0, i, CoordComboBox(self.get_ds, dim))
-
-    def reset_comboboxes(self):
-        """Clear all comboboxes"""
-        for cb in self.combo_boxes:
-            cb.clear()
-            cb._is_empty = True
 
     def sizeHint(self):
         """Reimplemented to adjust the heigth based upon the header and the
@@ -1761,10 +1755,8 @@ class PlotCreator(QDialog):
         self.pm_combo.currentIndexChanged[str].connect(self.fill_fmt_tree)
 
         # --------------------- Combo box connections -------------------------
-        self.cbox_close_popups.clicked.connect(CoordComboBox.close_popups)
-        self.cbox_use_coords.clicked.connect(CoordComboBox.use_coords)
-        self.cbox_use_coords.clicked.connect(
-            self.coords_table.reset_comboboxes)
+        self.cbox_close_popups.clicked.connect(self.toggle_close_popups)
+        self.cbox_use_coords.clicked.connect(self.reset_comboboxes)
         # connect leftclick of combo boxes to create new arrays or update the
         # selected
         self.connect_combo_boxes()
@@ -1867,6 +1859,20 @@ class PlotCreator(QDialog):
         hbox.addWidget(splitter)
         self.setLayout(hbox)
         self.fill_fmt_tree(self.pm_combo.currentText())
+
+    def toggle_close_popups(self):
+        """Change the automatic closing of popups"""
+        close_popups = self.cbox_close_popups.isChecked()
+        for cb in self.coords_table.combo_boxes:
+            cb.close_popups = close_popups
+
+    def reset_comboboxes(self):
+        """Clear all comboboxes"""
+        use_coords = self.cbox_use_coords.isChecked()
+        for cb in self.coords_table.combo_boxes:
+            cb.use_coords = use_coords
+            cb.clear()
+            cb._is_empty = True
 
     def fill_fmt_tree(self, pm):
         self.fmt_tree.clear()
