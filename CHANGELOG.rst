@@ -9,6 +9,8 @@ Added
 - Added callbacks to the ``MainWindow`` class. This framework can be used on a
   low level to interact with the current GUI.
 - The DataFrameEditor. A widget to display dataframes
+- The implementation of the ``psyplot.plotter.Formatoption.get_fmt_widget``
+  method. Formatoptions now can add a custom widget to the formatoptions widget
 
 
 v1.0.1

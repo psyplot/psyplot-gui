@@ -1,4 +1,4 @@
-from psyplot.config.rcsetup import RcParams, validate_bool
+from psyplot.config.rcsetup import RcParams, validate_bool, validate_dict
 from psyplot_gui.common import DockMixin
 from psyplot_gui.compat.qtcompat import QWidget, Qt
 
@@ -15,5 +15,11 @@ class W2(QWidget, DockMixin):
 
 
 rcParams = RcParams(
-    defaultParams={'test_plugin': [True, validate_bool]})
+    defaultParams={
+        'test_plugin': [True, validate_bool],
+        'project.plotters': [
+            {'gui_test_plotter': {
+                'module': 'psyplot_gui_test.plotter',
+                'plotter_name': 'TestPlotter', 'import_plotter': True}},
+            validate_dict]})
 rcParams.update_from_defaultParams()
