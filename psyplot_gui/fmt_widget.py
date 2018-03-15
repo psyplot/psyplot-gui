@@ -18,7 +18,7 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot_gui.plot_creator import CoordComboBox
 from psyplot_gui.config.rcsetup import rcParams
 from psyplot.compat.pycompat import OrderedDict, map
-from psyplot_gui.common import DockMixin, get_icon
+from psyplot_gui.common import DockMixin, get_icon, PyErrorMessage
 from psyplot.data import safe_list
 import psyplot.plotter as psyp
 from psyplot.data import isstring
@@ -180,6 +180,7 @@ class FormatoptionWidget(QWidget, DockMixin):
         super(FormatoptionWidget, self).__init__(*args, **kwargs)
         self.help_explorer = help_explorer
         self.console = console
+        self.error_msg = PyErrorMessage(self)
 
         # ---------------------------------------------------------------------
         # -------------------------- Child widgets ----------------------------
@@ -545,6 +546,19 @@ class FormatoptionWidget(QWidget, DockMixin):
             return self.line_edit.text()
         else:
             return self.text_edit.toPlainText()
+
+    def get_obj(self):
+        """Get the current update text"""
+        if self.line_edit.isVisible():
+            txt = self.line_edit.text()
+        else:
+            txt = self.text_edit.toPlainText()
+        try:
+            obj = yaml.load(txt)
+        except Exception:
+            self.error_msg.showTraceback("Could not load %s" % txt)
+        else:
+            return obj
 
     def insert_obj(self, obj):
         """Add a string to the formatoption widget"""

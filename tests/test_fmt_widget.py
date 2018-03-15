@@ -146,3 +146,7 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         fmt_w.yaml_cb.setChecked(False)
         QTest.mouseClick(fmt_w.fmt_widget, Qt.LeftButton)
         self.assertEqual(fmt_w.line_edit.text(), '22')
+
+    def test_get_obj(self):
+        self.fmt_widget.line_edit.setText('{"okay": True}')
+        self.assertEqual(self.fmt_widget.get_obj(), {'okay': True})
