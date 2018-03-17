@@ -50,6 +50,13 @@ except ImportError:
 
         currentTextChanged = QtCore.pyqtSignal(str)
 
+        def __init__(self, *args, **kwargs):
+            OrigQComboBox.__init__(self, *args, **kwargs)
+            self.currentIndexChanged.connect(self._emit_currentTextChanged)
+
+        def _emit_currentTextChanged(self, i):
+            self.currentTextChanged.emit(self.currentText())
+
         def setCurrentText(self, s):
             idx = self.findText(s)
             if idx == -1:
