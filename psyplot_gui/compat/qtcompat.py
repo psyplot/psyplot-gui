@@ -15,7 +15,8 @@ except ImportError:
         QMainWindow, QDockWidget, QToolBox, QApplication, QListWidget,
         QListWidgetItem, QHBoxLayout, QVBoxLayout, QAbstractItemView,
         QWidget, QPushButton, QFrame, QSplitter, QTreeWidget, QTreeWidgetItem,
-        QSizePolicy, QLabel, QLineEdit, QIcon, QToolButton, QComboBox,
+        QSizePolicy, QLabel, QLineEdit, QIcon, QToolButton,
+        QComboBox as OrigQComboBox,
         QKeyEvent, QSortFilterProxyModel, QStandardItem, QStandardItemModel,
         QCompleter, QStatusBar, QPlainTextEdit, QTextEdit, QToolBar, QMenu,
         QAction, QTextCursor, QMessageBox, QCheckBox, QFileDialog,
@@ -44,6 +45,17 @@ except ImportError:
         def isstring(s):
             return isinstance(
                 s, tuple(list(six.string_types) + [QString, QByteArray]))
+
+    class QComboBox(OrigQComboBox):
+
+        currentTextChanged = QtCore.pyqtSignal(str)
+
+        def setCurrentText(self, s):
+            idx = self.findText(s)
+            if idx == -1:
+                self.addItem(s)
+                idx = self.findText(s)
+            self.setCurrentIndex(idx)
 
 else:
     from PyQt5.QtWidgets import (
