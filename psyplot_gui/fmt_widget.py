@@ -479,6 +479,11 @@ class FormatoptionWidget(QWidget, DockMixin):
                 if self.fmt_widget is not None:
                     self.vbox.insertWidget(2, self.fmt_widget)
 
+    def reset_fmt_widget(self):
+        idx = self.fmt_combo.currentIndex()
+        self.load_fmt_widget(idx)
+        self.set_current_fmt_value(idx)
+
     def remove_fmt_widget(self):
         if self.fmt_widget is not None:
             self.fmt_widget.hide()
