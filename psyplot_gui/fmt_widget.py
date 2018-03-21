@@ -5,7 +5,7 @@ import six
 import yaml
 from functools import partial
 from collections import defaultdict
-from itertools import chain
+from itertools import chain, accumulate
 import logging
 from warnings import warn
 from IPython.core.interactiveshell import ExecutionResult
@@ -342,9 +342,13 @@ class FormatoptionWidget(QWidget, DockMixin):
                 return
             self.line_edit.setEnabled(True)
             # get dimensions
-            coords = list(unique_everseen(chain.from_iterable(
-                next(arr.psy.iter_base_variables).dims
-                for arr in project.arrays)))
+            it_vars = chain.from_iterable(
+                arr.psy.iter_base_variables for arr in project.arrays)
+            dims = next(it_vars).dims
+            sdims = set(dims)
+            for var in it_vars:
+                sdims.intersection_update(var.dims)
+            coords = [d for d in dims if d in sdims]
             coords_name = [COORDSGROUP] if coords else []
             coords_verbose = ['Dimensions'] if coords else []
             coords = [coords] if coords else []
