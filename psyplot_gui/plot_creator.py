@@ -1976,6 +1976,14 @@ class PlotCreator(QDialog):
 
     def open_dataset(self, fnames=None, *args, **kwargs):
         """Opens a file dialog and the dataset that has been inserted"""
+
+        def open_ds():
+            if len(fnames) == 1:
+                kwargs.pop('concat_dim', None)
+                return psy.open_dataset(fnames[0], *args, **kwargs)
+            else:
+                return psy.open_mfdataset(fnames, *args, **kwargs)
+
         if fnames is None:
             fnames = QFileDialog.getOpenFileNames(
                 self, 'Open dataset', os.getcwd(),
@@ -1992,15 +2000,15 @@ class PlotCreator(QDialog):
             return
         else:
             try:
-                if len(fnames) == 1:
-                    kwargs.pop('concat_dim', None)
-                    ds = psy.open_dataset(fnames[0], *args, **kwargs)
-                else:
-                    ds = psy.open_mfdataset(fnames, *args, **kwargs)
+                ds = open_ds()
             except Exception:
-                self.error_msg.showTraceback(
-                    '<b>Could not open dataset %s</b>' % (fnames, ))
-                return
+                kwargs['decode_times'] = False
+                try:
+                    ds = open_ds()
+                except Exception:
+                    self.error_msg.showTraceback(
+                        '<b>Could not open dataset %s</b>' % (fnames, ))
+                    return
             fnames_str = ', '.join(fnames)
             self.add_new_ds(fnames_str, ds, fnames_str)
 
