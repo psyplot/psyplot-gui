@@ -23,7 +23,7 @@ standalone-installers (see :ref:`psyplot:install-standalone`) and decided to
 add the binaries to your ``PATH`` variable (the default setting), just type
 ``psyplot`` in the terminal/cmd.
 
-Otherwise, on MacOSX, look for the `Psyplot` app, e.g. via spotlight, and on 
+Otherwise, on MacOSX, look for the `Psyplot` app, e.g. via spotlight, and on
 Windows look in the  :menuselection:`Start --> All Programs --> Psyplot`
 directory in your Windows start menu.
 
@@ -125,7 +125,7 @@ It is also connected to the information functions of psyplot, e.g. the
 
 .. ipython::
 
-    In [1]: psyplot.project.plot.lineplot.keys()
+    In [1]: psy.plot.lineplot.keys()
 
 would be converted to HTML and shown in the help explorer.
 
