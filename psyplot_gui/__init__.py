@@ -255,7 +255,8 @@ def _get_abs_names(fnames):
     if fnames is None:
         return
     for i, fname in enumerate(fnames):
-        fnames[i] = ','.join(map(osp.abspath, fname.split(',')))
+        if fname:
+            fnames[i] = ','.join(map(osp.abspath, fname.split(',')))
     return fnames
 
 
