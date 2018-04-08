@@ -1671,6 +1671,12 @@ class PlotCreator(QDialog):
         self.array_table = ArrayTable(self.get_ds, parent=w)
         self.array_table.setup_from_ds(plot_method=self.pm_combo.currentText())
 
+        self.cbox_load = QCheckBox('load')
+        self.cbox_load.setToolTip(
+            'Load the selected data arrays into memory when clicking on '
+            '<em>Ok</em>. Note that this might cause problems for large '
+            'arrays!')
+
         self.cbox_close_popups = QCheckBox('close dropdowns', w)
         self.cbox_close_popups.setChecked(True)
         self.cbox_close_popups.setToolTip(
@@ -1697,7 +1703,7 @@ class PlotCreator(QDialog):
         self.rows_axis_label = QLabel('No. of rows', w)
         self.rows_axis_edit = QLineEdit(w)
         self.rows_axis_edit.setText('1')
-        self.cols_axis_label = QLabel('No. of columns', w)
+        self.cols_axis_label = QLabel('No. sof columns', w)
         self.cols_axis_edit = QLineEdit(w)
         self.cols_axis_edit.setText('1')
         self.max_axis_label = QLabel('No. of axes per figure', w)
@@ -1813,6 +1819,7 @@ class PlotCreator(QDialog):
 
         self.tree_box = QHBoxLayout()
         self.tree_box.addStretch(0)
+        self.tree_box.addWidget(self.cbox_load)
         self.tree_box.addWidget(self.cbox_close_popups)
         self.tree_box.addWidget(self.cbox_use_coords)
         self.tree_box.addWidget(self.bt_remove_all)
@@ -1964,7 +1971,8 @@ class PlotCreator(QDialog):
             kwargs = {}
         fig_nums = plt.get_fignums()[:]
         try:
-            pm(self.ds, arr_names=names, **kwargs)
+            pm(self.ds, arr_names=names, load=self.cbox_load.isChecked(),
+               **kwargs)
         except Exception:
             for num in set(plt.get_fignums()).difference(fig_nums):
                 plt.close(num)
