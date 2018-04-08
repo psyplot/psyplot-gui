@@ -1,5 +1,9 @@
 v1.1.0
 ======
+This release mainly adds the possibility to create plugins into the
+psyplot-gui and it adds a new framework to allow the formatoptions to provide
+a custom interface to the formatoptions widget.
+
 Added
 -----
 - Added layout windows menu and default layout
