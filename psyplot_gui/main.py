@@ -100,6 +100,12 @@ class MainWindow(QMainWindow):
 
     _is_open = False
 
+    #: The keyboard shortcuts of the default layout
+    default_shortcuts = []
+
+    #: The current keyboard shortcuts
+    current_shortcuts = []
+
     @property
     def logger(self):
         """The logger of this instance"""
@@ -129,7 +135,7 @@ class MainWindow(QMainWindow):
             QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks |
             QMainWindow.AllowTabbedDocks)
         #: Inprocess console
-        self.console = ConsoleWidget(parent=self)
+        self.console = ConsoleWidget(self)
         self.project_actions = {}
 
         self.config_pages = []
@@ -147,7 +153,7 @@ class MainWindow(QMainWindow):
         self.new_plot_action.setStatusTip(
             'Use an existing dataset (or open a new one) to create one or '
             'more plots')
-        self.new_plot_action.setShortcut(QKeySequence.New)
+        self.register_shortcut(self.new_plot_action, QKeySequence.New)
         self.new_plot_action.triggered.connect(lambda: self.new_plots(True))
         self.file_menu.addAction(self.new_plot_action)
 
@@ -157,14 +163,16 @@ class MainWindow(QMainWindow):
         self.file_menu.addMenu(self.open_project_menu)
 
         self.open_mp_action = QAction('New main project', self)
-        self.open_mp_action.setShortcut(QKeySequence.Open)
+        self.register_shortcut(self.open_mp_action, QKeySequence.Open)
         self.open_mp_action.setStatusTip('Open a new main project')
         self.open_mp_action.triggered.connect(self.open_mp)
         self.open_project_menu.addAction(self.open_mp_action)
 
         self.open_sp_action = QAction('Add to current', self)
-        self.open_sp_action.setShortcut(QKeySequence(
-            'Ctrl+Shift+O', QKeySequence.NativeText))
+
+        self.register_shortcut(
+            self.open_sp_action, QKeySequence(
+                'Ctrl+Shift+O', QKeySequence.NativeText))
         self.open_sp_action.setStatusTip(
             'Load a project as a sub project and add it to the current main '
             'project')
@@ -173,17 +181,17 @@ class MainWindow(QMainWindow):
 
         # ----------------------- Save project --------------------------------
 
-        self.save_project_menu = QMenu('Save project', parent=self)
+        self.save_project_menu = QMenu('Save', parent=self)
         self.file_menu.addMenu(self.save_project_menu)
 
-        self.save_mp_action = QAction('All', self)
+        self.save_mp_action = QAction('Full psyplot project', self)
         self.save_mp_action.setStatusTip(
             'Save the entire project into a pickle file')
-        self.save_mp_action.setShortcut(QKeySequence.Save)
+        self.register_shortcut(self.save_mp_action, QKeySequence.Save)
         self.save_mp_action.triggered.connect(self.save_mp)
         self.save_project_menu.addAction(self.save_mp_action)
 
-        self.save_sp_action = QAction('Selected', self)
+        self.save_sp_action = QAction('Selected psyplot project', self)
         self.save_sp_action.setStatusTip(
             'Save the selected sub project into a pickle file')
         self.save_sp_action.triggered.connect(self.save_sp)
@@ -191,18 +199,19 @@ class MainWindow(QMainWindow):
 
         # ------------------------ Save project as ----------------------------
 
-        self.save_project_as_menu = QMenu('Save project as', parent=self)
+        self.save_project_as_menu = QMenu('Save as', parent=self)
         self.file_menu.addMenu(self.save_project_as_menu)
 
-        self.save_mp_as_action = QAction('All', self)
+        self.save_mp_as_action = QAction('Full psyplot project', self)
         self.save_mp_as_action.setStatusTip(
             'Save the entire project into a pickle file')
-        self.save_mp_as_action.setShortcut(QKeySequence.SaveAs)
+        self.register_shortcut(self.save_mp_as_action,
+                                       QKeySequence.SaveAs)
         self.save_mp_as_action.triggered.connect(
             partial(self.save_mp, new_fname=True))
         self.save_project_as_menu.addAction(self.save_mp_as_action)
 
-        self.save_sp_as_action = QAction('Selected', self)
+        self.save_sp_as_action = QAction('Selected psyplot project', self)
         self.save_sp_as_action.setStatusTip(
             'Save the selected sub project into a pickle file')
         self.save_sp_as_action.triggered.connect(
@@ -214,13 +223,13 @@ class MainWindow(QMainWindow):
         self.pack_project_menu = QMenu('Zip project files', parent=self)
         self.file_menu.addMenu(self.pack_project_menu)
 
-        self.pack_mp_action = QAction('All', self)
+        self.pack_mp_action = QAction('Full psyplot project', self)
         self.pack_mp_action.setStatusTip(
             'Pack all the data of the main project into one folder')
         self.pack_mp_action.triggered.connect(partial(self.save_mp, pack=True))
         self.pack_project_menu.addAction(self.pack_mp_action)
 
-        self.pack_sp_action = QAction('Selected', self)
+        self.pack_sp_action = QAction('Selected psyplot project', self)
         self.pack_sp_action.setStatusTip(
             'Pack all the data of the current sub project into one folder')
         self.pack_sp_action.triggered.connect(partial(self.save_sp, pack=True))
@@ -231,19 +240,21 @@ class MainWindow(QMainWindow):
         self.export_project_menu = QMenu('Export figures', parent=self)
         self.file_menu.addMenu(self.export_project_menu)
 
-        self.export_mp_action = QAction('All', self)
+        self.export_mp_action = QAction('Full psyplot project', self)
         self.export_mp_action.setStatusTip(
             'Pack all the data of the main project into one folder')
         self.export_mp_action.triggered.connect(self.export_mp)
-        self.export_mp_action.setShortcut(QKeySequence(
-            'Ctrl+E', QKeySequence.NativeText))
+        self.register_shortcut(
+            self.export_mp_action, QKeySequence(
+                'Ctrl+E', QKeySequence.NativeText))
         self.export_project_menu.addAction(self.export_mp_action)
 
-        self.export_sp_action = QAction('Selected', self)
+        self.export_sp_action = QAction('Selected psyplot project', self)
         self.export_sp_action.setStatusTip(
             'Pack all the data of the current sub project into one folder')
-        self.export_sp_action.setShortcut(QKeySequence(
-            'Ctrl+Shift+E', QKeySequence.NativeText))
+        self.register_shortcut(
+            self.export_sp_action, QKeySequence(
+                'Ctrl+Shift+E', QKeySequence.NativeText))
         self.export_sp_action.triggered.connect(self.export_sp)
         self.export_project_menu.addAction(self.export_sp_action)
 
@@ -254,9 +265,10 @@ class MainWindow(QMainWindow):
         self.close_project_menu = QMenu('Close project', parent=self)
         self.file_menu.addMenu(self.close_project_menu)
 
-        self.close_mp_action = QAction('Main project', self)
-        self.close_mp_action.setShortcut(QKeySequence(
-            'Ctrl+Shift+W', QKeySequence.NativeText))
+        self.close_mp_action = QAction('Full psyplot project', self)
+        self.register_shortcut(
+            self.close_mp_action, QKeySequence(
+                'Ctrl+Shift+W', QKeySequence.NativeText))
         self.close_mp_action.setStatusTip(
             'Close the main project and delete all data and plots out of '
             'memory')
@@ -264,11 +276,12 @@ class MainWindow(QMainWindow):
             lambda: psy.close(psy.gcp(True).num))
         self.close_project_menu.addAction(self.close_mp_action)
 
-        self.close_sp_action = QAction('Only selected', self)
+        self.close_sp_action = QAction('Selected psyplot project', self)
         self.close_sp_action.setStatusTip(
             'Close the selected arrays project and delete all data and plots '
             'out of memory')
-        self.close_sp_action.setShortcut(QKeySequence.Close)
+        self.register_shortcut(self.close_sp_action,
+                                       QKeySequence.Close)
         self.close_sp_action.triggered.connect(
             lambda: psy.gcp().close(True, True))
         self.close_project_menu.addAction(self.close_sp_action)
@@ -280,7 +293,8 @@ class MainWindow(QMainWindow):
             self.quit_action.triggered.connect(self.close)
             self.quit_action.triggered.connect(
                 QtCore.QCoreApplication.instance().quit)
-            self.quit_action.setShortcut(QKeySequence.Quit)
+            self.register_shortcut(
+                self.quit_action, QKeySequence.Quit)
             self.file_menu.addAction(self.quit_action)
 
         self.menuBar().addMenu(self.file_menu)
@@ -305,7 +319,8 @@ class MainWindow(QMainWindow):
 
         self.help_action = QAction('Preferences', self)
         self.help_action.triggered.connect(lambda: self.edit_preferences(True))
-        self.help_action.setShortcut(QKeySequence.Preferences)
+        self.register_shortcut(self.help_action,
+                                       QKeySequence.Preferences)
         self.help_menu.addAction(self.help_action)
 
         # ---------------------------- About ----------------------------------
@@ -504,6 +519,13 @@ class MainWindow(QMainWindow):
             w.to_dock(self)
             if w.hidden:
                 w.hide_plugin()
+
+        action2shortcut = defaultdict(list)
+        for s, a in self.default_shortcuts:
+            action2shortcut[a].append(s)
+
+        for a, s in action2shortcut.items():
+            self.register_shortcut(a, s)
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
@@ -862,6 +884,29 @@ class MainWindow(QMainWindow):
                 enable_post, seaborn_style, concat_dim, chname)
         psyplot.with_gui = True
         return mainwindow
+
+    def register_shortcut(self, action, shortcut,
+                          context=Qt.ApplicationShortcut):
+        """Register an action for a shortcut"""
+        shortcuts = psy.safe_list(shortcut)
+        for j, shortcut in enumerate(shortcuts):
+            found = False
+            for i, (s, a) in enumerate(self.current_shortcuts):
+                if s == shortcut:
+                    new_shortcuts = [
+                        sc for sc in self.current_shortcuts[i][1].shortcuts()
+                        if sc != s]
+                    a.setShortcut(QKeySequence())
+                    if new_shortcuts:
+                        a.setShortcuts(new_shortcuts)
+                    self.current_shortcuts[i][1] = action
+                    found = True
+                    break
+            if not found:
+                self.default_shortcuts.append([shortcut, action])
+                self.current_shortcuts.append([shortcut, action])
+        action.setShortcuts(shortcuts)
+        action.setShortcutContext(context)
 
     @classmethod
     @docstrings.dedent

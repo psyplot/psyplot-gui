@@ -73,7 +73,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
 
     run_command = QtCore.pyqtSignal(list)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, main, *args, **kwargs):
         """
         Parameters
         ----------
@@ -104,7 +104,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
 
         self.help_explorer = kwargs.pop('help_explorer', None)
 
-        super(ConsoleWidget, self).__init__(*args, **kwargs)
+        super(ConsoleWidget, self).__init__(*args, parent=main, **kwargs)
 
         self.intro_msg = dedents("""
         psyplot version: %s
@@ -140,8 +140,12 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
 
         # we overwrite the short cut here because the 'Ctrl+S' shortcut is
         # reserved for mainwindows save action
-        self.export_action.setShortcut(QKeySequence(
-            'Ctrl+Alt+S', QKeySequence.NativeText))
+        try:
+            main.register_shortcut(
+                self.export_action, QKeySequence(
+                    'Ctrl+Alt+S', QKeySequence.NativeText))
+        except AttributeError:
+            pass
 
         psy.Project.oncpchange.connect(self.update_mp)
         psy.Project.oncpchange.connect(self.update_sp)
