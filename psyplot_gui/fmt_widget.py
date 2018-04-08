@@ -5,7 +5,7 @@ import six
 import yaml
 from functools import partial
 from collections import defaultdict
-from itertools import chain, accumulate
+from itertools import chain
 import logging
 from warnings import warn
 from IPython.core.interactiveshell import ExecutionResult
@@ -22,6 +22,11 @@ from psyplot_gui.common import DockMixin, get_icon, PyErrorMessage
 from psyplot.data import safe_list
 import psyplot.plotter as psyp
 from psyplot.data import isstring
+
+try:
+    from IPython.core.interactiveshell import ExecutionInfo
+except ImportError:
+    ExecutionInfo = None
 
 
 logger = logging.getLogger(__name__)
@@ -539,9 +544,14 @@ class FormatoptionWidget(QWidget, DockMixin):
             import psyplot.project as psy
             psy.gcp().update(**{key: yaml.load(text)})
         else:
-            e = ExecutionResult()
-            self.shell.run_code("psy.gcp().update(%s={'%s': %s})" % (
-                param, key, text), e)
+            code = "psy.gcp().update(%s={'%s': %s})" % (param, key, text)
+            if ExecutionInfo is not None:
+                info = ExecutionInfo(raw_cell=code, store_history=False,
+                                     silent=True, shell_futures=False)
+                e = ExecutionResult(info)
+            else:
+                e = ExecutionResult()
+            self.shell.run_code(code, e)
             try:
                 e.raise_error()
             except Exception:  # reset the console and clear the error message
