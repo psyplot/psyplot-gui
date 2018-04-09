@@ -40,7 +40,7 @@ Graphical User Interface for the psyplot package
 
 .. |conda| image:: https://anaconda.org/conda-forge/psyplot-gui/badges/version.svg
     :alt: conda
-    :target: https://conda.anaconda.org/conda-forge/psyplot-gui
+    :target: https://anaconda.org/conda-forge/psyplot-gui
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/psyplot-gui.svg?style=flat
     :alt: Supported versions
