@@ -863,9 +863,10 @@ class ArrayTable(DragDropTable):
         def func():
             if hasattr(self, '_axes_creator'):
                 self._axes_creator.close()
-            self._axes_creator = obj = AxesCreatorCollection(func_name, kwargs)
+            self._axes_creator = obj = AxesCreatorCollection(
+                func_name, kwargs, parent=self)
             obj.okpressed.connect(partial(self._change_axes, items))
-            obj.show()
+            obj.exec_()
         return func
 
     def axes_info(self, s):
@@ -1544,7 +1545,7 @@ class AxesSelector(QWidget):
         return (txt for txt in cycle(self.result_label.text().split(';;')))
 
 
-class AxesCreatorCollection(QWidget):
+class AxesCreatorCollection(QDialog):
     """Wrapper for a QToolBox that holds the different possibilities to select
     an axes
 
