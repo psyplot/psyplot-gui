@@ -70,6 +70,7 @@ Documentation
     configuration
     command_line
     plugins
+    contribute
     api/psyplot_gui
     changelog
     todos
