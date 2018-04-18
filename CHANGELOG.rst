@@ -1,3 +1,10 @@
+v1.1.1
+======
+Changed
+-------
+- The HTML help explorer now also shows a table of contents in the intro
+  and in the side bar to navigate to previously visited objects
+
 v1.1.0
 ======
 This release mainly adds the possibility to create plugins into the

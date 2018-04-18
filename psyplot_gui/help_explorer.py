@@ -621,7 +621,9 @@ class UrlHelp(UrlBrowser, HelpMixin):
         %(HelpMixin.show_intro.parameters)s"""
         if self.sphinx_thread is not None:
             with open(self.sphinx_thread.index_file, 'a') as f:
-                f.write('\n' + text.strip() + '\n\n.. toctree::\n    :hidden:')
+                f.write('\n' + text.strip() + '\n\n' +
+                        'Table of Contents\n'
+                        '=================\n\n.. toctree::')
             self.sphinx_thread.render(None, None)
 
     def show_rst(self, text, oname='', descriptor=None, files=None):
