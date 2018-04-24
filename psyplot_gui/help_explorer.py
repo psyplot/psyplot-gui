@@ -350,7 +350,7 @@ class HelpMixin(object):
         oname: str
             The name to use for the object in the documentation
         files: list of str
-            A path to additional files that shall be used to process show the
+            A path to additional files that shall be used to process the
             docs"""
         descriptor = self.describe_object(obj, oname)
         doc = self.get_doc(descriptor)
@@ -461,7 +461,7 @@ class HelpMixin(object):
         bool
             True if the text is displayed
         """
-        return True
+        return False
 
     @docstrings.get_sectionsf('HelpMixin.show_intro')
     def show_intro(self, text=''):
