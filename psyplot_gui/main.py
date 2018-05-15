@@ -280,8 +280,7 @@ class MainWindow(QMainWindow):
         self.close_sp_action.setStatusTip(
             'Close the selected arrays project and delete all data and plots '
             'out of memory')
-        self.register_shortcut(self.close_sp_action,
-                                       QKeySequence.Close)
+        self.register_shortcut(self.close_sp_action, QKeySequence.Close)
         self.close_sp_action.triggered.connect(
             lambda: psy.gcp().close(True, True))
         self.close_project_menu.addAction(self.close_sp_action)
