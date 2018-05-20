@@ -221,16 +221,17 @@ class VariableItemDelegate(QStyledItemDelegate):
 class VariablesTable(QTableWidget):
     """Table to display the variables of a dataset"""
 
-    @property
-    def variables(self):
-        """The variables in the dataset"""
-        return [self.item(i, 0).text() for i in range(self.rowCount())]
+    #: The variables in the dataset
+    variables = []
 
     @property
     def selected_variables(self):
         """The currently selected variables"""
-        return sorted(set(item.text() for item in self.selectedItems()
-                          if item.column() == 0))
+        return [
+            self.variables[i] for i in map(
+                list(map(asstring, self.variables)).index,
+                sorted(set(item.text() for item in self.selectedItems()
+                           if item.column() == 0)))]
 
     def __init__(self, get_func, columns=['long_name', 'dims', 'shape'],
                  *args, **kwargs):
@@ -243,6 +244,7 @@ class VariablesTable(QTableWidget):
         columns: list of str
             The attribute that will be used as columns for the variables"""
         super(VariablesTable, self).__init__(*args, **kwargs)
+        self.variables = []
         self.get_ds = get_func
         self.set_columns(columns)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -264,11 +266,12 @@ class VariablesTable(QTableWidget):
             ds = self.get_ds()
         if ds is None:
             return
-        vnames = sorted(set(ds.variables).difference(ds.coords))
+        coords = list(ds.coords)
+        self.variables = vnames = [v for v in ds.variables if v not in coords]
         self.setRowCount(len(vnames))
         for i, vname in enumerate(vnames):
             variable = ds.variables[vname]
-            self.setItem(i, 0, QTableWidgetItem(vname))
+            self.setItem(i, 0, QTableWidgetItem(asstring(vname)))
             for j, attr in enumerate(self.column_labels, 1):
                 if attr == 'dims':
                     self.setItem(i, j, QTableWidgetItem(
@@ -316,9 +319,14 @@ class CoordsTable(QTableWidget):
             ds = self.get_ds()
         if ds is None:
             return
-        vnames = sorted(set(ds.variables).difference(ds.coords))
-        self.dims = dims = sorted(
-            set(chain(*(ds.variables[vname].dims for vname in vnames))))
+        coords = list(ds.coords)
+        vnames = [v for v in ds.variables if v not in coords]
+        self.dims = dims = list(set(
+            chain(*(ds.variables[vname].dims for vname in vnames))))
+        try:
+            dims.sort()
+        except TypeError:
+            pass
         self.setColumnCount(len(dims))
         for i, dim in enumerate(dims):
             header_item = QTableWidgetItem(dim)
@@ -687,9 +695,14 @@ class ArrayTable(DragDropTable):
         if ds is None:
             self.set_columns([])
             return
-        vnames = sorted(set(ds.variables).difference(ds.coords))
-        self.dims = dims = sorted(
+        coords = list(ds.coords)
+        vnames = [v for v in ds.variables if v not in coords]
+        self.dims = dims = list(
             set(chain(*(ds.variables[vname].dims for vname in vnames))))
+        try:
+            dims.sort()
+        except TypeError:
+            pass
         self.set_columns(dims)
 
     def next_available_name(self, *args, **kwargs):
@@ -704,11 +717,10 @@ class ArrayTable(DragDropTable):
 
     def insert_array(self, name, check=True, **kwargs):
         """Appends the settings for an array the the list in a new row"""
-        name = asstring(name)
         dims = set(self.get_ds().variables[name].dims)
         irow = self.rowCount()
         self.setRowCount(irow + 1)
-        self.setItem(irow, 0, QTableWidgetItem(name))
+        self.setItem(irow, 0, QTableWidgetItem(asstring(name)))
         self.setItem(irow, 1, QTableWidgetItem(self.next_available_name()))
         self.setItem(irow, 2, QTableWidgetItem(''))
         for dim in dims.intersection(kwargs):
@@ -1032,6 +1044,9 @@ class ArrayTable(DragDropTable):
         var_col = self.desc_cols.index(self.VARIABLE_LABEL)
         ret = [s.strip() for s in asstring(
                    self.item(row, var_col).text()).split(self.sep)]
+        ds = self.get_ds()
+        for i, name in enumerate(ret):
+            ret[i] = next(v for v in ds if asstring(v) == name)
         if len(ret) == 1:
             return ret[0]
         return ret

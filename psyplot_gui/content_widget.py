@@ -346,7 +346,7 @@ class DatasetTreeItem(QTreeWidgetItem):
         coords = self.coords
         for vname, variable in six.iteritems(ds.variables):
             item = QTreeWidgetItem(0)
-            item.setText(0, vname)
+            item.setText(0, str(vname))
             for i, attr in enumerate(columns, 1):
                 if attr == 'dims':
                     item.setText(i, ', '.join(variable.dims))
