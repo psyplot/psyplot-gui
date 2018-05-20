@@ -99,6 +99,10 @@ pygments_style = 'sphinx'
 if with_qt5:
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+    html_theme_options = {
+        'prev_next_buttons_location': None
+        }
+
 else:
     html_theme = 'alabaster'
 
