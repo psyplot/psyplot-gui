@@ -623,7 +623,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
             with open(self.sphinx_thread.index_file, 'a') as f:
                 f.write('\n' + text.strip() + '\n\n' +
                         'Table of Contents\n'
-                        '=================\n\n.. toctree::')
+                        '=================\n\n.. toctree::\n')
             self.sphinx_thread.render(None, None)
 
     def show_rst(self, text, oname='', descriptor=None, files=None):
