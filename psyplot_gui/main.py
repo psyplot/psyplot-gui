@@ -30,7 +30,8 @@ if backend is not None:
 from psyplot_gui.console import ConsoleWidget
 from psyplot_gui.compat.qtcompat import (
     QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget, QLabel,
-    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon)
+    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon,
+    QInputDialog)
 from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
 from psyplot_gui.plot_creator import PlotCreator
@@ -46,6 +47,7 @@ from psyplot.docstring import docstrings
 import psyplot.plotter as psyp
 import psyplot.project as psy
 import psyplot
+import psyplot.data as psyd
 import psyplot_gui
 import xarray as xr
 
@@ -139,6 +141,11 @@ class MainWindow(QMainWindow):
         self.project_actions = {}
 
         self.config_pages = []
+
+        self.open_file_options = OrderedDict([
+            ('new psyplot plot from dataset', self.open_external_files),
+            ('new psyplot project', partial(self.open_external_files, [])),
+            ])
 
         # ---------------------------------------------------------------------
         # ----------------------------- Menus ---------------------------------
@@ -419,7 +426,7 @@ class MainWindow(QMainWindow):
         # ------------------------- open_files_server -------------------------
         # ---------------------------------------------------------------------
         self.callbacks = {'new_plot': self.open_external.emit,
-                          'change_cwd': self.change_cwd,
+                          'change_cwd': self._change_cwd,
                           'run_script': self.console.run_script.emit,
                           'command': self.console.run_command.emit,
                           }
@@ -787,6 +794,17 @@ class MainWindow(QMainWindow):
         'name', 'dims', 'encoding', 'enable_post', 'seaborn_style',
         'concat_dim', 'chname')
 
+    def open_files(self, fnames):
+        """Open a file and ask the user how"""
+        fnames_s = ', '.join(map(os.path.basename, fnames))
+        if len(fnames_s) > 30:
+            fnames_s = fnames_s[:27] + '...'
+        item, ok = QInputDialog.getItem(
+            self, 'Open file...', 'Open %s as...' % fnames_s,
+            list(self.open_file_options), current=0, editable=False)
+        if ok:
+            return self.open_file_options[item](fnames)
+
     @docstrings.get_sectionsf('MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
@@ -806,6 +824,8 @@ class MainWindow(QMainWindow):
             sns.set_style(seaborn_style)
         if project is not None:
             fnames = [s.split(',') for s in fnames]
+            if not isinstance(project, dict):
+                project = psyd.safe_list(project)[0]
             single_files = (l[0] for l in fnames if len(l) == 1)
             alternative_paths = defaultdict(lambda: next(single_files, None))
             alternative_paths.update(list(l for l in fnames if len(l) == 2))
@@ -815,6 +835,7 @@ class MainWindow(QMainWindow):
                 enable_post=enable_post, chname=chname)
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
+            return True
         else:
             self.new_plots(False)
             self.plot_creator.open_dataset(fnames, engine=engine,
@@ -842,6 +863,7 @@ class MainWindow(QMainWindow):
                 self.plot_creator.pm_combo.setCurrentIndex(
                     self.plot_creator.pm_combo.findText(plot_method))
             self.plot_creator.exec_()
+            return True
 
     def _open_external_files(self, args):
         self.open_external_files(*args)

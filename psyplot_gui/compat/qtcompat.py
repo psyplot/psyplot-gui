@@ -3,6 +3,7 @@
 # make sure that the right pyqt version suitable for the IPython console is
 # loaded
 import six
+import sys
 
 try:
     from qtconsole.rich_jupyter_widget import RichJupyterWidget
@@ -99,3 +100,20 @@ else:
 
 def asstring(s):
     return six.text_type(s)
+
+
+if sys.platform == 'darwin':
+    # make sure to register the open file event
+    OrigQApplication = QApplication
+
+    class QApplication(OrigQApplication):
+        """Reimplemented QApplication with open file event"""
+
+        def event(self, event):
+            if event.type() == QtCore.QEvent.FileOpen:
+                from psyplot_gui.main import mainwindow
+                if mainwindow is not None:
+                    opened = mainwindow.open_files([event.file()])
+                    if opened:
+                        return True
+            return super(QApplication, self).event(event)
