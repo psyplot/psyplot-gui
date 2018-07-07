@@ -168,10 +168,15 @@ class PlotterList(QListWidget):
                     if arr not in old_arrays:
                         item = ArrayItem(weakref.ref(arr.psy), parent=self)
                         self.addItem(item)
-            else:
-                for item in self.array_items:
-                    item.setSelected(
-                        getattr(item.arr(), 'arr', item.arr()) in arrays)
+                # resort to match the project
+                for arr in reversed(main_arrays):
+                    for i, item in enumerate(self.array_items):
+                        if item.arr() is arr.psy:
+                            self.insertItem(0, self.takeItem(i))
+            cp = gcp()
+            for item in self.array_items:
+                item.setSelected(
+                    getattr(item.arr(), 'arr', item.arr()) in cp)
         self.updated_from_project.emit(self)
 
     def update_cp(self, *args, **kwargs):
