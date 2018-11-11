@@ -8,6 +8,8 @@ environment:
       QT_VERSION: "5"
     - PYTHON_VERSION: "3.6"
       QT_VERSION: "5"
+    - PYTHON_VERSION: "3.7"
+      QT_VERSION: "5"
 os: unstable
 install:
   # Install miniconda Python
