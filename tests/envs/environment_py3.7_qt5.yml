@@ -8,7 +8,7 @@ dependencies:
     - matplotlib
     - xarray
     - netCDF4
-    - pyqt=5
+    - pyqt>5.7
     - sphinx
     - pip:
         - pytest

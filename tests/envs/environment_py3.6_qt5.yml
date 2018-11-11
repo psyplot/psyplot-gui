@@ -6,9 +6,10 @@ dependencies:
     - python=3.6
     - qtconsole
     - matplotlib
+    - ipython
     - xarray
     - netCDF4
-    - pyqt=5
+    - pyqt>=5.7
     - sphinx
     - pip:
         - pytest
