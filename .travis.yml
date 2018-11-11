@@ -1,26 +1,27 @@
 language: generic
+env:
+  global:
+    - secure: "Z55UK3c6ukPL//PWWapZhe/yb97ETG/Ttxv9sMk0rpDwLN22N09ZCJTO1SwV1QLEWLd8ktjEzjsD/8QyO5xcCyhbWXHz5t6JdyXBhyCiUFZCUTsDu9eIwAZpnEfOnc91B9VHDBT9HTjh9J0tjmSOu/mDgcZqrK5LftG6Y86M0+VNo0Hm8YtNybO35k4N3RrQsJqru9ydCrvOg8j4YxsYg9Erwrx2B8z1G74a16/r8lVBPV63rcH4NOglzmemKKSWlzQsi3MYC8C6qdwfHId8SUx1WdZXWKXbjKOL5N+rkuQQYT/t8np9qng2T7nmNQtKH3FJa+FtcnL0BkR0VwpRkyupN1RbgVzsMjBx2RnRT99P0g8IyopJqmkwKQhVemGgk/Z9q+T9xZ8+q0IavsISsV8eNwGCKOhydZiowvNCqtjmd3GsiMleTrsyKoJ/AdVx2sVnViqmyG0MWb0cSwiYSaSOkWWp2eM8ADzyt4AnEyZRzU+LMxwHiPtHHvO6GdVMHP055U4GqVnrHpf+NXdPR0mBZr9JI3YGgrMpKFdwP5wYh+7Y753a48SX3g5Sxg/9L2oEnelvUpRgSD/QozwTweLBTMWzPboxr6GYguf7LS3YZOtjiP0Gecusoh8d/+tBd2k9GYdSO7ogXTgK4qx9eze6LbFHw3PzHdnehRA8Xzg="
 matrix:
   include:
+    - env:
+        - PYTHON_VERSION=3.7
+        - QT_VERSION=5
+        - DEPLOY_CONDA=true
+      os: linux
+    - env:
+        - PYTHON_VERSION=3.6
+        - QT_VERSION=5
+      os: linux
     - env:
         - PYTHON_VERSION=2.7
         - QT_VERSION=4
       os: linux
     - env:
-        - PYTHON_VERSION=3.5
-        - QT_VERSION=4
-      os: linux
-    - env:
-        - PYTHON_VERSION=3.5
+        - PYTHON_VERSION=3.7
         - QT_VERSION=5
-      os: linux
-    - env:
-        - PYTHON_VERSION=3.6
-        - QT_VERSION=4
-      os: linux
-    - env:
-        - PYTHON_VERSION=3.6
-        - QT_VERSION=5
-      os: linux
+        - DEPLOY_CONDA=true
+      os: osx
     - env:
         - PYTHON_VERSION=3.6
         - QT_VERSION=5
@@ -51,6 +52,8 @@ install:
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
+  # install conda build and anaconda-client for deploy
+  - conda install conda-build anaconda-client
   # Useful for debugging any issues with conda
   - conda info -a
 
@@ -72,6 +75,9 @@ install:
   - conda env export -n psyplot_gui_$ENVKEY
   # print versions of all the important requirements
   - psyplot -aV
+  # add conda-forge channel for build
+  - conda config --add channels chilipp/label/$TRAVIS_BRANCH
+  - conda config --add channels conda-forge
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
@@ -82,6 +88,15 @@ before_script:
 
 script:
   - coverage run --source=psyplot_gui setup.py test -a "-v"
+  - conda build ci/conda-recipe --python $PYTHON_VERSION --no-test
 
 after_success:
   coveralls
+
+deploy:
+  - provider: script
+    script: ci/deploy_anaconda.sh
+    skip_cleanup: true
+    on:
+      condition: '$DEPLOY_CONDA == true'
+      all_branches: true
