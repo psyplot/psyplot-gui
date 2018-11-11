@@ -91,7 +91,7 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         self.assertEqual(c.get_current_object(), 'object')
 
     def test_command(self):
-        self.window.console.kernel_manager.kernel.shell.run_code('a = 4')
+        self.window.console.run_command_in_shell('a = 4')
         self.assertEqual(self.window.console.get_obj('a')[1], 4)
 
     def test_mp_sp(self):

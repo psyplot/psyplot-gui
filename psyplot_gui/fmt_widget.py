@@ -551,7 +551,7 @@ class FormatoptionWidget(QWidget, DockMixin):
                 e = ExecutionResult(info)
             else:
                 e = ExecutionResult()
-            self.shell.run_code(code, e)
+            self.console.run_command_in_shell(code, e)
             try:
                 e.raise_error()
             except Exception:  # reset the console and clear the error message

@@ -133,7 +133,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
         self.kernel_manager = kernel_manager
         self.kernel_client = kernel_client
 
-        self.kernel_manager.kernel.shell.run_code(
+        self.run_command_in_shell(
             '\n'.join('import %s as %s' % t for t in modules2import))
         self.exit_requested.connect(self._close_mainwindow)
         self.exit_requested.connect(QtCore.QCoreApplication.instance().quit)
@@ -166,13 +166,13 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
         """Update the `mp` variable in the shell is
         ``rcParams['console.auto_set_mp']`` with a main project"""
         if self.rc['auto_set_mp'] and project is not None and project.is_main:
-            self.kernel_manager.kernel.shell.run_code('mp = psy.gcp(True)')
+            self.run_command_in_shell('mp = psy.gcp(True)')
 
     def update_sp(self, project):
         """Update the `sp` variable in the shell is
         ``rcParams['console.auto_set_sp']`` with a sub project"""
         if self.rc['auto_set_sp'] and (project is None or not project.is_main):
-            self.kernel_manager.kernel.shell.run_code('sp = psy.gcp()')
+            self.run_command_in_shell('sp = psy.gcp()')
 
     def show_current_help(self, to_end=False, force=False):
         """Show the help of the object at the cursor position if
@@ -271,9 +271,18 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
         # 2: command
         self.run_command_in_shell(args[2])
 
-    def run_command_in_shell(self, command):
+    def run_command_in_shell(self, code, *args, **kwargs):
         """Run a script in the shell"""
-        self.kernel_manager.kernel.shell.run_code(command)
+        ret = self.kernel_manager.kernel.shell.run_code(code, *args, **kwargs)
+        import IPython
+        if IPython.__version__ < '7.0':  # run_code is an asyncio.coroutine
+            return ret
+        else:
+            import asyncio
+            gathered = asyncio.gather(ret)
+            loop = asyncio.get_event_loop()
+            ret = loop.run_until_complete(gathered)
+            return ret[0]
 
     def _close_mainwindow(self):
         from psyplot_gui.main import mainwindow

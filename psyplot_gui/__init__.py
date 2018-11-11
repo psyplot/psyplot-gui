@@ -215,7 +215,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
-        mainwindow.console.kernel_manager.kernel.shell.run_code(command)
+        mainwindow.console.run_command_in_shell(command)
     if exec_:
         sys.excepthook = mainwindow.excepthook
         sys.exit(app.exec_())
