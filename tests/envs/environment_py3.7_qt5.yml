@@ -1,0 +1,17 @@
+name: psyplot_gui_py3.7_qt5
+channels:
+    - chilipp
+    - conda-forge
+dependencies:
+    - python=3.7
+    - qtconsole
+    - matplotlib
+    - xarray
+    - netCDF4
+    - pyqt=5
+    - sphinx
+    - pip:
+        - pytest
+        - pytest-cov
+        - fasteners
+        - sphinx_rtd_theme
