@@ -1,10 +1,10 @@
 name: psyplot_gui_docs
 channels:
     - chilipp/label/dev
-    - conda-forge
+    - chilipp/label/master
+    - chilipp
 dependencies:
-    - python=3.6
-    - psyplot>1.0.1
+    - python=3.7
     - qtconsole
     - ipykernel
     - pexpect
