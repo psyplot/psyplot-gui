@@ -13,6 +13,8 @@ try:
 except ImportError:
     from qtconsole.rich_jupyter_widget import (
         RichJupyterWidget as QtInProcessRichJupyterWidget)
+
+import ipykernel
 from tornado import ioloop
 from zmq.eventloop import ioloop as zmq_ioloop
 from qtconsole.inprocess import QtInProcessKernelManager
@@ -93,6 +95,12 @@ class ConsoleWidget(QtInProcessRichJupyterWidget):
         if sys.stderr is None:
             sys.stderr = StreamToLogger(logger)
         kernel_manager.start_kernel(show_banner=False)
+        if ipykernel.__version__ < '5.1.1':
+            # monkey patch to fix
+            # https://github.com/ipython/ipykernel/issues/370
+            def _abort_queues(kernel):
+                pass
+            kernel_manager.kernel._abort_queues = _abort_queues
         sys.stdout = orig_stdout
         sys.stderr = orig_stderr
         kernel = kernel_manager.kernel
