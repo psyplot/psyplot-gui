@@ -12,6 +12,8 @@ environment:
       QT_VERSION: "5"
 os: unstable
 install:
+  - setlocal
+  - set CONDA_REPO_TOKEN=
   # Install miniconda Python
   - "powershell ./ci/install_python.ps1"
    # Prepend newly installed Python to the PATH of this build (this cannot be
@@ -50,11 +52,20 @@ install:
   - conda env export -n psyplot_gui_%ENVKEY%
   # print versions of all the important requirements
   - psyplot -aV
+  - endlocal
 
 build: false
 
 test_script:
+  - setlocal
+  - set CONDA_REPO_TOKEN=
   - coverage run -a --source=psyplot_gui setup.py test -a "-v"
+  - conda build conda-recipe --python %PYTHON_VERSION%
+  - endlocal
 
 after_test:
   - coverage report
+  - deactivate
+
+deploy_script:
+  - cmd: "python ci\\deploy_anaconda.py"

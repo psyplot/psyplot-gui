@@ -95,13 +95,13 @@ after_success:
 
 deploy:
   - provider: script
-    script: ci/deploy_anaconda.sh
+    script: ci/deploy_anaconda.py
     skip_cleanup: true
     on:
       condition: '$DEPLOY_CONDA == true'
       all_branches: true
   - provider: script
-    script: ci/deploy_anaconda.sh
+    script: ci/deploy_anaconda.py
     skip_cleanup: true
     on:
       condition: '$DEPLOY_CONDA == true'
