@@ -110,7 +110,10 @@ if sys.platform == 'darwin':
         """Reimplemented QApplication with open file event"""
 
         def event(self, event):
-            if event.type() == QtCore.QEvent.FileOpen:
+            from psyplot_gui.config.rcsetup import rcParams
+
+            if (rcParams['main.listen_to_port'] and
+                    event.type() == QtCore.QEvent.FileOpen):
                 from psyplot_gui.main import mainwindow
                 if mainwindow is not None:
                     opened = mainwindow.open_files([event.file()])
