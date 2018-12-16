@@ -96,6 +96,9 @@ script:
 after_success:
   coveralls
 
+before_deploy:
+    - conda deactivate
+
 deploy:
   - provider: script
     script: ci/deploy_anaconda.py
