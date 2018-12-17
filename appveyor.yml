@@ -1,7 +1,7 @@
 environment:
 
   PYTHON_ARCH: "64"
-  PYTHON: "C:\\Python36-conda64"
+  PYTHON: "C:\\Miniconda36-x64"
 
   matrix:
     - PYTHON_VERSION: "3.5"
@@ -14,11 +14,6 @@ os: unstable
 install:
   - setlocal
   - set CONDA_REPO_TOKEN=
-  # Install miniconda Python
-  - "powershell ./ci/install_python.ps1"
-   # Prepend newly installed Python to the PATH of this build (this cannot be
-  # done from inside the powershell script as it would require to restart
-  # the parent CMD process).
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   # Check that we have the expected version and architecture for Python
