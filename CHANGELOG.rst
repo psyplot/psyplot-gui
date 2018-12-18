@@ -1,3 +1,8 @@
+v1.2.1
+======
+monkey patch for ipykernel < 5.1.1 to fix
+https://github.com/ipython/ipykernel/issues/370
+
 v1.2.0
 ======
 Changed
