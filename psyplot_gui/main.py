@@ -558,6 +558,8 @@ class MainWindow(QMainWindow):
         ----------
         name: str or QWidget
             The key or the plugin widget in the :attr:`plugins` dictionary"""
+        from PyQt5.QtCore import QTimer
+        self.setUpdatesEnabled(False)
         current = self.centralWidget()
         if isinstance(name, six.string_types):
             new = self.plugins[name]
@@ -565,6 +567,18 @@ class MainWindow(QMainWindow):
             new = name
             name = next(key for key, val in self.plugins.items() if val is new)
         if new is not current:
+
+            self._dock_widths = dock_widths = OrderedDict()
+            self._dock_heights = dock_heights = OrderedDict()
+            for key, w in self.plugins.items():
+                if w.dock is not None and w.is_shown:
+                    s = w.dock.size()
+                    dock_widths[w] = s.width()
+                    if w is not new:
+                        dock_heights[w] = s.height()
+
+            new_pos = self.dockWidgetArea(new.dock)
+
             self.removeDockWidget(new.dock)
             new.dock.close()
             self.panes_menu.removeAction(new._view_action)
@@ -576,8 +590,28 @@ class MainWindow(QMainWindow):
             new._set_central_action.setChecked(True)
             current.show_plugin()
             current.to_dock(self)
+            new_width = dock_widths.pop(new)
             if current.hidden:
                 current.hide_plugin()
+            else:
+                current_pos = self.dockWidgetArea(current.dock)
+                if current_pos == new_pos:
+                    dock_widths[current] = new_width
+
+        self._custom_layout_timer = QTimer(self)
+        self._custom_layout_timer.timeout.connect(self._reset_dock_widths)
+        self._custom_layout_timer.setSingleShot(True)
+        self._custom_layout_timer.start(5000)
+
+    def _reset_dock_widths(self):
+        # resize the plugins
+        if with_qt5:
+            for w, width in self._dock_widths.items():
+                self.resizeDocks([w.dock], [width], Qt.Horizontal)
+            for w, height in self._dock_heights.items():
+                self.resizeDocks([w.dock], [height], Qt.Vertical)
+
+        self.setUpdatesEnabled(True)
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
