@@ -32,6 +32,10 @@ class TestMainWindow(bt.PsyPlotGuiTestCase):
         self.window.set_central_widget(self.window.figures_tree)
         self.assertIs(self.window.centralWidget(), self.window.figures_tree)
 
+    def test_remove_plugin(self):
+        self.window.plugins['psyplot_gui_test.plugin:W1:w1'].remove_plugin()
+        self.assertNotIn('psyplot_gui_test.plugin:W1:w1', self.window.plugins)
+
 
 if __name__ == "__main__":
     unittest.main()

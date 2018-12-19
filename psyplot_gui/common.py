@@ -133,6 +133,27 @@ class DockMixin(object):
                 main.dataframe_menu.addAction(action)
         return self._view_action
 
+    def remove_plugin(self):
+        """Remove this plugin and close it"""
+        mainwindow = self.dock.parent() if self.dock else self.parent()
+        key = next((key for key, w in mainwindow.plugins.items()
+                    if w is self), None)
+        if mainwindow.centralWidget() is self:
+            mainwindow.set_central_widget(
+                mainwindow.__class__.central_widget_key)
+        if self._view_action is not None:
+            mainwindow.panes_menu.removeAction(self._view_action)
+            mainwindow.dataframe_menu.removeAction(self._view_action)
+        if self._set_central_action is not None:
+            mainwindow.central_widgets_menu.removeAction(
+                self._set_central_action)
+        if key is not None:
+            del mainwindow.plugins[key]
+        if self.dock is not None:
+            mainwindow.removeDockWidget(self.dock)
+            self.dock.close()
+        self.close()
+
 
 class LoadFromConsoleButton(QToolButton):
     """A toolbutton to load an object from the console"""
