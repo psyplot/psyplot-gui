@@ -595,7 +595,7 @@ class MainWindow(QMainWindow):
                 current.hide_plugin()
             else:
                 current_pos = self.dockWidgetArea(current.dock)
-                if current_pos == new_pos:
+                if current_pos == new_pos and new_width:
                     dock_widths[current] = new_width
 
         self._custom_layout_timer = QTimer(self)
@@ -607,9 +607,11 @@ class MainWindow(QMainWindow):
         # resize the plugins
         if with_qt5:
             for w, width in self._dock_widths.items():
-                self.resizeDocks([w.dock], [width], Qt.Horizontal)
+                if w.dock is not None:
+                    self.resizeDocks([w.dock], [width], Qt.Horizontal)
             for w, height in self._dock_heights.items():
-                self.resizeDocks([w.dock], [height], Qt.Vertical)
+                if w.dock is not None:
+                    self.resizeDocks([w.dock], [height], Qt.Vertical)
 
         self.setUpdatesEnabled(True)
 
