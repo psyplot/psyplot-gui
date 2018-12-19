@@ -117,7 +117,7 @@ class DockMixin(object):
         if self._set_central_action is None:
             menu = main.central_widgets_menu
             group = main.central_widgets_actions
-            self._set_central_action = action = QAction(self.title)
+            self._set_central_action = action = QAction(self.title, main)
             action.setCheckable(True)
             action.triggered.connect(partial(main.set_central_widget, self))
             menu.addAction(action)
