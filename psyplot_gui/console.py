@@ -24,6 +24,7 @@ from psyplot_gui.common import StreamToLogger
 import psyplot
 import psyplot_gui
 from psyplot_gui import rcParams
+from psyplot_gui.common import DockMixin
 import psyplot.project as psy
 from psyplot.docstring import dedents
 
@@ -61,10 +62,14 @@ class IPythonControl(QTextEdit):
         QTextEdit.keyPressEvent(self, event)
 
 
-class ConsoleWidget(QtInProcessRichJupyterWidget):
+class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
     """A console widget to access an inprocess shell"""
 
     custom_control = IPythonControl
+
+    dock_position = Qt.RightDockWidgetArea
+
+    title = 'Console'
 
     rc = rcParams.find_and_replace(
         'console.', pattern_base='console\.')

@@ -25,6 +25,13 @@ class TestMainWindow(bt.PsyPlotGuiTestCase):
         w.show_plugin()
         self.assertTrue(a.isChecked())
 
+    def test_central_widget(self):
+        """Test changing the central widget"""
+        self.window.set_central_widget('help_explorer')
+        self.assertIs(self.window.centralWidget(), self.window.help_explorer)
+        self.window.set_central_widget(self.window.figures_tree)
+        self.assertIs(self.window.centralWidget(), self.window.figures_tree)
+
 
 if __name__ == "__main__":
     unittest.main()

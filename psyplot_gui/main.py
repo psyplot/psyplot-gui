@@ -31,7 +31,7 @@ from psyplot_gui.console import ConsoleWidget
 from psyplot_gui.compat.qtcompat import (
     QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget, QLabel,
     QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon,
-    QInputDialog)
+    QInputDialog, QActionGroup)
 from psyplot_gui.content_widget import (
     ProjectContentWidget, DatasetTree, FiguresTree)
 from psyplot_gui.plot_creator import PlotCreator
@@ -107,6 +107,10 @@ class MainWindow(QMainWindow):
 
     #: The current keyboard shortcuts
     current_shortcuts = []
+
+    #: The key for the central widget for the main window in the
+    #: :attr:`plugins` dictionary
+    central_widget_key = 'console'
 
     @property
     def logger(self):
@@ -368,6 +372,7 @@ class MainWindow(QMainWindow):
 
         # load plugin widgets
         self.plugins = plugins = OrderedDict([
+            ('console', self.console),
             ('project_content', self.project_content),
             ('ds_tree', self.ds_tree),
             ('figures_tree', self.figures_tree),
@@ -381,11 +386,13 @@ class MainWindow(QMainWindow):
         self.add_mp_to_menu()
         psy.Project.oncpchange.connect(self.eventually_add_mp_to_menu)
         self.windows_menu.addSeparator()
+
         self.window_layouts_menu = QMenu('Window layouts', self)
         self.restore_layout_action = QAction('Restore default layout', self)
         self.restore_layout_action.triggered.connect(self.setup_default_layout)
         self.window_layouts_menu.addAction(self.restore_layout_action)
         self.windows_menu.addMenu(self.window_layouts_menu)
+
         self.panes_menu = QMenu('Panes', self)
         self.windows_menu.addMenu(self.panes_menu)
 
@@ -395,6 +402,11 @@ class MainWindow(QMainWindow):
                                   'DataFrame Editor'))
         self.dataframe_menu.addSeparator()
         self.windows_menu.addMenu(self.dataframe_menu)
+
+        self.central_widgets_menu = menu = QMenu('Central widget', self)
+        self.windows_menu.addMenu(menu)
+        self.central_widgets_actions = group = QActionGroup(self)
+        group.setExclusive(True)
 
         # ---------------------------------------------------------------------
         # -------------------------- connections ------------------------------
@@ -461,15 +473,19 @@ class MainWindow(QMainWindow):
 
         # save the default widths after they have been shown
         for w in self.plugins.values():
-            self.default_widths[w] = w.dock.size().width()
+            if w.dock is not None:
+                self.default_widths[w] = w.dock.size().width()
 
         # hide plugin widgets that should be hidden at startup. Although this
         # has been executed by :meth:`setup_default_layout`, we have to execute
         # it again after the call of showMaximized
-        for w in self.plugins.values():
-            w.to_dock(self)
-            if w.hidden:
-                w.hide_plugin()
+        for name, w in self.plugins.items():
+            if name != self.central_widget_key:
+                w.to_dock(self)
+                if w.hidden:
+                    w.hide_plugin()
+            else:
+                w.create_central_widget_action(self).setChecked(True)
 
         self._is_open = True
 
@@ -514,17 +530,19 @@ class MainWindow(QMainWindow):
 
         modify_widths = bool(self.default_widths)
         for w in map(self.plugins.__getitem__, self.default_plugins):
-            w.show_plugin()
+            if w.dock is not None:
+                w.show_plugin()
 
-            if modify_widths and with_qt5:
-                self.resizeDocks([w.dock], [self.default_widths[w]],
-                                 Qt.Horizontal)
+                if modify_widths and with_qt5:
+                    self.resizeDocks([w.dock], [self.default_widths[w]],
+                                     Qt.Horizontal)
 
         # hide plugin widgets that should be hidden at startup
-        for w in self.plugins.values():
-            w.to_dock(self)
-            if w.hidden:
-                w.hide_plugin()
+        for name, w in self.plugins.items():
+            if name != self.central_widget_key:
+                w.to_dock(self)
+                if w.hidden:
+                    w.hide_plugin()
 
         action2shortcut = defaultdict(list)
         for s, a in self.default_shortcuts:
@@ -532,6 +550,34 @@ class MainWindow(QMainWindow):
 
         for a, s in action2shortcut.items():
             self.register_shortcut(a, s)
+
+    def set_central_widget(self, name):
+        """Set the central widget
+
+        Parameters
+        ----------
+        name: str or QWidget
+            The key or the plugin widget in the :attr:`plugins` dictionary"""
+        current = self.centralWidget()
+        if isinstance(name, six.string_types):
+            new = self.plugins[name]
+        else:
+            new = name
+            name = next(key for key, val in self.plugins.items() if val is new)
+        if new is not current:
+            self.removeDockWidget(new.dock)
+            new.dock.close()
+            self.panes_menu.removeAction(new._view_action)
+            self.dataframe_menu.removeAction(new._view_action)
+            new.dock = new._view_action = None
+            self.central_widget_key = name
+            current.to_dock(self)
+            self.setCentralWidget(new)
+            new._set_central_action.setChecked(True)
+            current.show_plugin()
+            current.to_dock(self)
+            if current.hidden:
+                current.hide_plugin()
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
         if new_fname or 'project_file' not in p.attrs:
@@ -733,16 +779,6 @@ class MainWindow(QMainWindow):
             return
         if p.num not in self.project_actions:
             self.add_mp_to_menu()
-
-    def addDockWidget(self, area, dockwidget, docktype=None, *args, **kwargs):
-        """Reimplemented to add widgets to the windows menu"""
-        ret = super(MainWindow, self).addDockWidget(area, dockwidget, *args,
-                                                    **kwargs)
-        if docktype == 'pane':
-            self.panes_menu.addAction(dockwidget.toggleViewAction())
-        elif docktype == 'df':
-            self.dataframe_menu.addAction(dockwidget.toggleViewAction())
-        return ret
 
     def start_open_files_server(self):
         """This method listens to the open_files_port and opens the plot

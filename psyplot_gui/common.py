@@ -7,7 +7,7 @@ from functools import partial
 import os.path as osp
 from psyplot_gui.compat.qtcompat import (
     QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget,
-    QToolButton, QInputDialog, QIcon)
+    QToolButton, QInputDialog, QIcon, QAction)
 import logging
 
 if six.PY2:
@@ -38,6 +38,8 @@ class DockMixin(object):
     Each external plugin should set the :attr:`dock_position` and the
     :attr:`title` attribute!
     """
+
+    _set_central_action = _view_action = None
 
     #: The position of the plugin
     dock_position = None
@@ -83,7 +85,9 @@ class DockMixin(object):
             self.dock = self.dock_cls(title, main)
             self.dock.setWidget(self)
             main.dockwidgets.append(self.dock)
-        main.addDockWidget(position, self.dock, docktype, *args, **kwargs)
+            self.create_central_widget_action(main)
+            self.create_view_action(main, docktype)
+        main.addDockWidget(position, self.dock, *args, **kwargs)
         config_page = self.config_page
         if config_page is not None:
             main.config_pages.append(config_page)
@@ -107,6 +111,27 @@ class DockMixin(object):
             self.dock.parent().plugin_label.setText(msg)
         except AttributeError:
             pass
+
+    def create_central_widget_action(self, main):
+        """Setup the action to make this plugin the central widget"""
+        if self._set_central_action is None:
+            menu = main.central_widgets_menu
+            group = main.central_widgets_actions
+            self._set_central_action = action = QAction(self.title)
+            action.setCheckable(True)
+            action.triggered.connect(partial(main.set_central_widget, self))
+            menu.addAction(action)
+            group.addAction(action)
+        return self._set_central_action
+
+    def create_view_action(self, main, docktype='pane'):
+        if self._view_action is None:
+            self._view_action = action = self.dock.toggleViewAction()
+            if docktype == 'pane':
+                main.panes_menu.addAction(action)
+            elif docktype == 'df':
+                main.dataframe_menu.addAction(action)
+        return self._view_action
 
 
 class LoadFromConsoleButton(QToolButton):
