@@ -590,7 +590,7 @@ class MainWindow(QMainWindow):
             new._set_central_action.setChecked(True)
             current.show_plugin()
             current.to_dock(self)
-            new_width = dock_widths.pop(new)
+            new_width = dock_widths.pop(new, None)
             if current.hidden:
                 current.hide_plugin()
             else:
