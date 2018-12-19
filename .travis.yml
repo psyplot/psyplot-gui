@@ -15,11 +15,6 @@ matrix:
         - DEPLOY_CONDA=true
       os: linux
     - env:
-        - PYTHON_VERSION=2.7
-        - QT_VERSION=4
-        - DEPLOY_CONDA=true
-      os: linux
-    - env:
         - PYTHON_VERSION=3.7
         - QT_VERSION=5
         - DEPLOY_CONDA=true
