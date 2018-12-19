@@ -3,6 +3,7 @@ v1.2.2
 Added
 -----
 - Added the possibility to change the central widget of the GUI
+- Added `remove_plugin` method for psyplot GUI plugins
 
 v1.2.1
 ======
