@@ -694,6 +694,8 @@ class DataFrameDock(QDockWidget):
             mainwindow.removeDockWidget(self)
         except Exception:
             pass
+        if getattr(self.widget(), '_view_action', None) is not None:
+            mainwindow.dataframe_menu.removeAction(self.widget()._view_action)
         return super(DataFrameDock, self).close()
 
 
