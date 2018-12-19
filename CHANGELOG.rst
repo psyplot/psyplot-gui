@@ -1,3 +1,9 @@
+v1.2.2
+======
+Added
+-----
+- Added the possibility to change the central widget of the GUI
+
 v1.2.1
 ======
 monkey patch for ipykernel < 5.1.1 to fix
