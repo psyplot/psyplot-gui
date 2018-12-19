@@ -985,7 +985,7 @@ class HelpExplorer(QWidget, DockMixin):
                         logger.debug("Could not document %s with %s viewer!",
                                      oname, viewername, exc_info=True)
         if ret:
-            self.dock.raise_()
+            self.parent().raise_()
         return ret
 
     @docstrings.dedent
@@ -1010,7 +1010,7 @@ class HelpExplorer(QWidget, DockMixin):
                     ret = viewer.show_rst(text, oname=oname, files=files)
                     break
         if ret:
-            self.dock.raise_()
+            self.parent().raise_()
         return ret
 
     @docstrings.dedent
