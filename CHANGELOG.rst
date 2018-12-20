@@ -1,9 +1,15 @@
 v1.2.2
 ======
+From now one, python 2.7 is not supported anymore.
+
 Added
 -----
 - Added the possibility to change the central widget of the GUI
 - Added `remove_plugin` method for psyplot GUI plugins
+
+Changed
+-------
+- removed MacOS app folder in python dist
 
 v1.2.1
 ======
