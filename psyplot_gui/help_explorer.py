@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Help explorer widget supplying a simple web browser and a plain text help
 viewer"""
 import sys

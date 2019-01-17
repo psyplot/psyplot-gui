@@ -679,7 +679,7 @@ class DataFrameView(QTableView):
 
 
 class DataFrameDock(QDockWidget):
-    """The QDockWidget for the :class:`DataFrameEditor"""
+    """The QDockWidget for the :class:`DataFrameEditor`"""
 
     def close(self):
         """
