@@ -1,3 +1,7 @@
+v1.2.3
+======
+Minor release without major API changes.
+
 v1.2.2
 ======
 From now one, python 2.7 is not supported anymore.
