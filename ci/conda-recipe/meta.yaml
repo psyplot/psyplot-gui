@@ -1,5 +1,5 @@
 {% set name = "psyplot-gui" %}
-{% set version = "1.2.3.dev0" %}
+{% set version = "1.2.3" %}
 
 package:
   name: {{ name|lower }}
