@@ -166,14 +166,17 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         name = safe_list(name)
 
     # Lock file creation
-    lock_file = osp.join(get_configdir(), 'psyplot.lock')
-    lock = fasteners.InterProcessLock(lock_file)
+    if not new_instance:
+        lock_file = osp.join(get_configdir(), 'psyplot.lock')
+        lock = fasteners.InterProcessLock(lock_file)
 
-    # Try to lock psyplot.lock. If it's *possible* to do it, then
-    # there is no previous instance running and we can start a
-    # new one. If *not*, then there is an instance already
-    # running, which is locking that file
-    lock_created = lock.acquire(False)
+        # Try to lock psyplot.lock. If it's *possible* to do it, then
+        # there is no previous instance running and we can start a
+        # new one. If *not*, then there is an instance already
+        # running, which is locking that file
+        lock_created = lock.acquire(False)
+    else:
+        lock_created = False
 
     chname = dict(chname)
 
@@ -209,9 +212,12 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     if exec_:
         from psyplot_gui.compat.qtcompat import QApplication
         app = QApplication(sys.argv)
-    mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
-                                dims, encoding, enable_post, seaborn_style,
-                                concat_dim, chname)
+    if isinstance(new_instance, MainWindow):
+        mainwindow = new_instance
+    else:
+        mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
+                                    dims, encoding, enable_post, seaborn_style,
+                                    concat_dim, chname)
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
