@@ -55,8 +55,8 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
     def test_added_url(self):
         """Test to add an url on the top"""
         def check_google():
-            combo.add_text_on_top('www.google.com', block=True)
-            self.assertEqual(combo.itemText(0), 'www.google.com')
+            combo.add_text_on_top('https://www.google.com/', block=True)
+            self.assertEqual(combo.itemText(0), 'https://www.google.com/')
         combo = self.viewer.tb_url
         current = combo.itemText(0)
         check_google()
