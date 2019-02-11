@@ -67,7 +67,9 @@ GUI, illustrates this:
 .. ipython::
 
     @suppress
-    In [1]: import psyplot.project as psy
+    In [1]: import matplotlib as mpl
+       ...: mpl.use('agg')
+       ...: import psyplot.project as psy
        ...: import xarray as xr
        ...: sp = psy.gcp()
        ...: mp = psy.gcp(True)
