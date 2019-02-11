@@ -20,6 +20,9 @@ import re
 import six
 from itertools import product
 import psyplot_gui
+import matplotlib as mpl
+
+mpl.use('agg')
 
 # -- General configuration ------------------------------------------------
 
