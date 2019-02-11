@@ -22,9 +22,9 @@ Graphical User Interface for the psyplot package
     :alt: Travis
     :target: https://travis-ci.org/Chilipp/psyplot-gui
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/e2qhtlx3t6tm6jw6?svg=true
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/gkao9p38wy5e2nh6/branch/master?svg=true
     :alt: AppVeyor
-    :target: https://ci.appveyor.com/project/Chilipp/psyplot-gui
+    :target: https://ci.appveyor.com/project/Chilipp/psyplot-gui-q726s
 
 .. |coveralls| image:: https://coveralls.io/repos/github/Chilipp/psyplot-gui/badge.svg?branch=master
     :alt: Coverage
