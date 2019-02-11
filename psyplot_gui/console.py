@@ -80,6 +80,8 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
 
     run_command = QtCore.pyqtSignal(list)
 
+    _closed = True
+
     def __init__(self, main, *args, **kwargs):
         """
         Parameters
@@ -90,6 +92,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
             Any other keyword argument for the
             :class:`qtconsole.rich_jupyter_widget.RichJupyterWidget`
         """
+        self._closed = False
         kernel_manager = QtInProcessKernelManager()
         # on windows, sys.stdout may be None when using pythonw.exe. Therefore
         # we just us a StringIO for security
@@ -307,4 +310,10 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
     def close(self):
         if self.kernel_client.channels_running:
             self.kernel_client.stop_channels()
+        self._closed = True
         return super(ConsoleWidget, self).close()
+
+    def eventFilter(self, *args, **kwargs):
+        if self._closed:
+            return False
+        return super().eventFilter(*args, **kwargs)
