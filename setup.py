@@ -70,6 +70,6 @@ setup(name='psyplot-gui',
           osp.join('psyplot_gui', 'icons', '*.png'),
           ]},
       include_package_data=True,
-      tests_require=['pytest'],
+      tests_require=['pytest', 'psutil'],
       cmdclass={'test': PyTest},
       zip_safe=False)
