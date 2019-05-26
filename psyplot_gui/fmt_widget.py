@@ -608,7 +608,7 @@ class FormatoptionWidget(QWidget, DockMixin):
         elif not use_yaml:
             s = repr(obj)
         else:
-            s = yaml.dump(obj).strip()
+            s = yaml.dump(obj, default_flow_style=True).strip()
             if s.endswith('\n...'):
                 s = s[:-4]
         if use_line_edit:
