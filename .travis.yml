@@ -43,11 +43,7 @@ install:
     fi
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
-  - if [[ "$PYTHON_VERSION" == "2.7" ]]; then
-        wget https://repo.continuum.io/miniconda/Miniconda2-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
-    else
-        wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
-    fi
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh
   - 'echo "backend : module://psyplot_gui.backend" > matplotlibrc'
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
