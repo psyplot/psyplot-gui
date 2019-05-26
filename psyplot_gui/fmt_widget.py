@@ -85,7 +85,8 @@ class DimensionsWidget(QWidget):
             return
         elif not self._single_selection:
             try:
-                current = yaml.load(self.parent().get_text())
+                current = yaml.load(self.parent().get_text(),
+                                    Loader=yaml.Loader)
             except Exception:
                 pass
             else:
@@ -542,7 +543,7 @@ class FormatoptionWidget(QWidget, DockMixin):
             param = 'fmt'
         if self.yaml_cb.isChecked():
             import psyplot.project as psy
-            psy.gcp().update(**{key: yaml.load(text)})
+            psy.gcp().update(**{key: yaml.load(text, Loader=yaml.Loader)})
         else:
             code = "psy.gcp().update(%s={'%s': %s})" % (param, key, text)
             if ExecutionInfo is not None:
@@ -573,7 +574,7 @@ class FormatoptionWidget(QWidget, DockMixin):
         else:
             txt = self.text_edit.toPlainText()
         try:
-            obj = yaml.load(txt)
+            obj = yaml.load(txt, Loader=yaml.Loader)
         except Exception:
             self.error_msg.showTraceback("Could not load %s" % txt)
         else:

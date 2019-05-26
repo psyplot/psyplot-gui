@@ -171,7 +171,7 @@ class RcParamsTree(QTreeWidget):
             editor = self.itemWidget(item.child(0), self.value_col)
             s = asstring(editor.toPlainText())
             try:
-                val = yaml.load(s)
+                val = yaml.load(s, Loader=yaml.Loader)
             except Exception as e:
                 item.setIcon(1, QIcon(get_icon('warning.png')))
                 item.setToolTip(1, "Could not parse yaml code: %s" % e)
@@ -300,7 +300,7 @@ class RcParamsTree(QTreeWidget):
         for item in self.top_level_items:
             key = asstring(item.text(0))
             editor = self.itemWidget(item.child(0), self.value_col)
-            val = yaml.load(asstring(editor.toPlainText()))
+            val = yaml.load(asstring(editor.toPlainText()), Loader=yaml.Loader)
             try:
                 val = rc.validate[key](val)
             except:
