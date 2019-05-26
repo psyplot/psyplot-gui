@@ -131,7 +131,7 @@ class FormatoptionWidgetTest(bt.PsyPlotGuiTestCase):
         fmt_w.group_combo.setCurrentIndex(fmt_w.group_combo.findText(
             'Miscallaneous formatoptions'))
         self.assertIsInstance(fmt_w.fmt_widget, QPushButton)
-        self.assertFalse(yaml.load(fmt_w.line_edit.text()))
+        self.assertFalse(yaml.load(fmt_w.line_edit.text(), Loader=yaml.Loader))
         fmt_w.line_edit.setText('')
         QTest.mouseClick(fmt_w.fmt_widget, Qt.LeftButton)
         self.assertEqual(fmt_w.line_edit.text()[1:-1], 'Test')

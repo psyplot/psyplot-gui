@@ -50,7 +50,7 @@ class TestRcParamsWidget(bt.PsyPlotGuiTestCase):
         for item in items:
             key = asstring(item.text(0))
             s_val = asstring(w.tree.itemWidget(item.child(0), 2).toPlainText())
-            val = yaml.load(s_val)
+            val = yaml.load(s_val, Loader=yaml.Loader)
             self.assertEqual(val, gui_rcParams[key],
                              msg='Failed item %s: %s' % (key, s_val))
 

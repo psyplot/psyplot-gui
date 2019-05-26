@@ -29,7 +29,7 @@ class TestDependencies(bt.PsyPlotGuiTestCase):
         label = QLabel('', parent=self.window)
         deps.tree.selectAll()
         deps.copy_selected(label)
-        d = yaml.load(str(label.text()))
+        d = yaml.load(str(label.text()), Loader=yaml.Loader)
         self.assertEqual(d['psyplot'], psyplot.__version__)
         self.assertEqual(d['psyplot_gui'], psyplot_gui.__version__)
         self.assertIn('numpy', d)
