@@ -74,7 +74,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None, script=None, command=None, exec_=True, use_all=False,
-              callback=None):
+              callback=None,
+              opengl_implementation='software'):
     """
     Eventually start the QApplication or only make a plot
 
@@ -121,6 +122,10 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     callback: str
         A unique identifier for the method that should be used if psyplot is
         already running. Set this parameter to None to avoid sending
+    opengl_implementation: {'software', 'desktop', 'gles', 'automatic'}
+        OpenGL implementation to pass to Qt. Possible options are
+        'software', 'desktop', 'gles' and 'automatic' (which let's PyQt
+        decide).
 
     Returns
     -------
@@ -212,6 +217,9 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     if exec_:
         from psyplot_gui.compat.qtcompat import QApplication
         app = QApplication(sys.argv)
+
+    _set_opengl_implementation(opengl_implementation)
+
     if isinstance(new_instance, MainWindow):
         mainwindow = new_instance
     else:
@@ -312,6 +320,10 @@ def get_parser(create=True):
     parser.update_arg('pwd', group=gui_grp)
     parser.update_arg('script', short='s', group=gui_grp)
     parser.update_arg('command', short='c', group=gui_grp)
+
+    parser.update_arg('opengl_implementation', group=gui_grp, short='opengl',
+                      choices=['software', 'desktop', 'gles', 'automatic'])
+
     # add an action to display the GUI plugins
     info_grp = parser.unfinished_arguments['list_plugins'].get('group')
     parser.update_arg(
@@ -390,3 +402,31 @@ class ListGuiPluginsAction(argparse.Action):
             list(rcParams._load_plugin_entrypoints())
         print(yaml.dump(rcParams._plugins, default_flow_style=False))
         sys.exit(0)
+
+
+def _set_opengl_implementation(option):
+    """
+    Set the OpenGL implementation
+
+    This function has been taken from spyder
+    (see https://github.com/spyder-ide/spyder/pull/7859)
+
+    See issue https://github.com/spyder-ide/spyder/issues/7447 for the details.
+    """
+    try:
+        from PyQt5.QtQuick import QQuickWindow, QSGRendererInterface
+    except Exception:
+        QQuickWindow = QSGRendererInterface = None
+    from PyQt5.QtCore import QCoreApplication, Qt
+    if option == 'software':
+        QCoreApplication.setAttribute(Qt.AA_UseSoftwareOpenGL)
+        if QQuickWindow is not None:
+            QQuickWindow.setSceneGraphBackend(QSGRendererInterface.Software)
+    elif option == 'desktop':
+        QCoreApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
+        if QQuickWindow is not None:
+            QQuickWindow.setSceneGraphBackend(QSGRendererInterface.OpenGL)
+    elif option == 'gles':
+        QCoreApplication.setAttribute(Qt.AA_UseOpenGLES)
+        if QQuickWindow is not None:
+            QQuickWindow.setSceneGraphBackend(QSGRendererInterface.OpenGL)
