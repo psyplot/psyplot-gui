@@ -7,15 +7,15 @@ import _base_testing as bt
 import dummy_module as d
 from psyplot_gui import rcParams
 from psyplot_gui.compat.qtcompat import QTest, Qt, asstring
-from psyplot_gui.help_explorer import html2file
+from psyplot_gui.help_explorer import html2file, UrlHelp
 
 
-class UrlHelpTest(bt.PsyPlotGuiTestCase):
-    """Test the :class:`psyplot_gui.help_explorer.UrlHelp`"""
+class UrlHelpTestMixin(bt.PsyPlotGuiTestCase):
+    """Convenience class for UrlHelp tests"""
 
     @classmethod
     def setUpClass(cls):
-        super(UrlHelpTest, cls).setUpClass()
+        super(UrlHelpTestMixin, cls).setUpClass()
         cls._original_intersphinx = rcParams['help_explorer.use_intersphinx']
         rcParams['help_explorer.use_intersphinx'] = False
         # we render the docs in the same process to avoid problems with
@@ -25,12 +25,12 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
 
     @classmethod
     def tearDownClass(cls):
-        super(UrlHelpTest, cls).tearDownClass()
+        super(UrlHelpTestMixin, cls).tearDownClass()
         rcParams['help_explorer.use_intersphinx'] = cls._original_intersphinx
         rcParams['help_explorer.render_docs_parallel'] = cls._original_pdocs
 
     def setUp(self):
-        super(UrlHelpTest, self).setUp()
+        super(UrlHelpTestMixin, self).setUp()
         self.help_explorer.set_viewer('HTML help')
 
     @property
@@ -52,21 +52,7 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         self.viewer.html.urlChanged.emit(self.viewer.html.url())
         self.assertEqual(self.viewer.tb_url.currentText(), oname)
 
-    def test_added_url(self):
-        """Test to add an url on the top"""
-        def check_google():
-            combo.add_text_on_top('https://www.google.com/', block=True)
-            self.assertEqual(combo.itemText(0), 'https://www.google.com/')
-        combo = self.viewer.tb_url
-        current = combo.itemText(0)
-        check_google()
-        combo.insertItem(0, 'test')
-        check_google()
-        self.assertEqual(combo.itemText(1), 'test')
-        self.assertEqual(combo.itemText(2), current)
-
-    def test_browsing(self):
-        """Test browsing"""
+    def _test_browsing(self):
         rcParams['help_explorer.online'] = True
         self.viewer.browse('www.google.de')
         url = asstring(self.viewer.html.url().toString())
@@ -80,6 +66,14 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         self.assertTrue(osp.exists(fname), msg=fname + " is not existent!")
         self._test_if_sphinx_worked(oname)
 
+
+class UrlHelpTest(UrlHelpTestMixin):
+    """Test the :class:`psyplot_gui.help_explorer.UrlHelp`"""
+
+    def test_browsing(self):
+        """Test browsing"""
+        self._test_browsing()
+
     def test_show_rst(self):
         """Test whether the showing of an rst string is working"""
         s = """
@@ -91,27 +85,6 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
         fname = osp.join(self.viewer.sphinx_dir, 'test.rst')
         self.assertTrue(osp.exists(fname), msg=fname + " is not existent!")
         self._test_if_sphinx_worked('test')
-
-    def test_lock(self):
-        """Test the url lock"""
-        url = self.viewer.html.url().toString()
-        QTest.mouseClick(self.viewer.bt_lock, Qt.LeftButton)
-        self.help_explorer.show_help(int, 'int')
-        fname = osp.join(self.viewer.sphinx_dir, 'int.rst')
-        self.assertFalse(osp.exists(fname), msg=fname + ' exists wrongly!')
-        self.help_explorer.show_rst(int.__doc__, 'int')
-        self.assertFalse(osp.exists(fname), msg=fname + ' exists wrongly!')
-        self.viewer.browse('www.google.de')
-        self.assertEqual(self.viewer.html.url().toString(), url)
-
-    def test_url_lock(self):
-        """Test whether to object documentation works"""
-        self.test_browsing()
-        QTest.mouseClick(self.viewer.bt_url_lock, Qt.LeftButton)
-        self.help_explorer.show_help(int, 'int')
-        self._test_object_docu(int, 'int')
-        self.viewer.browse('www.google.de')
-        self._test_object_docu(int, 'int')
 
     def test_module_doc(self):
         """Test whether the sphinx rendering works for a module"""
@@ -146,6 +119,54 @@ class UrlHelpTest(bt.PsyPlotGuiTestCase):
 #    def test_moduleattr_doc(self):
 #        """Test whether the sphinx rendering works for a method"""
 #        self._test_object_docu(d.a, 'd.a')
+
+
+class BrowserTest(UrlHelpTestMixin):
+    """Testcase for the :class:`psyplot_gui.help_explorer.UrlBrowser` class"""
+
+    def setUp(self):
+        super(BrowserTest, self).setUp()
+        self._help = viewer = UrlHelp(parent=self.window.help_explorer)
+        self.window.help_explorer.viewers['HTML help'] = viewer
+        self.window.help_explorer.set_viewer(viewer)
+
+    def tearDown(self):
+        self._help.close(force=True)
+        super(BrowserTest, self).tearDown()
+
+    def test_added_url(self):
+        """Test to add an url on the top"""
+        def check_google():
+            combo.add_text_on_top('https://www.google.com/', block=True)
+            self.assertEqual(combo.itemText(0), 'https://www.google.com/')
+        combo = self.viewer.tb_url
+        current = combo.itemText(0)
+        check_google()
+        combo.insertItem(0, 'test')
+        check_google()
+        self.assertEqual(combo.itemText(1), 'test')
+        self.assertEqual(combo.itemText(2), current)
+
+    def test_lock(self):
+        """Test the url lock"""
+        url = self.viewer.html.url().toString()
+        QTest.mouseClick(self.viewer.bt_lock, Qt.LeftButton)
+        self.help_explorer.show_help(int, 'int')
+        fname = osp.join(self.viewer.sphinx_dir, 'int.rst')
+        self.assertFalse(osp.exists(fname), msg=fname + ' exists wrongly!')
+        self.help_explorer.show_rst(int.__doc__, 'int')
+        self.assertFalse(osp.exists(fname), msg=fname + ' exists wrongly!')
+        self.viewer.browse('www.google.de')
+        self.assertEqual(self.viewer.html.url().toString(), url)
+
+    def test_url_lock(self):
+        """Test whether to object documentation works"""
+        self._test_browsing()
+        QTest.mouseClick(self.viewer.bt_url_lock, Qt.LeftButton)
+        self.help_explorer.show_help(int, 'int')
+        self._test_object_docu(int, 'int')
+        self.viewer.browse('www.unil.ch')
+        self._test_object_docu(int, 'int')
 
 
 class TextHelpTest(bt.PsyPlotGuiTestCase):

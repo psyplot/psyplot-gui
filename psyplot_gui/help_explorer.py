@@ -178,6 +178,14 @@ class UrlBrowser(QFrame):
     #: The upper most layout aranging the button box and the html widget
     vbox = None
 
+    #: default value for :attr:`bt_lock`. Is set during browser
+    #: initialization
+    bt_lock_default = None
+
+    #: default value for :attr:`bt_url_lock`. Is set during browser
+    #: initialization
+    bt_url_lock_default = None
+
     def __init__(self, *args, **kwargs):
         super(UrlBrowser, self).__init__(*args, **kwargs)
 
@@ -268,6 +276,9 @@ class UrlBrowser(QFrame):
 
         if self.default_url is not None:
             self.tb_url.addItem(self.default_url)
+
+        self.bt_lock_default = bool(self.bt_lock.isChecked())
+        self.bt_url_lock_default = bool(self.bt_url_lock.isChecked())
 
     def browse(self, url):
         """Make a web browse on the given url and show the page on the Webview
@@ -804,7 +815,8 @@ class UrlHelp(UrlBrowser, HelpMixin):
             lines, descriptor))
 
     def close(self, *args, **kwargs):
-        if self.sphinx_thread is not None:
+        if kwargs.pop('force', False) or (
+                not is_running_tests() and self.sphinx_thread is not None):
             try:
                 del self.sphinx_thread.app
             except AttributeError:
@@ -813,7 +825,12 @@ class UrlHelp(UrlBrowser, HelpMixin):
             if self._temp_dir:
                 shutil.rmtree(self.sphinx_dir, ignore_errors=True)
             del self.sphinx_thread
-        return super(UrlHelp, self).close(*args, **kwargs)
+            return super(UrlHelp, self).close(*args, **kwargs)
+        elif is_running_tests():
+            self.bt_url_lock.setChecked(self.bt_url_lock_default)
+            self.bt_lock.setChecked(self.bt_lock_default)
+        else:
+            return super(UrlHelp, self).close(*args, **kwargs)
 
 
 class SphinxThread(QtCore.QThread):
@@ -922,7 +939,7 @@ class HelpExplorer(QWidget, DockMixin):
         self.combo = QComboBox(parent=self)
         vbox.addWidget(self.combo)
         if _viewers:
-            self.viewers = _viewers
+            self.viewers = _viewers.copy()
             for w in self.viewers.values():
                 w.setParent(self)
         else:
@@ -1050,5 +1067,8 @@ class HelpExplorer(QWidget, DockMixin):
                 found = True
 
     def close(self, *args, **kwargs):
-        self.viewers['HTML help'].close(*args, **kwargs)
+        try:
+            self.viewers['HTML help'].close(*args, **kwargs)
+        except AttributeError:
+            pass
         return super(HelpExplorer, self).close(*args, **kwargs)

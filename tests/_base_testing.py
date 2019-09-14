@@ -41,6 +41,14 @@ def setup_rcparams():
     rcParams.update_from_defaultParams()
 
 
+if running_in_gui:
+    app = QApplication.instance()
+else:
+    setup_rcparams()
+    app = QApplication([])
+    app.setQuitOnLastWindowClosed(False)
+
+
 class PsyPlotGuiTestCase(unittest.TestCase):
     """A base class for testing the psyplot_gui module
 
@@ -52,19 +60,14 @@ class PsyPlotGuiTestCase(unittest.TestCase):
     def setUpClass(cls):
         from psyplot_gui.main import mainwindow
         cls._close_app = mainwindow is None
-        cls._app = QApplication.instance()
+        cls._app = app
         if not running_in_gui:
             import psyplot_gui
             psyplot_gui.UNIT_TESTING = True
-            if cls._app is None:
-                cls._app = QApplication([])
-            cls._app.setQuitOnLastWindowClosed(False)
 
     @classmethod
     def tearDownClass(cls):
-        if not running_in_gui:
-            cls._app.quit()
-            del cls._app
+        del cls._app
 
     def setUp(self):
         import psyplot_gui.main as main
