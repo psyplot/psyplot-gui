@@ -30,6 +30,9 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - libstdc++6
+    # for QtWebEngineWidgets
+    - libgl1-mesa-glx 
+    - libegl1-mesa-dev
 
 before_install:
     if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then export DEPLOY_CONDA=false; fi
