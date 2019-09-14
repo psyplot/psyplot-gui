@@ -212,6 +212,10 @@ defaultParams = {
         True, validate_bool,
         "If True and the psyplot gui is already running, new files are opened "
         "in that gui"],
+    'main.opengl': [
+        'software', validate_str,
+        "The opengl implementation to use. Should be one of 'software', "
+        "'desktop', 'gles' or 'automatic'."],
     'content.load_tooltips': [
         True, validate_bool,
         "If True, a lazy load is performed on the arrays and data sets and "

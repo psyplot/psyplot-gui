@@ -75,7 +75,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None, script=None, command=None, exec_=True, use_all=False,
               callback=None,
-              opengl_implementation='software'):
+              opengl_implementation=None):
     """
     Eventually start the QApplication or only make a plot
 
@@ -418,6 +418,8 @@ def _set_opengl_implementation(option):
     except Exception:
         QQuickWindow = QSGRendererInterface = None
     from PyQt5.QtCore import QCoreApplication, Qt
+    if option is None:
+        option = rcParams['main.opengl']
     if option == 'software':
         QCoreApplication.setAttribute(Qt.AA_UseSoftwareOpenGL)
         if QQuickWindow is not None:
