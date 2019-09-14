@@ -21,6 +21,12 @@ import six
 from itertools import product
 import psyplot_gui
 import matplotlib as mpl
+import warnings
+
+
+warnings.filterwarnings(
+    'ignore', message=r"\s*The Panel class is removed from pandas")
+
 
 mpl.use('agg')
 
