@@ -31,7 +31,7 @@ addons:
     packages:
     - libstdc++6
     # for QtWebEngineWidgets
-    - libgl1-mesa-glx 
+    - libgl1-mesa-glx
     - libegl1-mesa-dev
 
 before_install:
@@ -88,7 +88,7 @@ before_script:
     fi
 
 script:
-  - coverage run --source=psyplot_gui setup.py test -a "-v"
+  - coverage run --source=psyplot_gui setup.py test -a "-sv"
   - conda build ci/conda-recipe --python $PYTHON_VERSION --no-test
 
 after_success:
