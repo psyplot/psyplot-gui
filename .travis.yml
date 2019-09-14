@@ -82,6 +82,7 @@ install:
   # add conda-forge channel for build
   - conda config --add channels chilipp/label/$TRAVIS_BRANCH
   - conda config --add channels conda-forge
+  - if [[ $TRAVIS_TAG == "" ]]; then export GIT_BRANCH=$TRAVIS_BRANCH; fi
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then

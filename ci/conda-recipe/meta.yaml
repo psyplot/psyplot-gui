@@ -1,23 +1,27 @@
+{% set data = load_setup_py_data() %}
 {% set name = "psyplot-gui" %}
-{% set version = "1.2.3" %}
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: {{ data.get('version') }}
 
 source:
   path: ../..
 
 build:
-  number: 0
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  string: {{ environ.get('GIT_BUILD_STR', '') }}{% if environ.get('GIT_BRANCH') %}_{{ environ.get('GIT_BRANCH').replace('-', '') }}{% endif %}
+  script: python -m pip install . --no-deps --ignore-installed -vvv
+  skip: true  # [py == 27]
 
 requirements:
   build:
     - python
     - pip
   run:
-    - python
-    - psyplot
+    - python >=3.6
+    - psyplot >=1.2.0
+    - pyqt >=5
     - qtconsole
     - fasteners
     - sphinx
@@ -29,6 +33,7 @@ test:
   imports:
     - psyplot_gui
     - psyplot_gui.compat
+    - psyplot_gui.compat.qtcompat
     - psyplot_gui.config
     - psyplot_gui.sphinx_supp
 
