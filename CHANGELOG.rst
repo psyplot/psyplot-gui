@@ -1,3 +1,7 @@
+v1.2.4
+======
+New release with better OpenGL support (see ``psyplot --help``)
+
 v1.2.3
 ======
 Minor release without major API changes.
