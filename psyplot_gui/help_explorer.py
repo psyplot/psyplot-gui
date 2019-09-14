@@ -22,7 +22,8 @@ from psyplot_gui.compat.qtcompat import (
 from psyplot_gui.common import get_icon, DockMixin, PyErrorMessage
 from IPython.core.oinspect import signature, getdoc
 import logging
-from psyplot_gui.common import get_module_path, StreamToLogger
+from psyplot_gui.common import get_module_path, StreamToLogger, \
+    is_running_tests
 from tempfile import mkdtemp
 try:
     from sphinx.application import Sphinx
@@ -60,6 +61,9 @@ def html2file(url):
     # skip the first '/' on windows platform
     return osp.abspath(osp.join(p.netloc,
                                 p.path[int(sys.platform == 'win32'):]))
+
+
+_viewers = OrderedDict()
 
 
 logger = logging.getLogger(__name__)
@@ -917,9 +921,20 @@ class HelpExplorer(QWidget, DockMixin):
         self.vbox = vbox = QVBoxLayout()
         self.combo = QComboBox(parent=self)
         vbox.addWidget(self.combo)
-        self.viewers = OrderedDict(
-            [(key, cls(parent=self)) for key, cls in six.iteritems(
-                self.viewers)])
+        if _viewers:
+            self.viewers = _viewers
+            for w in self.viewers.values():
+                w.setParent(self)
+        else:
+            self.viewers = OrderedDict(
+                [(key, cls(parent=self)) for key, cls in six.iteritems(
+                    self.viewers)])
+            # save the UrlHelp because QWebEngineView creates child processes
+            # that are not properly closed by PyQt and as such use too much
+            # memory
+            if is_running_tests():
+                for key, val in self.viewers.items():
+                    _viewers[key] = val
         for key, ini in six.iteritems(self.viewers):
             self.combo.addItem(key)
             ini.hide()

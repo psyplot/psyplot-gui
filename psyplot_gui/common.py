@@ -19,6 +19,14 @@ else:
     import io
 
 
+def is_running_tests():
+    """Check if there are any GUI tests running
+
+    This function returns the :attr:`psyplot_gui.UNIT_TESTING` variable"""
+    import psyplot_gui
+    return psyplot_gui.UNIT_TESTING
+
+
 def get_module_path(modname):
     """Return module `modname` base path"""
 

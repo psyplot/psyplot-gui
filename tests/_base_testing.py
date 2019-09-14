@@ -54,6 +54,8 @@ class PsyPlotGuiTestCase(unittest.TestCase):
         cls._close_app = mainwindow is None
         cls._app = QApplication.instance()
         if not running_in_gui:
+            import psyplot_gui
+            psyplot_gui.UNIT_TESTING = True
             if cls._app is None:
                 cls._app = QApplication([])
             cls._app.setQuitOnLastWindowClosed(False)

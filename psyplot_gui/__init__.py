@@ -362,6 +362,11 @@ will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
     return parser
 
 
+#: A boolean variable to check if the GUI is tested. This is set automatically
+#: true on CI services
+UNIT_TESTING = os.getenv('CI')
+
+
 #: Disable the default for the ListGuiPluginsAction on RTD, because it looks
 #: better in the docs
 _on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
