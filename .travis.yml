@@ -34,6 +34,9 @@ addons:
     - libgl1-mesa-glx
     - libegl1-mesa-dev
 
+services:
+    - xvfb
+
 before_install:
     if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then export DEPLOY_CONDA=false; fi
 
@@ -88,7 +91,7 @@ before_script:
     fi
 
 script:
-  - coverage run --source=psyplot_gui setup.py test -a "-sv"
+  - coverage run --source=psyplot_gui setup.py test -a "-v"
   - conda build ci/conda-recipe --python $PYTHON_VERSION --no-test
 
 after_success:
