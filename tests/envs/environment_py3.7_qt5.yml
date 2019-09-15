@@ -9,7 +9,8 @@ dependencies:
     - xarray
     - netCDF4
     - pyqt>5.7
-    - sphinx
+    - sphinx  # [not win]
+    - sphinx=1.7.5  # [win]
     - pip:
         - pytest
         - pytest-cov
