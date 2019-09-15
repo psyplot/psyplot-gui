@@ -51,7 +51,7 @@ install:
   - endlocal
   - "IF NOT DEFINED APPVEYOR_REPO_TAG_NAME (SET GIT_BRANCH=%APPVEYOR_REPO_BRANCH%)"
 
-build: false
+build: off
 
 test_script:
   - setlocal
