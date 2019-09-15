@@ -51,13 +51,16 @@ install:
   - endlocal
   - "IF NOT DEFINED APPVEYOR_REPO_TAG_NAME (SET GIT_BRANCH=%APPVEYOR_REPO_BRANCH%)"
 
-build: false
+build_script:
+  - setlocal
+  - set CONDA_REPO_TOKEN=
+  - conda build ci\\conda-recipe --python %PYTHON_VERSION% --no-test
+  - endlocal
 
 test_script:
   - setlocal
   - set CONDA_REPO_TOKEN=
   - coverage run -a --source=psyplot_gui setup.py test -a "-v"
-  - "conda build ci\\conda-recipe --python %PYTHON_VERSION% --no-test"
   - endlocal
 
 after_test:
