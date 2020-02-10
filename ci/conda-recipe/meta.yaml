@@ -6,11 +6,11 @@ package:
   version: {{ data.get('version') }}
 
 source:
-  path: ../..
+  git_url: ../..
 
 build:
   number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
-  string: {{ environ.get('GIT_BUILD_STR', '') }}{% if environ.get('GIT_BRANCH') %}_{{ environ.get('GIT_BRANCH').replace('-', '') }}{% endif %}
+  string: py{{ environ.get('CONDA_PY') }}_{{ environ.get('GIT_BUILD_STR', '') }}{% if environ.get('GIT_BRANCH') %}_{{ environ.get('GIT_BRANCH') }}{% endif %}
   skip: true  # [py == 27]
 
 requirements:
@@ -18,7 +18,6 @@ requirements:
     - python
     - pip
   run:
-    - python >=3.6
     - psyplot >=1.2.0
     - pyqt >=5
     - qtconsole
@@ -27,14 +26,30 @@ requirements:
     - sphinx_rtd_theme
 
 test:
-  commands:
-    - psyplot --help
   imports:
     - psyplot_gui
+    - psyplot_gui.main
     - psyplot_gui.compat
     - psyplot_gui.compat.qtcompat
     - psyplot_gui.config
     - psyplot_gui.sphinx_supp
+
+  requires:
+    - pytest
+    - pytest-cov
+    - codecov
+    - dask
+    - netcdf4
+    - seaborn
+    - psy-simple
+    - pip
+  source_files:
+    - tests
+
+  commands:
+    - pip install tests/test_plugin/
+    - psyplot --help
+    - pytest -sv --cov=psyplot_gui
 
 app:
   entry: psyplot
