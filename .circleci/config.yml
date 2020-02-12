@@ -7,8 +7,8 @@ jobs:
   build_windows:
     executor:
       name: win/default
+      shell: cmd.exe
     working_directory: ~/test
-    machine: true
     steps:
       - checkout
       - run:
@@ -93,7 +93,7 @@ jobs:
             conda build ci/conda-recipe --python 3.7;
 
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
       - build_linux
