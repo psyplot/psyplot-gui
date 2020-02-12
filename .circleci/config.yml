@@ -55,8 +55,10 @@ jobs:
     steps:
       - checkout
       - configure_conda
-      - build_recipe:
-          python_version: << parameters.python_version >>
+      - run:
+          name: Build conda recipe
+          shell: cmd.exe
+          command: conda build ci/conda-recipe --python << parameters.python_version >>
   build_linux:
     parameters:
       python_version:
