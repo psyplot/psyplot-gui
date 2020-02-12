@@ -38,7 +38,7 @@ commands:
       - run:
           name: Build conda recipe
           command: |
-            conda activate
+            which conda || source $HOME/miniconda3/bin/activate root
             conda build ci/conda-recipe --python << parameters.python_version >>
 
 
