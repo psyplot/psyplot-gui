@@ -13,33 +13,35 @@ jobs:
       - checkout
       - run:
           name: Configure
-          command: |
-            echo ""
-            conda activate
-            echo "Configuring conda."
-            conda config --set always_yes yes --set changeps1 no
-            conda config --add channels conda-forge
-            conda config --add channels chilipp
-            conda update -q conda
+          command: >
+            echo "" &
+            conda activate &
+            echo "Configuring conda." &
+            conda config --set always_yes yes --set changeps1 no &
+            conda config --add channels conda-forge &
+            conda config --add channels chilipp &
+            conda update -q conda &
             conda install conda-build anaconda-client conda-verify
-            IF NOT DEFINED CIRCLE_TAG (conda config --add channels chilipp/label/%CIRCLE_BRANCH%)
+      - run:
+          name: Add branch
+          command: IF NOT DEFINED CIRCLE_TAG (conda config --add channels chilipp/label/%CIRCLE_BRANCH%)
       - run:
           name: Environment info
-          command: |
-            conda activate
-            conda info -a
+          command: >
+            conda activate &
+            conda info -a &
             conda list
       - run:
           name: Setup append
-          command: |
-            conda activate
+          command: >
+            conda activate &
             python ci/setup_append.py ci/conda-recipe pyqt=5
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
           name: Test
-          command: |
-            conda activate
-            conda build ci/conda-recipe --python 3.7;
+          command: >
+            conda activate &
+            conda build ci/conda-recipe --python 3.7
   build_linux:
     working_directory: ~/test
     machine: true
@@ -64,7 +66,6 @@ jobs:
           command: |
             echo ""
             source $HOME/miniconda3/bin/activate root
-            echo "Configuring conda."
             conda config --set always_yes yes --set changeps1 no
             conda config --add channels conda-forge
             conda config --add channels chilipp
