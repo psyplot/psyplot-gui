@@ -34,6 +34,7 @@ jobs:
             echo "backend : module://psyplot_gui.backend" > matplotlibrc
             export MATPLOTLIBRC=`pwd`/matplotlibrc
             export PYTHONWARNINGS='ignore:mode:DeprecationWarning:docutils.io:245'
+            if [[ $CIRCLE_TAG == "" ]]; then conda config --add channels chilipp/label/${CIRCLE_BRANCH}; fi
       - run:
           name: Environment info
           command: |
