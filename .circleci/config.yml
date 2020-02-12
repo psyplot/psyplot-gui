@@ -55,7 +55,7 @@ jobs:
     steps:
       - checkout
       - configure_conda
-      - build_recipe
+      - build_recipe:
           python_version: << parameters.python_version >>
   build_linux:
     parameters:
@@ -81,7 +81,7 @@ jobs:
             curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
             bash $MINICONDA_FILE -bp $HOME/miniconda3
       - configure_conda
-      - build_recipe
+      - build_recipe:
           python_version: << parameters.python_version >>
 
 workflows:
