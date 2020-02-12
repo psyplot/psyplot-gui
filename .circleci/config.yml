@@ -3,46 +3,65 @@ version: 2.1
 orbs:
   win: circleci/windows@2.2.0
 
+commands:
+  configure_conda:
+    description: "Install conda on the sytem"
+    steps:
+      - run:
+          name: Configure
+          command: |
+            which conda || source $HOME/miniconda3/bin/activate root
+            conda config --set always_yes yes --set changeps1 no
+            conda config --add channels conda-forge
+            conda config --add channels chilipp
+            conda update -q conda
+            conda install conda-build anaconda-client conda-verify
+            if [[ $CIRCLE_TAG == "" ]]; then conda config --add channels chilipp/label/${CIRCLE_BRANCH}; fi
+      - run:
+          name: Environment info
+          command: |
+            which conda || source $HOME/miniconda3/bin/activate root
+            conda info -a
+            conda list
+      - run:
+          name: Setup append
+          command: |
+            which conda || source $HOME/miniconda3/bin/activate root
+            python ci/setup_append.py ci/conda-recipe pyqt=5
+  build_recipe:
+    description: "Build the conda recipe"
+    parameters:
+      python_version:
+        type: string
+        default: "3.8"
+    steps:
+      - run:
+          name: Build conda recipe
+          command: |
+            conda activate
+            conda build ci/conda-recipe --python << parameters.python_version >>
+
+
 jobs:
   build_windows:
     executor:
       name: win/default
-      shell: cmd.exe
+      shell: bash.exe
+    parameters:
+      python_version:
+        type: string
+        default: "3.8"
     working_directory: ~/test
     steps:
       - checkout
-      - run:
-          name: Configure
-          command: >
-            echo "" &
-            conda activate &
-            echo "Configuring conda." &
-            conda config --set always_yes yes --set changeps1 no &
-            conda config --add channels conda-forge &
-            conda config --add channels chilipp &
-            conda update -q conda &
-            conda install conda-build anaconda-client conda-verify
-      - run:
-          name: Add branch
-          command: IF NOT DEFINED CIRCLE_TAG (conda config --add channels chilipp/label/%CIRCLE_BRANCH%)
-      - run:
-          name: Environment info
-          command: >
-            conda activate &
-            conda info -a &
-            conda list
-      - run:
-          name: Setup append
-          command: >
-            conda activate &
-            python ci/setup_append.py ci/conda-recipe pyqt=5
-      - run:
-          # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
-          name: Test
-          command: >
-            conda activate &
-            conda build ci/conda-recipe --python 3.7
+      - configure_conda
+      - build_recipe
+          python_version: << parameters.python_version >>
   build_linux:
+    parameters:
+      python_version:
+        type: string
+        default: "3.8"
     working_directory: ~/test
     machine: true
     steps:
@@ -61,41 +80,17 @@ jobs:
             MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
             curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
             bash $MINICONDA_FILE -bp $HOME/miniconda3
-      - run:
-          name: Configure
-          command: |
-            echo ""
-            source $HOME/miniconda3/bin/activate root
-            conda config --set always_yes yes --set changeps1 no
-            conda config --add channels conda-forge
-            conda config --add channels chilipp
-            conda update -q conda
-            conda install conda-build anaconda-client conda-verify
-            echo "backend : module://psyplot_gui.backend" > matplotlibrc
-            export MATPLOTLIBRC=`pwd`/matplotlibrc
-            export PYTHONWARNINGS='ignore:mode:DeprecationWarning:docutils.io:245'
-            if [[ $CIRCLE_TAG == "" ]]; then conda config --add channels chilipp/label/${CIRCLE_BRANCH}; fi
-      - run:
-          name: Environment info
-          command: |
-            source $HOME/miniconda3/bin/activate root
-            conda info -a
-            conda list
-      - run:
-          name: Setup append
-          command: |
-            source $HOME/miniconda3/bin/activate root
-            python ci/setup_append.py ci/conda-recipe pyqt=5
-      - run:
-          # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
-          name: Test
-          command: |
-            source $HOME/miniconda3/bin/activate root
-            conda build ci/conda-recipe --python 3.7;
+      - configure_conda
+      - build_recipe
+          python_version: << parameters.python_version >>
 
 workflows:
   version: 2.1
   build_and_test:
     jobs:
       - build_linux
+      - build_linux:
+          python_version: "3.7"
       - build_windows
+      - build_windows:
+          python_version: "3.7"
