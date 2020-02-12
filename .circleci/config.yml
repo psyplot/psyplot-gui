@@ -10,7 +10,7 @@ commands:
       - run:
           name: Configure
           command: |
-            which conda || source $HOME/miniconda3/bin/activate root
+            which conda || source $HOME/miniconda3/bin/activate base
             conda config --set always_yes yes --set changeps1 no
             conda config --add channels conda-forge
             conda config --add channels chilipp
@@ -20,13 +20,13 @@ commands:
       - run:
           name: Environment info
           command: |
-            which conda || source $HOME/miniconda3/bin/activate root
+            which conda || source $HOME/miniconda3/bin/activate base
             conda info -a
             conda list
       - run:
           name: Setup append
           command: |
-            which conda || source $HOME/miniconda3/bin/activate root
+            which conda || source $HOME/miniconda3/bin/activate base
             python ci/setup_append.py ci/conda-recipe pyqt=5
   build_recipe:
     description: "Build the conda recipe"
@@ -38,7 +38,7 @@ commands:
       - run:
           name: Build conda recipe
           command: |
-            which conda || source $HOME/miniconda3/bin/activate root
+            which conda || source $HOME/miniconda3/bin/activate base
             conda build ci/conda-recipe --python << parameters.python_version >>
 
 
@@ -56,9 +56,9 @@ jobs:
       - checkout
       - configure_conda
       - run:
-          name: Build conda recipe
+          name: Build recipe
           shell: cmd.exe
-          command: conda build ci/conda-recipe --python << parameters.python_version >>
+          command: conda activate & conda build ci/conda-recipe --python << parameters.python_version >>
   build_linux:
     parameters:
       python_version:
