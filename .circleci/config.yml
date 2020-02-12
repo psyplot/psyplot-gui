@@ -1,0 +1,59 @@
+version: 2
+
+jobs:
+  build_conda:
+    working_directory: ~/test
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: install apt requirements
+          command: |
+            sudo apt-get update
+            sudo apt-get install libgl1-mesa-glx libegl1-mesa-dev
+      - run:
+          name: Install conda
+          command: |
+            echo ""
+            echo "Installing a fresh version of Miniconda."
+            MINICONDA_URL="https://repo.continuum.io/miniconda"
+            MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
+            curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
+            bash $MINICONDA_FILE -bp $HOME/miniconda3
+      - run:
+          name: Configure
+          command: |
+            echo ""
+            source $HOME/miniconda3/bin/activate root
+            echo "Configuring conda."
+            conda config --set always_yes yes --set changeps1 no
+            conda config --add channels conda-forge
+            conda config --add channels chilipp
+            conda update -q conda
+            conda install conda-build anaconda-client conda-verify
+            echo "backend : module://psyplot_gui.backend" > matplotlibrc
+            export MATPLOTLIBRC=`pwd`/matplotlibrc
+            export PYTHONWARNINGS='ignore:mode:DeprecationWarning:docutils.io:245'
+      - run:
+          name: Environment info
+          command: |
+            source $HOME/miniconda3/bin/activate root
+            conda info -a
+            conda list
+      - run:
+          name: Setup append
+          command: |
+            source $HOME/miniconda3/bin/activate root
+            python ci/setup_append.py ci/conda-recipe pyqt=5
+      - run:
+          # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
+          name: Test
+          command: |
+            source $HOME/miniconda3/bin/activate root
+            conda build ci/conda-recipe --python 3.7;
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_conda
