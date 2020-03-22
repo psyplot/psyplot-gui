@@ -10,7 +10,7 @@ source:
 
 build:
   number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
-  string: py{{ environ.get('CONDA_PY') }}_{{ environ.get('GIT_BUILD_STR', '') }}{% if environ.get('GIT_BRANCH') %}_{{ environ.get('GIT_BRANCH') }}{% endif %}
+  string: py{{ environ.get('CONDA_PY') }}_{{ environ.get('GIT_BUILD_STR', '') }}{% if environ.get('GIT_BRANCH') %}_{{ environ.get('GIT_BRANCH').replace('-', '') }}{% endif %}{% if environ.get("BUILD_STR_END") %}_{{ environ.get("BUILD_STR_END") }}{% endif %}
   skip: true  # [py == 27]
 
 requirements:
@@ -62,7 +62,7 @@ app:
   type: desk
 
 about:
-  home: https://github.com/Chilipp/psyplot-gui
+  home: https://github.com/psyplot/psyplot-gui
   license: GPL-2.0
   license_family: GPL
   license_file: LICENSE
@@ -72,4 +72,4 @@ about:
     This package provides a graphical user interface to interact with the
     psyplot framework.
   doc_url: http://psyplot.readthedocs.io/projects/psyplot-gui
-  dev_url: https://github.com/Chilipp/psyplot-gui
+  dev_url: https://github.com/psyplot/psyplot-gui

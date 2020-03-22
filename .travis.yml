@@ -13,8 +13,10 @@ env:
         - PYTHON_VERSION=3.8 USE_PIP=true
         # python 3.7
         - PYTHON_VERSION=3.7 QT_VERSION=5 DEPLOY_CONDA=true
+        - PYTHON_VERSION=3.7 QT_VERSION=5 DEPLOY_CONDA=true BUILD_STR_END=cf
     global:
-        - secure: "ra6jCfg7U1XTyeJS3J9KfY1/mPwGnjrnHO0ANG54Bk29TCl46LgChdCgjjz7fysS8CUfq4QS4Y1LrVFA6eK+JSqVS3LGJ1QZxBO3NTIPe/1WuIc3rmNpNDrvtTuncM6IN6fDfOCR2FCA4WipH3JnXjNkz+5rwgWg3ynf9KrSZhlLDdAxqO6phHXK99qOrN3sZCxnlg69iqPTv9aZkC/2RTrZ4fMuqc6zGHLL8rrQ/w93nEd7DP5vYlam0a1QfIXuR01a0C3y2D6LaVY5uXzTFIKCKFJmB9OuEazNMaxUhBbXdRt0eQAw9mGonMFhRnUiEFV8N1aoDyFu0t8YLWpIn3EAzpN0OJtpK5A8hKvoFSKyjbnu/1JLRR+Hsg7ufVT8KErxInge/GO5ugDOHcufFVv1mdysUQm7LndFt1nX0FbeUT6fYKIB3yLH6U3vNrgy+yrWynHXFMfL7ClI7yaRfXYGku4RNZZocIGErxaVIV7ArOAMs0YwabROChQSHO/M85u+eOi9qXNJ1Jst7xT3gXkCwXC1vTMqe6x6j4RlWedvYHLaAANhXyOQYgLxl6f2XotQDZzA/+OODeivyTJ/lr4aq1L+fi7sPruiBYQ7+a3ZAnc9U6zXdFrq4K2/+7DQXs9BRKQguxMEAo9FToHB8zNF5I8Sr/P7BmZIseby1xg="
+        - BUILD_STR_END=cf
+        - secure: "JfB5LwpkkItuVkg0aS1kmwcgh/unREHavJTDJJFpN39jC82BsCoXzkPyRQfzENhHH4aITx1E+XULmnPN++W1H2ciSak9SlvqY2maWAofdd+y9uSuFvFdO8vIhtY4quQBVA9HYGvwozzoZKGE95hoT3XpIXhwXXC/KxePfYyWRKyvaqY8ZjiQT4Bq+WxqWwpS3IGtGk4ftTZWSyIoPTWuzGdh76A++p1RLrNchpoGbAnackGZ0hJFrUjy4mF4IZ6zpRjL4KccYPsqLFCSabDgPqxTfYinltmzOgpoOPl7hWR9bhoWBIWmDbj/FvSjq93VVNj3UkNZd1vn8EXLdeKiKgnB5H8K2Eikbxz/W2PznA2ZJPBeOJRNaPQpsAa2uRc16BLbBmrW6RoPkgDsti6I+mO4fq2ulSVT5KwLOGsyw5a92zEHfhJCUPe6GjCao/MJTjXu79DhUwAdVdGqYJoKf+juLU/06AvOB34PKA0dfg7zfhOmHWcZE4seUOp5THiiHTyRkNU/6oQy7/3+KALjyFrZMZJiUStrUNgugknnhqA2VHjNJxmC69GBPeTlRl/cKmiv3RDvQkMiNue2LUvVJoltLWpkgE2yC7EiR+tSuZG6uS3IWenHGHs/CtjlBGLzL0I3SFvWBA5xyMB7cYrAeI0iEgJ6idaPul5VWWbjIek="
 
 os:
     - linux
@@ -85,13 +87,17 @@ install:
         echo ""
         echo "Configuring conda."
         conda config --set always_yes yes --set changeps1 no
-        conda config --add channels conda-forge
-        conda config --add channels chilipp
+        if [[ ${BUILD_STR_END} == "cf" ]]; then
+            conda config --add channels conda-forge
+        else
+            conda config --add channels chilipp/label/conda-forge
+        fi
+        conda config --add channels psyplot
         conda update -q conda
         conda install conda-build anaconda-client conda-verify
     - if [[ $TRAVIS_TAG == "" ]]; then
         export GIT_BRANCH=$TRAVIS_BRANCH;
-        conda config --add channels chilipp/label/${TRAVIS_BRANCH};
+        conda config --add channels psyplot/label/${TRAVIS_BRANCH};
       fi
     - python ci/setup_append.py ci/conda-recipe pyqt=${QT_VERSION}
     - if [[ $USE_PIP == true ]]; then
@@ -111,6 +117,6 @@ script:
     # export the pw to make it available for the deploy
     - reset_secure
     # deploy here (don't use travis deploy because it requires homebrew)
-    - if [[ $DEPLOY_CONDA == "true" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_REPO_SLUG == "Chilipp/psyplot-gui" ]]; then
+    - if [[ $DEPLOY_CONDA == "true" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_REPO_SLUG == "psyplot/psyplot-gui" ]]; then
           ci/deploy_anaconda.py;
       fi
