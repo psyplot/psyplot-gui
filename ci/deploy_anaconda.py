@@ -20,9 +20,7 @@ token = ['-t', os.getenv('CONDA_REPO_TOKEN')]
 print("Uploading via " +
       " ".join(['anaconda -t *****', 'upload', '--force'] + label + fnames))
 
-print(token[1] is None)
-
-#spr.check_call(
-#    ['anaconda'] + token + ['upload', '--force'] +
-#    label + fnames
-#)
+spr.check_call(
+    ['anaconda'] + token + ['upload', '--force'] +
+    label + fnames
+)
