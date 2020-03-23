@@ -10,7 +10,7 @@ Graphical User Interface for the psyplot package
     * - docs
       - |docs|
     * - tests
-      - |travis| |appveyor| |requires| |coveralls|
+      - |travis| |appveyor| |requires| |codecov|
     * - package
       - |version| |conda| |supported-versions| |supported-implementations|
 
@@ -18,21 +18,21 @@ Graphical User Interface for the psyplot package
     :alt: Documentation Status
     :target: http://psyplot-gui.readthedocs.io/en/latest/?badge=latest
 
-.. |travis| image:: https://travis-ci.org/Chilipp/psyplot-gui.svg?branch=master
+.. |travis| image:: https://travis-ci.org/psyplot/psyplot-gui.svg?branch=master
     :alt: Travis
-    :target: https://travis-ci.org/Chilipp/psyplot-gui
+    :target: https://travis-ci.org/psyplot/psyplot-gui
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/gkao9p38wy5e2nh6/branch/master?svg=true
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/bud4ov6lddrjvt88/branch/master?svg=true
     :alt: AppVeyor
-    :target: https://ci.appveyor.com/project/Chilipp/psyplot-gui-q726s
+    :target: https://ci.appveyor.com/project/psyplot/psyplot-gui-q726s
 
-.. |coveralls| image:: https://coveralls.io/repos/github/Chilipp/psyplot-gui/badge.svg?branch=master
+.. |codecov| image:: https://codecov.io/gh/psyplot/psyplot-gui/branch/master/graph/badge.svg
     :alt: Coverage
-    :target: https://coveralls.io/github/Chilipp/psyplot-gui?branch=master
+    :target: https://codecov.io/gh/psyplot/psyplot-gui
 
-.. |requires| image:: https://requires.io/github/Chilipp/psyplot-gui/requirements.svg?branch=master
+.. |requires| image:: https://requires.io/github/psyplot/psyplot-gui/requirements.svg?branch=master
     :alt: Requirements Status
-    :target: https://requires.io/github/Chilipp/psyplot-gui/requirements/?branch=master
+    :target: https://requires.io/github/psyplot/psyplot-gui/requirements/?branch=master
 
 .. |version| image:: https://img.shields.io/pypi/v/psyplot-gui.svg?style=flat
     :alt: PyPI Package latest release
