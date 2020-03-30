@@ -741,7 +741,7 @@ class MainWindow(QMainWindow):
             }
         versions.update(psyplot_gui.get_versions()['requirements'])
         versions.update(psyplot._get_versions()['requirements'])
-        versions['github'] = 'https://github.com/Chilipp/psyplot'
+        versions['github'] = 'https://github.com/psyplot/psyplot'
         versions['author'] = psyplot.__author__
         QMessageBox.about(
             self, "About psyplot",
