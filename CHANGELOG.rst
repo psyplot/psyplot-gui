@@ -1,7 +1,10 @@
 v1.2.5
 ======
+- psyplot-gui has been moved from https://github.com/Chilipp/psyplot-gui to https://github.com/psyplot/psyplot-gui,
+  see `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
 - Add option to start the GUI without importing QtWebEngineWidgets
-  `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
+  `#11 <https://github.com/psyplot/psyplot-gui/pull/11>`__
+
 v1.2.4
 ======
 New release with better OpenGL support (see ``psyplot --help``)
