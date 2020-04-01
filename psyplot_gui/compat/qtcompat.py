@@ -4,6 +4,7 @@
 # loaded
 import six
 import sys
+from psyplot_gui.config.rcsetup import rcParams
 
 try:
     from qtconsole.rich_jupyter_widget import RichJupyterWidget
@@ -84,10 +85,13 @@ else:
         QKeySequence)
     from PyQt5 import QtCore
     from PyQt5.QtCore import Qt, QSortFilterProxyModel
-    try:
-        from PyQt5.QtWebEngineWidgets import QWebEngineView
-    except ImportError:
-        from PyQt5.QtWebKitWidgets import QWebView as QWebEngineView
+    if rcParams['help_explorer.use_webengineview']:
+        try:
+            from PyQt5.QtWebEngineWidgets import QWebEngineView
+        except ImportError:
+            from PyQt5.QtWebKitWidgets import QWebView as QWebEngineView
+    else:
+        QWebEngineView = None
     from PyQt5.QtTest import QTest, QSignalSpy
     from PyQt5 import QtGui
     from PyQt5.Qt import PYQT_VERSION_STR as PYQT_VERSION

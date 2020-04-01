@@ -933,6 +933,9 @@ class HelpExplorer(QWidget, DockMixin):
     #: instance
     viewers = OrderedDict([('HTML help', UrlHelp), ('Plain text', TextHelp)])
 
+    if not rcParams['help_explorer.use_webengineview']:
+        del viewers['HTML help']
+
     def __init__(self, *args, **kwargs):
         super(HelpExplorer, self).__init__(*args, **kwargs)
         self.vbox = vbox = QVBoxLayout()
@@ -1069,6 +1072,6 @@ class HelpExplorer(QWidget, DockMixin):
     def close(self, *args, **kwargs):
         try:
             self.viewers['HTML help'].close(*args, **kwargs)
-        except AttributeError:
+        except (KeyError, AttributeError):
             pass
         return super(HelpExplorer, self).close(*args, **kwargs)

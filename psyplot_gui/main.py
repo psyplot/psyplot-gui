@@ -359,7 +359,8 @@ class MainWindow(QMainWindow):
         self.figures_tree = FiguresTree(parent=self)
         #: help explorer
         self.help_explorer = help_explorer = HelpExplorer(parent=self)
-        if help_explorer.viewers['HTML help'].sphinx_thread is not None:
+        if 'HTML help' in help_explorer.viewers and help_explorer.viewers[
+                'HTML help'].sphinx_thread is not None:
             help_explorer.viewers[
                 'HTML help'].sphinx_thread.html_ready.connect(
                     self.focus_on_console)
