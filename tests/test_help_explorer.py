@@ -7,7 +7,8 @@ import _base_testing as bt
 import dummy_module as d
 from psyplot_gui import rcParams
 from psyplot_gui.compat.qtcompat import QTest, Qt, asstring
-from psyplot_gui.help_explorer import html2file, UrlHelp
+from psyplot_gui.help_explorer import (
+    html2file, UrlHelp, HelpExplorer, _viewers)
 
 
 class UrlHelpTestMixin(bt.PsyPlotGuiTestCase):
@@ -235,6 +236,33 @@ class TextHelpTest(bt.PsyPlotGuiTestCase):
         """Test whether the sphinx rendering works for a instance of a class"""
         ini = d.DummyClass()
         self._test_object_docu(ini, 'ini')
+
+
+class NoHTMLTest(TextHelpTest):
+    """Test running without the HTML viewer"""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        rcParams['help_explorer.use_webengineview'] = False
+        del HelpExplorer.viewers['HTML help']
+        cls._orig_viewers = _viewers.copy()
+        _viewers.clear()
+
+    def setUp(self):
+        super(TextHelpTest, self).setUp()
+
+    @classmethod
+    def tearDownClass(cls):
+        rcParams['help_explorer.use_webengineview'] = True
+        HelpExplorer.viewers['HTML help'] = UrlHelp
+        for key, val in cls._orig_viewers.items():
+            _viewers[key] = val
+        super().tearDownClass()
+
+    def test_no_html(self):
+        """Test if the HTML help has been removed"""
+        self.assertNotIn('HTML help', self.help_explorer.viewers)
 
 
 if __name__ == '__main__':

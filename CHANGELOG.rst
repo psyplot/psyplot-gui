@@ -1,3 +1,7 @@
+v1.2.5
+======
+- Add option to start the GUI without importing QtWebEngineWidgets
+  `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
 v1.2.4
 ======
 New release with better OpenGL support (see ``psyplot --help``)

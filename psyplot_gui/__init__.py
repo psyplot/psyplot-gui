@@ -75,7 +75,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None, script=None, command=None, exec_=True, use_all=False,
               callback=None,
-              opengl_implementation=None):
+              opengl_implementation=None, webengineview=True):
     """
     Eventually start the QApplication or only make a plot
 
@@ -126,6 +126,10 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         OpenGL implementation to pass to Qt. Possible options are
         'software', 'desktop', 'gles' and 'automatic' (which let's PyQt
         decide).
+    webengineview: bool
+        If True (default), use an HTML help widget. This might not be available
+        for all builds of PyQt5 under all circumstances. If not set, the
+        rcParams key ``'help_explorer.use_webengineview'`` is used.
 
     Returns
     -------
@@ -149,6 +153,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     # set plugins
     rcParams['plugins.include'] = include_plugins
     rcParams['plugins.exclude'] = exclude_plugins
+    if webengineview is not None:
+        rcParams['help_explorer.use_webengineview'] = webengineview
 
     if offline:
         rcParams['help_explorer.online'] = False
@@ -345,6 +351,16 @@ def get_parser(create=True):
 
     parser.pop_arg('exec_')
     parser.pop_arg('callback')
+
+    parser.pop_key('webengineview', 'short')
+    parser.update_arg('webengineview', default=None, action='store_true',
+                      group=gui_grp)
+
+    parser.unfinished_arguments['no-webengineview'] = dict(
+        long='no-webengineview', default=None, action='store_false',
+        dest='webengineview',
+        help="Do not use HTML rendering.",
+        group=gui_grp)
 
     if psyplot.__version__ < '1.0':
         parser.set_main(start_app)

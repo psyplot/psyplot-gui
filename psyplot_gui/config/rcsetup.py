@@ -178,6 +178,10 @@ defaultParams = {
         'backend is used and no changes are made. Note that it is usually not '
         'possible to change the backend after importing the psyplot.project '
         'module. The default backend embeds the figures into the '],
+    'help_explorer.use_webengineview': [
+        True, validate_bool,
+        "Enable the PyQt5.QtWebEngineWidgets.QWebEngineView which might not "
+        "work under certain circumstances."],
     'help_explorer.use_intersphinx': [
         None, validate_bool_maybe_none,
         'Use the intersphinx extension and link to the online documentations '
