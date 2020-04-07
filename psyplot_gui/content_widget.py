@@ -16,13 +16,24 @@ from psyplot_gui import rcParams
 from psyplot_gui.compat.qtcompat import (
     QToolBox, QListWidget, QListWidgetItem, QAbstractItemView,
     QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QTreeWidget,
-    QTreeWidgetItem, QtCore, QMenu, QAction, Qt)
+    QTreeWidgetItem, QtCore, QMenu, QAction, Qt, QLabel, QScrollArea)
 from psyplot.config.rcsetup import safe_list
 from psyplot.compat.pycompat import OrderedDict, map, range
 from psyplot.project import scp, gcp, Project
 from psyplot.data import ArrayList, InteractiveList
 from psyplot.utils import _TempBool
 from psyplot_gui.common import DockMixin
+from xml.sax.saxutils import escape
+
+
+html_escape_table = {
+    '"': "&quot;",
+    "'": "&apos;"
+    }
+
+
+def escape_html(s):
+    return escape(s, html_escape_table)
 
 
 class ArrayItem(QListWidgetItem):
@@ -331,12 +342,16 @@ class DatasetTreeItem(QTreeWidgetItem):
         super(DatasetTreeItem, self).__init__(*args, **kwargs)
         self.variables = variables = QTreeWidgetItem(0)
         self.columns = columns
-        variables.setText(0, 'variables')
+        variables.setText(0, 'variables (%i)' % len(ds))
         self.coords = coords = QTreeWidgetItem(0)
-        coords.setText(0, 'coords')
+        coords.setText(0, 'coords (%i)' % len(ds.coords))
+        self.attrs = attrs = QTreeWidgetItem(0)
+        attrs.setText(0, 'Global Attributes (%i)' % len(ds.attrs))
         self.addChildren([variables, coords])
         self.addChild(variables)
+        self.addChild(attrs)
         self.add_variables(ds)
+        self.add_attrs(ds.attrs)
 
     def add_variables(self, ds=None):
         """Add children of variables and coords to this TreeWidgetItem"""
@@ -362,8 +377,22 @@ class DatasetTreeItem(QTreeWidgetItem):
                 coords.addChild(item)
             else:
                 variables.addChild(item)
+            desc = QTreeWidgetItem(0)
             if rcParams['content.load_tooltips']:
-                item.setToolTip(0, str(variable))
+                item.setToolTip(
+                    0, '<pre>' + escape_html(str(variable)) + '</pre>')
+            item.addChild(desc)
+
+    def add_attrs(self, attrs=None):
+        if attrs is None:
+            attrs = self.ds().attrs
+            self.attrs.takeChildren()
+        top = self.attrs
+        for key, val in attrs.items():
+            child = QTreeWidgetItem(0)
+            child.setText(0, key)
+            child.setText(1, val)
+            top.addChild(child)
 
 
 class DatasetTree(QTreeWidget, DockMixin):
@@ -379,9 +408,29 @@ class DatasetTree(QTreeWidget, DockMixin):
     def __init__(self, *args, **kwargs):
         super(DatasetTree, self).__init__(*args, **kwargs)
         self.create_dataset_tree()
+        self.itemExpanded.connect(self.load_variable_desc)
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.open_menu)
         Project.oncpchange.connect(self.add_datasets_from_cp)
+
+    def load_variable_desc(self, item):
+        # if we are not at the lowest level or the item has already label, pass
+        if item.child(0).childCount() or self.itemWidget(item.child(0), 0):
+            return
+
+        top = item
+        while top.parent() and top.parent() is not self:
+            top = top.parent()
+        ds = top.ds()
+        if ds is None:
+            return
+        widget = QScrollArea()
+        label = QLabel(
+            '<pre>' + escape_html(str(ds.variables[item.text(0)])) + '</pre>')
+        label.setTextFormat(Qt.RichText)
+        widget.setWidget(label)
+        self.setItemWidget(item.child(0), 0, widget)
+        item.child(0).setFirstColumnSpanned(True)
 
     def create_dataset_tree(self):
         """Set up the columns and insert the :class:`DatasetTreeItem`
