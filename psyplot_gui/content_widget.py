@@ -391,7 +391,7 @@ class DatasetTreeItem(QTreeWidgetItem):
         for key, val in attrs.items():
             child = QTreeWidgetItem(0)
             child.setText(0, key)
-            child.setText(1, val)
+            child.setText(1, str(val))
             top.addChild(child)
 
 
