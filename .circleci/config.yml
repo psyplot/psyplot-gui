@@ -16,7 +16,10 @@ commands:
             conda config --add channels psyplot
             conda update -q conda
             conda install conda-build anaconda-client conda-verify
-            if [[ $CIRCLE_TAG == "" ]]; then conda config --add channels psyplot/label/${CIRCLE_BRANCH}; fi
+            if [[ $CIRCLE_TAG == "" ]]; then
+              conda config --add channels psyplot/label/master;
+              conda config --add channels psyplot/label/${CIRCLE_BRANCH};
+            fi
       - run:
           name: Environment info
           command: |
@@ -93,6 +96,6 @@ workflows:
       - build_linux
       - build_linux:
           python_version: "3.7"
-      - build_windows
-      - build_windows:
-          python_version: "3.7"
+#      - build_windows
+#      - build_windows:
+#          python_version: "3.7"
