@@ -4,6 +4,9 @@ v1.2.5
   see `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
 - Add option to start the GUI without importing QtWebEngineWidgets
   `#11 <https://github.com/psyplot/psyplot-gui/pull/11>`__
+- Dockmixins (i.e. plugins) can now reimplement the `position_dock` method that
+  controls where the dock is exactly placed in the GUI
+  (see `#12 <https://github.com/psyplot/psyplot-gui/pull/12>`__)
 
 v1.2.4
 ======
