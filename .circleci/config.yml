@@ -16,7 +16,9 @@ commands:
             conda config --add channels psyplot
             conda update -q conda
             conda install conda-build anaconda-client conda-verify
-            if [[ $CIRCLE_TAG == "" ]]; then
+            if [[ $CIRCLE_PULL_REQUEST == "" ]]; then
+              conda config --add channels psyplot/label/master;
+            elif [[ $CIRCLE_TAG == "" ]]; then
               conda config --add channels psyplot/label/master;
               conda config --add channels psyplot/label/${CIRCLE_BRANCH};
             fi
