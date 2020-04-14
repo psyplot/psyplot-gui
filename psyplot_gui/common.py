@@ -95,11 +95,24 @@ class DockMixin(object):
             main.dockwidgets.append(self.dock)
             self.create_central_widget_action(main)
             self.create_view_action(main, docktype)
-        main.addDockWidget(position, self.dock, *args, **kwargs)
+        self.position_dock(main, *args, **kwargs)
         config_page = self.config_page
         if config_page is not None:
             main.config_pages.append(config_page)
         return self.dock
+
+    def position_dock(self, main, *args, **kwargs):
+        """Set the position of the dock widget
+
+        This method places the plugin widget at the desired dock position
+        (by default, indicated with the :attr:`dock_position` attribute)
+
+        Parameters
+        ----------
+        main: psyplot_gui.main.Mainwindow
+            The main window where the dock is added"""
+        main.addDockWidget(self.dock_position, self.dock, *args, **kwargs)
+
 
     def show_plugin(self):
         """Show the plugin widget"""

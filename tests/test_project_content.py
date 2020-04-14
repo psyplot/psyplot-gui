@@ -249,6 +249,20 @@ class DatasetTreeTest(bt.PsyPlotGuiTestCase):
         self._test_ds_representation(ds)
         self._test_ds_representation(ds2)
 
+    def test_expansion_reset(self):
+        """Test whether the expansion state is recovered"""
+        fname = self.get_file('test-t2m-u-v.nc')
+        psy.plot.plot2d(fname, name='t2m')
+        self.tree.expandItem(self.tree.topLevelItem(0))
+        self.tree.expandItem(self.tree.topLevelItem(0).child(1))
+
+        # trigger an update
+        psy.plot.plot2d(fname, name='t2m')
+        self.assertTrue(self.tree.topLevelItem(0).isExpanded())
+        self.assertFalse(self.tree.topLevelItem(0).child(0).isExpanded())
+        self.assertTrue(self.tree.topLevelItem(0).child(1).isExpanded())
+        self.assertFalse(self.tree.topLevelItem(0).child(2).isExpanded())
+
     def test_make_plot(self):
         """Test the making of plots"""
         fname = self.get_file('test-t2m-u-v.nc')

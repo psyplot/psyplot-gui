@@ -449,6 +449,22 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.setHeaderLabels(['Dataset'] + list(columns))
         self.attr_columns = columns
 
+    def expanded_items(self):
+        "Create a mapping from dataset numbers to variables that are expanded."
+        ret = {}
+        for item in map(self.topLevelItem, range(self.topLevelItemCount())):
+            if item.isExpanded() and item.ds() is not None:
+                ds = item.ds()
+                ret[ds.psy.num] = d = {}
+                for child in map(item.child, range(item.childCount())):
+                    if child.childCount() and child.isExpanded():
+                        d[child.text(0)] = variables = []
+                        for vchild in map(
+                                child.child, range(child.childCount())):
+                            if vchild.childCount() and vchild.isExpanded():
+                                variables.append(vchild.text(0))
+        return ret
+
     def add_datasets_from_cp(self, project=None):
         """Clear the tree and add the datasets based upon the given `project`
 
@@ -466,6 +482,8 @@ class DatasetTree(QTreeWidget, DockMixin):
         else:
             sp_arrs = project.arrays
             project = project.main
+
+        expanded_items = self.expanded_items()
         # remove items from the tree
         self.clear()
         for i, ds_desc in six.iteritems(project._get_ds_descriptions(
@@ -484,6 +502,27 @@ class DatasetTree(QTreeWidget, DockMixin):
             for arr in ds_desc['arr']:
                 arr.psy.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
+        self.expand_items(expanded_items)
+
+    def expand_items(self, expanded_items):
+        """Expand tree items
+
+        Parameters
+        ----------
+        expanded_items: dict
+            A mapping as returned by the :meth:`expanded_items` method"""
+        for top in map(self.topLevelItem, range(self.topLevelItemCount())):
+            ds = top.ds()
+            if ds.psy.num in expanded_items:
+                self.expandItem(top)
+                d = expanded_items[ds.psy.num]
+                for child in map(top.child, range(top.childCount())):
+                    if child.text(0) in d:
+                        self.expandItem(child)
+                        for vchild in map(child.child,
+                                          range(child.childCount())):
+                            if vchild.text(0) in d[child.text(0)]:
+                                self.expandItem(vchild)
 
     def open_menu(self, pos):
         menu = QMenu()
