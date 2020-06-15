@@ -1,7 +1,14 @@
 v1.2.5
 ======
+Changed
+-------
 - psyplot-gui has been moved from https://github.com/Chilipp/psyplot-gui to https://github.com/psyplot/psyplot-gui,
   see `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
+- variables in the dataset tree show now more content,
+  see `#16 <https://github.com/psyplot/psyplot-gui/pull/16>`__
+
+Added
+-----
 - Add option to start the GUI without importing QtWebEngineWidgets
   `#11 <https://github.com/psyplot/psyplot-gui/pull/11>`__
 - Dockmixins (i.e. plugins) can now reimplement the `position_dock` method that
