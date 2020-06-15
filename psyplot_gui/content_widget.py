@@ -9,6 +9,7 @@ There is no need to import this module because the
 import sys
 import six
 import os.path as osp
+import re
 import sip
 import weakref
 from itertools import chain
@@ -377,22 +378,78 @@ class DatasetTreeItem(QTreeWidgetItem):
                 coords.addChild(item)
             else:
                 variables.addChild(item)
-            desc = QTreeWidgetItem(0)
             if rcParams['content.load_tooltips']:
                 item.setToolTip(
                     0, '<pre>' + escape_html(str(variable)) + '</pre>')
-            item.addChild(desc)
 
-    def add_attrs(self, attrs=None):
+            # Add shape
+            shape_item = QTreeWidgetItem(0)
+            shape_item.setText(0, 'shape')
+            shape_item.setText(1, str(variable.shape))
+            item.addChild(shape_item)
+
+
+            # Add dimensions
+            dims_item = QTreeWidgetItem(0)
+            dims_item.setText(0, 'dims')
+            dims_item.setText(1, ', '.join(variable.dims))
+            item.addChild(dims_item)
+
+            # add open plots
+            plots_item = QTreeWidgetItem(0)
+            plots_item.setText(0, 'Plots')
+            self.refresh_plots_item(plots_item, vname)
+            item.addChild(plots_item)
+
+            # add variable attribute
+            attrs_item = QTreeWidgetItem(0)
+            attrs_item.setText(0, 'Attributes')
+            self.add_attrs(variable.attrs, attrs_item)
+            item.addChild(attrs_item)
+
+            # add variable encoding
+            encoding_item = QTreeWidgetItem(0)
+            encoding_item.setText(0, 'Encoded attributes')
+            self.add_attrs(variable.encoding, encoding_item)
+            item.addChild(encoding_item)
+
+    def refresh_plots_item(self, item, vname):
+        expand = item.isExpanded()
+        item.takeChildren()
+        try:
+            num = self.ds().psy.num
+        except AttributeError:
+            return
+        mp = gcp(True)
+        sp = gcp()
+        for i in range(len(mp)):
+            sub = mp[i:i+1]
+            array_info = sub.array_info(ds_description={'arr', 'num'})
+            arrs = sub._get_ds_descriptions(array_info).get(num, {})
+            if arrs and any(vname in arr.psy.base_variables
+                            for arr in arrs['arr']):
+                child = QTreeWidgetItem(0)
+                prefix = '*' if sub[0] in sp else ''
+                text = sub[0].psy._short_info()
+                child.setText(0, prefix + text)
+                child.setToolTip(0, text)
+                item.addChild(child)
+        if expand and item.childCount():
+            item.setExpanded(True)
+
+
+    def add_attrs(self, attrs=None, item=None):
         if attrs is None:
             attrs = self.ds().attrs
             self.attrs.takeChildren()
-        top = self.attrs
+        if item is None:
+            item = self.attrs
         for key, val in attrs.items():
             child = QTreeWidgetItem(0)
             child.setText(0, key)
             child.setText(1, str(val))
-            top.addChild(child)
+            child.setToolTip(1, '{}: {}'.format(key, str(val)))
+            item.addChild(child)
 
 
 class DatasetTree(QTreeWidget, DockMixin):
@@ -412,11 +469,22 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.open_menu)
         Project.oncpchange.connect(self.add_datasets_from_cp)
+        self.hideColumn(1)
+
+    def is_variable(self, item):
+        return re.match(r'variables \(\d+\)', item.parent().text(0))
+
+    def is_coord(self, item):
+        return re.match(r'coords\(\d+\)', item.parent().text(0))
 
     def load_variable_desc(self, item):
-        # if we are not at the lowest level or the item has already label, pass
-        if item.child(0).childCount() or self.itemWidget(item.child(0), 0):
+        parent = item.parent()
+        if parent is self or parent is None or not (self.is_variable(item) or
+                                                    self.is_coord(item)):
             return
+        if self.isColumnHidden(1):
+            self.showColumn(1)
+            self.resizeColumnToContents(0)
 
         top = item
         while top.parent() and top.parent() is not self:
@@ -424,13 +492,8 @@ class DatasetTree(QTreeWidget, DockMixin):
         ds = top.ds()
         if ds is None:
             return
-        widget = QScrollArea()
-        label = QLabel(
-            '<pre>' + escape_html(str(ds.variables[item.text(0)])) + '</pre>')
-        label.setTextFormat(Qt.RichText)
-        widget.setWidget(label)
-        self.setItemWidget(item.child(0), 0, widget)
-        item.child(0).setFirstColumnSpanned(True)
+        desc = escape_html(str(ds.variables[item.text(0)]))
+        item.setToolTip(0, '<pre>' + desc + '</pre>')
 
     def create_dataset_tree(self):
         """Set up the columns and insert the :class:`DatasetTreeItem`
@@ -438,7 +501,7 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.set_columns()
         self.add_datasets_from_cp(gcp())
 
-    def set_columns(self, columns=['long_name', 'dims', 'shape']):
+    def set_columns(self, columns=['Value']):
         """Set up the columns in the DatasetTree.
 
         Parameters
@@ -446,7 +509,11 @@ class DatasetTree(QTreeWidget, DockMixin):
         columns: list of str
             A list of netCDF attributes that shall be shown in columns"""
         self.setColumnCount(len(columns) + 1)
-        self.setHeaderLabels(['Dataset'] + list(columns))
+        if columns:
+            self.setHeaderHidden(False)
+            self.setHeaderLabels(['Dataset'] + list(columns))
+        else:
+            self.setHeaderHidden(True)
         self.attr_columns = columns
 
     def expanded_items(self):
@@ -527,7 +594,7 @@ class DatasetTree(QTreeWidget, DockMixin):
     def open_menu(self, pos):
         menu = QMenu()
         item = self.itemAt(pos)
-        parent, item_type = self._get_toplevel_item(item)
+        parent, item_type, vname = self._get_toplevel_item(item)
         # ---- Refresh the selected item action
         refresh_action = QAction('Refresh', self)
         refresh_action.setToolTip(self.tooltips['Refresh'])
@@ -543,7 +610,7 @@ class DatasetTree(QTreeWidget, DockMixin):
 
         # ---- add plot option
         if item_type == 'variable':
-            add2p_action = QAction('Add to project', self)
+            add2p_action = QAction(f'Add {vname} to project', self)
             add2p_action.setToolTip(self.tooltips['Add to project'])
             add2p_action.triggered.connect(lambda: self.make_plot(
                 parent.ds(), item.text(0), True))
@@ -576,14 +643,17 @@ class DatasetTree(QTreeWidget, DockMixin):
         else:
             parent = item.parent()
         item_type = None
+        vname = None
         while parent is not None:
-            if parent.text(0) == 'variables':
+            if self.is_variable(item):
+                vname = item.text(0)
                 item_type = 'variable'
-            elif parent.text(0) == 'coords':
+            elif self.is_coord(item):
+                vname = item.text(0)
                 item_type = 'coord'
             item = item.parent()
             parent = item.parent()
-        return item, item_type
+        return item, item_type, vname
 
 
 class FiguresTreeItem(QTreeWidgetItem):
