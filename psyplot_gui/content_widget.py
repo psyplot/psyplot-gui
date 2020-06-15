@@ -413,15 +413,22 @@ class DatasetTreeItem(QTreeWidgetItem):
             self.add_attrs(variable.encoding, encoding_item)
             item.addChild(encoding_item)
 
-    def refresh_plots_item(self, item, vname):
+    def get_plots_item(self, item):
+        for child in map(item.child, range(item.childCount())):
+            if child.text(0) == 'Plots':
+                return child
+
+    def refresh_plots_item(self, item, vname, mp=None, sp=None):
         expand = item.isExpanded()
         item.takeChildren()
         try:
             num = self.ds().psy.num
         except AttributeError:
             return
-        mp = gcp(True)
-        sp = gcp()
+        if mp is None:
+            mp = gcp(True)
+        if sp is None:
+            sp = gcp()
         for i in range(len(mp)):
             sub = mp[i:i+1]
             array_info = sub.array_info(ds_description={'arr', 'num'})
@@ -471,10 +478,12 @@ class DatasetTree(QTreeWidget, DockMixin):
         Project.oncpchange.connect(self.add_datasets_from_cp)
         self.hideColumn(1)
 
-    def is_variable(self, item):
+    @staticmethod
+    def is_variable(item):
         return re.match(r'variables \(\d+\)', item.parent().text(0))
 
-    def is_coord(self, item):
+    @staticmethod
+    def is_coord(item):
         return re.match(r'coords\(\d+\)', item.parent().text(0))
 
     def load_variable_desc(self, item):
@@ -610,7 +619,7 @@ class DatasetTree(QTreeWidget, DockMixin):
 
         # ---- add plot option
         if item_type == 'variable':
-            add2p_action = QAction(f'Add {vname} to project', self)
+            add2p_action = QAction(f'Add new plot of {vname}', self)
             add2p_action.setToolTip(self.tooltips['Add to project'])
             add2p_action.triggered.connect(lambda: self.make_plot(
                 parent.ds(), item.text(0), True))
