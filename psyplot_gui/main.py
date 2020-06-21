@@ -47,6 +47,7 @@ from psyplot.docstring import docstrings
 import psyplot.plotter as psyp
 import psyplot.project as psy
 import psyplot
+from psyplot.config.rcsetup import get_configdir
 import psyplot.data as psyd
 import psyplot_gui
 import xarray as xr
@@ -190,6 +191,21 @@ class MainWindow(QMainWindow):
         self.open_sp_action.triggered.connect(self.open_sp)
         self.open_project_menu.addAction(self.open_sp_action)
 
+        # ---------------------- load preset menu -----------------------------
+
+        self.load_preset_menu = QMenu('Load preset', parent=self)
+        self.file_menu.addMenu(self.load_preset_menu)
+
+        self.load_sp_preset_action = self.load_preset_menu.addAction(
+            "For selection", self.load_sp_preset)
+        self.load_sp_preset_action.setStatusTip(
+            "Load a preset for the selected project")
+
+        self.load_mp_preset_action = self.load_preset_menu.addAction(
+            "For full project", self.load_mp_preset)
+        self.load_sp_preset_action.setStatusTip(
+            "Load a preset for the full project")
+
         # ----------------------- Save project --------------------------------
 
         self.save_project_menu = QMenu('Save', parent=self)
@@ -228,6 +244,21 @@ class MainWindow(QMainWindow):
         self.save_sp_as_action.triggered.connect(
             partial(self.save_sp, new_fname=True))
         self.save_project_as_menu.addAction(self.save_sp_as_action)
+
+        # ------------------------ Save preset --------------------------------
+
+        self.save_preset_menu = QMenu('Save preset', parent=self)
+        self.file_menu.addMenu(self.save_preset_menu)
+
+        self.save_sp_preset_action = self.save_preset_menu.addAction(
+            "Selection", self.save_sp_preset)
+        self.save_sp_preset_action.setStatusTip(
+            "Save the formatoptions of the selected project as a preset")
+
+        self.save_mp_preset_action = self.save_preset_menu.addAction(
+            "Full project", self.save_mp_preset)
+        self.save_sp_preset_action.setStatusTip(
+            "Save the formatoptions of the full project as a preset")
 
         # -------------------------- Pack project -----------------------------
 
@@ -638,6 +669,21 @@ class MainWindow(QMainWindow):
             if p.is_main:
                 self.update_project_action(p.num)
 
+    def load_mp_preset(self):
+        self._load_preset(psy.gcp(True))
+
+    def load_sp_preset(self):
+        self._load_preset(psy.gcp())
+
+    def _load_preset(self, project, *args, **kwargs):
+        fname, ok = QFileDialog.getOpenFileName(
+            self, 'Load preset', os.path.join(get_configdir(), "presets"),
+            'YAML files (*.yml *.yaml);;'
+            'All files (*)'
+            )
+        if ok:
+            project.load_preset(fname, *args, **kwargs)
+
     def open_mp(self, *args, **kwargs):
         """Open a new main project"""
         self._open_project(main=True)
@@ -661,12 +707,27 @@ class MainWindow(QMainWindow):
         self.update_project_action(p.num)
 
     def save_mp(self, *args, **kwargs):
-        """Save the current main project"""
+        """Save the current main project."""
         self._save_project(psy.gcp(True), **kwargs)
 
     def save_sp(self, *args, **kwargs):
-        """Save the current sub project"""
+        """Save the current sub project."""
         self._save_project(psy.gcp(), **kwargs)
+
+    def save_sp_preset(self):
+        self._save_preset(psy.gcp())
+
+    def save_mp_preset(self):
+        self._save_preset(psy.gcp(True))
+
+    def _save_preset(self, project, *args, **kwargs):
+        fname, ok = QFileDialog.getSaveFileName(
+            self, 'Save preset', os.path.join(get_configdir(), 'presets'),
+            'YAML file (*.yml *.yaml);;'
+            'All files (*)'
+            )
+        if ok:
+            project.save_preset(fname, *args, **kwargs)
 
     def _export_project(self, p, *args, **kwargs):
         fname = QFileDialog.getSaveFileName(
@@ -865,7 +926,7 @@ class MainWindow(QMainWindow):
     docstrings.keep_params(
         'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
         'name', 'dims', 'encoding', 'enable_post', 'seaborn_style',
-        'concat_dim', 'chname')
+        'concat_dim', 'chname', 'preset')
 
     def open_files(self, fnames):
         """Open a file and ask the user how"""
@@ -884,13 +945,14 @@ class MainWindow(QMainWindow):
                             plot_method=None, name=None, dims=None,
                             encoding=None, enable_post=False,
                             seaborn_style=None, concat_dim=get_default_value(
-                                xr.open_mfdataset, 'concat_dim'), chname={}):
+                                xr.open_mfdataset, 'concat_dim'), chname={},
+                            preset=None):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset)s
         """
         if seaborn_style is not None:
             import seaborn as sns
@@ -906,6 +968,8 @@ class MainWindow(QMainWindow):
                 project, alternative_paths=alternative_paths,
                 engine=engine, main=not psy.gcp(), encoding=encoding,
                 enable_post=enable_post, chname=chname)
+            if preset:
+                p.load_preset(preset)
             if isinstance(project, six.string_types):
                 p.attrs.setdefault('project_file', project)
             return True
@@ -932,6 +996,8 @@ class MainWindow(QMainWindow):
                 var = ds[vname[0]]
                 self.plot_creator.array_table.update_selected(
                     dims=var.psy.decoder.correct_dims(var, dims.copy()))
+            if preset:
+                self.plot_creator.set_preset(preset)
             if plot_method:
                 self.plot_creator.pm_combo.setCurrentIndex(
                     self.plot_creator.pm_combo.findText(plot_method))
@@ -948,7 +1014,7 @@ class MainWindow(QMainWindow):
             name=None, dims=None, encoding=None, enable_post=False,
             seaborn_style=None,
             concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
-            chname={}, show=True):
+            chname={}, preset=None, show=True):
         """
         Create a mainwindow and open the given files or project
 
@@ -975,7 +1041,7 @@ class MainWindow(QMainWindow):
         if fnames or project:
             mainwindow.open_external_files(
                 fnames, project, engine, plot_method, name, dims, encoding,
-                enable_post, seaborn_style, concat_dim, chname)
+                enable_post, seaborn_style, concat_dim, chname, preset)
         psyplot.with_gui = True
         return mainwindow
 

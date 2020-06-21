@@ -29,6 +29,7 @@ from psyplot_gui.common import (get_icon, ListValidator, PyErrorMessage,
                                 LoadFromConsoleButton)
 from psyplot_gui.preferences import RcParamsTree
 import psyplot.project as psy
+from psyplot.config.rcsetup import get_configdir
 
 
 logger = logging.getLogger(__name__)
@@ -1645,6 +1646,8 @@ class PlotCreator(QDialog):
     #: Tooltip for not making a plot
     NO_PM_TT = 'Choose a plot method (or choose none to only extract the data)'
 
+    _preset = None
+
     def __init__(self, *args, **kwargs):
         self.help_explorer = kwargs.pop('help_explorer', None)
         super(PlotCreator, self).__init__(*args, **kwargs)
@@ -1674,6 +1677,8 @@ class PlotCreator(QDialog):
         self.pm_label = QLabel('Plot method: ', w)
         self.pm_combo = QComboBox(w)
         self.fill_plot_method_combo()
+        self.bt_load_preset = QPushButton("Preset")
+        self.bt_load_preset.setEnabled(False)
         self.pm_info = QToolButton(w)
         self.pm_info.setIcon(QIcon(get_icon('info.png')))
         self.pm_info.setToolTip('Show information in the help explorer')
@@ -1776,6 +1781,9 @@ class PlotCreator(QDialog):
         self.pm_combo.currentIndexChanged[str].connect(self.array_table.set_pm)
         self.pm_combo.currentIndexChanged[str].connect(self.fill_fmt_tree)
 
+        # ------------------- preset button connections -----------------------
+        self.bt_load_preset.clicked.connect(self.load_preset)
+
         # --------------------- Combo box connections -------------------------
         self.cbox_close_popups.clicked.connect(self.toggle_close_popups)
         self.cbox_use_coords.clicked.connect(self.reset_comboboxes)
@@ -1831,6 +1839,7 @@ class PlotCreator(QDialog):
         self.pm_box.addStretch(0)
         self.pm_box.addWidget(self.pm_label)
         self.pm_box.addWidget(self.pm_combo)
+        self.pm_box.addWidget(self.bt_load_preset)
         self.pm_box.addWidget(self.pm_info)
 
         self.tree_box = QHBoxLayout()
@@ -1898,12 +1907,17 @@ class PlotCreator(QDialog):
             cb._is_empty = True
 
     def fill_fmt_tree(self, pm):
+        import psyplot.project as psy
         self.fmt_tree.clear()
         if not pm:
             self.fmt_tree_widget.setVisible(False)
+            self.bt_load_preset.setEnabled(False)
         else:
             pm = getattr(psy.plot, pm)
             plotter = pm.plotter_cls()
+            if self._preset:
+                plotter.update(psy.Project.extract_fmts_from_preset(
+                    self._preset, pm))
             self.fmt_tree.rc = plotter
             self.fmt_tree.validators = {
                 key: getattr(plotter, key).validate for key in plotter}
@@ -1921,6 +1935,7 @@ class PlotCreator(QDialog):
                 self.fmt_tree.setItemWidget(item, 2, bt)
             self.fmt_tree.resizeColumnToContents(2)
             self.fmt_tree_widget.setVisible(True)
+            self.bt_load_preset.setEnabled(True)
 
     def setup_subplots(self):
         """Method to be emitted to setup the subplots for the selected arrays
@@ -1998,6 +2013,15 @@ class PlotCreator(QDialog):
         else:
             self.close()
 
+    def load_preset(self):
+        """Load a preset file"""
+        fname, ok = QFileDialog.getOpenFileName(
+            self, 'Load preset', os.path.join(get_configdir(), 'presets'),
+            'YAML files (*.yml *.yaml);;'
+            'All files (*)')
+        if ok:
+            self.set_preset(fname)
+
     def open_dataset(self, fnames=None, *args, **kwargs):
         """Opens a file dialog and the dataset that has been inserted"""
 
@@ -2035,6 +2059,12 @@ class PlotCreator(QDialog):
                     return
             fnames_str = ', '.join(fnames)
             self.add_new_ds(fnames_str, ds, fnames_str)
+
+    def set_preset(self, preset):
+        import psyplot.project as psy
+        self._preset = psy.Project._load_preset(preset)
+        if self.fmt_tree_widget.isVisible():
+            self.fill_fmt_tree(self.pm_combo.currentText())
 
     def add_new_ds(self, oname, ds, fname=None):
         d = {'ds': ds}
