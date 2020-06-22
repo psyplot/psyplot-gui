@@ -277,6 +277,10 @@ class PyErrorMessage(QErrorMessage):
     method"""
 
     def showTraceback(self, header=None):
+
+        if is_running_tests():
+            raise
+
         s = io.StringIO()
         tb.print_exc(file=s)
         last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
