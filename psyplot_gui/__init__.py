@@ -3,6 +3,8 @@ import sys
 import os
 import os.path as osp
 import six
+import tempfile
+import yaml
 import socket
 import atexit
 import fasteners
@@ -175,6 +177,21 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         name = 'all'
     else:
         name = safe_list(name)
+
+    if formatoptions is not None:
+        if not isinstance(formatoptions, dict):
+            # list of dicts
+            for fmt in formatoptions[1:]:
+                formatoptions[0].update(fmt)
+            formatoptions = formatoptions[0]
+        if preset is not None:
+            preset_data = psy.Project._load_preset(preset)
+        else:
+            preset_data = {}
+        preset_data.update(formatoptions)
+        preset = tempfile.NamedTemporaryFile(prefix='psy_', suffix='.yml').name
+        with open(preset, 'w') as f:
+            yaml.dump(preset_data, f)
 
     # Lock file creation
     if not new_instance:
