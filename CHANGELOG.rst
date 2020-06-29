@@ -9,6 +9,9 @@ Changed
 
 Added
 -----
+- The psyplot gui can now load and save preset files,
+  see `psyplot#24 <https://github.com/psyplot/psyplot/pull/24>`__ and
+  `#17 https://github.com/psyplot/psyplot-gui/pull/17`__
 - Add option to start the GUI without importing QtWebEngineWidgets
   `#11 <https://github.com/psyplot/psyplot-gui/pull/11>`__
 - Dockmixins (i.e. plugins) can now reimplement the `position_dock` method that

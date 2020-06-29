@@ -3,6 +3,8 @@ import sys
 import os
 import os.path as osp
 import six
+import tempfile
+import yaml
 import socket
 import atexit
 import fasteners
@@ -74,7 +76,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
               rc_gui_file=None, include_plugins=rcParams['plugins.include'],
               exclude_plugins=rcParams['plugins.exclude'], offline=False,
               pwd=None, script=None, command=None, exec_=True, use_all=False,
-              callback=None,
+              callback=None, preset=None,
               opengl_implementation=None, webengineview=True):
     """
     Eventually start the QApplication or only make a plot
@@ -170,11 +172,32 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
             formatoptions=formatoptions, tight=tight, rc_file=rc_file,
             encoding=encoding, enable_post=enable_post,
             seaborn_style=seaborn_style, output_project=output_project,
-            concat_dim=concat_dim, chname=chname)
+            concat_dim=concat_dim, chname=chname, preset=preset)
     if use_all:
         name = 'all'
     else:
         name = safe_list(name)
+
+    if formatoptions is not None:
+        if not isinstance(formatoptions, dict):
+            # list of dicts
+            for fmt in formatoptions[1:]:
+                formatoptions[0].update(fmt)
+            formatoptions = formatoptions[0]
+        if preset is not None:
+            import psyplot.project as psy
+            preset_data = psy.Project._load_preset(preset)
+        else:
+            preset_data = {}
+        preset_data.update(formatoptions)
+        preset = tempfile.NamedTemporaryFile(prefix='psy_', suffix='.yml').name
+        with open(preset, 'w') as f:
+            yaml.dump(preset_data, f)
+
+    # make preset path absolute
+    if preset is not None and not isinstance(preset, dict) and \
+            osp.exists(preset):
+        preset = osp.abspath(preset)
 
     # Lock file creation
     if not new_instance:
@@ -210,7 +233,8 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         if callback:
             send_files_to_psyplot(
                 callback, fnames, project, engine, plot_method, name, dims,
-                encoding, enable_post, seaborn_style, concat_dim, chname)
+                encoding, enable_post, seaborn_style, concat_dim, chname,
+                preset)
         return
     elif new_instance:
         rcParams['main.listen_to_port'] = False
@@ -231,7 +255,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     else:
         mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
                                     dims, encoding, enable_post, seaborn_style,
-                                    concat_dim, chname)
+                                    concat_dim, chname, preset)
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
