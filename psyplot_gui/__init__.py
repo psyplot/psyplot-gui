@@ -185,6 +185,7 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
                 formatoptions[0].update(fmt)
             formatoptions = formatoptions[0]
         if preset is not None:
+            import psyplot.project as psy
             preset_data = psy.Project._load_preset(preset)
         else:
             preset_data = {}
@@ -192,6 +193,11 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         preset = tempfile.NamedTemporaryFile(prefix='psy_', suffix='.yml').name
         with open(preset, 'w') as f:
             yaml.dump(preset_data, f)
+
+    # make preset path absolute
+    if preset is not None and not isinstance(preset, dict) and \
+            osp.exists(preset):
+        preset = osp.abspath(preset)
 
     # Lock file creation
     if not new_instance:
