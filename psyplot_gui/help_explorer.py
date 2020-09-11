@@ -353,7 +353,7 @@ class HelpMixin(object):
     #: :class:`bool` determining whether this class can show restructured text
     can_show_rst = True
 
-    @docstrings.get_sectionsf('HelpMixin.show_help')
+    @docstrings.get_sections(base='HelpMixin.show_help')
     @docstrings.dedent
     def show_help(self, obj, oname='', files=None):
         """
@@ -454,7 +454,7 @@ class HelpMixin(object):
             The docstring"""
         return '\n'.join(lines)
 
-    @docstrings.get_sectionsf('HelpMixin.show_rst')
+    @docstrings.get_sections(base='HelpMixin.show_rst')
     @docstrings.dedent
     def show_rst(self, text, oname='', descriptor=None, files=None):
         """
@@ -479,7 +479,7 @@ class HelpMixin(object):
         """
         return False
 
-    @docstrings.get_sectionsf('HelpMixin.show_intro')
+    @docstrings.get_sections(base='HelpMixin.show_intro')
     def show_intro(self, text=''):
         """
         Show an intro message

@@ -122,7 +122,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
 
         super(ConsoleWidget, self).__init__(*args, parent=main, **kwargs)
 
-        self.intro_msg = dedents("""
+        self.intro_msg = dedent("""
         psyplot version: %s
 
         gui version: %s

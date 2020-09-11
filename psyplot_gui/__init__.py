@@ -64,7 +64,7 @@ def get_versions(requirements=True):
     return ret
 
 
-@docstrings.get_sectionsf('psyplot_gui.start_app')
+@docstrings.get_sections(base='psyplot_gui.start_app')
 @docstrings.dedent
 def start_app(fnames=[], name=[], dims=None, plot_method=None,
               output=None, project=None, engine=None, formatoptions=None,

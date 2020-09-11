@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
         return logging.getLogger('%s.%s' % (self.__class__.__module__,
                                             self.__class__.__name__))
 
-    @docstrings.get_sectionsf('MainWindow')
+    @docstrings.get_sections(base='MainWindow')
     @docstrings.dedent
     def __init__(self, show=True):
         """
@@ -939,7 +939,7 @@ class MainWindow(QMainWindow):
         if ok:
             return self.open_file_options[item](fnames)
 
-    @docstrings.get_sectionsf('MainWindow.open_external_files')
+    @docstrings.get_sections(base='MainWindow.open_external_files')
     @docstrings.dedent
     def open_external_files(self, fnames=[], project=None, engine=None,
                             plot_method=None, name=None, dims=None,
@@ -1008,7 +1008,7 @@ class MainWindow(QMainWindow):
         self.open_external_files(*args)
 
     @classmethod
-    @docstrings.get_sectionsf('MainWindow.run')
+    @docstrings.get_sections(base='MainWindow.run')
     @docstrings.dedent
     def run(cls, fnames=[], project=None, engine=None, plot_method=None,
             name=None, dims=None, encoding=None, enable_post=False,

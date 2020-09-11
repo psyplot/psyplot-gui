@@ -51,7 +51,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
 
     _format = '%0.6g'
 
-    @docstrings.get_sectionsf('DataFrameModel')
+    @docstrings.get_sections(base='DataFrameModel')
     @docstrings.dedent
     def __init__(self, df, parent=None, index_editable=True,
                  dtypes_changeable=True):

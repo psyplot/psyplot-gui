@@ -16,7 +16,7 @@ class DependenciesTree(QTreeWidget):
     :func:`psyplot.get_versions` function to display the requirements and
     versions."""
 
-    @docstrings.get_sectionsf('DependenciesTree')
+    @docstrings.get_sections(base='DependenciesTree')
     def __init__(self, versions, *args, **kwargs):
         """
         Parameters
