@@ -26,7 +26,7 @@ import psyplot_gui
 from psyplot_gui import rcParams
 from psyplot_gui.common import DockMixin
 import psyplot.project as psy
-from psyplot import docstrings
+from psyplot.docstring import docstrings
 
 
 import logging
