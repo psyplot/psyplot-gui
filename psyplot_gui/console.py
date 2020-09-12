@@ -26,7 +26,7 @@ import psyplot_gui
 from psyplot_gui import rcParams
 from psyplot_gui.common import DockMixin
 import psyplot.project as psy
-from psyplot.docstring import dedents
+from psyplot import docstrings
 
 
 import logging
@@ -122,7 +122,7 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
 
         super(ConsoleWidget, self).__init__(*args, parent=main, **kwargs)
 
-        self.intro_msg = dedent("""
+        self.intro_msg = docstrings.dedent("""
         psyplot version: %s
 
         gui version: %s
