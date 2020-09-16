@@ -187,7 +187,8 @@ defaultParams = {
         'Use the intersphinx extension and link to the online documentations '
         'of matplotlib, pyplot, psyplot, numpy, etc. when converting rst '
         'docstrings. The inventories are loaded when the first object is '
-        'documented. If None, intersphinx is only used with PyQt5'],
+        'documented. If None, intersphinx is only used when '
+        '`help_explorer.online` is True and you are not using windows'],
     'help_explorer.render_docs_parallel': [
         True, validate_bool,
         'Boolean whether the html docs are rendered in a separate process'],

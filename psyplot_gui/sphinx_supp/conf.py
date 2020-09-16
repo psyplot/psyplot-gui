@@ -12,13 +12,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import sys
 import sphinx
 import sphinx_rtd_theme
 import re
 import six
 from itertools import product
 import psyplot_gui
-from psyplot_gui.compat.qtcompat import with_qt5
 
 # -- General configuration ------------------------------------------------
 
@@ -31,9 +31,16 @@ extensions = [
     'sphinx.ext.viewcode',
     'psyplot.sphinxext.extended_napoleon',
 ]
-use_intersphinx = (psyplot_gui.rcParams['help_explorer.online'] and
-                   psyplot_gui.rcParams['help_explorer.use_intersphinx'])
-if use_intersphinx or (use_intersphinx is None and with_qt5):
+
+if psyplot_gui.rcParams['help_explorer.use_intersphinx'] is None:
+    if sys.platform.startswith("win"):
+        use_intersphinx = False
+    else:
+        use_intersphinx = psyplot_gui.rcParams['help_explorer.online']
+else:
+    use_intersphinx = psyplot_gui.rcParams['help_explorer.use_intersphinx']
+
+if use_intersphinx:
     extensions.append('sphinx.ext.intersphinx')
 del use_intersphinx
 
