@@ -78,9 +78,9 @@ not_document_data = ['psyplot_gui.config.rcsetup.defaultParams',
 ipython_savefig_dir = os.path.join(os.path.dirname(__file__), '_static')
 
 # General information about the project.
-project = u'psyplot_gui'
-copyright = u'2016, Philipp Sommer'
-author = u'Philipp Sommer'
+project = 'psyplot_gui'
+copyright = psyplot_gui.__copyright__
+author = psyplot_gui.__author__
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -141,7 +141,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'psyplot_gui.tex', u'psyplot GUI Documentation',
-   u'Philipp Sommer', 'manual'),
+   author, 'manual'),
 ]
 
 # -- Options for manual page output ---------------------------------------
@@ -159,7 +159,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'psyplot_gui', u'psyplot GUI Documentation',
+  (master_doc, 'psyplot_gui', 'psyplot GUI Documentation',
    author, 'psyplot_gui', 'Graphical user interface for the psyplot package',
    'Visualization'),
 ]

@@ -27,7 +27,15 @@ from psyplot_gui.version import __version__
 
 from psyplot.compat.pycompat import get_default_value
 
-__author__ = "Philipp Sommer (philipp.sommer@unil.ch)"
+__author__ = "Philipp S. Sommer"
+__copyright__ = "Copyright 2016 - 2020, Philipp S. Sommer"
+__credits__ = ["Philipp S. Sommer"]
+__license__ = "GPL-2.0-only"
+
+__maintainer__ = "Philipp S. Sommer"
+__email__ = "philipp.sommer@hzg.de"
+
+__status__ = "Production"
 
 logger = logging.getLogger(__name__)
 logger.debug(
