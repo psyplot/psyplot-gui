@@ -1,5 +1,7 @@
 v1.3.0
 ======
+Presets and more variable info
+
 Changed
 -------
 - psyplot-gui has been moved from https://github.com/Chilipp/psyplot-gui to https://github.com/psyplot/psyplot-gui,
