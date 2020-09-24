@@ -19,7 +19,7 @@ requirements:
     - pip
   run:
     - python
-    - psyplot >=1.2.0
+    - psyplot >=1.3.0
     - pyqt >=5
     - qtconsole
     - fasteners
