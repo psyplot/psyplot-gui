@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import _base_testing as bt
 import unittest
-from pandas.util.testing import assert_frame_equal
+from pandas.testing import assert_frame_equal
 from psyplot_gui.compat.qtcompat import Qt, QApplication
 
 

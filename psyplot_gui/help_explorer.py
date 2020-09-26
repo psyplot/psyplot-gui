@@ -27,7 +27,7 @@ from psyplot_gui.common import get_module_path, StreamToLogger, \
 from tempfile import mkdtemp
 try:
     from sphinx.application import Sphinx
-    from sphinx.util import get_module_source
+    from sphinx.pycode import ModuleAnalyzer
     try:
         from psyplot.sphinxext.extended_napoleon import (
             ExtendedNumpyDocstring as NumpyDocstring,
@@ -740,7 +740,7 @@ class UrlHelp(UrlBrowser, HelpMixin):
         bool
             True if sphinx can import the module"""
         try:
-            get_module_source(modname)
+            ModuleAnalyzer.get_module_source(modname)
             return True
         except Exception:
             return False

@@ -37,7 +37,9 @@ if use_intersphinx or (use_intersphinx is None and with_qt5):
     extensions.append('sphinx.ext.intersphinx')
 del use_intersphinx
 
-autodoc_default_flags = ['show_inheritance']
+autodoc_default_options = {
+    'show_inheritance': True
+}
 
 try:
     import autodocsumm
@@ -45,7 +47,7 @@ except ImportError:
     pass
 else:
     extensions.append('autodocsumm')
-    autodoc_default_flags.append('autosummary')
+    autodoc_default_options['autosummary'] = True
     not_document_data = ['psyplot.config.rcsetup.defaultParams',
                          'psyplot.config.rcsetup.rcParams']
 
@@ -67,16 +69,16 @@ master_doc = 'psyplot'
 autoclass_content = 'both'
 
 # General information about the project.
-project = u'Help'
-copyright = u'2016, Philipp Sommer'
-author = u'Philipp Sommer'
+project = 'psyplot Help'
+copyright = psyplot_gui.__copyright__
+author = psyplot_gui.__author__
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = re.match('\d+\.\d+\.\d+', psyplot_gui.__version__).group()
+version = re.match(r'\d+\.\d+\.\d+', psyplot_gui.__version__).group()
 # The full version, including alpha/beta/rc tags.
 release = psyplot_gui.__version__
 #
