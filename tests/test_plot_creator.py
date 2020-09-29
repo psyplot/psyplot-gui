@@ -12,6 +12,20 @@ from psyplot_gui.compat.qtcompat import (
     asstring)
 
 
+def get_col_num(ax):
+    try:
+        return ax.get_subplotspec().colspan.start
+    except AttributeError:  # matplotlib<3.2
+        return ax.colNum
+
+
+def get_row_num(ax):
+    try:
+        return ax.get_subplotspec().rowspan.start
+    except AttributeError:  # matplotlib<3.2
+        return ax.rowNum
+
+
 class PlotCreatorTest(bt.PsyPlotGuiTestCase):
     """Tests concerning the plot creator"""
 
@@ -147,8 +161,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
         rows = [0, 0, 1] * nfigs
         cols = [0, 1, 0] * nfigs
-        self.assertEqual([ax.rowNum for ax in axes], rows)
-        self.assertEqual([ax.colNum for ax in axes], cols)
+        self.assertEqual([get_row_num(ax) for ax in axes], rows)
+        self.assertEqual([get_col_num(ax) for ax in axes], cols)
         fig_nums = list(chain(*([i] * 3 for i in range(1, nfigs + 1))))
         self.assertEqual([ax.get_figure().number for ax in axes], fig_nums)
         plt.close('all')
@@ -170,8 +184,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # test rows, cols and figure numbers
         self.assertEqual([ax.numCols for ax in axes], [2] * nvar)
         self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
-        self.assertEqual([ax.rowNum for ax in axes], [0] * nvar)
-        self.assertEqual([ax.colNum for ax in axes], [1] * nvar)
+        self.assertEqual([get_row_num(ax) for ax in axes], [0] * nvar)
+        self.assertEqual([get_col_num(ax) for ax in axes], [1] * nvar)
         self.assertEqual([ax.get_figure().number for ax in axes], list(
             range(1, nvar + 1)))
         plt.close('all')
@@ -203,8 +217,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # test rows, cols and figure numbers
         self.assertEqual([ax.numCols for ax in axes], [2] * nvar)
         self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
-        self.assertEqual([ax.rowNum for ax in axes], [0] * nvar)
-        self.assertEqual([ax.colNum for ax in axes], [1] * nvar)
+        self.assertEqual([get_row_num(ax) for ax in axes], [0] * nvar)
+        self.assertEqual([get_col_num(ax) for ax in axes], [1] * nvar)
         self.assertEqual([ax.get_figure().number for ax in axes], list(
             range(1, nvar + 1)))
         # close figures

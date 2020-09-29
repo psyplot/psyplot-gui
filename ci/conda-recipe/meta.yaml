@@ -25,9 +25,6 @@ requirements:
     - fasteners
     - sphinx
     - sphinx_rtd_theme
-    # HACK: Should be removed when https://github.com/ipython/ipykernel/pull/489
-    # is implemented
-    - jupyter_client <6.0.0
 
 test:
   imports:

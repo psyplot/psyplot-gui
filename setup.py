@@ -58,7 +58,7 @@ setup(name='psyplot-gui',
           'psyplot>=1.3.0',
           'qtconsole',
           'fasteners',
-          'sphinx',
+          'sphinx>=2.4.0',
           'sphinx_rtd_theme',
       ],
       package_data={'psyplot_gui': [

@@ -788,7 +788,9 @@ class MainWindow(QMainWindow):
             widget = PrefPageClass(dlg)
             widget.initialize()
             dlg.add_page(widget)
-        available_width = 0.667 * QDesktopWidget().availableGeometry().width()
+        available_width = int(
+            0.667*QDesktopWidget().availableGeometry().width()
+        )
         width = dlg.sizeHint().width()
         height = dlg.sizeHint().height()
         # The preferences window should cover at least one third of the screen

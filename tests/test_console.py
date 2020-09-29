@@ -56,7 +56,7 @@ class ConsoleTest(bt.PsyPlotGuiTestCase):
         self.insert_text('object')
         QTest.keyClicks(c._control, symbol)
         sig = '' if six.PY2 else re.sub(
-            '^\(\s*self,\s*', '(', str(signature(object.__init__)))
+            r'^\(\s*self,\s*', '(', str(signature(object.__init__)))
         header = "object" + sig
         bars = '=' * len(header)
         self.assertEqual(

@@ -69,7 +69,11 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-autodoc_default_flags = ['show_inheritance', 'autosummary']
+autodoc_default_options = {
+    'show_inheritance': True,
+    'autosummary': True,
+}
+
 autoclass_content = 'both'
 
 not_document_data = ['psyplot_gui.config.rcsetup.defaultParams',
@@ -78,7 +82,7 @@ not_document_data = ['psyplot_gui.config.rcsetup.defaultParams',
 ipython_savefig_dir = os.path.join(os.path.dirname(__file__), '_static')
 
 # General information about the project.
-project = 'psyplot_gui'
+project = 'psyplot-gui'
 copyright = psyplot_gui.__copyright__
 author = psyplot_gui.__author__
 
@@ -87,7 +91,7 @@ author = psyplot_gui.__author__
 # built documents.
 #
 # The short X.Y version.
-version = re.match('\d+\.\d+\.\d+', psyplot_gui.__version__).group()
+version = re.match(r'\d+\.\d+\.\d+', psyplot_gui.__version__).group()
 # The full version, including alpha/beta/rc tags.
 release = psyplot_gui.__version__
 
@@ -140,7 +144,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'psyplot_gui.tex', u'psyplot GUI Documentation',
+  (master_doc, 'psyplot-gui.tex', u'psyplot GUI Documentation',
    author, 'manual'),
 ]
 
@@ -149,7 +153,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'psyplot_gui', u'psyplot GUI Documentation',
+    (master_doc, 'psyplot-gui', u'psyplot GUI Documentation',
      [author], 1)
 ]
 
@@ -159,8 +163,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'psyplot_gui', 'psyplot GUI Documentation',
-   author, 'psyplot_gui', 'Graphical user interface for the psyplot package',
+  (master_doc, 'psyplot-gui', u'psyplot GUI Documentation',
+   author, 'psyplot-gui', 'Graphical user interface for the psyplot package',
    'Visualization'),
 ]
 
