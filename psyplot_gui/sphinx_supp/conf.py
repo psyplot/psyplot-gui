@@ -12,13 +12,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import sys
 import sphinx
 import sphinx_rtd_theme
 import re
 import six
 from itertools import product
 import psyplot_gui
-from psyplot_gui.compat.qtcompat import with_qt5
 
 # -- General configuration ------------------------------------------------
 
@@ -31,9 +31,16 @@ extensions = [
     'sphinx.ext.viewcode',
     'psyplot.sphinxext.extended_napoleon',
 ]
-use_intersphinx = (psyplot_gui.rcParams['help_explorer.online'] and
-                   psyplot_gui.rcParams['help_explorer.use_intersphinx'])
-if use_intersphinx or (use_intersphinx is None and with_qt5):
+
+if psyplot_gui.rcParams['help_explorer.use_intersphinx'] is None:
+    if sys.platform.startswith("win"):
+        use_intersphinx = False
+    else:
+        use_intersphinx = psyplot_gui.rcParams['help_explorer.online']
+else:
+    use_intersphinx = psyplot_gui.rcParams['help_explorer.use_intersphinx']
+
+if use_intersphinx:
     extensions.append('sphinx.ext.intersphinx')
 del use_intersphinx
 
@@ -98,20 +105,11 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-if with_qt5:
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-    html_theme_options = {
-        'prev_next_buttons_location': None
-        }
-
-else:
-    html_theme = 'alabaster'
-
-    # Theme options are theme-specific and customize the look and feel of a
-    # theme further.  For a list of options available for each theme, see the
-    # documentation.
-    html_theme_options = {'nosidebar': True}
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_options = {
+    'prev_next_buttons_location': None
+    }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

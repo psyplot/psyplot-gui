@@ -1,11 +1,15 @@
 v1.3.0
 ======
+Presets and more variable info
+
 Changed
 -------
 - psyplot-gui has been moved from https://github.com/Chilipp/psyplot-gui to https://github.com/psyplot/psyplot-gui,
   see `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
 - variables in the dataset tree show now more content,
   see `#16 <https://github.com/psyplot/psyplot-gui/pull/16>`__
+- setting the rcparam ``help_explorer.use_intersphinx`` to None, will not use 
+  intersphinx on windows, see `#20 <https://github.com/psyplot/psyplot-gui/pull/20>`__
 
 Added
 -----
