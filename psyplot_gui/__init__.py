@@ -23,7 +23,12 @@ from psyplot.config.rcsetup import get_configdir, safe_list
 from psyplot.docstring import docstrings
 from psyplot.warning import warn
 from psyplot.compat.pycompat import map
-from psyplot_gui.version import __version__
+
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
+
 
 from psyplot.compat.pycompat import get_default_value
 
