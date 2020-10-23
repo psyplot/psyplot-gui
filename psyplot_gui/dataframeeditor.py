@@ -202,9 +202,12 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 value = current_value = self.data(index, role=Qt.DisplayRole)
                 if change_type is bool:
                     value = bool_false_check(value)
-                self.df.iloc[row, column - 1] = change_type(value)
+                value = np.asarray(change_type(value))  # to make sure it works
+                icol = column - 1
+                self.df.iloc[:, icol] = self.df.iloc[:, icol].astype(
+                    change_type)
             except ValueError:
-                self.df.iloc[row, column - 1] = change_type('0')
+                self.df.iloc[row, icol] = self.df.iloc[row, icol].astype(object)
         else:
             current_value = self.get_value(row, column-1) if column else \
                 self.df.index[row]
@@ -535,7 +538,8 @@ class DataFrameView(QTableView):
         """A function that changes types of cells"""
         model = self.model()
         index_list = self.selectedIndexes()
-        [model.setData(i, '', change_type=func) for i in index_list]
+        for i in index_list:
+            model.setData(i, '', change_type=func)
 
     def insert_row_above_selection(self):
         """Insert rows above the selection
@@ -613,7 +617,7 @@ class DataFrameView(QTableView):
         menu.addSeparator()
         functions = (("To bool", bool), ("To complex", complex),
                      ("To int", int), ("To float", float),
-                     ("To str", six.text_type))
+                     ("To str", str))
         self.dtype_actions = {
             name: menu.addAction(name, partial(self.change_type, func))
             for name, func in functions}
