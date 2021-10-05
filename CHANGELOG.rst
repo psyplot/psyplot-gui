@@ -1,3 +1,21 @@
+v1.4.0
+======
+Compatibility fixes and LGPL license
+
+As with psyplot 1.4.0, psyplot-gui is now continuously tested and deployed with
+CircleCI.
+
+
+Changed
+-------
+- Documentation is now hosted with Github Pages at https://psyplot.github.io/psyplot-gui.
+  Redirects from the old documentation at https://psyplot-gui.readthedocs.io have been
+  configured.
+- We use CicleCI now for a standardized CI/CD pipeline to build and test
+  the code and docs all at one place, see `#28 <https://github.com/psyplot/psyplot-gui/pull/28>`__
+
+
+
 v1.3.0
 ======
 Presets and more variable info
@@ -8,7 +26,7 @@ Changed
   see `#10 <https://github.com/psyplot/psyplot-gui/pull/10>`__
 - variables in the dataset tree show now more content,
   see `#16 <https://github.com/psyplot/psyplot-gui/pull/16>`__
-- setting the rcparam ``help_explorer.use_intersphinx`` to None, will not use 
+- setting the rcparam ``help_explorer.use_intersphinx`` to None, will not use
   intersphinx on windows, see `#20 <https://github.com/psyplot/psyplot-gui/pull/20>`__
 
 Added
