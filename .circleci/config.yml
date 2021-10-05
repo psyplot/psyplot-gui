@@ -36,11 +36,10 @@ workflows:
           setup_env: true
           build_args: "--no-test"
           build_docs: << pipeline.parameters.build_docs >>
-          # HACK: force netcdf4 and hdf5 version to resolve dependency issue
-          env_packages: tests/test_plugin/ dask scipy netcdf4=1.5.7 h5py=3.4.0 hdf5=1.12.1 pytest-qt pyqt=5
       - psyplot/test-parallel:
           name: run-tests
           parallelism: 2
+          pytest_args: --cov=psyplot_gui
           run-job: << pipeline.parameters.run-tests >>
           requires:
             - install
