@@ -15,4 +15,4 @@ dependencies:
     - pytest-cov
     - pip
     - pip:
-      - tests/test_plugin/
+      - ../tests/test_plugin/
