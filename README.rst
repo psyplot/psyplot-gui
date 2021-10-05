@@ -10,7 +10,7 @@ Graphical User Interface for the psyplot package
     * - docs
       - |docs|
     * - tests
-      - |circleci| |appveyor| |requires| |codecov|
+      - |circleci| |appveyor| |codecov|
     * - package
       - |version| |conda| |github| |zenodo|
     * - implementations
@@ -31,10 +31,6 @@ Graphical User Interface for the psyplot package
 .. |codecov| image:: https://codecov.io/gh/psyplot/psyplot-gui/branch/master/graph/badge.svg
     :alt: Coverage
     :target: https://codecov.io/gh/psyplot/psyplot-gui
-
-.. |requires| image:: https://requires.io/github/psyplot/psyplot-gui/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/psyplot/psyplot-gui/requirements/?branch=master
 
 .. |version| image:: https://img.shields.io/pypi/v/psyplot-gui.svg?style=flat
     :alt: PyPI Package latest release
@@ -76,11 +72,8 @@ You can see the full documentation under
 
 Copyright
 ---------
-Copyright (C) 2021 Helmholtz-Zentrum Hereon
-
-Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-
-Copyright (C) 2016-2021 University of Lausanne
+Copyright © 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum
+Geesthacht, 2016-2021 University of Lausanne
 
 psyplot-gui is released under the GNU LGPL-3.O license.
 See COPYING and COPYING.LESSER in the root of the repository for full
@@ -96,4 +89,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU LGPL-3.0 license for more details.
 
 You should have received a copy of the GNU LGPL-3.0 license
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+along with this program.  If not, see https://www.gnu.org/licenses/.
