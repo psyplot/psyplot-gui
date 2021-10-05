@@ -10,7 +10,7 @@ Graphical User Interface for the psyplot package
     * - docs
       - |docs|
     * - tests
-      - |circleci| |appveyor| |requires| |codecov|
+      - |circleci| |appveyor| |codecov|
     * - package
       - |version| |conda| |github| |zenodo|
     * - implementations
@@ -31,10 +31,6 @@ Graphical User Interface for the psyplot package
 .. |codecov| image:: https://codecov.io/gh/psyplot/psyplot-gui/branch/master/graph/badge.svg
     :alt: Coverage
     :target: https://codecov.io/gh/psyplot/psyplot-gui
-
-.. |requires| image:: https://requires.io/github/psyplot/psyplot-gui/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/psyplot/psyplot-gui/requirements/?branch=master
 
 .. |version| image:: https://img.shields.io/pypi/v/psyplot-gui.svg?style=flat
     :alt: PyPI Package latest release

@@ -18,7 +18,7 @@ main project on examples on the possibilities with psyplot_.
         * - docs
           - |docs|
         * - tests
-          - |circleci| |appveyor| |requires| |codecov|
+          - |circleci| |appveyor| |codecov|
         * - package
           - |version| |conda| |github| |zenodo|
         * - implementations
@@ -39,10 +39,6 @@ main project on examples on the possibilities with psyplot_.
     .. |codecov| image:: https://codecov.io/gh/psyplot/psyplot-gui/branch/master/graph/badge.svg
         :alt: Coverage
         :target: https://codecov.io/gh/psyplot/psyplot-gui
-
-    .. |requires| image:: https://requires.io/github/psyplot/psyplot-gui/requirements.svg?branch=master
-        :alt: Requirements Status
-        :target: https://requires.io/github/psyplot/psyplot-gui/requirements/?branch=master
 
     .. |version| image:: https://img.shields.io/pypi/v/psyplot-gui.svg?style=flat
         :alt: PyPI Package latest release
