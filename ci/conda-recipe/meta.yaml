@@ -51,6 +51,7 @@ test:
     - pip install tests/test_plugin/
     - psyplot --help
     - pytest -sv --cov=psyplot_gui
+    - codecov
 
 app:
   entry: psyplot
