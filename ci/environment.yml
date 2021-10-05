@@ -13,6 +13,7 @@ dependencies:
     - psy-simple
     - psyplot-gui
     - pytest-cov
+    - psutil
     - pip
     - pip:
       - ../tests/test_plugin/
