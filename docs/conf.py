@@ -52,10 +52,6 @@ extensions = [
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from
-# docs.readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
 # create the api documentation
 if not osp.exists(osp.join(osp.dirname(__file__), 'api')):
     spr.check_call(['bash', 'apigen.bash'])
@@ -83,7 +79,9 @@ ipython_savefig_dir = os.path.join(os.path.dirname(__file__), '_static')
 
 # General information about the project.
 project = 'psyplot-gui'
-copyright = psyplot_gui.__copyright__
+copyright = ", ".join(
+    psyplot_gui.__copyright__.strip().replace("Copyright (C) ", "").splitlines()
+)
 author = psyplot_gui.__author__
 
 # The version info for the project you're documenting, acts as replacement for
@@ -118,10 +116,7 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_rtd_theme'
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify
 
@@ -183,18 +178,14 @@ epub_exclude_files = ['search.html']
 intersphinx_mapping = {
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
     'numpy': ('https://docs.scipy.org/doc/numpy/', None),
-    'matplotlib': ('https://matplotlib.org/', None),
-    'sphinx': ('http://www.sphinx-doc.org/en/master/', None),
-    'xarray': ('http://xarray.pydata.org/en/stable/', None),
+    'matplotlib': ('https://matplotlib.org/stable/', None),
+    'sphinx': ('https://www.sphinx-doc.org/en/stable/', None),
+    'xarray': ('https://xarray.pydata.org/en/stable/', None),
     'cartopy': ('https://scitools.org.uk/cartopy/docs/latest/', None),
     'mpl_toolkits': ('https://matplotlib.org/basemap/', None),
-    'psyplot': ('https://psyplot.readthedocs.io/en/latest/', None)
+    'psyplot': ('https://psyplot.github.io/psyplot/', None),
+    'python': ('https://docs.python.org/3/', None),
 }
-if six.PY3:
-    intersphinx_mapping['python'] = ('https://docs.python.org/3.4/', None)
-else:
-    intersphinx_mapping['python'] = ('https://docs.python.org/2.7/', None)
-
 
 replacements = {
     '`psyplot.rcParams`': '`~psyplot.config.rcsetup.rcParams`',

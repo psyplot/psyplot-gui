@@ -1,20 +1,21 @@
 name: psyplot_gui_docs
 channels:
-    - psyplot/label/gh-migration
-    - psyplot/label/dev
+    - local
     - psyplot/label/master
-    - psyplot
-    - chilipp/label/conda-forge
+    - conda-forge
 dependencies:
-    - python>3.5
+    - python=3.8
     - qtconsole
+    - dask
+    - netcdf4
+    - sphinx_rtd_theme
     - ipykernel
     - pexpect
     - pygments
     - pyqt
     - sphinx
     - psy-simple
-    - pip:
-        - fasteners
-        - autodocsumm
-        - sphinx-argparse
+    - psyplot-gui
+    - autodocsumm
+    - fasteners
+    - sphinx-argparse

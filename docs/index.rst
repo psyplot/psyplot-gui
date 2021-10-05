@@ -18,17 +18,19 @@ main project on examples on the possibilities with psyplot_.
         * - docs
           - |docs|
         * - tests
-          - |travis| |appveyor| |requires| |codecov|
+          - |circleci| |appveyor| |requires| |codecov|
         * - package
-          - |version| |conda| |supported-versions| |supported-implementations|
+          - |version| |conda| |github| |zenodo|
+        * - implementations
+          - |supported-versions| |supported-implementations|
 
     .. |docs| image:: http://readthedocs.org/projects/psyplot-gui/badge/?version=latest
         :alt: Documentation Status
         :target: http://psyplot-gui.readthedocs.io/en/latest/?badge=latest
 
-    .. |travis| image:: https://travis-ci.org/psyplot/psyplot-gui.svg?branch=master
-        :alt: Travis
-        :target: https://travis-ci.org/psyplot/psyplot-gui
+    .. |circleci| image:: https://circleci.com/gh/psyplot/psyplot-gui/tree/master.svg?style=svg
+        :alt: CircleCI
+        :target: https://circleci.com/gh/psyplot/psyplot-gui/tree/master
 
     .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/bud4ov6lddrjvt88/branch/master?svg=true
         :alt: AppVeyor
@@ -58,6 +60,14 @@ main project on examples on the possibilities with psyplot_.
         :alt: Supported implementations
         :target: https://pypi.python.org/pypi/psyplot-gui
 
+    .. |zenodo| image:: https://zenodo.org/badge/55793611.svg
+        :alt: Zenodo
+        :target: https://zenodo.org/badge/latestdoi/55793611
+
+    .. |github| image:: https://img.shields.io/github/release/psyplot/psyplot-gui.svg
+        :target: https://github.com/psyplot/psyplot-gui/releases/latest
+        :alt: Latest github release
+
 
 Documentation
 -------------
@@ -76,7 +86,32 @@ Documentation
     todos
 
 .. _PyQt: https://riverbankcomputing.com/software/pyqt/intro
-.. _psyplot: http://psyplot.readthedocs.org/en/latest/
+.. _psyplot: https://psyplot.github.io/psyplot/
+
+
+Copyright
+---------
+Copyright (C) 2021 Helmholtz-Zentrum Hereon
+
+Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
+
+Copyright (C) 2016-2021 University of Lausanne
+
+psyplot-gui is released under the GNU LGPL-3.O license.
+See COPYING and COPYING.LESSER in the root of the repository for full
+licensing details.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License version 3.0 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU LGPL-3.0 license for more details.
+
+You should have received a copy of the GNU LGPL-3.0 license
+along with the program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 Indices and tables

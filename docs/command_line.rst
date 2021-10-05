@@ -18,4 +18,4 @@ unless you specify the ``ni`` option.
    :func: get_parser
    :prog: psyplot
 
-.. _command line usage of the psyplot module: http://psyplot.readthedocs.org/en/latest/command_line.html
+.. _command line usage of the psyplot module: http://psyplot.github.io/psyplot/command_line.html
