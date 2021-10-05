@@ -68,7 +68,7 @@ workflows:
           requires:
             - hold-for-deploy
       - psyplot/deploy-docs:
-          fingerprint: "fc:e3:0f:d0:c6:5a:6a:a5:0e:7c:d6:47:37:48:dd:67"
+          fingerprint: "19:54:3e:9e:7b:73:1c:45:ee:4c:7b:73:8a:46:96:3a"
           run-job: << pipeline.parameters.build_docs >>
           requires:
             - hold-for-deploy
@@ -87,7 +87,7 @@ workflows:
     when: << pipeline.parameters.deploy-release >>
     jobs:
       - psyplot/create-tag:
-          ssh-fingerprints: "fc:e3:0f:d0:c6:5a:6a:a5:0e:7c:d6:47:37:48:dd:67"
+          ssh-fingerprints: "19:54:3e:9e:7b:73:1c:45:ee:4c:7b:73:8a:46:96:3a"
           context: psyplot-admin
           user-name: psyplot-admin
           publish-release: true
