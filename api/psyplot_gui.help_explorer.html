@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.help_explorer module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.main module" href="psyplot_gui.main.html" />
+    <link rel="prev" title="psyplot_gui.fmt_widget module" href="psyplot_gui.fmt_widget.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.help_explorer module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.help_explorer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.help_explorer">
+<span id="psyplot-gui-help-explorer-module"></span><h1>psyplot_gui.help_explorer module<a class="headerlink" href="#module-psyplot_gui.help_explorer" title="Permalink to this headline"></a></h1>
+<p>Help explorer widget supplying a simple web browser and a plain text help
+viewer</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer" title="psyplot_gui.help_explorer.HelpExplorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A widget for showing the documentation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin" title="psyplot_gui.help_explorer.HelpMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HelpMixin</span></code></a>()</p></td>
+<td><p>Base class for providing help on an object</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.SphinxThread" title="psyplot_gui.help_explorer.SphinxThread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SphinxThread</span></code></a>(outdir[, html_text_no_doc])</p></td>
+<td><p>A thread to render sphinx documentation in a separate process</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.TextHelp" title="psyplot_gui.help_explorer.TextHelp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextHelp</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Class to show plain text rst docstrings</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser" title="psyplot_gui.help_explorer.UrlBrowser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Very simple browser with session history and autocompletion based upon the <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWebEngineWidgets.QWebEngineView</span></code> class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlCombo" title="psyplot_gui.help_explorer.UrlCombo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UrlCombo</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A editable ComboBox with autocompletion</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp" title="psyplot_gui.help_explorer.UrlHelp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UrlHelp</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Class to convert rst docstrings to html and show browsers</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.file2html" title="psyplot_gui.help_explorer.file2html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file2html</span></code></a>(fname)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.html2file" title="psyplot_gui.help_explorer.html2file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">html2file</span></code></a>(url)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">HelpExplorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code>, <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.common.DockMixin</span></code></a></p>
+<p>A widget for showing the documentation. It behaves somewhat similar
+to spyders object inspector plugin and can show restructured text either
+as html (if sphinx is installed) or as plain text. It furthermore has a
+browser to show html content</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">HelpBrowser</span></code> class is known to crash under PyQt4 when new web
+page domains are loaded. Hence you should disable the browsing to different
+remote websites and even disable intersphinx</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.close" title="psyplot_gui.help_explorer.HelpExplorer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.set_viewer" title="psyplot_gui.help_explorer.HelpExplorer.set_viewer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_viewer</span></code></a>(name)</p></td>
+<td><p>Sets the current documentation viewer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.show_help" title="psyplot_gui.help_explorer.HelpExplorer.show_help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_help</span></code></a>(obj[, oname, files])</p></td>
+<td><p>Show the documentaion of the given object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.show_intro" title="psyplot_gui.help_explorer.HelpExplorer.show_intro"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_intro</span></code></a>([text])</p></td>
+<td><p>Show an intro text</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.show_rst" title="psyplot_gui.help_explorer.HelpExplorer.show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_rst</span></code></a>(text[, oname, files])</p></td>
+<td><p>Show restructured text</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.viewers" title="psyplot_gui.help_explorer.HelpExplorer.viewers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewers</span></code></a></p></td>
+<td><p>The viewer classes used by the help explorer.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.set_viewer">
+<span class="sig-name descname"><span class="pre">set_viewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer.set_viewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.set_viewer" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the current documentation viewer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – A string must be one of the <a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.viewers" title="psyplot_gui.help_explorer.HelpExplorer.viewers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">viewers</span></code></a> attribute. An object
+can be one of the values in the <a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer.viewers" title="psyplot_gui.help_explorer.HelpExplorer.viewers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">viewers</span></code></a> attribute</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.show_help">
+<span class="sig-name descname"><span class="pre">show_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer.show_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.show_help" title="Permalink to this definition"></a></dt>
+<dd><p>Show the documentaion of the given object</p>
+<p>We first try to use the current viewer based upon it’s
+<a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.can_document_object" title="psyplot_gui.help_explorer.HelpMixin.can_document_object"><code class="xref py py-attr docutils literal notranslate"><span class="pre">HelpMixin.can_document_object</span></code></a> attribute. If this does not work,
+we check the other viewers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The object to get the documentation for</p></li>
+<li><p><strong>oname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name to use for the object in the documentation</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – A path to additional files that shall be used to process the
+docs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.show_intro">
+<span class="sig-name descname"><span class="pre">show_intro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer.show_intro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.show_intro" title="Permalink to this definition"></a></dt>
+<dd><p>Show an intro text</p>
+<p>We first try to use the current viewer based upon it’s
+<a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.can_show_rst" title="psyplot_gui.help_explorer.HelpMixin.can_show_rst"><code class="xref py py-attr docutils literal notranslate"><span class="pre">HelpMixin.can_show_rst</span></code></a> attribute. If this does not work,
+we check the other viewers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A string in reStructured Text format to show</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.show_rst">
+<span class="sig-name descname"><span class="pre">show_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpExplorer.show_rst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.show_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Show restructured text</p>
+<p>We first try to use the current viewer based upon it’s
+<a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.can_show_rst" title="psyplot_gui.help_explorer.HelpMixin.can_show_rst"><code class="xref py py-attr docutils literal notranslate"><span class="pre">HelpMixin.can_show_rst</span></code></a> attribute. If this does not work,
+we check the other viewers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The text to show</p></li>
+<li><p><strong>oname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The object name</p></li>
+<li><p><strong>descriptor</strong> (instance of <code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code>) – The object descriptor holding the informations</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – A path to additional files that shall be used to display the docs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpExplorer.viewers">
+<span class="sig-name descname"><span class="pre">viewers</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'HTML</span> <span class="pre">help':</span> <span class="pre">&lt;class</span> <span class="pre">'psyplot_gui.help_explorer.UrlHelp'&gt;,</span> <span class="pre">'Plain</span> <span class="pre">text':</span> <span class="pre">&lt;class</span> <span class="pre">'psyplot_gui.help_explorer.TextHelp'&gt;}</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.HelpExplorer.viewers" title="Permalink to this definition"></a></dt>
+<dd><p>The viewer classes used by the help explorer. <a class="reference internal" href="#psyplot_gui.help_explorer.HelpExplorer" title="psyplot_gui.help_explorer.HelpExplorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a>
+instances replace this attribute with the corresponding HelpMixin
+instance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">HelpMixin</span></span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Base class for providing help on an object</p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.can_document_object" title="psyplot_gui.help_explorer.HelpMixin.can_document_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_document_object</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether the documentation of an object can be shown or not</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.can_show_rst" title="psyplot_gui.help_explorer.HelpMixin.can_show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_show_rst</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether this class can show restructured text</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.describe_object" title="psyplot_gui.help_explorer.HelpMixin.describe_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">describe_object</span></code></a>(obj[, oname])</p></td>
+<td><p>Return an instance of the <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a> class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.get_doc" title="psyplot_gui.help_explorer.HelpMixin.get_doc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_doc</span></code></a>(descriptor)</p></td>
+<td><p>Get the documentation of the object in the given <cite>descriptor</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.header" title="psyplot_gui.help_explorer.HelpMixin.header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">header</span></code></a>(descriptor, sig)</p></td>
+<td><p>Format the header and include object name and signature <cite>sig</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.process_docstring" title="psyplot_gui.help_explorer.HelpMixin.process_docstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_docstring</span></code></a>(lines, descriptor)</p></td>
+<td><p>Make final modification on the rst lines</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.show_help" title="psyplot_gui.help_explorer.HelpMixin.show_help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_help</span></code></a>(obj[, oname, files])</p></td>
+<td><p>Show the rst documentation for the given object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.show_intro" title="psyplot_gui.help_explorer.HelpMixin.show_intro"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_intro</span></code></a>([text])</p></td>
+<td><p>Show an intro message</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.show_rst" title="psyplot_gui.help_explorer.HelpMixin.show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_rst</span></code></a>(text[, oname, descriptor, files])</p></td>
+<td><p>Abstract method which needs to be implemented by th widget to show restructured text</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object_descriptor</span></code></a></p></td>
+<td><p>Object containing the necessary fields to describe an object given to the help widget.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.can_document_object">
+<span class="sig-name descname"><span class="pre">can_document_object</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.can_document_object" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether the documentation of an object can be
+shown or not</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.can_show_rst">
+<span class="sig-name descname"><span class="pre">can_show_rst</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.can_show_rst" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether this class can show restructured text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.describe_object">
+<span class="sig-name descname"><span class="pre">describe_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.describe_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.describe_object" title="Permalink to this definition"></a></dt>
+<dd><p>Return an instance of the <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a> class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The descriptor containing the information on the object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.get_doc">
+<span class="sig-name descname"><span class="pre">get_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.get_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.get_doc" title="Permalink to this definition"></a></dt>
+<dd><p>Get the documentation of the object in the given <cite>descriptor</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>descriptor</strong> (instance of <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a>) – The descriptor containig the information on the specific object</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The header and documentation of the object in the descriptor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method uses the <code class="xref py py-func docutils literal notranslate"><span class="pre">IPython.core.oinspect.getdoc()</span></code> function to
+get the documentation and the <code class="xref py py-func docutils literal notranslate"><span class="pre">IPython.core.oinspect.signature()</span></code>
+function to get the signature. Those function (different from the
+inspect module) do not fail when the object is not saved</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.header">
+<span class="sig-name descname"><span class="pre">header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.header" title="Permalink to this definition"></a></dt>
+<dd><p>Format the header and include object name and signature <cite>sig</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The header for the documentation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.object_descriptor">
+<span class="sig-name descname"><span class="pre">object_descriptor</span></span><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="Permalink to this definition"></a></dt>
+<dd><p>Object containing the necessary fields to describe an object given to
+the help widget. The descriptor is set up by the <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.describe_object" title="psyplot_gui.help_explorer.HelpMixin.describe_object"><code class="xref py py-meth docutils literal notranslate"><span class="pre">describe_object()</span></code></a>
+method.</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.help_explorer.ObjectDescriptor</span></code>
+<strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">obj</span></code></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.process_docstring">
+<span class="sig-name descname"><span class="pre">process_docstring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.process_docstring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.process_docstring" title="Permalink to this definition"></a></dt>
+<dd><p>Make final modification on the rst lines</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The docstring</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.show_help">
+<span class="sig-name descname"><span class="pre">show_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.show_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.show_help" title="Permalink to this definition"></a></dt>
+<dd><p>Show the rst documentation for the given object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The object to get the documentation for</p></li>
+<li><p><strong>oname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name to use for the object in the documentation</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – A path to additional files that shall be used to process the
+docs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.show_intro">
+<span class="sig-name descname"><span class="pre">show_intro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.show_intro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.show_intro" title="Permalink to this definition"></a></dt>
+<dd><p>Show an intro message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A string in reStructured Text format to show</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.HelpMixin.show_rst">
+<span class="sig-name descname"><span class="pre">show_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#HelpMixin.show_rst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.HelpMixin.show_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Abstract method which needs to be implemented by th widget to show
+restructured text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The text to show</p></li>
+<li><p><strong>oname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The object name</p></li>
+<li><p><strong>descriptor</strong> (instance of <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin.object_descriptor" title="psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a>) – The object descriptor holding the informations</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – A path to additional files that shall be used to display the docs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the text is displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.SphinxThread">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">SphinxThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_text_no_doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#SphinxThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.SphinxThread" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QThread</span></code></p>
+<p>A thread to render sphinx documentation in a separate process</p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.SphinxThread.html_error" title="psyplot_gui.help_explorer.SphinxThread.html_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">html_error</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.SphinxThread.html_ready" title="psyplot_gui.help_explorer.SphinxThread.html_ready"><code class="xref py py-obj docutils literal notranslate"><span class="pre">html_ready</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A signal to be emitted when the rendering finished.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.SphinxThread.render" title="psyplot_gui.help_explorer.SphinxThread.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>(doc, name)</p></td>
+<td><p>Render the given rst string and save the file as <code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">+</span> <span class="pre">'.rst'</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.SphinxThread.run" title="psyplot_gui.help_explorer.SphinxThread.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>()</p></td>
+<td><p>Create the html file.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.SphinxThread.html_error">
+<span class="sig-name descname"><span class="pre">html_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.help_explorer.SphinxThread.html_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.SphinxThread.html_ready">
+<span class="sig-name descname"><span class="pre">html_ready</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.help_explorer.SphinxThread.html_ready" title="Permalink to this definition"></a></dt>
+<dd><p>A signal to be emitted when the rendering finished. The url is the
+file location</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.SphinxThread.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#SphinxThread.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.SphinxThread.render" title="Permalink to this definition"></a></dt>
+<dd><p>Render the given rst string and save the file as <code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">+</span> <span class="pre">'.rst'</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The rst docstring</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the name to use for the file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.SphinxThread.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#SphinxThread.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.SphinxThread.run" title="Permalink to this definition"></a></dt>
+<dd><p>Create the html file. When called the first time, it may take a
+while because the <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx" title="(in Sphinx v5.0.0+)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sphinx.application.Sphinx</span></code></a> app is build,
+potentially with intersphinx</p>
+<p>When finished, the html_ready signal is emitted</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.TextHelp">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">TextHelp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#TextHelp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.TextHelp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QFrame</span></code>, <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin" title="psyplot_gui.help_explorer.HelpMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.help_explorer.HelpMixin</span></code></a></p>
+<p>Class to show plain text rst docstrings</p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.TextHelp.editor" title="psyplot_gui.help_explorer.TextHelp.editor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">editor</span></code></a></p></td>
+<td><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QPlainTextEdit</span></code> instance used for displaying the documentation</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.TextHelp.show_rst" title="psyplot_gui.help_explorer.TextHelp.show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_rst</span></code></a>(text, *args, **kwargs)</p></td>
+<td><p>Show the given text in the editor window</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.TextHelp.editor">
+<span class="sig-name descname"><span class="pre">editor</span></span><a class="headerlink" href="#psyplot_gui.help_explorer.TextHelp.editor" title="Permalink to this definition"></a></dt>
+<dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QPlainTextEdit</span></code> instance used for
+displaying the documentation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.TextHelp.show_rst">
+<span class="sig-name descname"><span class="pre">show_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#TextHelp.show_rst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.TextHelp.show_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Show the given text in the editor window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The text to show</p></li>
+<li><p><strong>``*args</strong> – <p>Are ignored</p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – <p>Are ignored</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">UrlBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QFrame</span></code></p>
+<p>Very simple browser with session history and autocompletion based upon
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWebEngineWidgets.QWebEngineView</span></code> class</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This class is known to crash under PyQt4 when new web page domains are
+loaded. Hence it should be handled with care</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.browse" title="psyplot_gui.help_explorer.UrlBrowser.browse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">browse</span></code></a>(url)</p></td>
+<td><p>Make a web browse on the given url and show the page on the Webview widget.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.toogle_lock" title="psyplot_gui.help_explorer.UrlBrowser.toogle_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toogle_lock</span></code></a>()</p></td>
+<td><p>Disable (or enable) the changing of the current webpage</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.toogle_url_lock" title="psyplot_gui.help_explorer.UrlBrowser.toogle_url_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toogle_url_lock</span></code></a>()</p></td>
+<td><p>Disable (or enable) the loading of web pages in www</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.update_url_lock_from_rc" title="psyplot_gui.help_explorer.UrlBrowser.update_url_lock_from_rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_url_lock_from_rc</span></code></a>(online)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.url_changed" title="psyplot_gui.help_explorer.UrlBrowser.url_changed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url_changed</span></code></a>(url)</p></td>
+<td><p>Triggered when the url is changed to update the adress line</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_ahead" title="psyplot_gui.help_explorer.UrlBrowser.bt_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_ahead</span></code></a></p></td>
+<td><p>button to go to next url</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_back" title="psyplot_gui.help_explorer.UrlBrowser.bt_back"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_back</span></code></a></p></td>
+<td><p>button to go to previous url</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_lock</span></code></a></p></td>
+<td><p>button to go lock to the current url</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock_default" title="psyplot_gui.help_explorer.UrlBrowser.bt_lock_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_lock_default</span></code></a></p></td>
+<td><p>default value for <a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_lock"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bt_lock</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_refresh" title="psyplot_gui.help_explorer.UrlBrowser.bt_refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_refresh</span></code></a></p></td>
+<td><p>refresh the current url</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_url_lock</span></code></a></p></td>
+<td><p>button to disable browsing in www</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock_default" title="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_url_lock_default</span></code></a></p></td>
+<td><p>default value for <a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bt_url_lock</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.button_box" title="psyplot_gui.help_explorer.UrlBrowser.button_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">button_box</span></code></a></p></td>
+<td><p>The upper part of the browser containing all the buttons</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.completed" title="psyplot_gui.help_explorer.UrlBrowser.completed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">completed</span></code></a></p></td>
+<td><p>Boolean whether the html page loading is completed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.default_url" title="psyplot_gui.help_explorer.UrlBrowser.default_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_url</span></code></a></p></td>
+<td><p>The initial url showed in the webview.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.doc_urls" title="psyplot_gui.help_explorer.UrlBrowser.doc_urls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">doc_urls</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.html" title="psyplot_gui.help_explorer.UrlBrowser.html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">html</span></code></a></p></td>
+<td><p>The actual widget showing the html content</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.tb_url" title="psyplot_gui.help_explorer.UrlBrowser.tb_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tb_url</span></code></a></p></td>
+<td><p>adress line</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.url_like_re" title="psyplot_gui.help_explorer.UrlBrowser.url_like_re"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url_like_re</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.vbox" title="psyplot_gui.help_explorer.UrlBrowser.vbox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vbox</span></code></a></p></td>
+<td><p>The upper most layout aranging the button box and the html widget</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.browse">
+<span class="sig-name descname"><span class="pre">browse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser.browse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.browse" title="Permalink to this definition"></a></dt>
+<dd><p>Make a web browse on the given url and show the page on the Webview
+widget.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_ahead">
+<span class="sig-name descname"><span class="pre">bt_ahead</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_ahead" title="Permalink to this definition"></a></dt>
+<dd><p>button to go to next url</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_back">
+<span class="sig-name descname"><span class="pre">bt_back</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_back" title="Permalink to this definition"></a></dt>
+<dd><p>button to go to previous url</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_lock">
+<span class="sig-name descname"><span class="pre">bt_lock</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock" title="Permalink to this definition"></a></dt>
+<dd><p>button to go lock to the current url</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_lock_default">
+<span class="sig-name descname"><span class="pre">bt_lock_default</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock_default" title="Permalink to this definition"></a></dt>
+<dd><p>default value for <a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_lock"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bt_lock</span></code></a>. Is set during browser
+initialization</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_refresh">
+<span class="sig-name descname"><span class="pre">bt_refresh</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_refresh" title="Permalink to this definition"></a></dt>
+<dd><p>refresh the current url</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock">
+<span class="sig-name descname"><span class="pre">bt_url_lock</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock" title="Permalink to this definition"></a></dt>
+<dd><p>button to disable browsing in www</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock_default">
+<span class="sig-name descname"><span class="pre">bt_url_lock_default</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock_default" title="Permalink to this definition"></a></dt>
+<dd><p>default value for <a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock" title="psyplot_gui.help_explorer.UrlBrowser.bt_url_lock"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bt_url_lock</span></code></a>. Is set during browser
+initialization</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.button_box">
+<span class="sig-name descname"><span class="pre">button_box</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.button_box" title="Permalink to this definition"></a></dt>
+<dd><p>The upper part of the browser containing all the buttons</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.completed">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">completed</span></span><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.completed" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean whether the html page loading is completed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.default_url">
+<span class="sig-name descname"><span class="pre">default_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.default_url" title="Permalink to this definition"></a></dt>
+<dd><p>The initial url showed in the webview. If None, nothing will be
+displayed</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.doc_urls">
+<span class="sig-name descname"><span class="pre">doc_urls</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'cartopy':</span> <span class="pre">'http://scitools.org.uk/cartopy/docs/latest/index.html',</span> <span class="pre">'numpy':</span> <span class="pre">'https://docs.scipy.org/doc/numpy/reference/routines.html',</span> <span class="pre">'pandas':</span> <span class="pre">'http://pandas.pydata.org/pandas-docs/stable/',</span> <span class="pre">'psyplot':</span> <span class="pre">'http://psyplot.readthedocs.org/en/latest/',</span> <span class="pre">'pyplot':</span> <span class="pre">'http://matplotlib.org/api/pyplot_api.html',</span> <span class="pre">'seaborn':</span> <span class="pre">'http://stanford.edu/~mwaskom/software/seaborn/api.html',</span> <span class="pre">'startpage':</span> <span class="pre">'https://startpage.com/',</span> <span class="pre">'xarray':</span> <span class="pre">'http://xarray.pydata.org/en/stable/'}</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.doc_urls" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.html">
+<span class="sig-name descname"><span class="pre">html</span></span><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.html" title="Permalink to this definition"></a></dt>
+<dd><p>The actual widget showing the html content</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.tb_url">
+<span class="sig-name descname"><span class="pre">tb_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.tb_url" title="Permalink to this definition"></a></dt>
+<dd><p>adress line</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.toogle_lock">
+<span class="sig-name descname"><span class="pre">toogle_lock</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser.toogle_lock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.toogle_lock" title="Permalink to this definition"></a></dt>
+<dd><p>Disable (or enable) the changing of the current webpage</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.toogle_url_lock">
+<span class="sig-name descname"><span class="pre">toogle_url_lock</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser.toogle_url_lock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.toogle_url_lock" title="Permalink to this definition"></a></dt>
+<dd><p>Disable (or enable) the loading of web pages in www</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.update_url_lock_from_rc">
+<span class="sig-name descname"><span class="pre">update_url_lock_from_rc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">online</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser.update_url_lock_from_rc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.update_url_lock_from_rc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.url_changed">
+<span class="sig-name descname"><span class="pre">url_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlBrowser.url_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.url_changed" title="Permalink to this definition"></a></dt>
+<dd><p>Triggered when the url is changed to update the adress line</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.url_like_re">
+<span class="sig-name descname"><span class="pre">url_like_re</span></span><em class="property"> <span class="pre">=</span> <span class="pre">re.compile('^\\w+://')</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.url_like_re" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlBrowser.vbox">
+<span class="sig-name descname"><span class="pre">vbox</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlBrowser.vbox" title="Permalink to this definition"></a></dt>
+<dd><p>The upper most layout aranging the button box and the html widget</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlCombo">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">UrlCombo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlCombo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlCombo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QComboBox</span></code></p>
+<p>A editable ComboBox with autocompletion</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlCombo.add_text_on_top" title="psyplot_gui.help_explorer.UrlCombo.add_text_on_top"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_text_on_top</span></code></a>([text, block])</p></td>
+<td><p>Add the given text as the first item</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlCombo.keyPressEvent" title="psyplot_gui.help_explorer.UrlCombo.keyPressEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyPressEvent</span></code></a>(event)</p></td>
+<td><p>Handle key press events</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlCombo.setModel" title="psyplot_gui.help_explorer.UrlCombo.setModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setModel</span></code></a>(model)</p></td>
+<td><p>Reimplemented to also set the model of the filter and completer</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlCombo.add_text_on_top">
+<span class="sig-name descname"><span class="pre">add_text_on_top</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlCombo.add_text_on_top"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlCombo.add_text_on_top" title="Permalink to this definition"></a></dt>
+<dd><p>Add the given text as the first item</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlCombo.keyPressEvent">
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlCombo.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlCombo.keyPressEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Handle key press events</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlCombo.setModel">
+<span class="sig-name descname"><span class="pre">setModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlCombo.setModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlCombo.setModel" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to also set the model of the filter and completer</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">UrlHelp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#psyplot_gui.help_explorer.UrlBrowser" title="psyplot_gui.help_explorer.UrlBrowser"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.help_explorer.UrlBrowser</span></code></a>, <a class="reference internal" href="#psyplot_gui.help_explorer.HelpMixin" title="psyplot_gui.help_explorer.HelpMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.help_explorer.HelpMixin</span></code></a></p>
+<p>Class to convert rst docstrings to html and show browsers</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.browse" title="psyplot_gui.help_explorer.UrlHelp.browse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">browse</span></code></a>(url)</p></td>
+<td><p>Reimplemented to add file paths to the url string</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.close" title="psyplot_gui.help_explorer.UrlHelp.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.describe_object" title="psyplot_gui.help_explorer.UrlHelp.describe_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">describe_object</span></code></a>(obj[, oname])</p></td>
+<td><p>Describe an object using additionaly the object type from the <a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.get_objtype" title="psyplot_gui.help_explorer.UrlHelp.get_objtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_objtype()</span></code></a> method</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.get_doc" title="psyplot_gui.help_explorer.UrlHelp.get_doc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_doc</span></code></a>(descriptor)</p></td>
+<td><p>Reimplemented to (potentially) use the features from sphinx.ext.autodoc</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.get_objtype" title="psyplot_gui.help_explorer.UrlHelp.get_objtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_objtype</span></code></a>(obj)</p></td>
+<td><p>Get the object type of the given object and determine wheter the object is considered a class, a module, a function, method or data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.header" title="psyplot_gui.help_explorer.UrlHelp.header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">header</span></code></a>(descriptor, sig)</p></td>
+<td><p>Format the header and include object name and signature <cite>sig</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.is_importable" title="psyplot_gui.help_explorer.UrlHelp.is_importable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_importable</span></code></a>(modname)</p></td>
+<td><p>Determine whether members of the given module can be documented with sphinx by using the <code class="xref py py-func docutils literal notranslate"><span class="pre">sphinx.util.get_module_source()</span></code> function</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.process_docstring" title="psyplot_gui.help_explorer.UrlHelp.process_docstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_docstring</span></code></a>(lines, descriptor)</p></td>
+<td><p>Process the lines with the napoleon sphinx extension</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.reset_sphinx" title="psyplot_gui.help_explorer.UrlHelp.reset_sphinx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_sphinx</span></code></a>(value)</p></td>
+<td><p>Method that is called if the configuration changes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.show_help" title="psyplot_gui.help_explorer.UrlHelp.show_help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_help</span></code></a>(obj[, oname, files])</p></td>
+<td><p>Render the rst docu for the given object with sphinx and show it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.show_intro" title="psyplot_gui.help_explorer.UrlHelp.show_intro"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_intro</span></code></a>([text])</p></td>
+<td><p>Show the intro text in the explorer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.show_rst" title="psyplot_gui.help_explorer.UrlHelp.show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_rst</span></code></a>(text[, oname, descriptor, files])</p></td>
+<td><p>Render restructured text with sphinx and show it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.toogle_connect_console" title="psyplot_gui.help_explorer.UrlHelp.toogle_connect_console"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toogle_connect_console</span></code></a>()</p></td>
+<td><p>Disable (or enable) the loading of web pages in www</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.toogle_url_lock" title="psyplot_gui.help_explorer.UrlHelp.toogle_url_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toogle_url_lock</span></code></a>()</p></td>
+<td><p>Disable (or enable) the loading of web pages in www</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.update_connect_console" title="psyplot_gui.help_explorer.UrlHelp.update_connect_console"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_connect_console</span></code></a>(connect)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.url_changed" title="psyplot_gui.help_explorer.UrlHelp.url_changed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">url_changed</span></code></a>(url)</p></td>
+<td><p>Reimplemented to remove file paths from the url string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.bt_url_menus" title="psyplot_gui.help_explorer.UrlHelp.bt_url_menus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_url_menus</span></code></a></p></td>
+<td><p>menu button with different urls</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.can_document_object" title="psyplot_gui.help_explorer.UrlHelp.can_document_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_document_object</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether the documentation of an object can be shown or not</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.can_show_rst" title="psyplot_gui.help_explorer.UrlHelp.can_show_rst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">can_show_rst</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether this class can show restructured text</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.sphinx_thread" title="psyplot_gui.help_explorer.UrlHelp.sphinx_thread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx_thread</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.object_descriptor" title="psyplot_gui.help_explorer.UrlHelp.object_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object_descriptor</span></code></a></p></td>
+<td><p>Object containing the necessary fields to describe an object given to the help widget.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.browse">
+<span class="sig-name descname"><span class="pre">browse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.browse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.browse" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to add file paths to the url string</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.bt_url_menus">
+<span class="sig-name descname"><span class="pre">bt_url_menus</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.bt_url_menus" title="Permalink to this definition"></a></dt>
+<dd><p>menu button with different urls</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.can_document_object">
+<span class="sig-name descname"><span class="pre">can_document_object</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.can_document_object" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether the documentation of an object can be
+shown or not</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.can_show_rst">
+<span class="sig-name descname"><span class="pre">can_show_rst</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.can_show_rst" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> determining whether this class can show restructured text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.describe_object">
+<span class="sig-name descname"><span class="pre">describe_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.describe_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.describe_object" title="Permalink to this definition"></a></dt>
+<dd><p>Describe an object using additionaly the object type from the
+<a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.get_objtype" title="psyplot_gui.help_explorer.UrlHelp.get_objtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_objtype()</span></code></a> method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The descriptor of the object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>instance of <a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.object_descriptor" title="psyplot_gui.help_explorer.UrlHelp.object_descriptor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_descriptor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.get_doc">
+<span class="sig-name descname"><span class="pre">get_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.get_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.get_doc" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to (potentially) use the features from
+sphinx.ext.autodoc</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.get_objtype">
+<span class="sig-name descname"><span class="pre">get_objtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.get_objtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.get_objtype" title="Permalink to this definition"></a></dt>
+<dd><p>Get the object type of the given object and determine wheter the
+object is considered a class, a module, a function, method or data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>One out of {‘class’, ‘module’, ‘function’, ‘method’, ‘data’}</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.header">
+<span class="sig-name descname"><span class="pre">header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.header" title="Permalink to this definition"></a></dt>
+<dd><p>Format the header and include object name and signature <cite>sig</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The header for the documentation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.is_importable">
+<span class="sig-name descname"><span class="pre">is_importable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.is_importable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.is_importable" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether members of the given module can be documented with
+sphinx by using the <code class="xref py py-func docutils literal notranslate"><span class="pre">sphinx.util.get_module_source()</span></code> function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>modname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The __name__ attribute of the module to import</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if sphinx can import the module</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.object_descriptor">
+<span class="sig-name descname"><span class="pre">object_descriptor</span></span><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.object_descriptor" title="Permalink to this definition"></a></dt>
+<dd><p>Object containing the necessary fields to describe an object given to
+the help widget. The descriptor is set up by the <a class="reference internal" href="#psyplot_gui.help_explorer.UrlHelp.describe_object" title="psyplot_gui.help_explorer.UrlHelp.describe_object"><code class="xref py py-meth docutils literal notranslate"><span class="pre">describe_object()</span></code></a>
+method and contains an additional objtype attribute</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.help_explorer.ObjectDescriptor</span></code>
+<strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">obj</span></code></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">objtype</span></code></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.process_docstring">
+<span class="sig-name descname"><span class="pre">process_docstring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.process_docstring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.process_docstring" title="Permalink to this definition"></a></dt>
+<dd><p>Process the lines with the napoleon sphinx extension</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.reset_sphinx">
+<span class="sig-name descname"><span class="pre">reset_sphinx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.reset_sphinx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.reset_sphinx" title="Permalink to this definition"></a></dt>
+<dd><p>Method that is called if the configuration changes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.show_help">
+<span class="sig-name descname"><span class="pre">show_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.show_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.show_help" title="Permalink to this definition"></a></dt>
+<dd><p>Render the rst docu for the given object with sphinx and show it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The object to get the documentation for</p></li>
+<li><p><strong>oname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name to use for the object in the documentation</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – A path to additional files that shall be used to process the
+docs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.show_intro">
+<span class="sig-name descname"><span class="pre">show_intro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.show_intro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.show_intro" title="Permalink to this definition"></a></dt>
+<dd><p>Show the intro text in the explorer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A string in reStructured Text format to show</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.show_rst">
+<span class="sig-name descname"><span class="pre">show_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.show_rst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.show_rst" title="Permalink to this definition"></a></dt>
+<dd><p>Render restructured text with sphinx and show it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>%</strong><strong>(</strong><strong>HelpMixin.show_rst.parameters</strong><strong>)</strong><strong>s</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.sphinx_thread">
+<span class="sig-name descname"><span class="pre">sphinx_thread</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.sphinx_thread" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.toogle_connect_console">
+<span class="sig-name descname"><span class="pre">toogle_connect_console</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.toogle_connect_console"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.toogle_connect_console" title="Permalink to this definition"></a></dt>
+<dd><p>Disable (or enable) the loading of web pages in www</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.toogle_url_lock">
+<span class="sig-name descname"><span class="pre">toogle_url_lock</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.toogle_url_lock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.toogle_url_lock" title="Permalink to this definition"></a></dt>
+<dd><p>Disable (or enable) the loading of web pages in www</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.update_connect_console">
+<span class="sig-name descname"><span class="pre">update_connect_console</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.update_connect_console"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.update_connect_console" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.UrlHelp.url_changed">
+<span class="sig-name descname"><span class="pre">url_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#UrlHelp.url_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.UrlHelp.url_changed" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to remove file paths from the url string</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.file2html">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">file2html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#file2html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.file2html" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.help_explorer.html2file">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.help_explorer.</span></span><span class="sig-name descname"><span class="pre">html2file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/help_explorer.html#html2file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.help_explorer.html2file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.fmt_widget.html" class="btn btn-neutral float-left" title="psyplot_gui.fmt_widget module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.main.html" class="btn btn-neutral float-right" title="psyplot_gui.main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

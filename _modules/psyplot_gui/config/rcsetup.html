@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.config.rcsetup &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
+      <li>psyplot_gui.config.rcsetup</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui.config.rcsetup</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Default management of the psyplot_gui package</span>
+
+<span class="sd">This module defines the necessary configuration parts for the psyplot gui&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">psyplot.config.rcsetup</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RcParams</span><span class="p">,</span> <span class="n">psyplot_fname</span><span class="p">,</span> <span class="n">validate_bool_maybe_none</span><span class="p">,</span> <span class="n">validate_stringlist</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib.rcsetup</span> <span class="kn">import</span> <span class="n">validate_int</span><span class="p">,</span> <span class="n">validate_bool</span>
+
+
+<div class="viewcode-block" id="try_and_error"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.try_and_error">[docs]</a><span class="k">def</span> <span class="nf">try_and_error</span><span class="p">(</span><span class="o">*</span><span class="n">funcs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Apply multiple validation functions</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ``*funcs``</span>
+<span class="sd">        Validation functions to test</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    function&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="n">exc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">funcs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">exc</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="k">raise</span> <span class="n">exc</span>
+    <span class="k">return</span> <span class="n">validate</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># ------------------------- validation functions ------------------------------</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="validate_str"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_str">[docs]</a><span class="k">def</span> <span class="nf">validate_str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate a string</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    s: str</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Did not found string!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="validate_none"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_none">[docs]</a><span class="k">def</span> <span class="nf">validate_none</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate that None is given</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    b: {None, &#39;none&#39;}</span>
+<span class="sd">        None or string (the case is ignored)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not convert &quot;</span><span class="si">%s</span><span class="s1">&quot; to None&#39;</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="validate_all"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_all">[docs]</a><span class="k">def</span> <span class="nf">validate_all</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test if ``v == &#39;all&#39;``&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The value must be &#39;all&#39;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GuiRcParams"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams">[docs]</a><span class="k">class</span> <span class="nc">GuiRcParams</span><span class="p">(</span><span class="n">RcParams</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;RcParams for the psyplot-gui package.&quot;&quot;&quot;</span>
+
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="n">RcParams</span><span class="o">.</span><span class="n">HEADER</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+        <span class="s1">&#39;psyplotrc.yml&#39;</span><span class="p">,</span> <span class="s1">&#39;psyplotguirc.yml&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="s1">&#39;PSYPLOTRC&#39;</span><span class="p">,</span> <span class="s1">&#39;psyplotrc.yml&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GuiRcParams.load_from_file"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams.load_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update rcParams from user-defined settings</span>
+
+<span class="sd">        This function updates the instance with what is found in `fname`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname: str</span>
+<span class="sd">            Path to the yaml configuration file. Possible keys of the</span>
+<span class="sd">            dictionary are defined by :data:`config.rcsetup.defaultParams`.</span>
+<span class="sd">            If None, the :func:`config.rcsetup.psyplot_fname` function is used.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        dump_to_file, psyplot_fname&quot;&quot;&quot;</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span> <span class="ow">or</span> <span class="n">psyplot_fname</span><span class="p">(</span><span class="n">env_key</span><span class="o">=</span><span class="s1">&#39;PSYPLOTGUIRC&#39;</span><span class="p">,</span>
+                                       <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;psyplotguirc.yml&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fname</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">GuiRcParams</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_load_plugin_entrypoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load the modules for the psyplot plugins</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        pkg_resources.EntryPoint</span>
+<span class="sd">            The entry point for the psyplot plugin module&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
+        <span class="n">inc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;plugins.include&#39;</span><span class="p">]</span>
+        <span class="n">exc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;plugins.exclude&#39;</span><span class="p">]</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plugins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugins</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="s1">&#39;psyplot_gui&#39;</span><span class="p">):</span>
+            <span class="n">plugin_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">module_name</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">attrs</span><span class="p">),</span>
+                                        <span class="n">ep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="c1"># check if the user wants to explicitly this plugin</span>
+            <span class="n">include_user</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">inc</span><span class="p">:</span>
+                <span class="n">include_user</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">ep</span><span class="o">.</span><span class="n">module_name</span> <span class="ow">in</span> <span class="n">inc</span> <span class="ow">or</span> <span class="n">ep</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">inc</span> <span class="ow">or</span>
+                    <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">module_name</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">attrs</span><span class="p">))</span> <span class="ow">in</span> <span class="n">inc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">include_user</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">exc</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+                <span class="n">include_user</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="n">include_user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># check for exclude</span>
+                <span class="n">include_user</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span>
+                    <span class="n">ep</span><span class="o">.</span><span class="n">module_name</span> <span class="ow">in</span> <span class="n">exc</span> <span class="ow">or</span> <span class="n">ep</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">exc</span> <span class="ow">or</span>
+                    <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">module_name</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">attrs</span><span class="p">))</span> <span class="ow">in</span> <span class="n">exc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">include_user</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Skipping plugin </span><span class="si">%s</span><span class="s1">: Excluded by user&#39;</span><span class="p">,</span>
+                             <span class="n">plugin_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Loading plugin </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plugins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ep</span><span class="p">))</span>
+                <span class="k">yield</span> <span class="n">ep</span>
+
+<div class="viewcode-block" id="GuiRcParams.load_plugins"><a class="viewcode-back" href="../../../api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams.load_plugins">[docs]</a>    <span class="k">def</span> <span class="nf">load_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the plugins for the psyplot_gui MainWindow</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A mapping from entry point name to the imported widget class</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ``*args`` and ``**kwargs`` are ignored</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">format_ep</span><span class="p">(</span><span class="n">ep</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">module_name</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">attrs</span><span class="p">),</span> <span class="n">ep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">format_ep</span><span class="p">(</span><span class="n">ep</span><span class="p">):</span> <span class="n">ep</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_plugin_entrypoints</span><span class="p">()}</span></div></div>
+
+
+<span class="c1">#: :class:`dict` with default values and validation functions</span>
+<span class="n">defaultParams</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1"># gui settings</span>
+    <span class="s1">&#39;backend&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;psyplot&#39;</span><span class="p">,</span>
+        <span class="n">try_and_error</span><span class="p">(</span><span class="n">validate_str</span><span class="p">,</span> <span class="n">validate_none</span><span class="p">),</span>
+        <span class="s1">&#39;Backend to use when using the graphical user interface. The current &#39;</span>
+        <span class="s1">&#39;backend is used and no changes are made. Note that it is usually not &#39;</span>
+        <span class="s1">&#39;possible to change the backend after importing the psyplot.project &#39;</span>
+        <span class="s1">&#39;module. The default backend embeds the figures into the &#39;</span><span class="p">],</span>
+    <span class="s1">&#39;help_explorer.use_webengineview&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;Enable the PyQt5.QtWebEngineWidgets.QWebEngineView which might not &quot;</span>
+        <span class="s2">&quot;work under certain circumstances.&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;help_explorer.use_intersphinx&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">validate_bool_maybe_none</span><span class="p">,</span>
+        <span class="s1">&#39;Use the intersphinx extension and link to the online documentations &#39;</span>
+        <span class="s1">&#39;of matplotlib, pyplot, psyplot, numpy, etc. when converting rst &#39;</span>
+        <span class="s1">&#39;docstrings. The inventories are loaded when the first object is &#39;</span>
+        <span class="s1">&#39;documented. If None, intersphinx is only used when &#39;</span>
+        <span class="s1">&#39;`help_explorer.online` is True and you are not using windows&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;help_explorer.render_docs_parallel&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s1">&#39;Boolean whether the html docs are rendered in a separate process&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;help_explorer.online&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">validate_bool_maybe_none</span><span class="p">,</span>
+        <span class="s1">&#39;Switch that controls whether the online functions of the help &#39;</span>
+        <span class="s1">&#39;explorer shall be enabled. False implies that &#39;</span>
+        <span class="s1">&#39;help_explorer.use_intersphinx is set to False&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;console.start_channels&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s1">&#39;Start the different channels of the KernelClient&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;console.connect_to_help&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s1">&#39;Whether the console shall be connected to the help_explorer or not&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;console.auto_set_mp&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;If True, then the &#39;mp&#39; variable in the console is automatically set &quot;</span>
+        <span class="s2">&quot;when the current main project changes&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;console.auto_set_sp&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;If True, then the &#39;sp&#39; variable in the console is automatically set &quot;</span>
+        <span class="s2">&quot;when the current sub project changes&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;main.open_files_port&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="mi">30124</span><span class="p">,</span> <span class="n">validate_int</span><span class="p">,</span> <span class="s2">&quot;The port number used when new files are opened&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;main.listen_to_port&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;If True and the psyplot gui is already running, new files are opened &quot;</span>
+        <span class="s2">&quot;in that gui&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;main.opengl&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;software&#39;</span><span class="p">,</span> <span class="n">validate_str</span><span class="p">,</span>
+        <span class="s2">&quot;The opengl implementation to use. Should be one of &#39;software&#39;, &quot;</span>
+        <span class="s2">&quot;&#39;desktop&#39;, &#39;gles&#39; or &#39;automatic&#39;.&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;content.load_tooltips&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;If True, a lazy load is performed on the arrays and data sets and &quot;</span>
+        <span class="s2">&quot;their string representation is displayed as tool tip. This part of &quot;</span>
+        <span class="s2">&quot;the data into memory. It is recommended to set this to False for &quot;</span>
+        <span class="s2">&quot;remote data.&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;fmt.sort_by_key&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">True</span><span class="p">,</span> <span class="n">validate_bool</span><span class="p">,</span>
+        <span class="s2">&quot;If True, the formatoptions in the Formatoptions widget are sorted by &quot;</span>
+        <span class="s2">&quot;their formatoption key rather than by their name.&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;plugins.include&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">try_and_error</span><span class="p">(</span><span class="n">validate_none</span><span class="p">,</span> <span class="n">validate_stringlist</span><span class="p">),</span>
+        <span class="s2">&quot;The plugins to load. Can be either None to load all that are not &quot;</span>
+        <span class="s2">&quot;explicitly excluded by the &#39;plugins.exclude&#39; key or a list of &quot;</span>
+        <span class="s2">&quot;plugins to include. List items can be either module names, plugin &quot;</span>
+        <span class="s2">&quot;names or the module name and widget via &#39;&lt;module_name&gt;:&lt;widget&gt;&#39;&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;plugins.exclude&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[],</span> <span class="n">try_and_error</span><span class="p">(</span><span class="n">validate_all</span><span class="p">,</span> <span class="n">validate_stringlist</span><span class="p">),</span>
+        <span class="s2">&quot;The plugins to exclude from loading. Can be either &#39;all&#39; to exclude &quot;</span>
+        <span class="s2">&quot;all plugins or a list like in &#39;plugins.include&#39;.&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+<span class="c1">#: :class:`~psyplot.config.rcsetup.RcParams` instance that stores default</span>
+<span class="c1">#: formatoptions and configuration settings.</span>
+<span class="n">rcParams</span> <span class="o">=</span> <span class="n">GuiRcParams</span><span class="p">(</span><span class="n">defaultParams</span><span class="o">=</span><span class="n">defaultParams</span><span class="p">)</span>
+<span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">defaultParams</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+<span class="n">rcParams</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

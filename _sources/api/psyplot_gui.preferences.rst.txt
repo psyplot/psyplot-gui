@@ -1,0 +1,7 @@
+psyplot\_gui.preferences module
+===============================
+
+.. automodule:: psyplot_gui.preferences
+   :members:
+   :undoc-members:
+   :show-inheritance:

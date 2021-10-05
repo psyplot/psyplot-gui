@@ -1,0 +1,7 @@
+psyplot\_gui.dependencies module
+================================
+
+.. automodule:: psyplot_gui.dependencies
+   :members:
+   :undoc-members:
+   :show-inheritance:

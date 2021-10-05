@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration of the GUI &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command line usage" href="command_line.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Configuration of the GUI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration-of-the-gui">
+<span id="configuration"></span><h1>Configuration of the GUI<a class="headerlink" href="#configuration-of-the-gui" title="Permalink to this headline"></a></h1>
+<p>As psyplot is configured by the <code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.rcParams</span></code>,
+psyplot-gui is configured by the <a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot_gui.config.rcsetup.rcParams</span></code></a>
+dictionary.</p>
+<p>Both dictionaries can also be modified through the <em>Preferences</em>
+widget (on MacOS, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Command</kbd>+<kbd class="kbd docutils literal notranslate">,</kbd></kbd>, on Windows and Linux:
+<span class="menuselection">Help ‣ Preferences</span>).</p>
+<p>As for <code class="docutils literal notranslate"><span class="pre">psyplot</span></code>, the rcParams are stored in the psyplot configuration
+directory, which is, under Linux and OSX by default, located at
+<code class="docutils literal notranslate"><span class="pre">$HOME/.config/psyplot/psyplotguirc.yml</span></code> and under Windows at
+<code class="docutils literal notranslate"><span class="pre">$HOME/.psyplot/psyplotguirc.yml</span></code>.
+This file might look like</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">psyplot_gui</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="gp">In [2]: </span><span class="nb">print</span><span class="p">(</span><span class="n">rcParams</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+<span class="go"># Configuration parameters of the psyplot module</span>
+<span class="go"># </span>
+<span class="go"># You can copy this file (or parts of it) to another path and save it as</span>
+<span class="go"># psyplotguirc.yml. The directory should then be stored in the PSYPLOTCONFIGDIR</span>
+<span class="go"># environment variable.</span>
+<span class="go"># </span>
+<span class="go"># psyplot gui version: 1.3.0+7.g7a27640</span>
+<span class="go"># </span>
+<span class="go"># Created with python</span>
+<span class="go"># </span>
+<span class="go"># 3.8.12 | packaged by conda-forge | (default, Sep 29 2021, 19:52:28) </span>
+<span class="go"># [GCC 9.4.0]</span>
+<span class="go"># </span>
+<span class="go"># </span>
+<span class="go"># Backend to use when using the graphical user interface. The current backend is used and no changes are made. Note that it is usually not possible to change the backend after importing the psyplot.project module. The default backend embeds the figures into the </span>
+<span class="go">backend: psyplot</span>
+<span class="go"># If True, then the &#39;mp&#39; variable in the console is automatically set when the current main project changes</span>
+<span class="go">console.auto_set_mp: true</span>
+<span class="go"># If True, then the &#39;sp&#39; variable in the console is automatically set when the current sub project changes</span>
+<span class="go">console.auto_set_sp: true</span>
+<span class="go"># Whether the console shall be connected to the help_explorer or not</span>
+<span class="go">console.connect_to_help: true</span>
+<span class="go"># Start the different channels of the KernelClient</span>
+<span class="go">console.start_channels: true</span>
+<span class="go"># If True, a lazy load is performed on the arrays and data sets and their string representation is displayed as tool tip. This part of the data into memory. It is recommended to set this to False for remote data.</span>
+<span class="go">content.load_tooltips: true</span>
+<span class="go"># If True, the formatoptions in the Formatoptions widget are sorted by their formatoption key rather than by their name.</span>
+<span class="go">fmt.sort_by_key: true</span>
+<span class="go"># Switch that controls whether the online functions of the help explorer shall be enabled. False implies that help_explorer.use_intersphinx is set to False</span>
+<span class="go">help_explorer.online: null</span>
+<span class="go"># Boolean whether the html docs are rendered in a separate process</span>
+<span class="go">help_explorer.render_docs_parallel: true</span>
+<span class="go"># Use the intersphinx extension and link to the online documentations of matplotlib, pyplot, psyplot, numpy, etc. when converting rst docstrings. The inventories are loaded when the first object is documented. If None, intersphinx is only used when `help_explorer.online` is True and you are not using windows</span>
+<span class="go">help_explorer.use_intersphinx: null</span>
+<span class="go"># Enable the PyQt5.QtWebEngineWidgets.QWebEngineView which might not work under certain circumstances.</span>
+<span class="go">help_explorer.use_webengineview: true</span>
+<span class="go"># If True and the psyplot gui is already running, new files are opened in that gui</span>
+<span class="go">main.listen_to_port: true</span>
+<span class="go"># The port number used when new files are opened</span>
+<span class="go">main.open_files_port: 30124</span>
+<span class="go"># The opengl implementation to use. Should be one of &#39;software&#39;, &#39;desktop&#39;, &#39;gles&#39; or &#39;automatic&#39;.</span>
+<span class="go">main.opengl: software</span>
+<span class="go"># The plugins to exclude from loading. Can be either &#39;all&#39; to exclude all plugins or a list like in &#39;plugins.include&#39;.</span>
+<span class="go">plugins.exclude: []</span>
+<span class="go"># The plugins to load. Can be either None to load all that are not explicitly excluded by the &#39;plugins.exclude&#39; key or a list of plugins to include. List items can be either module names, plugin names or the module name and widget via &#39;&lt;module_name&gt;:&lt;widget&gt;&#39;</span>
+<span class="go">plugins.include: null</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="command_line.html" class="btn btn-neutral float-right" title="Command line usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

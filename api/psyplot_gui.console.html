@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.console module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.content_widget module" href="psyplot_gui.content_widget.html" />
+    <link rel="prev" title="psyplot_gui.common module" href="psyplot_gui.common.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.console module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.console.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.console">
+<span id="psyplot-gui-console-module"></span><h1>psyplot_gui.console module<a class="headerlink" href="#module-psyplot_gui.console" title="Permalink to this headline"></a></h1>
+<p>An example of opening up an RichJupyterWidget in a PyQT Application, this can
+execute either stand-alone or by importing this file and calling
+inprocess_qtconsole.show().
+Based on the earlier example in the IPython repository, this has
+been updated to use qtconsole.</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConsoleWidget</span></code>(**kwargs)</p></td>
+<td><p>A console widget to access an inprocess shell</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">IPythonControl</span></code></p></td>
+<td><p>A modified control to show the help of objects in the help explorer</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_asyncio_patch</span></code>()</p></td>
+<td><p>set default asyncio policy to be compatible with tornado Tornado 6 (at least) is not compatible with the default asyncio implementation on Windows Pick the older SelectorEventLoopPolicy on Windows if the known-incompatible default policy is in use. do this as early as possible to make it a low priority and overrideable ref: <a class="reference external" href="https://github.com/tornadoweb/tornado/issues/2608">https://github.com/tornadoweb/tornado/issues/2608</a> FIXME: if/when tornado supports the defaults in asyncio,        remove and bump tornado requirement for py38.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.console.</span></span><span class="sig-name descname"><span class="pre">ConsoleWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qtconsole.inprocess.QtInProcessRichJupyterWidget</span></code>, <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.common.DockMixin</span></code></a></p>
+<p>A console widget to access an inprocess shell</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>help_explorer</strong> (<a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer" title="psyplot_gui.help_explorer.HelpExplorer"><em>psyplot_gui.help_explorer.HelpExplorer</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – A widget that can be used to show the documentation of an object</p></li>
+<li><p><strong>``*args</strong> – <p>Any other keyword argument for the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">qtconsole.rich_jupyter_widget.RichJupyterWidget</span></code></p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – <p>Any other keyword argument for the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">qtconsole.rich_jupyter_widget.RichJupyterWidget</span></code></p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">eventFilter</span></code>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to ensure a console-like behavior in the underlying text widgets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_current_object</span></code>([to_end])</p></td>
+<td><p>Get the name of the object at cursor position</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_obj</span></code>(obj_text)</p></td>
+<td><p>Get the object from the shell specified by <cite>obj_text</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_command_in_shell</span></code>(code, *args, **kwargs)</p></td>
+<td><p>Run a script in the shell</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_script_in_shell</span></code>(script)</p></td>
+<td><p>Run a script in the shell</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_current_help</span></code>([to_end, force])</p></td>
+<td><p>Show the help of the object at the cursor position if <code class="docutils literal notranslate"><span class="pre">rcParams['console.connect_to_help']</span></code> is set</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_mp</span></code>(project)</p></td>
+<td><p>Update the <cite>mp</cite> variable in the shell is <code class="docutils literal notranslate"><span class="pre">rcParams['console.auto_set_mp']</span></code> with a main project</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_sp</span></code>(project)</p></td>
+<td><p>Update the <cite>sp</cite> variable in the shell is <code class="docutils literal notranslate"><span class="pre">rcParams['console.auto_set_sp']</span></code> with a sub project</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">custom_control</span></code></p></td>
+<td><p>alias of <a class="reference internal" href="#psyplot_gui.console.IPythonControl" title="psyplot_gui.console.IPythonControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.console.IPythonControl</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dock_position</span></code></p></td>
+<td><p>The position of the plugin</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">intro_msg</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_command</span></code>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_script</span></code>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>The title of the plugin</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.custom_control">
+<span class="sig-name descname"><span class="pre">custom_control</span></span><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.custom_control" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#psyplot_gui.console.IPythonControl" title="psyplot_gui.console.IPythonControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.console.IPythonControl</span></code></a>
+<strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyPressEvent</span></code>(event)</p></td>
+<td><p>Reimplement Qt Method - Basic keypress event handler</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.dock_position">
+<span class="sig-name descname"><span class="pre">dock_position</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.dock_position" title="Permalink to this definition"></a></dt>
+<dd><p>The position of the plugin</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.eventFilter" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to ensure a console-like behavior in the underlying
+text widgets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.get_current_object">
+<span class="sig-name descname"><span class="pre">get_current_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.get_current_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.get_current_object" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of the object at cursor position</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.get_obj">
+<span class="sig-name descname"><span class="pre">get_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.get_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.get_obj" title="Permalink to this definition"></a></dt>
+<dd><p>Get the object from the shell specified by <cite>obj_text</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj_text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the variable as it is stored in the shell</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>bool</em> – True, if the object could be found</p></li>
+<li><p><em>object or None</em> – The requested object or None if it could not be found</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.intro_msg">
+<span class="sig-name descname"><span class="pre">intro_msg</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.intro_msg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.rc">
+<span class="sig-name descname"><span class="pre">rc</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'auto_set_mp':</span> <span class="pre">True,</span> <span class="pre">'auto_set_sp':</span> <span class="pre">True,</span> <span class="pre">'connect_to_help':</span> <span class="pre">True,</span> <span class="pre">'start_channels':</span> <span class="pre">True}</span></em><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.rc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.run_command">
+<span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.run_command" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.run_command_in_shell">
+<span class="sig-name descname"><span class="pre">run_command_in_shell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.run_command_in_shell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.run_command_in_shell" title="Permalink to this definition"></a></dt>
+<dd><p>Run a script in the shell</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.run_script">
+<span class="sig-name descname"><span class="pre">run_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.run_script" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.run_script_in_shell">
+<span class="sig-name descname"><span class="pre">run_script_in_shell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.run_script_in_shell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.run_script_in_shell" title="Permalink to this definition"></a></dt>
+<dd><p>Run a script in the shell</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.show_current_help">
+<span class="sig-name descname"><span class="pre">show_current_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.show_current_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.show_current_help" title="Permalink to this definition"></a></dt>
+<dd><p>Show the help of the object at the cursor position if
+<code class="docutils literal notranslate"><span class="pre">rcParams['console.connect_to_help']</span></code> is set</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Console'</span></em><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.title" title="Permalink to this definition"></a></dt>
+<dd><p>The title of the plugin</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.update_mp">
+<span class="sig-name descname"><span class="pre">update_mp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.update_mp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.update_mp" title="Permalink to this definition"></a></dt>
+<dd><p>Update the <cite>mp</cite> variable in the shell is
+<code class="docutils literal notranslate"><span class="pre">rcParams['console.auto_set_mp']</span></code> with a main project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.ConsoleWidget.update_sp">
+<span class="sig-name descname"><span class="pre">update_sp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#ConsoleWidget.update_sp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.ConsoleWidget.update_sp" title="Permalink to this definition"></a></dt>
+<dd><p>Update the <cite>sp</cite> variable in the shell is
+<code class="docutils literal notranslate"><span class="pre">rcParams['console.auto_set_sp']</span></code> with a sub project</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.console.IPythonControl">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.console.</span></span><span class="sig-name descname"><span class="pre">IPythonControl</span></span><a class="reference internal" href="../_modules/psyplot_gui/console.html#IPythonControl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.IPythonControl" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTextEdit</span></code></p>
+<p>A modified control to show the help of objects in the help explorer</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyPressEvent</span></code>(event)</p></td>
+<td><p>Reimplement Qt Method - Basic keypress event handler</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.console.IPythonControl.keyPressEvent">
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#IPythonControl.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.IPythonControl.keyPressEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplement Qt Method - Basic keypress event handler</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.console.init_asyncio_patch">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.console.</span></span><span class="sig-name descname"><span class="pre">init_asyncio_patch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/console.html#init_asyncio_patch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.console.init_asyncio_patch" title="Permalink to this definition"></a></dt>
+<dd><p>set default asyncio policy to be compatible with tornado
+Tornado 6 (at least) is not compatible with the default
+asyncio implementation on Windows
+Pick the older SelectorEventLoopPolicy on Windows
+if the known-incompatible default policy is in use.
+do this as early as possible to make it a low priority and overrideable
+ref: <a class="reference external" href="https://github.com/tornadoweb/tornado/issues/2608">https://github.com/tornadoweb/tornado/issues/2608</a>
+FIXME: if/when tornado supports the defaults in asyncio,</p>
+<blockquote>
+<div><p>remove and bump tornado requirement for py38</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.common.html" class="btn btn-neutral float-left" title="psyplot_gui.common module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.content_widget.html" class="btn btn-neutral float-right" title="psyplot_gui.content_widget module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

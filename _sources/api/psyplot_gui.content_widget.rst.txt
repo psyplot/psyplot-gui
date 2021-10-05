@@ -1,0 +1,7 @@
+psyplot\_gui.content\_widget module
+===================================
+
+.. automodule:: psyplot_gui.content_widget
+   :members:
+   :undoc-members:
+   :show-inheritance:

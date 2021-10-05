@@ -1,0 +1,15 @@
+psyplot\_gui.sphinx\_supp package
+=================================
+
+.. automodule:: psyplot_gui.sphinx_supp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   psyplot_gui.sphinx_supp.conf

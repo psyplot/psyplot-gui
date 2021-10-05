@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.dependencies &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
+      <li>psyplot_gui.dependencies</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui.dependencies</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Dependencies widget of the psyplot package</span>
+
+<span class="sd">This module defines the :class:`DependenciesWidget` that shows the versions of</span>
+<span class="sd">of psyplot, psyplot_gui, psyplot plugins and their requirements&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QDialog</span><span class="p">,</span> <span class="n">QTreeWidget</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span> <span class="n">QAction</span><span class="p">,</span>
+    <span class="n">Qt</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QAbstractItemView</span><span class="p">,</span>
+    <span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">psyplot.docstring</span> <span class="kn">import</span> <span class="n">docstrings</span>
+
+
+<div class="viewcode-block" id="DependenciesTree"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree">[docs]</a><span class="k">class</span> <span class="nc">DependenciesTree</span><span class="p">(</span><span class="n">QTreeWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A tree widget to display dependencies</span>
+
+<span class="sd">    This widget uses a dictionary as created through the</span>
+<span class="sd">    :func:`psyplot.get_versions` function to display the requirements and</span>
+<span class="sd">    versions.&quot;&quot;&quot;</span>
+
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">get_sections</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;DependenciesTree&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        versions: dict</span>
+<span class="sd">            The dictionary that contains the version information</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        psyplot.get_versions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DependenciesTree</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resizeColumnToContents</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s1">&#39;Package&#39;</span><span class="p">,</span> <span class="s1">&#39;installed version&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_dependencies</span><span class="p">(</span><span class="n">versions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expandAll</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resizeColumnToContents</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customContextMenuRequested</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_menu</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DependenciesTree.add_dependencies"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree.add_dependencies">[docs]</a>    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="nf">add_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the version informations to the tree</span>
+
+<span class="sd">        This method creates an QTreeWidgetItem for each package in `versions`</span>
+<span class="sd">        and adds it to this tree.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        %(DependenciesTree.parameters)s</span>
+<span class="sd">        parent: QTreeWidgetItem</span>
+<span class="sd">            The parent of the newly created items for the packages in</span>
+<span class="sd">            `versions`. If None, the newly created items are inserted as</span>
+<span class="sd">            top level items into the tree</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pkg</span><span class="p">,</span> <span class="n">pkg_d</span> <span class="ow">in</span> <span class="n">versions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">new_item</span> <span class="o">=</span> <span class="n">QTreeWidgetItem</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">new_item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pkg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pkg_d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">new_item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pkg_d</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pkg_d</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addTopLevelItem</span><span class="p">(</span><span class="n">new_item</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">new_item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;requirements&#39;</span> <span class="ow">in</span> <span class="n">pkg_d</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_dependencies</span><span class="p">(</span><span class="n">pkg_d</span><span class="p">[</span><span class="s1">&#39;requirements&#39;</span><span class="p">],</span> <span class="n">new_item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DependenciesTree.open_menu"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree.open_menu">[docs]</a>    <span class="k">def</span> <span class="nf">open_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a menu to expand and collapse all items in the tree</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position: QPosition</span>
+<span class="sd">            The position where to open the menu&quot;&quot;&quot;</span>
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">()</span>
+        <span class="n">expand_all_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Expand all&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">expand_all_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expandAll</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">expand_all_action</span><span class="p">)</span>
+        <span class="n">collapse_all_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Collapse all&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">collapse_all_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collapseAll</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">collapse_all_action</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">position</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="DependenciesDialog"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog">[docs]</a><span class="k">class</span> <span class="nc">DependenciesDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A dialog for displaying the dependencies&quot;&quot;&quot;</span>
+
+    <span class="c1">#: description label</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: the QVBoxLayout containing all the widgets</span>
+    <span class="n">vbox</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The :class:`DependenciesTree` that contains the package infos</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The QPushButton used for copying selected packages to the clipboard</span>
+    <span class="n">bt_copy</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: A simple info label for info messages</span>
+    <span class="n">info_label</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: A QTimer that clears the :attr:`info_label` after some time</span>
+    <span class="n">timer</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">versions</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        %(DependenciesTree.parameters)s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DependenciesDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Dependencies&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">versions</span> <span class="o">=</span> <span class="n">versions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vbox</span> <span class="o">=</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            psyplot and the plugins depend on several python libraries. The</span>
+<span class="s2">            tree widget below lists the versions of the plugins and the</span>
+<span class="s2">            requirements. You can select the items in the tree and copy them to</span>
+<span class="s2">            clipboard.&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">DependenciesTree</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">.</span><span class="n">MultiSelection</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+
+        <span class="c1"># copy button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bt_copy</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Copy selection to clipboard&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bt_copy</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
+            <span class="s1">&#39;Copy the selected packages in the above table to the clipboard.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bt_copy</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_selected</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="p">(</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+
+        <span class="n">hbox</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">hbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bt_copy</span><span class="p">)</span>
+        <span class="n">hbox</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">hbox</span><span class="p">)</span>
+
+        <span class="c1">#: A label for simple status update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DependenciesDialog.copy_selected"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.copy_selected">[docs]</a>    <span class="k">def</span> <span class="nf">copy_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Copy the selected versions and items to the clipboard&quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;No packages selected!&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;Please select packages in the tree!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Packages copied to clipboard.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DependenciesDialog.clear_label"><a class="viewcode-back" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.clear_label">[docs]</a>    <span class="k">def</span> <span class="nf">clear_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the info label&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

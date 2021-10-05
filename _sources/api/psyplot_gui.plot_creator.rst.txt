@@ -1,0 +1,7 @@
+psyplot\_gui.plot\_creator module
+=================================
+
+.. automodule:: psyplot_gui.plot_creator
+   :members:
+   :undoc-members:
+   :show-inheritance:

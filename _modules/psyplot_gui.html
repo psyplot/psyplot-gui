@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>psyplot_gui</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Core package for the psyplot graphical user interface&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">osp</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">atexit</span>
+<span class="kn">import</span> <span class="nn">fasteners</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">psyplot</span>
+<span class="kn">from</span> <span class="nn">psyplot.__main__</span> <span class="kn">import</span> <span class="n">make_plot</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.config.rcsetup</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">import</span> <span class="nn">psyplot_gui.config</span> <span class="k">as</span> <span class="nn">config</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">psyplot.config.rcsetup</span> <span class="kn">import</span> <span class="n">get_configdir</span><span class="p">,</span> <span class="n">safe_list</span>
+<span class="kn">from</span> <span class="nn">psyplot.docstring</span> <span class="kn">import</span> <span class="n">docstrings</span>
+<span class="kn">from</span> <span class="nn">psyplot.warning</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">psyplot.compat.pycompat</span> <span class="kn">import</span> <span class="nb">map</span>
+
+
+<span class="kn">from</span> <span class="nn">._version</span> <span class="kn">import</span> <span class="n">get_versions</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">get_versions</span><span class="p">()[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">get_versions</span>
+
+
+<span class="kn">from</span> <span class="nn">psyplot.compat.pycompat</span> <span class="kn">import</span> <span class="n">get_default_value</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Philipp S. Sommer&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2016 - 2020, Philipp S. Sommer&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Philipp S. Sommer&quot;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GPL-2.0-only&quot;</span>
+
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Philipp S. Sommer&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;philipp.sommer@hzg.de&quot;</span>
+
+<span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Production&quot;</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: Initializing psyplot gui, version </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="n">__version__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;psyplot version: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">psyplot</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Logging configuration file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">logcfg_path</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Configuration file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">config_path</span><span class="p">)</span>
+
+
+<span class="n">rcParams</span><span class="o">.</span><span class="n">HEADER</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">psyplot gui version: &quot;</span> <span class="o">+</span> <span class="n">__version__</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_versions"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.get_versions">[docs]</a><span class="k">def</span> <span class="nf">get_versions</span><span class="p">(</span><span class="n">requirements</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">requirements</span><span class="p">:</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;requirements&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">qtconsole</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Could not load qtconsole!&#39;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">req</span><span class="p">[</span><span class="s1">&#39;qtconsole&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">qtconsole</span><span class="o">.</span><span class="n">__version__</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="n">PYQT_VERSION</span><span class="p">,</span> <span class="n">QT_VERSION</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Could not load qt and pyqt!&#39;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">req</span><span class="p">[</span><span class="s1">&#39;qt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">QT_VERSION</span>
+            <span class="n">req</span><span class="p">[</span><span class="s1">&#39;pyqt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PYQT_VERSION</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="start_app"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.start_app">[docs]</a><span class="nd">@docstrings</span><span class="o">.</span><span class="n">get_sections</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;psyplot_gui.start_app&#39;</span><span class="p">)</span>
+<span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+<span class="k">def</span> <span class="nf">start_app</span><span class="p">(</span><span class="n">fnames</span><span class="o">=</span><span class="p">[],</span> <span class="n">name</span><span class="o">=</span><span class="p">[],</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">formatoptions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">tight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enable_post</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">seaborn_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_project</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">concat_dim</span><span class="o">=</span><span class="n">get_default_value</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">,</span> <span class="s1">&#39;concat_dim&#39;</span><span class="p">),</span>
+              <span class="n">chname</span><span class="o">=</span><span class="p">{},</span>
+              <span class="n">backend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">new_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rc_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">rc_gui_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_plugins</span><span class="o">=</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.include&#39;</span><span class="p">],</span>
+              <span class="n">exclude_plugins</span><span class="o">=</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.exclude&#39;</span><span class="p">],</span> <span class="n">offline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">pwd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">script</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exec_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">opengl_implementation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">webengineview</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eventually start the QApplication or only make a plot</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    %(make_plot.parameters)s</span>
+<span class="sd">    backend: None or str</span>
+<span class="sd">        The backend to use. By default, the ``&#39;gui.backend&#39;`` key in the</span>
+<span class="sd">        :attr:`~psyplot_gui.config.rcsetup.rcParams` dictionary is used.</span>
+<span class="sd">        Otherwise it can be None to use the standard matplotlib backend or a</span>
+<span class="sd">        string identifying the backend</span>
+<span class="sd">    new_instance: bool</span>
+<span class="sd">        If True/set and the `output` parameter is not set, a new application is</span>
+<span class="sd">        created</span>
+<span class="sd">    rc_gui_file: str</span>
+<span class="sd">        The path to a yaml configuration file that can be used to update  the</span>
+<span class="sd">        :attr:`~psyplot_gui.config.rcsetup.rcParams`</span>
+<span class="sd">    include_plugins: list of str</span>
+<span class="sd">        The plugin widget to include. Can be either None to load all that are</span>
+<span class="sd">        not explicitly excluded by `exclude_plugins` or a list of</span>
+<span class="sd">        plugins to include. List items can be either module names, plugin</span>
+<span class="sd">        names or the module name and widget via ``&#39;&lt;module_name&gt;:&lt;widget&gt;&#39;``</span>
+<span class="sd">    exclude_plugins: list of str</span>
+<span class="sd">        The plugin widgets to exclude. Can be either ``&#39;all&#39;`` to exclude</span>
+<span class="sd">        all plugins or a list like in `include_plugins`.</span>
+<span class="sd">    offline: bool</span>
+<span class="sd">        If True/set, psyplot will be started in offline mode without</span>
+<span class="sd">        intersphinx and remote access for the help explorer</span>
+<span class="sd">    pwd: str</span>
+<span class="sd">        The path to the working directory to use. Note if you do not provide</span>
+<span class="sd">        any `fnames` or `project`, but set the `pwd`, it will switch the</span>
+<span class="sd">        `pwd` of the current GUI.</span>
+<span class="sd">    script: str</span>
+<span class="sd">        The path to a python script that shall be run in the GUI. If the GUI</span>
+<span class="sd">        is already running, the commands will be executed in this GUI.</span>
+<span class="sd">    command: str</span>
+<span class="sd">        Python commands that shall be run in the GUI. If the GUI is already</span>
+<span class="sd">        running, the commands will be executed in this GUI</span>
+<span class="sd">    use_all: bool</span>
+<span class="sd">        If True, use all variables. Note that this is the default if the</span>
+<span class="sd">        `output` is specified and not `name`</span>
+<span class="sd">    exec_: bool</span>
+<span class="sd">        If True, the main loop is entered.</span>
+<span class="sd">    callback: str</span>
+<span class="sd">        A unique identifier for the method that should be used if psyplot is</span>
+<span class="sd">        already running. Set this parameter to None to avoid sending</span>
+<span class="sd">    opengl_implementation: {&#39;software&#39;, &#39;desktop&#39;, &#39;gles&#39;, &#39;automatic&#39;}</span>
+<span class="sd">        OpenGL implementation to pass to Qt. Possible options are</span>
+<span class="sd">        &#39;software&#39;, &#39;desktop&#39;, &#39;gles&#39; and &#39;automatic&#39; (which let&#39;s PyQt</span>
+<span class="sd">        decide).</span>
+<span class="sd">    webengineview: bool</span>
+<span class="sd">        If True (default), use an HTML help widget. This might not be available</span>
+<span class="sd">        for all builds of PyQt5 under all circumstances. If not set, the</span>
+<span class="sd">        rcParams key ``&#39;help_explorer.use_webengineview&#39;`` is used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None or :class:`psyplot_gui.main.MainWindow`</span>
+<span class="sd">        ``None`` if `exec_` is True, otherwise the created</span>
+<span class="sd">        :class:`~psyplot_gui.main.MainWindow` instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">script</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="n">name</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">dims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The `name` and `dims` parameter are ignored if the `project`&#39;</span>
+             <span class="s1">&#39; parameter is set!&#39;</span><span class="p">)</span>
+
+    <span class="c1"># load rcParams from file</span>
+    <span class="k">if</span> <span class="n">rc_gui_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rcParams</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">rc_gui_file</span><span class="p">)</span>
+
+    <span class="c1"># set plugins</span>
+    <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.include&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_plugins</span>
+    <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.exclude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exclude_plugins</span>
+    <span class="k">if</span> <span class="n">webengineview</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;help_explorer.use_webengineview&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">webengineview</span>
+
+    <span class="k">if</span> <span class="n">offline</span><span class="p">:</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;help_explorer.online&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;help_explorer.use_intersphinx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">,</span> <span class="n">dims</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">make_plot</span><span class="p">(</span>
+            <span class="n">fnames</span><span class="o">=</span><span class="n">fnames</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="n">plot_method</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
+            <span class="n">formatoptions</span><span class="o">=</span><span class="n">formatoptions</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="n">tight</span><span class="p">,</span> <span class="n">rc_file</span><span class="o">=</span><span class="n">rc_file</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">enable_post</span><span class="o">=</span><span class="n">enable_post</span><span class="p">,</span>
+            <span class="n">seaborn_style</span><span class="o">=</span><span class="n">seaborn_style</span><span class="p">,</span> <span class="n">output_project</span><span class="o">=</span><span class="n">output_project</span><span class="p">,</span>
+            <span class="n">concat_dim</span><span class="o">=</span><span class="n">concat_dim</span><span class="p">,</span> <span class="n">chname</span><span class="o">=</span><span class="n">chname</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">use_all</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">safe_list</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">formatoptions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formatoptions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># list of dicts</span>
+            <span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="n">formatoptions</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">formatoptions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+            <span class="n">formatoptions</span> <span class="o">=</span> <span class="n">formatoptions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">preset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
+            <span class="n">preset_data</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">_load_preset</span><span class="p">(</span><span class="n">preset</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">preset_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">preset_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">formatoptions</span><span class="p">)</span>
+        <span class="n">preset</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;psy_&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.yml&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">preset</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">preset_data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># make preset path absolute</span>
+    <span class="k">if</span> <span class="n">preset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">preset</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="n">osp</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">preset</span><span class="p">):</span>
+        <span class="n">preset</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">preset</span><span class="p">)</span>
+
+    <span class="c1"># Lock file creation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">new_instance</span><span class="p">:</span>
+        <span class="n">lock_file</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_configdir</span><span class="p">(),</span> <span class="s1">&#39;psyplot.lock&#39;</span><span class="p">)</span>
+        <span class="n">lock</span> <span class="o">=</span> <span class="n">fasteners</span><span class="o">.</span><span class="n">InterProcessLock</span><span class="p">(</span><span class="n">lock_file</span><span class="p">)</span>
+
+        <span class="c1"># Try to lock psyplot.lock. If it&#39;s *possible* to do it, then</span>
+        <span class="c1"># there is no previous instance running and we can start a</span>
+        <span class="c1"># new one. If *not*, then there is an instance already</span>
+        <span class="c1"># running, which is locking that file</span>
+        <span class="n">lock_created</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lock_created</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">chname</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">chname</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">lock_created</span><span class="p">:</span>
+        <span class="c1"># Start a new instance</span>
+        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">new_instance</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fnames</span> <span class="ow">or</span> <span class="n">project</span><span class="p">:</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="s1">&#39;new_plot&#39;</span>
+            <span class="k">elif</span> <span class="n">pwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="s1">&#39;change_cwd&#39;</span>
+                <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">pwd</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">script</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="s1">&#39;run_script&#39;</span>
+                <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">script</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="s1">&#39;command&#39;</span>
+                <span class="n">engine</span> <span class="o">=</span> <span class="n">command</span>
+        <span class="k">if</span> <span class="n">callback</span><span class="p">:</span>
+            <span class="n">send_files_to_psyplot</span><span class="p">(</span>
+                <span class="n">callback</span><span class="p">,</span> <span class="n">fnames</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">plot_method</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span>
+                <span class="n">encoding</span><span class="p">,</span> <span class="n">enable_post</span><span class="p">,</span> <span class="n">seaborn_style</span><span class="p">,</span> <span class="n">concat_dim</span><span class="p">,</span> <span class="n">chname</span><span class="p">,</span>
+                <span class="n">preset</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="n">new_instance</span><span class="p">:</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.listen_to_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">backend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;backend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">backend</span>
+    <span class="kn">from</span> <span class="nn">psyplot_gui.main</span> <span class="kn">import</span> <span class="n">MainWindow</span>
+    <span class="n">fnames</span> <span class="o">=</span> <span class="n">_get_abs_names</span><span class="p">(</span><span class="n">fnames</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">project</span> <span class="o">=</span> <span class="n">_get_abs_names</span><span class="p">([</span><span class="n">project</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">exec_</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="n">QApplication</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="n">_set_opengl_implementation</span><span class="p">(</span><span class="n">opengl_implementation</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_instance</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="n">mainwindow</span> <span class="o">=</span> <span class="n">new_instance</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mainwindow</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fnames</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">plot_method</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                    <span class="n">dims</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">enable_post</span><span class="p">,</span> <span class="n">seaborn_style</span><span class="p">,</span>
+                                    <span class="n">concat_dim</span><span class="p">,</span> <span class="n">chname</span><span class="p">,</span> <span class="n">preset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">script</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mainwindow</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">run_script_in_shell</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mainwindow</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">run_command_in_shell</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">exec_</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">excepthook</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mainwindow</span></div>
+
+
+<div class="viewcode-block" id="send_files_to_psyplot"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.send_files_to_psyplot">[docs]</a><span class="k">def</span> <span class="nf">send_files_to_psyplot</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">fnames</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple socket client used to send the args passed to the psyplot</span>
+<span class="sd">    executable to an already running instance.</span>
+
+<span class="sd">    This function has to most parts been taken from spyder</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.open_files_port&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Wait ~50 secs for the server to be up</span>
+    <span class="c1"># Taken from http://stackoverflow.com/a/4766598/438386</span>
+    <span class="k">for</span> <span class="n">_x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+        <span class="n">fnames</span> <span class="o">=</span> <span class="n">_get_abs_names</span><span class="p">(</span><span class="n">fnames</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">_get_abs_names</span><span class="p">([</span><span class="n">project</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">,</span>
+                                   <span class="n">socket</span><span class="o">.</span><span class="n">IPPROTO_TCP</span><span class="p">)</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="n">callback</span><span class="p">,</span> <span class="n">fnames</span><span class="p">,</span> <span class="n">project</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">break</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_abs_names</span><span class="p">(</span><span class="n">fnames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the absolute paths of the given filenames&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fnames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fnames</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">fname</span><span class="p">:</span>
+            <span class="n">fnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">abspath</span><span class="p">,</span> <span class="n">fname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">fnames</span>
+
+
+<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">(</span><span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a parser to make that can be used to make plots or open files</span>
+<span class="sd">    from the command line</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    psyplot.parser.FuncArgParser</span>
+<span class="sd">        The :class:`argparse.ArgumentParser` instance</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    psyplot.main.get_parser</span>
+<span class="sd">    psyplot.parser.FuncArgParser</span>
+<span class="sd">    psyplot.main.main&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">psyplot.__main__</span> <span class="kn">import</span> <span class="n">get_parser</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">(</span><span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">setup_args</span><span class="p">(</span><span class="n">start_app</span><span class="p">)</span>
+
+    <span class="n">gui_grp</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span>
+        <span class="s1">&#39;Gui options&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Options specific to the graphical user interface&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span>
+        <span class="s1">&#39;backend&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">const</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;backend&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        The backend to use. By default, the ``&#39;gui.backend&#39;`` key in the</span>
+<span class="s2">        :attr:`~psyplot_gui.config.rcsetup.rcParams` dictionary is used. If</span>
+<span class="s2">        used without options, the default matplotlib backend is used.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;new_instance&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;ni&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;rc_gui_file&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;rc-gui&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">pop_key</span><span class="p">(</span><span class="s1">&#39;rc_gui_file&#39;</span><span class="p">,</span> <span class="s1">&#39;metavar&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;include_plugins&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;inc&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.include&#39;</span><span class="p">])</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">append2help</span><span class="p">(</span><span class="s1">&#39;include_plugins&#39;</span><span class="p">,</span> <span class="s1">&#39;. Default: </span><span class="si">%(default)s</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;exclude_plugins&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;exc&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">,</span>
+                      <span class="n">default</span><span class="o">=</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;plugins.exclude&#39;</span><span class="p">])</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">append2help</span><span class="p">(</span><span class="s1">&#39;exclude_plugins&#39;</span><span class="p">,</span> <span class="s1">&#39;. Default: </span><span class="si">%(default)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;offline&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;pwd&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;command&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;opengl_implementation&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;opengl&#39;</span><span class="p">,</span>
+                      <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;software&#39;</span><span class="p">,</span> <span class="s1">&#39;desktop&#39;</span><span class="p">,</span> <span class="s1">&#39;gles&#39;</span><span class="p">,</span> <span class="s1">&#39;automatic&#39;</span><span class="p">])</span>
+
+    <span class="c1"># add an action to display the GUI plugins</span>
+    <span class="n">info_grp</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">unfinished_arguments</span><span class="p">[</span><span class="s1">&#39;list_plugins&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span>
+        <span class="s1">&#39;list_gui_plugins&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;lgp&#39;</span><span class="p">,</span> <span class="n">long</span><span class="o">=</span><span class="s1">&#39;list-gui-plugins&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">ListGuiPluginsAction</span><span class="p">,</span> <span class="n">if_existent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Print the names of the GUI plugins and exit. Note that the &quot;</span>
+              <span class="s2">&quot;displayed plugins are not affected by the `include-plugins` &quot;</span>
+              <span class="s2">&quot;and `exclude-plugins` options&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">info_grp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">unfinished_arguments</span><span class="p">[</span><span class="s1">&#39;list_gui_plugins&#39;</span><span class="p">][</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info_grp</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">pop_key</span><span class="p">(</span><span class="s1">&#39;offline&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">append2help</span><span class="p">(</span><span class="s1">&#39;output_project&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;. This option has only an effect if the `output` &#39;</span>
+                       <span class="s1">&#39; option is set.&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;use_all&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">pop_arg</span><span class="p">(</span><span class="s1">&#39;exec_&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">pop_arg</span><span class="p">(</span><span class="s1">&#39;callback&#39;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">pop_key</span><span class="p">(</span><span class="s1">&#39;webengineview&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">update_arg</span><span class="p">(</span><span class="s1">&#39;webengineview&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                      <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">unfinished_arguments</span><span class="p">[</span><span class="s1">&#39;no-webengineview&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">long</span><span class="o">=</span><span class="s1">&#39;no-webengineview&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_false&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;webengineview&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Do not use HTML rendering.&quot;</span><span class="p">,</span>
+        <span class="n">group</span><span class="o">=</span><span class="n">gui_grp</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">psyplot</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&lt;</span> <span class="s1">&#39;1.0&#39;</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">set_main</span><span class="p">(</span><span class="n">start_app</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">epilog</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">If you omit the ``&#39;-o&#39;`` option, the file is opened in the graphical user</span>
+<span class="s2">interface and if you run::</span>
+
+<span class="s2">    $ psyplot -pwd .</span>
+
+<span class="s2">It will switch the directory of the already running GUI (if existent) to the</span>
+<span class="s2">current working directory in your terminal. Additionally,::</span>
+
+<span class="s2">    $ psyplot -s myscript.py</span>
+
+<span class="s2">will run the file ``&#39;myscript.py&#39;`` in the GUI and::</span>
+
+<span class="s2">    $ psyplot -c &#39;print(&quot;Hello World!&quot;)&#39;</span>
+
+<span class="s2">will execute ``print(&quot;Hello World&quot;)`` in the GUI. The output, of the `-s` and</span>
+<span class="s2">`-c` options, will, however, be shown in the terminal.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">create</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">create_arguments</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">parser</span></div>
+
+
+<span class="c1">#: A boolean variable to check if the GUI is tested. This is set automatically</span>
+<span class="c1">#: true on CI services</span>
+<span class="n">UNIT_TESTING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CI&#39;</span><span class="p">)</span>
+
+
+<span class="c1">#: Disable the default for the ListGuiPluginsAction on RTD, because it looks</span>
+<span class="c1">#: better in the docs</span>
+<span class="n">_on_rtd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;READTHEDOCS&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span>
+
+
+<div class="viewcode-block" id="ListGuiPluginsAction"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.ListGuiPluginsAction">[docs]</a><span class="k">class</span> <span class="nc">ListGuiPluginsAction</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">Action</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_strings</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nargs not allowed&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_on_rtd</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ListGuiPluginsAction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">option_strings</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">option_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">yaml</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rcParams</span><span class="o">.</span><span class="n">_plugins</span><span class="p">:</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">rcParams</span><span class="o">.</span><span class="n">_load_plugin_entrypoints</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">rcParams</span><span class="o">.</span><span class="n">_plugins</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_set_opengl_implementation</span><span class="p">(</span><span class="n">option</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the OpenGL implementation</span>
+
+<span class="sd">    This function has been taken from spyder</span>
+<span class="sd">    (see https://github.com/spyder-ide/spyder/pull/7859)</span>
+
+<span class="sd">    See issue https://github.com/spyder-ide/spyder/issues/7447 for the details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">PyQt5.QtQuick</span> <span class="kn">import</span> <span class="n">QQuickWindow</span><span class="p">,</span> <span class="n">QSGRendererInterface</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">QQuickWindow</span> <span class="o">=</span> <span class="n">QSGRendererInterface</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">Qt</span>
+    <span class="k">if</span> <span class="n">option</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">option</span> <span class="o">=</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.opengl&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;software&#39;</span><span class="p">:</span>
+        <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_UseSoftwareOpenGL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">QQuickWindow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QQuickWindow</span><span class="o">.</span><span class="n">setSceneGraphBackend</span><span class="p">(</span><span class="n">QSGRendererInterface</span><span class="o">.</span><span class="n">Software</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;desktop&#39;</span><span class="p">:</span>
+        <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_UseDesktopOpenGL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">QQuickWindow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QQuickWindow</span><span class="o">.</span><span class="n">setSceneGraphBackend</span><span class="p">(</span><span class="n">QSGRendererInterface</span><span class="o">.</span><span class="n">OpenGL</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s1">&#39;gles&#39;</span><span class="p">:</span>
+        <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AA_UseOpenGLES</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">QQuickWindow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QQuickWindow</span><span class="o">.</span><span class="n">setSceneGraphBackend</span><span class="p">(</span><span class="n">QSGRendererInterface</span><span class="o">.</span><span class="n">OpenGL</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

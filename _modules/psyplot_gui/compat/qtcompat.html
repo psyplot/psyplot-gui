@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.compat.qtcompat &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
+      <li>psyplot_gui.compat.qtcompat</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui.compat.qtcompat</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Compatibility module for the different versions of PyQt&quot;&quot;&quot;</span>
+
+<span class="c1"># make sure that the right pyqt version suitable for the IPython console is</span>
+<span class="c1"># loaded</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.config.rcsetup</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">qtconsole.rich_jupyter_widget</span> <span class="kn">import</span> <span class="n">RichJupyterWidget</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">PyQt5</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDockWidget</span><span class="p">,</span> <span class="n">QToolBox</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QListWidget</span><span class="p">,</span>
+        <span class="n">QListWidgetItem</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QAbstractItemView</span><span class="p">,</span>
+        <span class="n">QWidget</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QFrame</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QTreeWidget</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span>
+        <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QToolButton</span><span class="p">,</span>
+        <span class="n">QComboBox</span> <span class="k">as</span> <span class="n">OrigQComboBox</span><span class="p">,</span>
+        <span class="n">QKeyEvent</span><span class="p">,</span> <span class="n">QSortFilterProxyModel</span><span class="p">,</span> <span class="n">QStandardItem</span><span class="p">,</span> <span class="n">QStandardItemModel</span><span class="p">,</span>
+        <span class="n">QCompleter</span><span class="p">,</span> <span class="n">QStatusBar</span><span class="p">,</span> <span class="n">QPlainTextEdit</span><span class="p">,</span> <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QToolBar</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span>
+        <span class="n">QAction</span><span class="p">,</span> <span class="n">QTextCursor</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QFileDialog</span><span class="p">,</span>
+        <span class="n">QListView</span><span class="p">,</span> <span class="n">QDesktopWidget</span><span class="p">,</span> <span class="n">QValidator</span><span class="p">,</span> <span class="n">QStyledItemDelegate</span><span class="p">,</span>
+        <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QRegExpValidator</span><span class="p">,</span> <span class="n">QGridLayout</span><span class="p">,</span>
+        <span class="n">QIntValidator</span><span class="p">,</span> <span class="n">QErrorMessage</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QTabWidget</span><span class="p">,</span>
+        <span class="n">QDoubleValidator</span><span class="p">,</span> <span class="n">QGraphicsScene</span><span class="p">,</span> <span class="n">QGraphicsRectItem</span><span class="p">,</span> <span class="n">QGraphicsView</span><span class="p">,</span>
+        <span class="n">QKeySequence</span><span class="p">,</span> <span class="n">QStyleOptionViewItem</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QDialogButtonBox</span><span class="p">,</span>
+        <span class="n">QStackedWidget</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span> <span class="n">QTableView</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QActionGroup</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtCore</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.QtWebKit</span> <span class="kn">import</span> <span class="n">QWebView</span> <span class="k">as</span> <span class="n">QWebEngineView</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.QtTest</span> <span class="kn">import</span> <span class="n">QTest</span>
+    <span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.Qt</span> <span class="kn">import</span> <span class="n">PYQT_VERSION_STR</span> <span class="k">as</span> <span class="n">PYQT_VERSION</span>
+    <span class="kn">from</span> <span class="nn">PyQt4.Qt</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span> <span class="k">as</span> <span class="n">QT_VERSION</span>
+    <span class="n">with_qt5</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">QSignalSpy</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QString</span><span class="p">,</span> <span class="n">QByteArray</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">isstring</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">isstring</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">s</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">QString</span><span class="p">,</span> <span class="n">QByteArray</span><span class="p">]))</span>
+
+    <span class="k">class</span> <span class="nc">QComboBox</span><span class="p">(</span><span class="n">OrigQComboBox</span><span class="p">):</span>
+
+        <span class="n">currentTextChanged</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">OrigQComboBox</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emit_currentTextChanged</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_emit_currentTextChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">currentTextChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+
+        <span class="k">def</span> <span class="nf">setCurrentText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QDockWidget</span><span class="p">,</span> <span class="n">QToolBox</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QListWidget</span><span class="p">,</span>
+        <span class="n">QListWidgetItem</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QAbstractItemView</span><span class="p">,</span>
+        <span class="n">QWidget</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QFrame</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QTreeWidget</span><span class="p">,</span> <span class="n">QTreeWidgetItem</span><span class="p">,</span>
+        <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QToolButton</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QCompleter</span><span class="p">,</span>
+        <span class="n">QStatusBar</span><span class="p">,</span> <span class="n">QPlainTextEdit</span><span class="p">,</span> <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QToolBar</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span>
+        <span class="n">QAction</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QListView</span><span class="p">,</span>
+        <span class="n">QDesktopWidget</span><span class="p">,</span> <span class="n">QStyledItemDelegate</span><span class="p">,</span> <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QTableWidgetItem</span><span class="p">,</span>
+        <span class="n">QGridLayout</span><span class="p">,</span> <span class="n">QErrorMessage</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QTabWidget</span><span class="p">,</span>
+        <span class="n">QGraphicsScene</span><span class="p">,</span> <span class="n">QGraphicsRectItem</span><span class="p">,</span> <span class="n">QGraphicsView</span><span class="p">,</span> <span class="n">QStyleOptionViewItem</span><span class="p">,</span>
+        <span class="n">QDialog</span><span class="p">,</span> <span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QStackedWidget</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span>
+        <span class="n">QTableView</span><span class="p">,</span> <span class="n">QHeaderView</span><span class="p">,</span> <span class="n">QActionGroup</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">QIcon</span><span class="p">,</span> <span class="n">QKeyEvent</span><span class="p">,</span> <span class="n">QStandardItem</span><span class="p">,</span> <span class="n">QStandardItemModel</span><span class="p">,</span> <span class="n">QTextCursor</span><span class="p">,</span>
+        <span class="n">QValidator</span><span class="p">,</span> <span class="n">QRegExpValidator</span><span class="p">,</span> <span class="n">QIntValidator</span><span class="p">,</span> <span class="n">QDoubleValidator</span><span class="p">,</span>
+        <span class="n">QKeySequence</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QSortFilterProxyModel</span>
+    <span class="k">if</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;help_explorer.use_webengineview&#39;</span><span class="p">]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">PyQt5.QtWebEngineWidgets</span> <span class="kn">import</span> <span class="n">QWebEngineView</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">PyQt5.QtWebKitWidgets</span> <span class="kn">import</span> <span class="n">QWebView</span> <span class="k">as</span> <span class="n">QWebEngineView</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">QWebEngineView</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.QtTest</span> <span class="kn">import</span> <span class="n">QTest</span><span class="p">,</span> <span class="n">QSignalSpy</span>
+    <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtGui</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.Qt</span> <span class="kn">import</span> <span class="n">PYQT_VERSION_STR</span> <span class="k">as</span> <span class="n">PYQT_VERSION</span>
+    <span class="kn">from</span> <span class="nn">PyQt5.Qt</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span> <span class="k">as</span> <span class="n">QT_VERSION</span>
+    <span class="n">with_qt5</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="isstring"><a class="viewcode-back" href="../../../api/psyplot_gui.compat.qtcompat.html#psyplot_gui.compat.qtcompat.isstring">[docs]</a>    <span class="k">def</span> <span class="nf">isstring</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="asstring"><a class="viewcode-back" href="../../../api/psyplot_gui.compat.qtcompat.html#psyplot_gui.compat.qtcompat.asstring">[docs]</a><span class="k">def</span> <span class="nf">asstring</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
+    <span class="c1"># make sure to register the open file event</span>
+    <span class="n">OrigQApplication</span> <span class="o">=</span> <span class="n">QApplication</span>
+
+    <span class="k">class</span> <span class="nc">QApplication</span><span class="p">(</span><span class="n">OrigQApplication</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reimplemented QApplication with open file event&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">psyplot_gui.config.rcsetup</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.listen_to_port&#39;</span><span class="p">]</span> <span class="ow">and</span>
+                    <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">FileOpen</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">psyplot_gui.main</span> <span class="kn">import</span> <span class="n">mainwindow</span>
+                <span class="k">if</span> <span class="n">mainwindow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">opened</span> <span class="o">=</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">open_files</span><span class="p">([</span><span class="n">event</span><span class="o">.</span><span class="n">file</span><span class="p">()])</span>
+                    <span class="k">if</span> <span class="n">opened</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

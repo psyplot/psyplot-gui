@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.main module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.plot_creator module" href="psyplot_gui.plot_creator.html" />
+    <link rel="prev" title="psyplot_gui.help_explorer module" href="psyplot_gui.help_explorer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.main module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.main.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.main">
+<span id="psyplot-gui-main-module"></span><h1>psyplot_gui.main module<a class="headerlink" href="#module-psyplot_gui.main" title="Permalink to this headline"></a></h1>
+<p>Core module for the psyplot graphical user interface</p>
+<p>This module redefines the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.Project" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.project.Project</span></code></a> class with
+additional features for an interactive usage with graphical qt user interface.
+There is no need to import this module because the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GuiProject</span></code> class defined here replaces the project class in the
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#module-psyplot.project" title="(in psyplot v1.3.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">psyplot.project</span></code></a> module.</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">MainWindow</span></code>([show])</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param show</dt>
+<dd class="field-odd"><p>If True, the created mainwindow is show</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mainwindow</span></code></p></td>
+<td><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code> of the graphical user interface</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.main.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the created mainwindow is show</p>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">about</span></code>()</p></td>
+<td><p>About the tool</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_mp_to_menu</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_cwd</span></code>(path)</p></td>
+<td><p>Change the current working directory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">closeEvent</span></code>(event)</p></td>
+<td><p>closeEvent reimplementation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edit_preferences</span></code>([exec_])</p></td>
+<td><p>Edit Spyder preferences</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">eventually_add_mp_to_menu</span></code>(p)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">excepthook</span></code>(type, value, traceback)</p></td>
+<td><p>A method to replace the sys.excepthook</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_mp</span></code>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_sp</span></code>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">focus_on_console</span></code>(*args, **kwargs)</p></td>
+<td><p>Put focus on the ipython console</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_mp_preset</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sp_preset</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_data_frame_editor</span></code>([df, title])</p></td>
+<td><p>Open a new dataframe editor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_plots</span></code>([exec_])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_external_files</span></code>([fnames, project, ...])</p></td>
+<td><p>Open external files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_files</span></code>(fnames)</p></td>
+<td><p>Open a file and ask the user how</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_mp</span></code>(*args, **kwargs)</p></td>
+<td><p>Open a new main project</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_sp</span></code>(*args, **kwargs)</p></td>
+<td><p>Open a subproject and add it to the current main project</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_shortcut</span></code>(action, shortcut[, context])</p></td>
+<td><p>Register an action for a shortcut</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_rcParams</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code>([fnames, project, engine, plot_method, ...])</p></td>
+<td><p>Create a mainwindow and open the given files or project</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_app</span></code>(*args, **kwargs)</p></td>
+<td><p>Create a QApplication, open the given files or project and enter the mainloop</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_mp</span></code>(*args, **kwargs)</p></td>
+<td><p>Save the current main project.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_mp_preset</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_sp</span></code>(*args, **kwargs)</p></td>
+<td><p>Save the current sub project.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_sp_preset</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_central_widget</span></code>(name)</p></td>
+<td><p>Set the central widget</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_default_layout</span></code>()</p></td>
+<td><p>Set up the default window layout</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_dependencies</span></code>([exec_])</p></td>
+<td><p>Open a dialog that shows the dependencies</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_open_files_server</span></code>()</p></td>
+<td><p>This method listens to the open_files_port and opens the plot creator for new files</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_project_action</span></code>(num)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">central_widget_key</span></code></p></td>
+<td><p>The key for the central widget for the main window in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">plugins</span></code> dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">console</span></code></p></td>
+<td><p>Inprocess console</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_shortcuts</span></code></p></td>
+<td><p>The current keyboard shortcuts</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dataframeeditors</span></code></p></td>
+<td><p>the DataFrameEditor widgets</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_shortcuts</span></code></p></td>
+<td><p>The keyboard shortcuts of the default layout</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_widths</span></code></p></td>
+<td><p>default widths of the dock widgets</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockwidgets</span></code></p></td>
+<td><p>The dockwidgets of this instance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ds_tree</span></code></p></td>
+<td><p>tree widget displaying the open datasets</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">figures</span></code></p></td>
+<td><p>list of figures from the psyplot backend</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">figures_tree</span></code></p></td>
+<td><p>tree widget displaying the open figures</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmt_widget</span></code></p></td>
+<td><p>general formatoptions widget</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">help_explorer</span></code></p></td>
+<td><p>help explorer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></p></td>
+<td><p>The logger of this instance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_external</span></code>(*args, **kwargs)</p></td>
+<td><p>A signal that is emmitted when the a signal is received through the open_files_server</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_files_server</span></code></p></td>
+<td><p>The server to open external files</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">project_content</span></code></p></td>
+<td><p>tab widget displaying the arrays in current main and sub project tree widget displaying the open datasets</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.about">
+<span class="sig-name descname"><span class="pre">about</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.about"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.about" title="Permalink to this definition"></a></dt>
+<dd><p>About the tool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.add_mp_to_menu">
+<span class="sig-name descname"><span class="pre">add_mp_to_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.add_mp_to_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.add_mp_to_menu" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.central_widget_key">
+<span class="sig-name descname"><span class="pre">central_widget_key</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'console'</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.central_widget_key" title="Permalink to this definition"></a></dt>
+<dd><p>The key for the central widget for the main window in the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">plugins</span></code> dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.change_cwd">
+<span class="sig-name descname"><span class="pre">change_cwd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.change_cwd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.change_cwd" title="Permalink to this definition"></a></dt>
+<dd><p>Change the current working directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.closeEvent" title="Permalink to this definition"></a></dt>
+<dd><p>closeEvent reimplementation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.console">
+<span class="sig-name descname"><span class="pre">console</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.console" title="Permalink to this definition"></a></dt>
+<dd><p>Inprocess console</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.current_shortcuts">
+<span class="sig-name descname"><span class="pre">current_shortcuts</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.current_shortcuts" title="Permalink to this definition"></a></dt>
+<dd><p>The current keyboard shortcuts</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.dataframeeditors">
+<span class="sig-name descname"><span class="pre">dataframeeditors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.dataframeeditors" title="Permalink to this definition"></a></dt>
+<dd><p>the DataFrameEditor widgets</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.default_shortcuts">
+<span class="sig-name descname"><span class="pre">default_shortcuts</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.default_shortcuts" title="Permalink to this definition"></a></dt>
+<dd><p>The keyboard shortcuts of the default layout</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.default_widths">
+<span class="sig-name descname"><span class="pre">default_widths</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.default_widths" title="Permalink to this definition"></a></dt>
+<dd><p>default widths of the dock widgets</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.dockwidgets">
+<span class="sig-name descname"><span class="pre">dockwidgets</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.dockwidgets" title="Permalink to this definition"></a></dt>
+<dd><p>The dockwidgets of this instance</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.ds_tree">
+<span class="sig-name descname"><span class="pre">ds_tree</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.ds_tree" title="Permalink to this definition"></a></dt>
+<dd><p>tree widget displaying the open datasets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.edit_preferences">
+<span class="sig-name descname"><span class="pre">edit_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exec_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.edit_preferences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.edit_preferences" title="Permalink to this definition"></a></dt>
+<dd><p>Edit Spyder preferences</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.eventually_add_mp_to_menu">
+<span class="sig-name descname"><span class="pre">eventually_add_mp_to_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.eventually_add_mp_to_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.eventually_add_mp_to_menu" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.excepthook">
+<span class="sig-name descname"><span class="pre">excepthook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traceback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.excepthook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.excepthook" title="Permalink to this definition"></a></dt>
+<dd><p>A method to replace the sys.excepthook</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.export_mp">
+<span class="sig-name descname"><span class="pre">export_mp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.export_mp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.export_mp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.export_sp">
+<span class="sig-name descname"><span class="pre">export_sp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.export_sp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.export_sp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.figures">
+<span class="sig-name descname"><span class="pre">figures</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.figures" title="Permalink to this definition"></a></dt>
+<dd><p>list of figures from the psyplot backend</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.figures_tree">
+<span class="sig-name descname"><span class="pre">figures_tree</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.figures_tree" title="Permalink to this definition"></a></dt>
+<dd><p>tree widget displaying the open figures</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.fmt_widget">
+<span class="sig-name descname"><span class="pre">fmt_widget</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.fmt_widget" title="Permalink to this definition"></a></dt>
+<dd><p>general formatoptions widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.focus_on_console">
+<span class="sig-name descname"><span class="pre">focus_on_console</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.focus_on_console"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.focus_on_console" title="Permalink to this definition"></a></dt>
+<dd><p>Put focus on the ipython console</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.help_explorer">
+<span class="sig-name descname"><span class="pre">help_explorer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.help_explorer" title="Permalink to this definition"></a></dt>
+<dd><p>help explorer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.load_mp_preset">
+<span class="sig-name descname"><span class="pre">load_mp_preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.load_mp_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.load_mp_preset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.load_sp_preset">
+<span class="sig-name descname"><span class="pre">load_sp_preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.load_sp_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.load_sp_preset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.logger">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#psyplot_gui.main.MainWindow.logger" title="Permalink to this definition"></a></dt>
+<dd><p>The logger of this instance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.new_data_frame_editor">
+<span class="sig-name descname"><span class="pre">new_data_frame_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DataFrame</span> <span class="pre">Editor'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.new_data_frame_editor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.new_data_frame_editor" title="Permalink to this definition"></a></dt>
+<dd><p>Open a new dataframe editor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a>) – The dataframe to display</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The title of the dock window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The newly created editor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor" title="psyplot_gui.dataframeeditor.DataFrameEditor">psyplot_gui.dataframeeditor.DataFrameEditor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.new_plots">
+<span class="sig-name descname"><span class="pre">new_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exec_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.new_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.new_plots" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_external">
+<span class="sig-name descname"><span class="pre">open_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_external" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that is emmitted when the a signal is received through the
+open_files_server</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_external_files">
+<span class="sig-name descname"><span class="pre">open_external_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_post</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seaborn_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.open_external_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_external_files" title="Permalink to this definition"></a></dt>
+<dd><p>Open external files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnames</strong> (<em>list of str</em>) – Either the filenames to show, or, if the <cite>project</cite> parameter is set,
+the a list of <cite>,</cite>-separated filenames to make a mapping from the
+original filename to a new one</p></li>
+<li><p><strong>name</strong> (<em>list of str</em>) – The variable names to plot if the <cite>output</cite> parameter is set</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from coordinate names to integers if the <cite>project</cite> is not
+given</p></li>
+<li><p><strong>plot_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the plot_method to use</p></li>
+<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If set, the project located at the given file name is loaded</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The engine to use for opening the dataset (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.open_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.data.open_dataset()</span></code></a>)</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The encoding to use for loading the project. If None, it is
+automatically determined by pickle. Note: Set this to <code class="docutils literal notranslate"><span class="pre">'latin1'</span></code>
+if using a project created with python2 on python3.</p></li>
+<li><p><strong>enable_post</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Enable the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Plotter.post" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">post</span></code></a> processing
+formatoption. If True/set, post processing scripts are enabled in the
+given <cite>project</cite>. Only set this if you are sure that you can trust the
+given project file because it may be a security vulnerability.</p></li>
+<li><p><strong>seaborn_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the style of the seaborn package that can be used for
+the <code class="xref py py-func docutils literal notranslate"><span class="pre">seaborn.set_style()</span></code> function</p></li>
+<li><p><strong>concat_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The concatenation dimension if multiple files in <cite>fnames</cite> are
+provided</p></li>
+<li><p><strong>chname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from variable names in the project to variable names in the
+datasets that should be used instead</p></li>
+<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The filename or identifier of a preset. If the given <cite>preset</cite> is
+the path to an existing yaml file, it will be loaded. Otherwise we
+look up the <cite>preset</cite> in the psyplot configuration directory (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.get_configdir" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_configdir()</span></code></a>).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_files">
+<span class="sig-name descname"><span class="pre">open_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnames</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.open_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_files" title="Permalink to this definition"></a></dt>
+<dd><p>Open a file and ask the user how</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_files_server">
+<span class="sig-name descname"><span class="pre">open_files_server</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_files_server" title="Permalink to this definition"></a></dt>
+<dd><p>The server to open external files</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_mp">
+<span class="sig-name descname"><span class="pre">open_mp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.open_mp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_mp" title="Permalink to this definition"></a></dt>
+<dd><p>Open a new main project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.open_sp">
+<span class="sig-name descname"><span class="pre">open_sp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.open_sp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.open_sp" title="Permalink to this definition"></a></dt>
+<dd><p>Open a subproject and add it to the current main project</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.project_content">
+<span class="sig-name descname"><span class="pre">project_content</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.MainWindow.project_content" title="Permalink to this definition"></a></dt>
+<dd><p>tab widget displaying the arrays in current main and sub project
+tree widget displaying the open datasets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.register_shortcut">
+<span class="sig-name descname"><span class="pre">register_shortcut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shortcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.register_shortcut"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.register_shortcut" title="Permalink to this definition"></a></dt>
+<dd><p>Register an action for a shortcut</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.reset_rcParams">
+<span class="sig-name descname"><span class="pre">reset_rcParams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.reset_rcParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.reset_rcParams" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.run">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_post</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seaborn_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.run" title="Permalink to this definition"></a></dt>
+<dd><p>Create a mainwindow and open the given files or project</p>
+<p>This class method creates a new mainwindow instance and sets the
+global <a class="reference internal" href="#psyplot_gui.main.mainwindow" title="psyplot_gui.main.mainwindow"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mainwindow</span></code></a> variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnames</strong> (<em>list of str</em>) – Either the filenames to show, or, if the <cite>project</cite> parameter is set,
+the a list of <cite>,</cite>-separated filenames to make a mapping from the
+original filename to a new one</p></li>
+<li><p><strong>name</strong> (<em>list of str</em>) – The variable names to plot if the <cite>output</cite> parameter is set</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from coordinate names to integers if the <cite>project</cite> is not
+given</p></li>
+<li><p><strong>plot_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the plot_method to use</p></li>
+<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If set, the project located at the given file name is loaded</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The engine to use for opening the dataset (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.open_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.data.open_dataset()</span></code></a>)</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The encoding to use for loading the project. If None, it is
+automatically determined by pickle. Note: Set this to <code class="docutils literal notranslate"><span class="pre">'latin1'</span></code>
+if using a project created with python2 on python3.</p></li>
+<li><p><strong>enable_post</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Enable the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Plotter.post" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">post</span></code></a> processing
+formatoption. If True/set, post processing scripts are enabled in the
+given <cite>project</cite>. Only set this if you are sure that you can trust the
+given project file because it may be a security vulnerability.</p></li>
+<li><p><strong>seaborn_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the style of the seaborn package that can be used for
+the <code class="xref py py-func docutils literal notranslate"><span class="pre">seaborn.set_style()</span></code> function</p></li>
+<li><p><strong>concat_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The concatenation dimension if multiple files in <cite>fnames</cite> are
+provided</p></li>
+<li><p><strong>chname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from variable names in the project to variable names in the
+datasets that should be used instead</p></li>
+<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The filename or identifier of a preset. If the given <cite>preset</cite> is
+the path to an existing yaml file, it will be loaded. Otherwise we
+look up the <cite>preset</cite> in the psyplot configuration directory (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.get_configdir" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_configdir()</span></code></a>).</p></li>
+<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the created mainwindow is show</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>There can be only one mainwindow at the time</p></li>
+<li><p>This method does not create a QApplication instance! See
+<a class="reference internal" href="#psyplot_gui.main.MainWindow.run_app" title="psyplot_gui.main.MainWindow.run_app"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run_app()</span></code></a></p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#psyplot_gui.main.MainWindow.run_app" title="psyplot_gui.main.MainWindow.run_app"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_app</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.run_app">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">run_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.run_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.run_app" title="Permalink to this definition"></a></dt>
+<dd><p>Create a QApplication, open the given files or project and enter the
+mainloop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnames</strong> (<em>list of str</em>) – Either the filenames to show, or, if the <cite>project</cite> parameter is set,
+the a list of <cite>,</cite>-separated filenames to make a mapping from the
+original filename to a new one</p></li>
+<li><p><strong>name</strong> (<em>list of str</em>) – The variable names to plot if the <cite>output</cite> parameter is set</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from coordinate names to integers if the <cite>project</cite> is not
+given</p></li>
+<li><p><strong>plot_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the plot_method to use</p></li>
+<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If set, the project located at the given file name is loaded</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The engine to use for opening the dataset (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.open_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.data.open_dataset()</span></code></a>)</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The encoding to use for loading the project. If None, it is
+automatically determined by pickle. Note: Set this to <code class="docutils literal notranslate"><span class="pre">'latin1'</span></code>
+if using a project created with python2 on python3.</p></li>
+<li><p><strong>enable_post</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Enable the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Plotter.post" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">post</span></code></a> processing
+formatoption. If True/set, post processing scripts are enabled in the
+given <cite>project</cite>. Only set this if you are sure that you can trust the
+given project file because it may be a security vulnerability.</p></li>
+<li><p><strong>seaborn_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the style of the seaborn package that can be used for
+the <code class="xref py py-func docutils literal notranslate"><span class="pre">seaborn.set_style()</span></code> function</p></li>
+<li><p><strong>concat_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The concatenation dimension if multiple files in <cite>fnames</cite> are
+provided</p></li>
+<li><p><strong>chname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from variable names in the project to variable names in the
+datasets that should be used instead</p></li>
+<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The filename or identifier of a preset. If the given <cite>preset</cite> is
+the path to an existing yaml file, it will be loaded. Otherwise we
+look up the <cite>preset</cite> in the psyplot configuration directory (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.get_configdir" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_configdir()</span></code></a>).</p></li>
+<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the created mainwindow is show</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#psyplot_gui.main.MainWindow.run" title="psyplot_gui.main.MainWindow.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.save_mp">
+<span class="sig-name descname"><span class="pre">save_mp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.save_mp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.save_mp" title="Permalink to this definition"></a></dt>
+<dd><p>Save the current main project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.save_mp_preset">
+<span class="sig-name descname"><span class="pre">save_mp_preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.save_mp_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.save_mp_preset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.save_sp">
+<span class="sig-name descname"><span class="pre">save_sp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.save_sp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.save_sp" title="Permalink to this definition"></a></dt>
+<dd><p>Save the current sub project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.save_sp_preset">
+<span class="sig-name descname"><span class="pre">save_sp_preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.save_sp_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.save_sp_preset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.set_central_widget">
+<span class="sig-name descname"><span class="pre">set_central_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.set_central_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.set_central_widget" title="Permalink to this definition"></a></dt>
+<dd><p>Set the central widget</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>QWidget</em>) – The key or the plugin widget in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">plugins</span></code> dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.setup_default_layout">
+<span class="sig-name descname"><span class="pre">setup_default_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.setup_default_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.setup_default_layout" title="Permalink to this definition"></a></dt>
+<dd><p>Set up the default window layout</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.show_dependencies">
+<span class="sig-name descname"><span class="pre">show_dependencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exec_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.show_dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.show_dependencies" title="Permalink to this definition"></a></dt>
+<dd><p>Open a dialog that shows the dependencies</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.start_open_files_server">
+<span class="sig-name descname"><span class="pre">start_open_files_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.start_open_files_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.start_open_files_server" title="Permalink to this definition"></a></dt>
+<dd><p>This method listens to the open_files_port and opens the plot
+creator for new files</p>
+<p>This method is inspired and to most parts copied from spyder</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.main.MainWindow.update_project_action">
+<span class="sig-name descname"><span class="pre">update_project_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/main.html#MainWindow.update_project_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.main.MainWindow.update_project_action" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="psyplot_gui.main.mainwindow">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.main.</span></span><span class="sig-name descname"><span class="pre">mainwindow</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.main.mainwindow" title="Permalink to this definition"></a></dt>
+<dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code> of the graphical user interface</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.help_explorer.html" class="btn btn-neutral float-left" title="psyplot_gui.help_explorer module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.plot_creator.html" class="btn btn-neutral float-right" title="psyplot_gui.plot_creator module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

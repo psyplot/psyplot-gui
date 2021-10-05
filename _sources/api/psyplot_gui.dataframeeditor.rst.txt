@@ -1,0 +1,7 @@
+psyplot\_gui.dataframeeditor module
+===================================
+
+.. automodule:: psyplot_gui.dataframeeditor
+   :members:
+   :undoc-members:
+   :show-inheritance:

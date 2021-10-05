@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration of the GUI" href="configuration.html" />
+    <link rel="prev" title="Installation" href="installing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#starting-the-gui">Starting the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-console">The Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-help-explorer">The Help Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-plot-creator">The Plot Creator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-project-content">The Project content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-formatoptions-widget">The formatoptions widget</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Getting started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
+<a class="reference internal image-reference" href="_images/explained_screenshot.png"><img alt="_images/explained_screenshot.png" src="_images/explained_screenshot.png" style="width: 100%;" /></a>
+<p>The Screenshot above shows you the essential parts of the GUI:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#console"><span class="std std-ref">The Console</span></a>: An IPython console</p></li>
+<li><p><a class="reference internal" href="#help-explorer"><span class="std std-ref">The Help Explorer</span></a>: A browser to display help and browse in the internet</p></li>
+<li><p><a class="reference internal" href="#plot-creator"><span class="std std-ref">The Plot Creator</span></a>: A widget to create new plots and open datasets</p></li>
+<li><p><a class="reference internal" href="#project-content"><span class="std std-ref">The Project content</span></a>: A widget to interact with the psyplot project</p></li>
+<li><p><a class="reference internal" href="#formatoptions"><span class="std std-ref">The formatoptions widget</span></a>: A widget to update and change formatoptions</p></li>
+</ul>
+<section id="starting-the-gui">
+<h2>Starting the GUI<a class="headerlink" href="#starting-the-gui" title="Permalink to this headline"></a></h2>
+<p>Starting the GUI is straight forward but depends on how you installed it. If
+you installed it via <cite>conda</cite> or <cite>pip</cite>, just open a terminal (or Command Window
+<code class="docutils literal notranslate"><span class="pre">cmd</span></code> on Windows) and type <code class="docutils literal notranslate"><span class="pre">psyplot</span></code>.</p>
+</section>
+<section id="the-console">
+<span id="console"></span><h2>The Console<a class="headerlink" href="#the-console" title="Permalink to this headline"></a></h2>
+<p>The central widget in the GUI is an in-process <a class="reference external" href="http://ipython.readthedocs.io/en/stable/">IPython</a> console that provides
+the possibility to communicate with the psyplot package via the command line
+and to load any other module or to run any other script.</p>
+<p>It is based on the qtconsole module and it is, by default, connected to the
+<a class="reference internal" href="#help-explorer"><span class="std std-ref">help explorer</span></a>. If you type, for example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+</pre></div>
+</div>
+<p>it will show you the documentation of the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="(in NumPy v1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.sum()</span></code></a> module in the
+<a class="reference internal" href="#help-explorer"><span class="std std-ref">help explorer</span></a>. The same comes, if you type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>np.sum?
+</pre></div>
+</div>
+<p>This feature is motivated from the <a class="reference external" href="https://www.spyder-ide.org/">Spyder</a> editor and can be disabled via
+the rcParams key <code class="docutils literal notranslate"><span class="pre">console.connect_to_help</span></code> (see <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration of the GUI</span></a>) or the
+little <img alt="ipython_console" src="_images/ipython_console.png" /> symbol at the top of the help explorer.</p>
+<p>Furthermore, is connected to the current psyplot project (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.scp" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.project.scp()</span></code></a> and <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.gcp" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.project.gcp()</span></code></a>). Those are</p>
+<dl class="simple">
+<dt>sp</dt><dd><p>This variable links to the current subproject (<code class="docutils literal notranslate"><span class="pre">psy.gcp()</span></code>)</p>
+</dd>
+<dt>mp</dt><dd><p>This variable links to the current main project (<code class="docutils literal notranslate"><span class="pre">psy.gcp(True)</span></code>)</p>
+</dd>
+</dl>
+<p>The following example, which you can just copy and paste in the console of the
+GUI, illustrates this:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># in the beginning, sp and mp are empty</span>
+<span class="gp">In [1]: </span><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="gp">   ...: </span><span class="nb">print</span><span class="p">(</span><span class="n">mp</span><span class="p">)</span>
+<span class="gp">   ...: </span>
+<span class="go">psyplot.project.Project([</span>
+<span class="go">])</span>
+<span class="go">1 Main psyplot.project.Project([</span>
+<span class="go">])</span>
+
+<span class="gp">In [2]: </span><span class="n">psy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">())</span>
+<span class="gh">Out[2]: </span><span class="go">psyplot.project.Project([arr0: psyplot.data.InteractiveList([    arr0: 1-dim DataArray of test, with (dim_0)=(3,), ])])</span>
+
+<span class="go"># now they both contain this data</span>
+<span class="gp">In [3]: </span><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="gp">   ...: </span><span class="nb">print</span><span class="p">(</span><span class="n">mp</span><span class="p">)</span>
+<span class="gp">   ...: </span>
+<span class="go">psyplot.project.Project([arr0: psyplot.data.InteractiveList([    arr0: 1-dim DataArray of test, with (dim_0)=(3,), ])])</span>
+<span class="go">1 Main psyplot.project.Project([arr0: psyplot.data.InteractiveList([    arr0: 1-dim DataArray of test, with (dim_0)=(3,), ])])</span>
+
+<span class="go"># lets create a second one</span>
+<span class="gp">In [4]: </span><span class="n">psy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">())</span>
+<span class="gh">Out[4]: </span><span class="go">psyplot.project.Project([arr1: psyplot.data.InteractiveList([    arr0: 1-dim DataArray of test2, with (dim_0)=(3,), ])])</span>
+
+<span class="go"># sp now only contains the new one, mp contains both</span>
+<span class="gp">In [5]: </span><span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="gp">   ...: </span><span class="nb">print</span><span class="p">(</span><span class="n">mp</span><span class="p">)</span>
+<span class="gp">   ...: </span>
+<span class="go">psyplot.project.Project([arr1: psyplot.data.InteractiveList([    arr0: 1-dim DataArray of test2, with (dim_0)=(3,), ])])</span>
+<span class="go">1 Main psyplot.project.Project([</span>
+<span class="go">    arr0: psyplot.data.InteractiveList([        arr0: 1-dim DataArray of test, with (dim_0)=(3,), ]),</span>
+<span class="go">    arr1: psyplot.data.InteractiveList([        arr0: 1-dim DataArray of test2, with (dim_0)=(3,), ])])</span>
+</pre></div>
+</div>
+<p>If you do not wish this behaviour, set the <code class="docutils literal notranslate"><span class="pre">console.auto_set_mp</span></code> and
+<code class="docutils literal notranslate"><span class="pre">console.auto_set_sp</span></code> rcParams to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</section>
+<section id="the-help-explorer">
+<span id="help-explorer"></span><h2>The Help Explorer<a class="headerlink" href="#the-help-explorer" title="Permalink to this headline"></a></h2>
+<p>The help explorer provides you access to python objects and online information.
+It can be used as a webbrowser if the <img alt="world" src="_images/world.png" /> icon is not clicked or the
+<code class="docutils literal notranslate"><span class="pre">help_explorer.online</span></code> rcParams key is True (see <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration of the GUI</span></a>).</p>
+<p>It is motivated by the Help of the <a class="reference external" href="https://www.spyder-ide.org/">Spyder</a> editor and uses Sphinx to
+automatically render python documentation written in restructured Text.</p>
+<p>By default, the help explorer uses the <code class="docutils literal notranslate"><span class="pre">intersphinx</span></code> extension to link to
+different online libraries. This however always consumes time at the startup
+and can be disabled by the <code class="docutils literal notranslate"><span class="pre">help_explorer.use_intersphinx</span></code> rcParams key.</p>
+<p>It is also connected to the information functions of psyplot, e.g. the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.plotter.Plotter.show_keys()</span></code> function. For example</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">psy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">lineplot</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| axiscolor      | background     | color          | coord          |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| error          | erroralpha     | figtitle       | figtitleprops  |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| figtitlesize   | figtitleweight | grid           | labelprops     |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| labelsize      | labelweight    | legend         | legendlabels   |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| linewidth      | marker         | markersize     | mask           |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| maskbetween    | maskgeq        | maskgreater    | maskleq        |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| maskless       | plot           | post           | post_timing    |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| sym_lims       | text           | ticksize       | tickweight     |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| tight          | title          | titleprops     | titlesize      |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| titleweight    | transpose      | xlabel         | xlim           |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| xrotation      | xticklabels    | xtickprops     | xticks         |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| ylabel         | ylim           | yrotation      | yticklabels    |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+<span class="go">| ytickprops     | yticks         |                |                |</span>
+<span class="go">+----------------+----------------+----------------+----------------+</span>
+</pre></div>
+</div>
+<p>would be converted to HTML and shown in the help explorer.</p>
+</section>
+<section id="the-plot-creator">
+<span id="plot-creator"></span><h2>The Plot Creator<a class="headerlink" href="#the-plot-creator" title="Permalink to this headline"></a></h2>
+<p>The plot creator is used to create new plots from a <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.
+You can open it via <span class="menuselection">File ‣ New Plot</span>.</p>
+</section>
+<section id="the-project-content">
+<span id="project-content"></span><h2>The Project content<a class="headerlink" href="#the-project-content" title="Permalink to this headline"></a></h2>
+<p>The project content shows you the current project (see
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.gcp" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.project.gcp()</span></code></a>). The selected arrays are the current subproject.</p>
+</section>
+<section id="the-formatoptions-widget">
+<span id="formatoptions"></span><h2>The formatoptions widget<a class="headerlink" href="#the-formatoptions-widget" title="Permalink to this headline"></a></h2>
+<p>The formatoption widget can be used to update the formatoptions of the current
+subproject or to show their help.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installing.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration of the GUI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

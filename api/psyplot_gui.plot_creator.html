@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.plot_creator module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.preferences module" href="psyplot_gui.preferences.html" />
+    <link rel="prev" title="psyplot_gui.main module" href="psyplot_gui.main.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.plot_creator module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.plot_creator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.plot_creator">
+<span id="psyplot-gui-plot-creator-module"></span><h1>psyplot_gui.plot_creator module<a class="headerlink" href="#module-psyplot_gui.plot_creator" title="Permalink to this headline"></a></h1>
+<p>This module contains a widget to create new plots with psyplot</p>
+<p>The main class is the <a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator" title="psyplot_gui.plot_creator.PlotCreator"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlotCreator</span></code></a> which is used to handle the
+different plotting methods of the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.ProjectPlotter" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.project.ProjectPlotter</span></code></a>
+class</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameItemDelegate" title="psyplot_gui.plot_creator.ArrayNameItemDelegate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a></p></td>
+<td><p>Delegate using the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameValidator" title="psyplot_gui.plot_creator.ArrayNameValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a> for validation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameValidator" title="psyplot_gui.plot_creator.ArrayNameValidator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a>(text, table, *args, **kwargs)</p></td>
+<td><p>Class to make sure that only those arrays names are inserted that are not currently in the main project or the tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable" title="psyplot_gui.plot_creator.ArrayTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArrayTable</span></code></a>(get_func[, columns])</p></td>
+<td><p>Table that shows the arrays that will be used for plotting</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreator" title="psyplot_gui.plot_creator.AxesCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AxesCreator</span></code></a>([fig, x0, y0, x1, y1])</p></td>
+<td><p>Widget to setup an axes in a arbitrary location</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection" title="psyplot_gui.plot_creator.AxesCreatorCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a>([key, func_kwargs])</p></td>
+<td><p>Wrapper for a QToolBox that holds the different possibilities to select an axes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector" title="psyplot_gui.plot_creator.AxesSelector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AxesSelector</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Widget to select an already created axes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesViewer" title="psyplot_gui.plot_creator.AxesViewer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AxesViewer</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Widget to show a rectangle</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox" title="psyplot_gui.plot_creator.CoordComboBox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a>(ds_func, dim[, parent])</p></td>
+<td><p>Combobox showing coordinate information of a dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordsTable" title="psyplot_gui.plot_creator.CoordsTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoordsTable</span></code></a>(get_func, *args, **kwargs)</p></td>
+<td><p>A table showing the coordinates of in a dataset via instances of <a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox" title="psyplot_gui.plot_creator.CoordComboBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable" title="psyplot_gui.plot_creator.DragDropTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DragDropTable</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Table that allows to exchange rows via drag and drop</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator" title="psyplot_gui.plot_creator.PlotCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlotCreator</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Widget to extract data from a dataset and eventually create a plot</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator" title="psyplot_gui.plot_creator.SubplotCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a>([fig, rows, cols, num1, num2])</p></td>
+<td><p>Select a subplot to which will be created (if not already existing) when making the plot</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariableItemDelegate" title="psyplot_gui.plot_creator.VariableItemDelegate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a></p></td>
+<td><p>Delegate alowing only the variables in the parents dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariablesTable" title="psyplot_gui.plot_creator.VariablesTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariablesTable</span></code></a>(get_func[, columns])</p></td>
+<td><p>Table to display the variables of a dataset</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayNameItemDelegate">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">ArrayNameItemDelegate</span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayNameItemDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayNameItemDelegate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QStyledItemDelegate</span></code></p>
+<p>Delegate using the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameValidator" title="psyplot_gui.plot_creator.ArrayNameValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a> for validation</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameItemDelegate.createEditor" title="psyplot_gui.plot_creator.ArrayNameItemDelegate.createEditor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">createEditor</span></code></a>(self, QWidget, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayNameItemDelegate.createEditor">
+<span class="sig-name descname"><span class="pre">createEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QWidget</span></span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayNameItemDelegate.createEditor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayNameItemDelegate.createEditor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayNameValidator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">ArrayNameValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayNameValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayNameValidator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtGui.QValidator</span></code></p>
+<p>Class to make sure that only those arrays names are inserted that are
+not currently in the main project or the tree</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameValidator.fixup" title="psyplot_gui.plot_creator.ArrayNameValidator.fixup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fixup</span></code></a>(self, str)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayNameValidator.validate" title="psyplot_gui.plot_creator.ArrayNameValidator.validate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate</span></code></a>(self, str, int)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayNameValidator.fixup">
+<span class="sig-name descname"><span class="pre">fixup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayNameValidator.fixup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayNameValidator.fixup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayNameValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">QValidator.State</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayNameValidator.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayNameValidator.validate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">ArrayTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable" title="psyplot_gui.plot_creator.DragDropTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.plot_creator.DragDropTable</span></code></a></p>
+<p>Table that shows the arrays that will be used for plotting</p>
+<p>It contains the following columns:</p>
+<ol class="arabic simple">
+<li><p>The variable column which holds the variable names of the arrays.
+multiple variables may be separated by ‘;;’</p></li>
+<li><p>The array name. The <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.InteractiveBase.arr_name" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot.data.InteractiveBase.arr_name</span></code></a>
+attribute. Depending on the plot methods
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">_prefer_list</span></code>, multiple
+array names are allowed or not. If this attribute is True,
+arrays with the same array name will be concatenated into one
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.InteractiveList" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.data.InteractiveList</span></code></a></p></li>
+<li><p>The axes column. Use the right-click context menu to select a
+subplot</p></li>
+<li><p>The check column. Checks for variable names, array names, axes and
+dimensions via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">psyplot.project._PlotterInterface.check_data()</span></code>
+method</p></li>
+<li><p>Columns containing the dimension informations</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_func</strong> (<em>function</em>) – The function that, when called without arguments, returns the
+xarray.Dataset to use</p></li>
+<li><p><strong>columns</strong> (<em>list of str</em>) – The coordinates in the dataset</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.DIMS_TT" title="psyplot_gui.plot_creator.ArrayTable.DIMS_TT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIMS_TT</span></code></a></p></td>
+<td><p>Base tool tip for a dimension column</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.VARIABLE_TT" title="psyplot_gui.plot_creator.ArrayTable.VARIABLE_TT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VARIABLE_TT</span></code></a></p></td>
+<td><p>Tool tip for the variable column</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.arr_col" title="psyplot_gui.plot_creator.ArrayTable.arr_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arr_col</span></code></a></p></td>
+<td><p>The index of the array name column</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.arr_names_dict" title="psyplot_gui.plot_creator.ArrayTable.arr_names_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arr_names_dict</span></code></a></p></td>
+<td><p>The final dictionary containing the array names necessary for the <cite>arr_names</cite> parameter in the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.ArrayList.from_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">psyplot.data.ArrayList.from_dataset()</span></code></a> method</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.axes" title="psyplot_gui.plot_creator.ArrayTable.axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes</span></code></a></p></td>
+<td><p>A list of axes settings corresponding to the arrays in the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.arr_names_dict" title="psyplot_gui.plot_creator.ArrayTable.arr_names_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">arr_names_dict</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.axes_col" title="psyplot_gui.plot_creator.ArrayTable.axes_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes_col</span></code></a></p></td>
+<td><p>The index of the axes column</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.axes_patt" title="psyplot_gui.plot_creator.ArrayTable.axes_patt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes_patt</span></code></a></p></td>
+<td><p>pattern to interprete arbitrary axes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_col" title="psyplot_gui.plot_creator.ArrayTable.check_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_col</span></code></a></p></td>
+<td><p>The index of the check column</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.current_names" title="psyplot_gui.plot_creator.ArrayTable.current_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_names</span></code></a></p></td>
+<td><p>The names that are currently in use</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.prefer_list" title="psyplot_gui.plot_creator.ArrayTable.prefer_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefer_list</span></code></a></p></td>
+<td><p>Return the _prefer_list attribute of the plot_method</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.sep" title="psyplot_gui.plot_creator.ArrayTable.sep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sep</span></code></a></p></td>
+<td><p>The separator for variable names</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.subplot_patt" title="psyplot_gui.plot_creator.ArrayTable.subplot_patt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subplot_patt</span></code></a></p></td>
+<td><p>Pattern to interprete subplots</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.var_col" title="psyplot_gui.plot_creator.ArrayTable.var_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var_col</span></code></a></p></td>
+<td><p>The index of the variable column</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.vnames" title="psyplot_gui.plot_creator.ArrayTable.vnames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vnames</span></code></a></p></td>
+<td><p>The list of variable names per array</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.add_single_subplot" title="psyplot_gui.plot_creator.ArrayTable.add_single_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_single_subplot</span></code></a>(rows, cols, row, col)</p></td>
+<td><p>Add one subplot to the selected arrays on multiple figures</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.add_subplots" title="psyplot_gui.plot_creator.ArrayTable.add_subplots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_subplots</span></code></a>(rows, cols[, maxn])</p></td>
+<td><p>Add multiple subplots to the selected arrays</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.axes_creator_action" title="psyplot_gui.plot_creator.ArrayTable.axes_creator_action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes_creator_action</span></code></a>(rows)</p></td>
+<td><p>Action to open a <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection" title="psyplot_gui.plot_creator.AxesCreatorCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a> for the selected rows</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.axes_info" title="psyplot_gui.plot_creator.ArrayTable.axes_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axes_info</span></code></a>(s)</p></td>
+<td><p>Interpretes an axes information</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_array" title="psyplot_gui.plot_creator.ArrayTable.check_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_array</span></code></a>(row[, ignore_duplicates])</p></td>
+<td><p>check whether the array variables are valid, the array name is valid, the axes info is valid and the dimensions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_arrays" title="psyplot_gui.plot_creator.ArrayTable.check_arrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_arrays</span></code></a>(**kwargs)</p></td>
+<td><p>Convenience function to check all arrays using the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_array" title="psyplot_gui.plot_creator.ArrayTable.check_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_array()</span></code></a> method</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_item" title="psyplot_gui.plot_creator.ArrayTable.check_item"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_item</span></code></a>(item)</p></td>
+<td><p>Check the array corresponding to the given item</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.dropEvent" title="psyplot_gui.plot_creator.ArrayTable.dropEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropEvent</span></code></a>(event)</p></td>
+<td><p>Reimplemented to call the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_arrays" title="psyplot_gui.plot_creator.ArrayTable.check_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_arrays()</span></code></a> after the call</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.get_all_rows" title="psyplot_gui.plot_creator.ArrayTable.get_all_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_rows</span></code></a>(row)</p></td>
+<td><p>Return all the rows that have the same array name as the given <cite>row</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.insert_array" title="psyplot_gui.plot_creator.ArrayTable.insert_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_array</span></code></a>(name[, check])</p></td>
+<td><p>Appends the settings for an array the the list in a new row</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.next_available_name" title="psyplot_gui.plot_creator.ArrayTable.next_available_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_available_name</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Gives the next possible name to use</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.remove_arrays" title="psyplot_gui.plot_creator.ArrayTable.remove_arrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_arrays</span></code></a>([selected])</p></td>
+<td><p>Remove array rows from the list</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.set_columns" title="psyplot_gui.plot_creator.ArrayTable.set_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_columns</span></code></a>(columns)</p></td>
+<td><p>Set the columns of the table</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.set_pm" title="psyplot_gui.plot_creator.ArrayTable.set_pm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_pm</span></code></a>(s)</p></td>
+<td><p>Set the plot method</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.setup_from_ds" title="psyplot_gui.plot_creator.ArrayTable.setup_from_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_from_ds</span></code></a>([ds, plot_method])</p></td>
+<td><p>Fill the table based upon the given dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.showAxesCreator" title="psyplot_gui.plot_creator.ArrayTable.showAxesCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showAxesCreator</span></code></a>(pos)</p></td>
+<td><p>Context menu for right-click on a row</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.update_other_items" title="psyplot_gui.plot_creator.ArrayTable.update_other_items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_other_items</span></code></a>(item)</p></td>
+<td><p>Updates the axes information of the other items corresponding that have the same array name as the array corresponding to the given <cite>item</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.update_selected" title="psyplot_gui.plot_creator.ArrayTable.update_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_selected</span></code></a>([check, dims])</p></td>
+<td><p>Updates the dimensions of the selectiond arrays with the given <cite>dims</cite></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.DIMS_TT">
+<span class="sig-name descname"><span class="pre">DIMS_TT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&quot;The</span> <span class="pre">values</span> <span class="pre">for</span> <span class="pre">dimension</span> <span class="pre">%s.</span> <span class="pre">You</span> <span class="pre">can</span> <span class="pre">use</span> <span class="pre">integers</span> <span class="pre">either</span> <span class="pre">explicit,</span> <span class="pre">e.g.&lt;ul&gt;&lt;li&gt;1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">...,&lt;/li&gt;&lt;/ul&gt;or</span> <span class="pre">slices</span> <span class="pre">like</span> <span class="pre">&lt;em&gt;start:end:step&lt;/em&gt;,</span> <span class="pre">e.g.&lt;ul&gt;&lt;li&gt;'1:6:2'&lt;/li&gt;&lt;/ul&gt;where</span> <span class="pre">the</span> <span class="pre">latter</span> <span class="pre">is</span> <span class="pre">equivalent</span> <span class="pre">to</span> <span class="pre">'1,</span> <span class="pre">3,</span> <span class="pre">5'&quot;</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.DIMS_TT" title="Permalink to this definition"></a></dt>
+<dd><p>Base tool tip for a dimension column</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.VARIABLE_TT">
+<span class="sig-name descname"><span class="pre">VARIABLE_TT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&quot;The</span> <span class="pre">variables</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">array</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">dataset.</span> <span class="pre">Multiplevariables</span> <span class="pre">for</span> <span class="pre">one</span> <span class="pre">array</span> <span class="pre">may</span> <span class="pre">be</span> <span class="pre">separated</span> <span class="pre">by</span> <span class="pre">';;'&quot;</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.VARIABLE_TT" title="Permalink to this definition"></a></dt>
+<dd><p>Tool tip for the variable column</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.add_single_subplot">
+<span class="sig-name descname"><span class="pre">add_single_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.add_single_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.add_single_subplot" title="Permalink to this definition"></a></dt>
+<dd><p>Add one subplot to the selected arrays on multiple figures</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.add_subplots">
+<span class="sig-name descname"><span class="pre">add_subplots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.add_subplots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.add_subplots" title="Permalink to this definition"></a></dt>
+<dd><p>Add multiple subplots to the selected arrays</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.arr_col">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arr_col</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.arr_col" title="Permalink to this definition"></a></dt>
+<dd><p>The index of the array name column</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.arr_names_dict">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arr_names_dict</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.arr_names_dict" title="Permalink to this definition"></a></dt>
+<dd><p>The final dictionary containing the array names necessary for the
+<cite>arr_names</cite> parameter in the
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.ArrayList.from_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">psyplot.data.ArrayList.from_dataset()</span></code></a> method</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.axes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">axes</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.axes" title="Permalink to this definition"></a></dt>
+<dd><p>A list of axes settings corresponding to the arrays in the
+<a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.arr_names_dict" title="psyplot_gui.plot_creator.ArrayTable.arr_names_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">arr_names_dict</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.axes_col">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">axes_col</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.axes_col" title="Permalink to this definition"></a></dt>
+<dd><p>The index of the axes column</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.axes_creator_action">
+<span class="sig-name descname"><span class="pre">axes_creator_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.axes_creator_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.axes_creator_action" title="Permalink to this definition"></a></dt>
+<dd><p>Action to open a <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection" title="psyplot_gui.plot_creator.AxesCreatorCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a> for the selected
+rows</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.axes_info">
+<span class="sig-name descname"><span class="pre">axes_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.axes_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.axes_info" title="Permalink to this definition"></a></dt>
+<dd><p>Interpretes an axes information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.axes_patt">
+<span class="sig-name descname"><span class="pre">axes_patt</span></span><em class="property"> <span class="pre">=</span> <span class="pre">re.compile('\\((?P&lt;fig&gt;\\d+),\\s*(?P&lt;x0&gt;0*\\.\\d+),\\s*(?P&lt;y0&gt;0*\\.\\d+),\\s*(?P&lt;x1&gt;0*\\.\\d+),\\s*(?P&lt;y1&gt;0*\\.\\d+)\\s*\\)')</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.axes_patt" title="Permalink to this definition"></a></dt>
+<dd><p>pattern to interprete arbitrary axes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.check_array">
+<span class="sig-name descname"><span class="pre">check_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_duplicates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.check_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.check_array" title="Permalink to this definition"></a></dt>
+<dd><p>check whether the array variables are valid, the array name is
+valid, the axes info is valid and the dimensions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.check_arrays">
+<span class="sig-name descname"><span class="pre">check_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.check_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.check_arrays" title="Permalink to this definition"></a></dt>
+<dd><p>Convenience function to check all arrays using the
+<a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_array" title="psyplot_gui.plot_creator.ArrayTable.check_array"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_array()</span></code></a> method</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.check_col">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">check_col</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.check_col" title="Permalink to this definition"></a></dt>
+<dd><p>The index of the check column</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.check_item">
+<span class="sig-name descname"><span class="pre">check_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.check_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.check_item" title="Permalink to this definition"></a></dt>
+<dd><p>Check the array corresponding to the given item</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.current_names">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">current_names</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.current_names" title="Permalink to this definition"></a></dt>
+<dd><p>The names that are currently in use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.dropEvent">
+<span class="sig-name descname"><span class="pre">dropEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.dropEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.dropEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to call the <a class="reference internal" href="#psyplot_gui.plot_creator.ArrayTable.check_arrays" title="psyplot_gui.plot_creator.ArrayTable.check_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_arrays()</span></code></a> after the call</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.get_all_rows">
+<span class="sig-name descname"><span class="pre">get_all_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.get_all_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.get_all_rows" title="Permalink to this definition"></a></dt>
+<dd><p>Return all the rows that have the same array name as the given <cite>row</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.insert_array">
+<span class="sig-name descname"><span class="pre">insert_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.insert_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.insert_array" title="Permalink to this definition"></a></dt>
+<dd><p>Appends the settings for an array the the list in a new row</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.next_available_name">
+<span class="sig-name descname"><span class="pre">next_available_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.next_available_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.next_available_name" title="Permalink to this definition"></a></dt>
+<dd><p>Gives the next possible name to use</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.prefer_list">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">prefer_list</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.prefer_list" title="Permalink to this definition"></a></dt>
+<dd><p>Return the _prefer_list attribute of the plot_method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.remove_arrays">
+<span class="sig-name descname"><span class="pre">remove_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.remove_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.remove_arrays" title="Permalink to this definition"></a></dt>
+<dd><p>Remove array rows from the list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selected</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, only the selected rows are removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.sep">
+<span class="sig-name descname"><span class="pre">sep</span></span><em class="property"> <span class="pre">=</span> <span class="pre">';;'</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.sep" title="Permalink to this definition"></a></dt>
+<dd><p>The separator for variable names</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.set_columns">
+<span class="sig-name descname"><span class="pre">set_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.set_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.set_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Set the columns of the table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> (<em>list of str</em>) – The coordinates in the dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.set_pm">
+<span class="sig-name descname"><span class="pre">set_pm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.set_pm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.set_pm" title="Permalink to this definition"></a></dt>
+<dd><p>Set the plot method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.setup_from_ds">
+<span class="sig-name descname"><span class="pre">setup_from_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.setup_from_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.setup_from_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Fill the table based upon the given dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – If None, the dataset from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">get_ds</span></code> function is used</p></li>
+<li><p><strong>plot_method</strong> (<em>psyplot.project._PlotterInterface</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The plot method of the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.ProjectPlotter" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.project.ProjectPlotter</span></code></a>
+class or None if no plot shall be made</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.showAxesCreator">
+<span class="sig-name descname"><span class="pre">showAxesCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.showAxesCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.showAxesCreator" title="Permalink to this definition"></a></dt>
+<dd><p>Context menu for right-click on a row</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.subplot_patt">
+<span class="sig-name descname"><span class="pre">subplot_patt</span></span><em class="property"> <span class="pre">=</span> <span class="pre">re.compile('\\((?P&lt;fig&gt;\\d+),\\s*(?P&lt;rows&gt;\\d+),\\s*(?P&lt;cols&gt;\\d+),\\s*(?P&lt;num1&gt;\\d+),\\s*(?P&lt;num2&gt;\\d+)\\s*\\)')</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.subplot_patt" title="Permalink to this definition"></a></dt>
+<dd><p>Pattern to interprete subplots</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.update_other_items">
+<span class="sig-name descname"><span class="pre">update_other_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.update_other_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.update_other_items" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the axes information of the other items corresponding
+that have the same array name as the array corresponding to the given
+<cite>item</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.update_selected">
+<span class="sig-name descname"><span class="pre">update_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#ArrayTable.update_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.update_selected" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the dimensions of the selectiond arrays with the given
+<cite>dims</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – whether the array shall be checked afterwards</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – a mapping from coordinate names to string values that shall be
+appended to the current text</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.var_col">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">var_col</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.var_col" title="Permalink to this definition"></a></dt>
+<dd><p>The index of the variable column</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.ArrayTable.vnames">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">vnames</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.ArrayTable.vnames" title="Permalink to this definition"></a></dt>
+<dd><p>The list of variable names per array</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">AxesCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>Widget to setup an axes in a arbitrary location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The figure number. If None, a new figure number will be used</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the x-coordinate of the lower left corner (between 0 and 1)</p></li>
+<li><p><strong>y0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the y-coordinate of the lower left corner (between 0 and 1)</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the x-coordinate of the upper right corner (between 0 and 1)</p></li>
+<li><p><strong>y1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the y-coordinate of the upper right corner (between 0 and 1)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreator.create_axes" title="psyplot_gui.plot_creator.AxesCreator.create_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_axes</span></code></a>(fig, x0, y0, x1, y1, **kwargs)</p></td>
+<td><p>Create an axes for the given <cite>fig</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreator.get_iter" title="psyplot_gui.plot_creator.AxesCreator.get_iter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_iter</span></code></a>()</p></td>
+<td><p>Get the iterator over the axes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreator.resize_rectangle" title="psyplot_gui.plot_creator.AxesCreator.resize_rectangle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize_rectangle</span></code></a>(size)</p></td>
+<td><p>resize the rectangle after changes of the widget size</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreator.create_axes">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">create_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreator.create_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreator.create_axes" title="Permalink to this definition"></a></dt>
+<dd><p>Create an axes for the given <cite>fig</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The figure number. If None, a new figure number will be used</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the x-coordinate of the lower left corner (between 0 and 1)</p></li>
+<li><p><strong>y0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the y-coordinate of the lower left corner (between 0 and 1)</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the x-coordinate of the upper right corner (between 0 and 1)</p></li>
+<li><p><strong>y1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – the y-coordinate of the upper right corner (between 0 and 1)</p></li>
+<li><p><strong>**kwargs</strong> – Any other keyword argument for the
+<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_axes" title="(in Matplotlib v3.4.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.figure.Figure.add_axes()</span></code></a> method</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreator.get_iter">
+<span class="sig-name descname"><span class="pre">get_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreator.get_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreator.get_iter" title="Permalink to this definition"></a></dt>
+<dd><p>Get the iterator over the axes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreator.resize_rectangle">
+<span class="sig-name descname"><span class="pre">resize_rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreator.resize_rectangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreator.resize_rectangle" title="Permalink to this definition"></a></dt>
+<dd><p>resize the rectangle after changes of the widget size</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreatorCollection">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">AxesCreatorCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreatorCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreatorCollection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Wrapper for a QToolBox that holds the different possibilities to select
+an axes</p>
+<p>When the user finished, the <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.okpressed" title="psyplot_gui.plot_creator.AxesCreatorCollection.okpressed"><code class="xref py py-attr docutils literal notranslate"><span class="pre">okpressed</span></code></a> symbol is emitted with an
+infinite iterator of strings. Possible widgets for the toolbox are
+determined by the <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.widgets" title="psyplot_gui.plot_creator.AxesCreatorCollection.widgets"><code class="xref py py-attr docutils literal notranslate"><span class="pre">widgets</span></code></a> attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – if string, it must be one of the keys in the <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.widgets" title="psyplot_gui.plot_creator.AxesCreatorCollection.widgets"><code class="xref py py-attr docutils literal notranslate"><span class="pre">widgets</span></code></a>
+attribute</p></li>
+<li><p><strong>func_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – a dictionary that is passed to the class constructor determined by
+the <cite>key</cite> parameter if <cite>key</cite> is not None</p></li>
+<li><p><strong>``*args</strong> – <p>Determined by the QWidget class</p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – <p>Determined by the QWidget class</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.close" title="psyplot_gui.plot_creator.AxesCreatorCollection.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
+<td><p>reimplemented to make sure that all widgets are closed when this one is closed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.create_subplot" title="psyplot_gui.plot_creator.AxesCreatorCollection.create_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_subplot</span></code></a>()</p></td>
+<td><p>Method that is called whenn the ok button is pressed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.okpressed" title="psyplot_gui.plot_creator.AxesCreatorCollection.okpressed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">okpressed</span></code></a>(*args, **kwargs)</p></td>
+<td><p>signal that is emitted when the 'Ok' pushbutton is pressed and the user finished the selection</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.widgets" title="psyplot_gui.plot_creator.AxesCreatorCollection.widgets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">widgets</span></code></a></p></td>
+<td><p>key, title and class fot the widget that is used to create an axes</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreatorCollection.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreatorCollection.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreatorCollection.close" title="Permalink to this definition"></a></dt>
+<dd><p>reimplemented to make sure that all widgets are closed when this one
+is closed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreatorCollection.create_subplot">
+<span class="sig-name descname"><span class="pre">create_subplot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesCreatorCollection.create_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreatorCollection.create_subplot" title="Permalink to this definition"></a></dt>
+<dd><p>Method that is called whenn the ok button is pressed.</p>
+<p>It emits the <a class="reference internal" href="#psyplot_gui.plot_creator.AxesCreatorCollection.okpressed" title="psyplot_gui.plot_creator.AxesCreatorCollection.okpressed"><code class="xref py py-attr docutils literal notranslate"><span class="pre">okpressed</span></code></a> signal with the iterator of the current
+widget in the toolbox</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreatorCollection.okpressed">
+<span class="sig-name descname"><span class="pre">okpressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreatorCollection.okpressed" title="Permalink to this definition"></a></dt>
+<dd><p>signal that is emitted when the ‘Ok’ pushbutton is pressed and the user
+finished the selection</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesCreatorCollection.widgets">
+<span class="sig-name descname"><span class="pre">widgets</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('subplot',</span> <span class="pre">'Subplot</span> <span class="pre">in</span> <span class="pre">a</span> <span class="pre">grid',</span> <span class="pre">&lt;class</span> <span class="pre">'psyplot_gui.plot_creator.SubplotCreator'&gt;),</span> <span class="pre">('axes',</span> <span class="pre">'Arbitray</span> <span class="pre">position',</span> <span class="pre">&lt;class</span> <span class="pre">'psyplot_gui.plot_creator.AxesCreator'&gt;),</span> <span class="pre">('choose',</span> <span class="pre">'Existing</span> <span class="pre">subplot',</span> <span class="pre">&lt;class</span> <span class="pre">'psyplot_gui.plot_creator.AxesSelector'&gt;)]</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.AxesCreatorCollection.widgets" title="Permalink to this definition"></a></dt>
+<dd><p>key, title and class fot the widget that is used to create an
+axes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">AxesSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>Widget to select an already created axes</p>
+<p>Click the button, select your axes and click the button again</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.allow_axes_select" title="psyplot_gui.plot_creator.AxesSelector.allow_axes_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allow_axes_select</span></code></a>()</p></td>
+<td><p>Replace make all axes pickable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.change_pickers" title="psyplot_gui.plot_creator.AxesSelector.change_pickers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_pickers</span></code></a>(b)</p></td>
+<td><p>Change the pickers of the axes instances</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.close" title="psyplot_gui.plot_creator.AxesSelector.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
+<td><p>Reimplemented to restore the pickers if the widget is closed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.get_iter" title="psyplot_gui.plot_creator.AxesSelector.get_iter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_iter</span></code></a>()</p></td>
+<td><p>Get the iterator over the axes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.get_picked_ax" title="psyplot_gui.plot_creator.AxesSelector.get_picked_ax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_picked_ax</span></code></a>(event)</p></td>
+<td><p>Function to be called when an axes is picked</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.inspect_axes" title="psyplot_gui.plot_creator.AxesSelector.inspect_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_axes</span></code></a>(ax)</p></td>
+<td><p>Inspect the given axes and get the right string for making a plot with it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.restore_pickers" title="psyplot_gui.plot_creator.AxesSelector.restore_pickers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restore_pickers</span></code></a>()</p></td>
+<td><p>Restore the original pickers of the existing axes instances</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.setVisible" title="psyplot_gui.plot_creator.AxesSelector.setVisible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setVisible</span></code></a>(b)</p></td>
+<td><p>Reimplemented to restore the pickers if the widget is made invisible</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesSelector.unclick" title="psyplot_gui.plot_creator.AxesSelector.unclick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unclick</span></code></a>()</p></td>
+<td><p>Restore the original pickers</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.allow_axes_select">
+<span class="sig-name descname"><span class="pre">allow_axes_select</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.allow_axes_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.allow_axes_select" title="Permalink to this definition"></a></dt>
+<dd><p>Replace make all axes pickable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.change_pickers">
+<span class="sig-name descname"><span class="pre">change_pickers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.change_pickers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.change_pickers" title="Permalink to this definition"></a></dt>
+<dd><p>Change the pickers of the axes instances</p>
+<p>If the push button is clicked, we replace the existing pickers of the
+axes in order to select the plots. Otherwise we restore them</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.close" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to restore the pickers if the widget is closed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.get_iter">
+<span class="sig-name descname"><span class="pre">get_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.get_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.get_iter" title="Permalink to this definition"></a></dt>
+<dd><p>Get the iterator over the axes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.get_picked_ax">
+<span class="sig-name descname"><span class="pre">get_picked_ax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.get_picked_ax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.get_picked_ax" title="Permalink to this definition"></a></dt>
+<dd><p>Function to be called when an axes is picked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.inspect_axes">
+<span class="sig-name descname"><span class="pre">inspect_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.inspect_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.inspect_axes" title="Permalink to this definition"></a></dt>
+<dd><p>Inspect the given axes and get the right string for making a plot
+with it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.restore_pickers">
+<span class="sig-name descname"><span class="pre">restore_pickers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.restore_pickers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.restore_pickers" title="Permalink to this definition"></a></dt>
+<dd><p>Restore the original pickers of the existing axes instances</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.setVisible">
+<span class="sig-name descname"><span class="pre">setVisible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.setVisible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.setVisible" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to restore the pickers if the widget is made invisible</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesSelector.unclick">
+<span class="sig-name descname"><span class="pre">unclick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesSelector.unclick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesSelector.unclick" title="Permalink to this definition"></a></dt>
+<dd><p>Restore the original pickers</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesViewer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">AxesViewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesViewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesViewer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QGraphicsView</span></code></p>
+<p>Widget to show a rectangle</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesViewer.resizeEvent" title="psyplot_gui.plot_creator.AxesViewer.resizeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resizeEvent</span></code></a>(self, QResizeEvent)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.AxesViewer.sizeChanged" title="psyplot_gui.plot_creator.AxesViewer.sizeChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeChanged</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesViewer.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QResizeEvent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#AxesViewer.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.AxesViewer.resizeEvent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.AxesViewer.sizeChanged">
+<span class="sig-name descname"><span class="pre">sizeChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.plot_creator.AxesViewer.sizeChanged" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">CoordComboBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QComboBox</span></code></p>
+<p>Combobox showing coordinate information of a dataset</p>
+<p>This combobox loads its data from the current dataset and allows the
+popups to be left open. It also has a <a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.leftclick" title="psyplot_gui.plot_creator.CoordComboBox.leftclick"><code class="xref py py-attr docutils literal notranslate"><span class="pre">leftclick</span></code></a> signal that is
+emitted when the popup is about to be closed because the user clicked on a
+value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds_func</strong> (<em>function</em>) – The function that, when called without arguments, returns the
+xarray.Dataset to use</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The coordinate name for this combobox</p></li>
+<li><p><strong>parent</strong> (<em>PyQt5.QtWidgets.QWidget</em>) – The parent widget</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.close_popups" title="psyplot_gui.plot_creator.CoordComboBox.close_popups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close_popups</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.leftclick" title="psyplot_gui.plot_creator.CoordComboBox.leftclick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leftclick</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.use_coords" title="psyplot_gui.plot_creator.CoordComboBox.use_coords"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_coords</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.eventFilter" title="psyplot_gui.plot_creator.CoordComboBox.eventFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eventFilter</span></code></a>(obj, event)</p></td>
+<td><p>Reimplemented to filter right-click events on the view()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.handleItemPressed" title="psyplot_gui.plot_creator.CoordComboBox.handleItemPressed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handleItemPressed</span></code></a>(index)</p></td>
+<td><p>Function to be called when an item is pressed to make sure that we know whether anything changed before closing the popup</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.hidePopup" title="psyplot_gui.plot_creator.CoordComboBox.hidePopup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hidePopup</span></code></a>()</p></td>
+<td><p>Reimplemented to only close the popup when the <code class="xref py py-attr docutils literal notranslate"><span class="pre">close_popup</span></code> attribute is True or it is clicked outside the window</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.hide_anyway" title="psyplot_gui.plot_creator.CoordComboBox.hide_anyway"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hide_anyway</span></code></a>([index])</p></td>
+<td><p>Function to hide the popup despite of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">_changed</span></code> attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.load_coord" title="psyplot_gui.plot_creator.CoordComboBox.load_coord"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_coord</span></code></a>()</p></td>
+<td><p>Load the coordinate data from the dataset and fill the combobox with it (if it is empty)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.mouseDoubleClickEvent" title="psyplot_gui.plot_creator.CoordComboBox.mouseDoubleClickEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mouseDoubleClickEvent</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to fill the box with content from the dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.mousePressEvent" title="psyplot_gui.plot_creator.CoordComboBox.mousePressEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mousePressEvent</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to fill the box with content from the dataset</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox.right_click" title="psyplot_gui.plot_creator.CoordComboBox.right_click"><code class="xref py py-obj docutils literal notranslate"><span class="pre">right_click</span></code></a>(point)</p></td>
+<td><p>Function that is called when an item is right_clicked</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.close_popups">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">close_popups</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.close_popups" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.eventFilter">
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.eventFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.eventFilter" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to filter right-click events on the view()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.handleItemPressed">
+<span class="sig-name descname"><span class="pre">handleItemPressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.handleItemPressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.handleItemPressed" title="Permalink to this definition"></a></dt>
+<dd><p>Function to be called when an item is pressed to make sure that
+we know whether anything changed before closing the popup</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.hidePopup">
+<span class="sig-name descname"><span class="pre">hidePopup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.hidePopup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.hidePopup" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to only close the popup when the <code class="xref py py-attr docutils literal notranslate"><span class="pre">close_popup</span></code>
+attribute is True or it is clicked outside the window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.hide_anyway">
+<span class="sig-name descname"><span class="pre">hide_anyway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.hide_anyway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.hide_anyway" title="Permalink to this definition"></a></dt>
+<dd><p>Function to hide the popup despite of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">_changed</span></code> attribute</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.leftclick">
+<span class="sig-name descname"><span class="pre">leftclick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.leftclick" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.load_coord">
+<span class="sig-name descname"><span class="pre">load_coord</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.load_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.load_coord" title="Permalink to this definition"></a></dt>
+<dd><p>Load the coordinate data from the dataset and fill the combobox with
+it (if it is empty)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.mouseDoubleClickEvent">
+<span class="sig-name descname"><span class="pre">mouseDoubleClickEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.mouseDoubleClickEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.mouseDoubleClickEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to fill the box with content from the dataset</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.mousePressEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to fill the box with content from the dataset</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.right_click">
+<span class="sig-name descname"><span class="pre">right_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordComboBox.right_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.right_click" title="Permalink to this definition"></a></dt>
+<dd><p>Function that is called when an item is right_clicked</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordComboBox.use_coords">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">use_coords</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.CoordComboBox.use_coords" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordsTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">CoordsTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordsTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordsTable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code></p>
+<p>A table showing the coordinates of in a dataset via instances of
+<a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox" title="psyplot_gui.plot_creator.CoordComboBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_func</strong> (<em>function</em>) – The function that, when called without arguments, returns the
+xarray.Dataset to use</p></li>
+<li><p><strong>``*args</strong> – <p>Determined by the <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code> class</p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – Determined by the <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code> class</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordsTable.combo_boxes" title="psyplot_gui.plot_creator.CoordsTable.combo_boxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combo_boxes</span></code></a></p></td>
+<td><p>A list of <a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox" title="psyplot_gui.plot_creator.CoordComboBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a> in this table</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordsTable.fill_from_ds" title="psyplot_gui.plot_creator.CoordsTable.fill_from_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_from_ds</span></code></a>([ds])</p></td>
+<td><p>Clear the table and create new comboboxes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.CoordsTable.sizeHint" title="psyplot_gui.plot_creator.CoordsTable.sizeHint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizeHint</span></code></a>()</p></td>
+<td><p>Reimplemented to adjust the heigth based upon the header and the first row</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordsTable.combo_boxes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">combo_boxes</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.CoordsTable.combo_boxes" title="Permalink to this definition"></a></dt>
+<dd><p>A list of <a class="reference internal" href="#psyplot_gui.plot_creator.CoordComboBox" title="psyplot_gui.plot_creator.CoordComboBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a> in this table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordsTable.fill_from_ds">
+<span class="sig-name descname"><span class="pre">fill_from_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordsTable.fill_from_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordsTable.fill_from_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Clear the table and create new comboboxes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.CoordsTable.sizeHint">
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#CoordsTable.sizeHint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.CoordsTable.sizeHint" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to adjust the heigth based upon the header and the
+first row</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">DragDropTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code></p>
+<p>Table that allows to exchange rows via drag and drop</p>
+<p>This class was mainly taken from
+<a class="reference external" href="http://stackoverflow.com/questions/26227885/drag-and-drop-rows-within-qtablewidget">http://stackoverflow.com/questions/26227885/drag-and-drop-rows-within-qtablewidget</a></p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable.dropEvent" title="psyplot_gui.plot_creator.DragDropTable.dropEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropEvent</span></code></a>(self, QDropEvent)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable.dropOn" title="psyplot_gui.plot_creator.DragDropTable.dropOn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dropOn</span></code></a>(event)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable.droppingOnItself" title="psyplot_gui.plot_creator.DragDropTable.droppingOnItself"><code class="xref py py-obj docutils literal notranslate"><span class="pre">droppingOnItself</span></code></a>(event, index)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable.moveRows" title="psyplot_gui.plot_creator.DragDropTable.moveRows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">moveRows</span></code></a>(row[, remove])</p></td>
+<td><p>Move all selected rows to the given <cite>row</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.DragDropTable.position" title="psyplot_gui.plot_creator.DragDropTable.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a>(pos, rect, index)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable.dropEvent">
+<span class="sig-name descname"><span class="pre">dropEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QDropEvent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable.dropEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable.dropEvent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable.dropOn">
+<span class="sig-name descname"><span class="pre">dropOn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable.dropOn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable.dropOn" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable.droppingOnItself">
+<span class="sig-name descname"><span class="pre">droppingOnItself</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable.droppingOnItself"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable.droppingOnItself" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable.moveRows">
+<span class="sig-name descname"><span class="pre">moveRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable.moveRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable.moveRows" title="Permalink to this definition"></a></dt>
+<dd><p>Move all selected rows to the given <cite>row</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.DragDropTable.position">
+<span class="sig-name descname"><span class="pre">position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rect</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#DragDropTable.position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.DragDropTable.position" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">PlotCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Widget to extract data from a dataset and eventually create a plot</p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.NO_PM_TT" title="psyplot_gui.plot_creator.PlotCreator.NO_PM_TT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NO_PM_TT</span></code></a></p></td>
+<td><p>Tooltip for not making a plot</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.add_new_ds" title="psyplot_gui.plot_creator.PlotCreator.add_new_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_new_ds</span></code></a>(oname, ds[, fname])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.close" title="psyplot_gui.plot_creator.PlotCreator.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to make sure that the data sets are deleted</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.connect_combo_boxes" title="psyplot_gui.plot_creator.PlotCreator.connect_combo_boxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_combo_boxes</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.create_plots" title="psyplot_gui.plot_creator.PlotCreator.create_plots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_plots</span></code></a>()</p></td>
+<td><p>Method to be called when the <cite>Create plot</cite> button is pressed</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.fill_ds_combo" title="psyplot_gui.plot_creator.PlotCreator.fill_ds_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_ds_combo</span></code></a>(project)</p></td>
+<td><p>fill the dataset combobox with datasets of the current main project</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.fill_fmt_tree" title="psyplot_gui.plot_creator.PlotCreator.fill_fmt_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_fmt_tree</span></code></a>(pm)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.fill_plot_method_combo" title="psyplot_gui.plot_creator.PlotCreator.fill_plot_method_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_plot_method_combo</span></code></a>()</p></td>
+<td><p>Takes the names of the plotting methods in the current project</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.get_ds" title="psyplot_gui.plot_creator.PlotCreator.get_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ds</span></code></a>([i])</p></td>
+<td><p>Get the dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.insert_array" title="psyplot_gui.plot_creator.PlotCreator.insert_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_array</span></code></a>([variables])</p></td>
+<td><p>Inserts an array for the given variables (or the ones selected in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">variable_table</span></code> if <cite>variables</cite> is None)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.insert_array_from_combo" title="psyplot_gui.plot_creator.PlotCreator.insert_array_from_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_array_from_combo</span></code></a>(cb[, variables])</p></td>
+<td><p>Insert new arrays into the dataset when the combobox is left-clicked</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.keyPressEvent" title="psyplot_gui.plot_creator.PlotCreator.keyPressEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keyPressEvent</span></code></a>(e)</p></td>
+<td><p>Reimplemented to close the window when escape is hitted</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.load_preset" title="psyplot_gui.plot_creator.PlotCreator.load_preset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_preset</span></code></a>()</p></td>
+<td><p>Load a preset file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.open_data" title="psyplot_gui.plot_creator.PlotCreator.open_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_data</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Convenience method to create a sub project without a plotter</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.open_dataset" title="psyplot_gui.plot_creator.PlotCreator.open_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_dataset</span></code></a>([fnames])</p></td>
+<td><p>Opens a file dialog and the dataset that has been inserted</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.reset_comboboxes" title="psyplot_gui.plot_creator.PlotCreator.reset_comboboxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_comboboxes</span></code></a>()</p></td>
+<td><p>Clear all comboboxes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.set_ds" title="psyplot_gui.plot_creator.PlotCreator.set_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_ds</span></code></a>(i)</p></td>
+<td><p>Set the current dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.set_pm" title="psyplot_gui.plot_creator.PlotCreator.set_pm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_pm</span></code></a>(plot_method)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.set_preset" title="psyplot_gui.plot_creator.PlotCreator.set_preset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_preset</span></code></a>(preset)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.setup_subplot" title="psyplot_gui.plot_creator.PlotCreator.setup_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_subplot</span></code></a>()</p></td>
+<td><p>Method to be emitted to setup one subplot at a specific location for each of the selected arrays on separate (new) figures</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.setup_subplots" title="psyplot_gui.plot_creator.PlotCreator.setup_subplots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_subplots</span></code></a>()</p></td>
+<td><p>Method to be emitted to setup the subplots for the selected arrays on new figures</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.show_pm_info" title="psyplot_gui.plot_creator.PlotCreator.show_pm_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_pm_info</span></code></a>()</p></td>
+<td><p>Shows info on the current plotting method in the help explorer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.switch2ds" title="psyplot_gui.plot_creator.PlotCreator.switch2ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">switch2ds</span></code></a>(ds)</p></td>
+<td><p>Switch to the given dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.PlotCreator.toggle_close_popups" title="psyplot_gui.plot_creator.PlotCreator.toggle_close_popups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_close_popups</span></code></a>()</p></td>
+<td><p>Change the automatic closing of popups</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.NO_PM_TT">
+<span class="sig-name descname"><span class="pre">NO_PM_TT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Choose</span> <span class="pre">a</span> <span class="pre">plot</span> <span class="pre">method</span> <span class="pre">(or</span> <span class="pre">choose</span> <span class="pre">none</span> <span class="pre">to</span> <span class="pre">only</span> <span class="pre">extract</span> <span class="pre">the</span> <span class="pre">data)'</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.NO_PM_TT" title="Permalink to this definition"></a></dt>
+<dd><p>Tooltip for not making a plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.add_new_ds">
+<span class="sig-name descname"><span class="pre">add_new_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.add_new_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.add_new_ds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.close" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to make sure that the data sets are deleted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.connect_combo_boxes">
+<span class="sig-name descname"><span class="pre">connect_combo_boxes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.connect_combo_boxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.connect_combo_boxes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.create_plots">
+<span class="sig-name descname"><span class="pre">create_plots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.create_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.create_plots" title="Permalink to this definition"></a></dt>
+<dd><p>Method to be called when the <cite>Create plot</cite> button is pressed</p>
+<p>This method reads the data from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">array_table</span></code> attribute and
+makes the plot (or extracts the data) based upon the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">plot_method</span></code> attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.fill_ds_combo">
+<span class="sig-name descname"><span class="pre">fill_ds_combo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.fill_ds_combo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.fill_ds_combo" title="Permalink to this definition"></a></dt>
+<dd><p>fill the dataset combobox with datasets of the current main project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.fill_fmt_tree">
+<span class="sig-name descname"><span class="pre">fill_fmt_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pm</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.fill_fmt_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.fill_fmt_tree" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.fill_plot_method_combo">
+<span class="sig-name descname"><span class="pre">fill_plot_method_combo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.fill_plot_method_combo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.fill_plot_method_combo" title="Permalink to this definition"></a></dt>
+<dd><p>Takes the names of the plotting methods in the current project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.get_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.get_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Get the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – If None, the dataset of the current index in the <cite>ds_combo</cite> is
+returned. Otherwise it specifies the locdation of the dictionary in
+the <code class="xref py py-attr docutils literal notranslate"><span class="pre">ds_descs</span></code> attribute</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The requested dataset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)">xarray.Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.insert_array">
+<span class="sig-name descname"><span class="pre">insert_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.insert_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.insert_array" title="Permalink to this definition"></a></dt>
+<dd><p>Inserts an array for the given variables (or the ones selected in
+the <code class="xref py py-attr docutils literal notranslate"><span class="pre">variable_table</span></code> if <cite>variables</cite> is None)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.insert_array_from_combo">
+<span class="sig-name descname"><span class="pre">insert_array_from_combo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.insert_array_from_combo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.insert_array_from_combo" title="Permalink to this definition"></a></dt>
+<dd><p>Insert new arrays into the dataset when the combobox is left-clicked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.keyPressEvent">
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.keyPressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.keyPressEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to close the window when escape is hitted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.load_preset">
+<span class="sig-name descname"><span class="pre">load_preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.load_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.load_preset" title="Permalink to this definition"></a></dt>
+<dd><p>Load a preset file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.open_data">
+<span class="sig-name descname"><span class="pre">open_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.open_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.open_data" title="Permalink to this definition"></a></dt>
+<dd><p>Convenience method to create a sub project without a plotter</p>
+<p>This method is used when the <code class="xref py py-attr docutils literal notranslate"><span class="pre">pm_combo</span></code> is empty</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.open_dataset">
+<span class="sig-name descname"><span class="pre">open_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.open_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.open_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Opens a file dialog and the dataset that has been inserted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.reset_comboboxes">
+<span class="sig-name descname"><span class="pre">reset_comboboxes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.reset_comboboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.reset_comboboxes" title="Permalink to this definition"></a></dt>
+<dd><p>Clear all comboboxes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.set_ds">
+<span class="sig-name descname"><span class="pre">set_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.set_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.set_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Set the current dataset</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.set_pm">
+<span class="sig-name descname"><span class="pre">set_pm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.set_pm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.set_pm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.set_preset">
+<span class="sig-name descname"><span class="pre">set_preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.set_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.set_preset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.setup_subplot">
+<span class="sig-name descname"><span class="pre">setup_subplot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.setup_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.setup_subplot" title="Permalink to this definition"></a></dt>
+<dd><p>Method to be emitted to setup one subplot at a specific location
+for each of the selected arrays on separate (new) figures</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.setup_subplots">
+<span class="sig-name descname"><span class="pre">setup_subplots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.setup_subplots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.setup_subplots" title="Permalink to this definition"></a></dt>
+<dd><p>Method to be emitted to setup the subplots for the selected arrays
+on new figures</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.show_pm_info">
+<span class="sig-name descname"><span class="pre">show_pm_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.show_pm_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.show_pm_info" title="Permalink to this definition"></a></dt>
+<dd><p>Shows info on the current plotting method in the help explorer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.switch2ds">
+<span class="sig-name descname"><span class="pre">switch2ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.switch2ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.switch2ds" title="Permalink to this definition"></a></dt>
+<dd><p>Switch to the given dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ds</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a>) – The dataset to use. It is assumed that this dataset is already
+in the dataset combobox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.PlotCreator.toggle_close_popups">
+<span class="sig-name descname"><span class="pre">toggle_close_popups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#PlotCreator.toggle_close_popups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.PlotCreator.toggle_close_popups" title="Permalink to this definition"></a></dt>
+<dd><p>Change the automatic closing of popups</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">SubplotCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>Select a subplot to which will be created (if not already existing) when
+making the plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The number of the figure</p></li>
+<li><p><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The number of rows for the gridspec</p></li>
+<li><p><strong>cols</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The number of columns for the gridspec</p></li>
+<li><p><strong>num1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The number of the upper left corner starting from 1</p></li>
+<li><p><strong>num2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The number of the lower right corner starting from 1. If None,
+<cite>num1</cite> is used</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.create_subplot" title="psyplot_gui.plot_creator.SubplotCreator.create_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_subplot</span></code></a>([fig, rows, cols, num1, num2])</p></td>
+<td><p>Create a subplot for the given figure</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.get_iter" title="psyplot_gui.plot_creator.SubplotCreator.get_iter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_iter</span></code></a>()</p></td>
+<td><p>Get the iterator over the axes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.set_num2_validator" title="psyplot_gui.plot_creator.SubplotCreator.set_num2_validator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_num2_validator</span></code></a>(s)</p></td>
+<td><p>Set the validator range for the num2 line edit</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected" title="psyplot_gui.plot_creator.SubplotCreator.set_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_selected</span></code></a>(num1, num2)</p></td>
+<td><p>Update the selection in the table based upon <cite>num1</cite> and <cite>num2</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num1" title="psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_selected_from_num1</span></code></a>(s)</p></td>
+<td><p>Update the selection of the table after changes of <code class="xref py py-attr docutils literal notranslate"><span class="pre">num1_edit</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num2" title="psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_selected_from_num2</span></code></a>(s)</p></td>
+<td><p>Update the selection of the table after changes of <code class="xref py py-attr docutils literal notranslate"><span class="pre">num2_edit</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.setup_table" title="psyplot_gui.plot_creator.SubplotCreator.setup_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_table</span></code></a>()</p></td>
+<td><p>Set up the table based upon the number of rows and columns in the rows and cols line edit</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.SubplotCreator.update_num_edit" title="psyplot_gui.plot_creator.SubplotCreator.update_num_edit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_num_edit</span></code></a>()</p></td>
+<td><p>Update the <code class="xref py py-attr docutils literal notranslate"><span class="pre">num1_edit</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">num2_edit</span></code> after the selection of the table changed</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.create_subplot">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">create_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.create_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.create_subplot" title="Permalink to this definition"></a></dt>
+<dd><p>Create a subplot for the given figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a> or int) – If integer, the <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="(in Matplotlib v3.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.figure()</span></code></a> function is used</p></li>
+<li><p><strong>rows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of rows for the gridspec</p></li>
+<li><p><strong>cols</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of columns for the gridspec</p></li>
+<li><p><strong>num1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The subplot number of the upper left corner in the grid (starting
+from 1!)</p></li>
+<li><p><strong>num2</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The subplot number of the lower left corner in the grid (starting
+from 1!). If None, <cite>num1</cite> will be used</p></li>
+<li><p><strong>**kwargs</strong> – Any other keyword argument for the
+<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="(in Matplotlib v3.4.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.figure.Figure.add_subplot()</span></code></a> method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new created subplot</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mpl.axes.Subplot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.get_iter">
+<span class="sig-name descname"><span class="pre">get_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.get_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.get_iter" title="Permalink to this definition"></a></dt>
+<dd><p>Get the iterator over the axes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.set_num2_validator">
+<span class="sig-name descname"><span class="pre">set_num2_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.set_num2_validator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.set_num2_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Set the validator range for the num2 line edit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.set_selected">
+<span class="sig-name descname"><span class="pre">set_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.set_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected" title="Permalink to this definition"></a></dt>
+<dd><p>Update the selection in the table based upon <cite>num1</cite> and <cite>num2</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num1">
+<span class="sig-name descname"><span class="pre">set_selected_from_num1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.set_selected_from_num1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num1" title="Permalink to this definition"></a></dt>
+<dd><p>Update the selection of the table after changes of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">num1_edit</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num2">
+<span class="sig-name descname"><span class="pre">set_selected_from_num2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.set_selected_from_num2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num2" title="Permalink to this definition"></a></dt>
+<dd><p>Update the selection of the table after changes of <code class="xref py py-attr docutils literal notranslate"><span class="pre">num2_edit</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.setup_table">
+<span class="sig-name descname"><span class="pre">setup_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.setup_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.setup_table" title="Permalink to this definition"></a></dt>
+<dd><p>Set up the table based upon the number of rows and columns in the
+rows and cols line edit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.SubplotCreator.update_num_edit">
+<span class="sig-name descname"><span class="pre">update_num_edit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#SubplotCreator.update_num_edit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.SubplotCreator.update_num_edit" title="Permalink to this definition"></a></dt>
+<dd><p>Update the <code class="xref py py-attr docutils literal notranslate"><span class="pre">num1_edit</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">num2_edit</span></code> after the
+selection of the table changed</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariableItemDelegate">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">VariableItemDelegate</span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#VariableItemDelegate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.VariableItemDelegate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QStyledItemDelegate</span></code></p>
+<p>Delegate alowing only the variables in the parents dataset.</p>
+<p>The parent must hold a <cite>get_ds</cite> method that returns a dataset when called</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariableItemDelegate.createEditor" title="psyplot_gui.plot_creator.VariableItemDelegate.createEditor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">createEditor</span></code></a>(self, QWidget, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariableItemDelegate.createEditor">
+<span class="sig-name descname"><span class="pre">createEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QWidget</span></span></span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#VariableItemDelegate.createEditor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.VariableItemDelegate.createEditor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariablesTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.plot_creator.</span></span><span class="sig-name descname"><span class="pre">VariablesTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['long_name',</span> <span class="pre">'dims',</span> <span class="pre">'shape']</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#VariablesTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.VariablesTable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code></p>
+<p>Table to display the variables of a dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>get_func</strong> (<em>function</em>) – The function that, when called without arguments, returns the
+xarray.Dataset to use</p></li>
+<li><p><strong>columns</strong> (<em>list of str</em>) – The attribute that will be used as columns for the variables</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariablesTable.fill_from_ds" title="psyplot_gui.plot_creator.VariablesTable.fill_from_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_from_ds</span></code></a>([ds])</p></td>
+<td><p>Clear the table and insert items from the given <cite>dataset</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariablesTable.set_columns" title="psyplot_gui.plot_creator.VariablesTable.set_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_columns</span></code></a>([columns])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariablesTable.selected_variables" title="psyplot_gui.plot_creator.VariablesTable.selected_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_variables</span></code></a></p></td>
+<td><p>The currently selected variables</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.plot_creator.VariablesTable.variables" title="psyplot_gui.plot_creator.VariablesTable.variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variables</span></code></a></p></td>
+<td><p>The variables in the dataset</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariablesTable.fill_from_ds">
+<span class="sig-name descname"><span class="pre">fill_from_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#VariablesTable.fill_from_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.VariablesTable.fill_from_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Clear the table and insert items from the given <cite>dataset</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariablesTable.selected_variables">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">selected_variables</span></span><a class="headerlink" href="#psyplot_gui.plot_creator.VariablesTable.selected_variables" title="Permalink to this definition"></a></dt>
+<dd><p>The currently selected variables</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariablesTable.set_columns">
+<span class="sig-name descname"><span class="pre">set_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/plot_creator.html#VariablesTable.set_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.plot_creator.VariablesTable.set_columns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.plot_creator.VariablesTable.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.plot_creator.VariablesTable.variables" title="Permalink to this definition"></a></dt>
+<dd><p>The variables in the dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.main.html" class="btn btn-neutral float-left" title="psyplot_gui.main module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.preferences.html" class="btn btn-neutral float-right" title="psyplot_gui.preferences module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

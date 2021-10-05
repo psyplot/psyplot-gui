@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.main &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
+      <li>psyplot_gui.main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui.main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Core module for the psyplot graphical user interface</span>
+
+<span class="sd">This module redefines the :class:`psyplot.project.Project` class with</span>
+<span class="sd">additional features for an interactive usage with graphical qt user interface.</span>
+<span class="sd">There is no need to import this module because the</span>
+<span class="sd">:class:`GuiProject` class defined here replaces the project class in the</span>
+<span class="sd">:mod:`psyplot.project` module.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">errno</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">psyplot.compat.pycompat</span> <span class="kn">import</span> <span class="n">get_default_value</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># change backend here before the project module is imported</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;backend&#39;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">backend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;psyplot&#39;</span><span class="p">:</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;module://psyplot_gui.backend&#39;</span>
+    <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">psyplot_gui.console</span> <span class="kn">import</span> <span class="n">ConsoleWidget</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QMenu</span><span class="p">,</span> <span class="n">QAction</span><span class="p">,</span> <span class="n">QDesktopWidget</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span>
+    <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">with_qt5</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span>
+    <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QActionGroup</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.content_widget</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ProjectContentWidget</span><span class="p">,</span> <span class="n">DatasetTree</span><span class="p">,</span> <span class="n">FiguresTree</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.plot_creator</span> <span class="kn">import</span> <span class="n">PlotCreator</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.help_explorer</span> <span class="kn">import</span> <span class="n">HelpExplorer</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.dataframeeditor</span> <span class="kn">import</span> <span class="n">DataFrameEditor</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.fmt_widget</span> <span class="kn">import</span> <span class="n">FormatoptionWidget</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.common</span> <span class="kn">import</span> <span class="n">PyErrorMessage</span><span class="p">,</span> <span class="n">get_icon</span><span class="p">,</span> <span class="n">StreamToLogger</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.preferences</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Prefences</span><span class="p">,</span> <span class="n">GuiRcParamsWidget</span><span class="p">,</span> <span class="n">PsyRcParamsWidget</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.dependencies</span> <span class="kn">import</span> <span class="n">DependenciesDialog</span>
+
+<span class="kn">from</span> <span class="nn">psyplot.docstring</span> <span class="kn">import</span> <span class="n">docstrings</span>
+<span class="kn">import</span> <span class="nn">psyplot.plotter</span> <span class="k">as</span> <span class="nn">psyp</span>
+<span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
+<span class="kn">import</span> <span class="nn">psyplot</span>
+<span class="kn">from</span> <span class="nn">psyplot.config.rcsetup</span> <span class="kn">import</span> <span class="n">get_configdir</span>
+<span class="kn">import</span> <span class="nn">psyplot.data</span> <span class="k">as</span> <span class="nn">psyd</span>
+<span class="kn">import</span> <span class="nn">psyplot_gui</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<span class="c1">#: The :class:`PyQt5.QtWidgets.QMainWindow` of the graphical user interface</span>
+<span class="n">mainwindow</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_set_mainwindow</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">mainwindow</span>
+    <span class="n">mainwindow</span> <span class="o">=</span> <span class="n">obj</span>
+
+
+<div class="viewcode-block" id="MainWindow"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow">[docs]</a><span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+
+    <span class="c1">#: A signal that is emmitted when the a signal is received through the</span>
+    <span class="c1">#: open_files_server</span>
+    <span class="n">open_external</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="c1">#: The server to open external files</span>
+    <span class="n">open_files_server</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: Inprocess console</span>
+    <span class="n">console</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: tree widget displaying the open datasets</span>
+    <span class="n">ds_tree</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: list of figures from the psyplot backend</span>
+    <span class="n">figures</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#: tree widget displaying the open figures</span>
+    <span class="n">figures_tree</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: general formatoptions widget</span>
+    <span class="n">fmt_widget</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: help explorer</span>
+    <span class="n">help_explorer</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: the DataFrameEditor widgets, a widget to show and edit data frames</span>
+    <span class="n">dataframeeditors</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: tab widget displaying the arrays in current main and sub project</span>
+    <span class="n">project_content</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The dockwidgets of this instance</span>
+    <span class="n">dockwidgets</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#: default widths of the dock widgets</span>
+    <span class="n">default_widths</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: The keyboard shortcuts of the default layout</span>
+    <span class="n">default_shortcuts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#: The current keyboard shortcuts</span>
+    <span class="n">current_shortcuts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1">#: The key for the central widget for the main window in the</span>
+    <span class="c1">#: :attr:`plugins` dictionary</span>
+    <span class="n">central_widget_key</span> <span class="o">=</span> <span class="s1">&#39;console&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The logger of this instance&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">get_sections</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;MainWindow&#39;</span><span class="p">)</span>
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        show: bool</span>
+<span class="sd">            If True, the created mainwindow is show</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">StreamToLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">StreamToLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">get_icon</span><span class="p">(</span><span class="s1">&#39;logo.png&#39;</span><span class="p">)))</span>
+
+        <span class="c1">#: list of figures from the psyplot backend</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_msg</span> <span class="o">=</span> <span class="n">PyErrorMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDockOptions</span><span class="p">(</span>
+            <span class="n">QMainWindow</span><span class="o">.</span><span class="n">AnimatedDocks</span> <span class="o">|</span> <span class="n">QMainWindow</span><span class="o">.</span><span class="n">AllowNestedDocks</span> <span class="o">|</span>
+            <span class="n">QMainWindow</span><span class="o">.</span><span class="n">AllowTabbedDocks</span><span class="p">)</span>
+        <span class="c1">#: Inprocess console</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span> <span class="o">=</span> <span class="n">ConsoleWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_pages</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file_options</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;new psyplot plot from dataset&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_external_files</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;new psyplot project&#39;</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_external_files</span><span class="p">,</span> <span class="p">[])),</span>
+            <span class="p">])</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># ----------------------------- Menus ---------------------------------</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+
+        <span class="c1"># ######################## File menu ##################################</span>
+
+        <span class="c1"># --------------------------- New plot --------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;File&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_plot_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;New plot&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_plot_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Use an existing dataset (or open a new one) to create one or &#39;</span>
+            <span class="s1">&#39;more plots&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_plot_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">New</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_plot_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_plots</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_plot_action</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------- Open project ----------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_project_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Open project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_project_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_mp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;New main project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_mp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">Open</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_mp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span><span class="s1">&#39;Open a new main project&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_mp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_mp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_mp_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_sp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Add to current&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_sp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">(</span>
+                <span class="s1">&#39;Ctrl+Shift+O&#39;</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">NativeText</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_sp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Load a project as a sub project and add it to the current main &#39;</span>
+            <span class="s1">&#39;project&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_sp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_sp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_sp_action</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------- load preset menu -----------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_preset_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Load preset&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_preset_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_sp_preset_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_preset_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+            <span class="s2">&quot;For selection&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_sp_preset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_sp_preset_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s2">&quot;Load a preset for the selected project&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_mp_preset_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_preset_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+            <span class="s2">&quot;For full project&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_mp_preset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_sp_preset_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s2">&quot;Load a preset for the full project&quot;</span><span class="p">)</span>
+
+        <span class="c1"># ----------------------- Save project --------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_project_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Full psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Save the entire project into a pickle file&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">Save</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Selected psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Save the selected sub project into a pickle file&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_sp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_sp_action</span><span class="p">)</span>
+
+        <span class="c1"># ------------------------ Save project as ----------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_as_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Save as&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_project_as_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_as_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Full psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_as_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Save the entire project into a pickle file&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp_as_action</span><span class="p">,</span>
+                                       <span class="n">QKeySequence</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_as_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp</span><span class="p">,</span> <span class="n">new_fname</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_as_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp_as_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_as_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Selected psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_as_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Save the selected sub project into a pickle file&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_as_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_sp</span><span class="p">,</span> <span class="n">new_fname</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_project_as_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_sp_as_action</span><span class="p">)</span>
+
+        <span class="c1"># ------------------------ Save preset --------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_preset_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Save preset&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_preset_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_preset_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_preset_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+            <span class="s2">&quot;Selection&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_preset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_preset_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s2">&quot;Save the formatoptions of the selected project as a preset&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_preset_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_preset_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+            <span class="s2">&quot;Full project&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_mp_preset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sp_preset_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s2">&quot;Save the formatoptions of the full project as a preset&quot;</span><span class="p">)</span>
+
+        <span class="c1"># -------------------------- Pack project -----------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_project_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Zip project files&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pack_project_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_mp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Full psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_mp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Pack all the data of the main project into one folder&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_mp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_mp</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pack_mp_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_sp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Selected psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_sp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Pack all the data of the current sub project into one folder&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_sp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_sp</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pack_sp_action</span><span class="p">)</span>
+
+        <span class="c1"># ------------------------ Export figures -----------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_project_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Export figures&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_project_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_mp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Full psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_mp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Pack all the data of the main project into one folder&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_mp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_mp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_mp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">(</span>
+                <span class="s1">&#39;Ctrl+E&#39;</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">NativeText</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_mp_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_sp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Selected psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_sp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Pack all the data of the current sub project into one folder&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_sp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">(</span>
+                <span class="s1">&#39;Ctrl+Shift+E&#39;</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">NativeText</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_sp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_sp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_sp_action</span><span class="p">)</span>
+
+        <span class="c1"># ------------------------ Close project ------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_project_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Close project&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close_project_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_mp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Full psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_mp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="p">(</span>
+                <span class="s1">&#39;Ctrl+Shift+W&#39;</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">NativeText</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_mp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Close the main project and delete all data and plots out of &#39;</span>
+            <span class="s1">&#39;memory&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_mp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">psy</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">num</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close_mp_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_sp_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Selected psyplot project&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_sp_action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Close the selected arrays project and delete all data and plots &#39;</span>
+            <span class="s1">&#39;out of memory&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close_sp_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">Close</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_sp_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_project_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close_sp_action</span><span class="p">)</span>
+
+        <span class="c1"># ----------------------------- Quit ----------------------------------</span>
+
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">!=</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>  <span class="c1"># mac os makes this anyway</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">quit_action</span><span class="p">,</span> <span class="n">QKeySequence</span><span class="o">.</span><span class="n">Quit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quit_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
+
+        <span class="c1"># ######################## Console menu ###############################</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">console_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Console&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console_menu</span><span class="o">.</span><span class="n">addActions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">actions</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console_menu</span><span class="p">)</span>
+
+        <span class="c1"># ######################## Windows menu ###############################</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Windows&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="p">)</span>
+
+        <span class="c1"># ############################ Help menu ##############################</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Help&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="p">)</span>
+
+        <span class="c1"># -------------------------- Preferences ------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Preferences&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edit_preferences</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_action</span><span class="p">,</span>
+                                       <span class="n">QKeySequence</span><span class="o">.</span><span class="n">Preferences</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_action</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------- About ----------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;About&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">about</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------- Dependencies ---------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dependencies_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Dependencies&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dependencies_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dependencies</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependencies_action</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dockwidgets</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># -------------------------- Dock windows -----------------------------</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1">#: tab widget displaying the arrays in current main and sub project</span>
+        <span class="c1">#: tree widget displaying the open datasets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_content</span> <span class="o">=</span> <span class="n">ProjectContentWidget</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ds_tree</span> <span class="o">=</span> <span class="n">DatasetTree</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1">#: tree widget displaying the open figures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figures_tree</span> <span class="o">=</span> <span class="n">FiguresTree</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1">#: help explorer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span> <span class="o">=</span> <span class="n">help_explorer</span> <span class="o">=</span> <span class="n">HelpExplorer</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;HTML help&#39;</span> <span class="ow">in</span> <span class="n">help_explorer</span><span class="o">.</span><span class="n">viewers</span> <span class="ow">and</span> <span class="n">help_explorer</span><span class="o">.</span><span class="n">viewers</span><span class="p">[</span>
+                <span class="s1">&#39;HTML help&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sphinx_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">help_explorer</span><span class="o">.</span><span class="n">viewers</span><span class="p">[</span>
+                <span class="s1">&#39;HTML help&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sphinx_thread</span><span class="o">.</span><span class="n">html_ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">focus_on_console</span><span class="p">)</span>
+        <span class="c1">#: the DataFrameEditor widgets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataframeeditors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#: general formatoptions widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span> <span class="o">=</span> <span class="n">FormatoptionWidget</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">help_explorer</span><span class="o">=</span><span class="n">help_explorer</span><span class="p">,</span>
+            <span class="n">console</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">)</span>
+
+        <span class="c1"># load plugin widgets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="n">plugins</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;project_content&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_content</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;ds_tree&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds_tree</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;figures_tree&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">figures_tree</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;help_explorer&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;fmt_widget&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span><span class="p">),</span>
+            <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_plugins</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">plugin_name</span><span class="p">,</span> <span class="n">w_class</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">rcParams</span><span class="o">.</span><span class="n">load_plugins</span><span class="p">()):</span>
+            <span class="n">plugins</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">w_class</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_mp_to_menu</span><span class="p">()</span>
+        <span class="n">psy</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">oncpchange</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eventually_add_mp_to_menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_layouts_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Window layouts&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restore_layout_action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Restore default layout&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restore_layout_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_default_layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_layouts_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">restore_layout_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_layouts_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">panes_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Panes&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panes_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataframe_menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;DataFrame editors&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataframe_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+            <span class="s1">&#39;New Editor&#39;</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_data_frame_editor</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+                                  <span class="s1">&#39;DataFrame Editor&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataframe_menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataframe_menu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">central_widgets_menu</span> <span class="o">=</span> <span class="n">menu</span> <span class="o">=</span> <span class="n">QMenu</span><span class="p">(</span><span class="s1">&#39;Central widget&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">central_widgets_actions</span> <span class="o">=</span> <span class="n">group</span> <span class="o">=</span> <span class="n">QActionGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">setExclusive</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># -------------------------- connections ------------------------------</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">help_explorer</span> <span class="o">=</span> <span class="n">help_explorer</span>
+        <span class="n">psyp</span><span class="o">.</span><span class="n">default_print_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">help_explorer</span><span class="o">.</span><span class="n">show_rst</span><span class="p">,</span>
+                                          <span class="n">oname</span><span class="o">=</span><span class="s1">&#39;formatoption_docs&#39;</span><span class="p">)</span>
+        <span class="n">psy</span><span class="o">.</span><span class="n">PlotterInterface</span><span class="o">.</span><span class="n">_print_func</span> <span class="o">=</span> <span class="n">psyp</span><span class="o">.</span><span class="n">default_print_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="p">)</span>
+
+        <span class="c1"># make sure that the plots are shown between the project content and</span>
+        <span class="c1"># the help explorer widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCorner</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">TopLeftCorner</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCorner</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">TopRightCorner</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">)</span>
+
+        <span class="c1"># make sure that the formatoption widgets are shown between the</span>
+        <span class="c1"># project content and the help explorer widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCorner</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">BottomLeftCorner</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCorner</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">BottomRightCorner</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># ------------------------------ closure ------------------------------</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span><span class="o">.</span><span class="n">show_intro</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">intro_msg</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># ------------------------- open_files_server -------------------------</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;new_plot&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_external</span><span class="o">.</span><span class="n">emit</span><span class="p">,</span>
+                          <span class="s1">&#39;change_cwd&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_change_cwd</span><span class="p">,</span>
+                          <span class="s1">&#39;run_script&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">run_script</span><span class="o">.</span><span class="n">emit</span><span class="p">,</span>
+                          <span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">run_command</span><span class="o">.</span><span class="n">emit</span><span class="p">,</span>
+                          <span class="p">}</span>
+
+        <span class="c1"># Server to open external files on a single instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span>
+                                               <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">,</span>
+                                               <span class="n">socket</span><span class="o">.</span><span class="n">IPPROTO_TCP</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.listen_to_port&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_open_files_server</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_thread</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_external</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_open_external_files</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_pages</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">GuiRcParamsWidget</span><span class="p">,</span> <span class="n">PsyRcParamsWidget</span><span class="p">])</span>
+
+        <span class="c1"># display the statusBar</span>
+        <span class="n">statusbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figures_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">()</span>
+        <span class="n">statusbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">figures_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">()</span>
+        <span class="n">statusbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugin_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_widths</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_default_layout</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+
+        <span class="c1"># save the default widths after they have been shown</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">default_widths</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+
+        <span class="c1"># hide plugin widgets that should be hidden at startup. Although this</span>
+        <span class="c1"># has been executed by :meth:`setup_default_layout`, we have to execute</span>
+        <span class="c1"># it again after the call of showMaximized</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">central_widget_key</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">hidden</span><span class="p">:</span>
+                    <span class="n">w</span><span class="o">.</span><span class="n">hide_plugin</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">create_central_widget_action</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="MainWindow.focus_on_console"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.focus_on_console">[docs]</a>    <span class="k">def</span> <span class="nf">focus_on_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put focus on the ipython console&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">_control</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.new_data_frame_editor"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.new_data_frame_editor">[docs]</a>    <span class="k">def</span> <span class="nf">new_data_frame_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;DataFrame Editor&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a new dataframe editor</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        df: pandas.DataFrame</span>
+<span class="sd">            The dataframe to display</span>
+<span class="sd">        title: str</span>
+<span class="sd">            The title of the dock window</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        psyplot_gui.dataframeeditor.DataFrameEditor</span>
+<span class="sd">            The newly created editor&quot;&quot;&quot;</span>
+        <span class="n">editor</span> <span class="o">=</span> <span class="n">DataFrameEditor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataframeeditors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">editor</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
+                       <span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">,</span> <span class="n">docktype</span><span class="o">=</span><span class="s1">&#39;df&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">editor</span><span class="o">.</span><span class="n">set_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">show_plugin</span><span class="p">()</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">maybe_tabify</span><span class="p">()</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">editor</span></div>
+
+<div class="viewcode-block" id="MainWindow.setup_default_layout"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.setup_default_layout">[docs]</a>    <span class="k">def</span> <span class="nf">setup_default_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set up the default window layout&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_content</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Plot objects&#39;</span><span class="p">,</span>
+                                     <span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ds_tree</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Datasets&#39;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figures_tree</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Figures&#39;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">LeftDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Help explorer&#39;</span><span class="p">,</span>
+                                   <span class="n">Qt</span><span class="o">.</span><span class="n">RightDockWidgetArea</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Formatoptions&#39;</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">BottomDockWidgetArea</span><span class="p">)</span>
+
+        <span class="n">modify_widths</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_widths</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_plugins</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">show_plugin</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">modify_widths</span> <span class="ow">and</span> <span class="n">with_qt5</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">([</span><span class="n">w</span><span class="o">.</span><span class="n">dock</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">default_widths</span><span class="p">[</span><span class="n">w</span><span class="p">]],</span>
+                                     <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
+
+        <span class="c1"># hide plugin widgets that should be hidden at startup</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">central_widget_key</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">hidden</span><span class="p">:</span>
+                    <span class="n">w</span><span class="o">.</span><span class="n">hide_plugin</span><span class="p">()</span>
+
+        <span class="n">action2shortcut</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_shortcuts</span><span class="p">:</span>
+            <span class="n">action2shortcut</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">action2shortcut</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_shortcut</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.set_central_widget"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.set_central_widget">[docs]</a>    <span class="k">def</span> <span class="nf">set_central_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the central widget</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name: str or QWidget</span>
+<span class="sd">            The key or the plugin widget in the :attr:`plugins` dictionary&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QTimer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centralWidget</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="n">new</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">current</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widths</span> <span class="o">=</span> <span class="n">dock_widths</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dock_heights</span> <span class="o">=</span> <span class="n">dock_heights</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">is_shown</span><span class="p">:</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                    <span class="n">dock_widths</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">new</span><span class="p">:</span>
+                        <span class="n">dock_heights</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+
+            <span class="n">new_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockWidgetArea</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">dock</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">removeDockWidget</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">dock</span><span class="p">)</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">dock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">panes_menu</span><span class="o">.</span><span class="n">removeAction</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">_view_action</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataframe_menu</span><span class="o">.</span><span class="n">removeAction</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">_view_action</span><span class="p">)</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">dock</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">_view_action</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">central_widget_key</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">_set_central_action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">show_plugin</span><span class="p">()</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">new_width</span> <span class="o">=</span> <span class="n">dock_widths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">hidden</span><span class="p">:</span>
+                <span class="n">current</span><span class="o">.</span><span class="n">hide_plugin</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dockWidgetArea</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">dock</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current_pos</span> <span class="o">==</span> <span class="n">new_pos</span> <span class="ow">and</span> <span class="n">new_width</span><span class="p">:</span>
+                    <span class="n">dock_widths</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_width</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_custom_layout_timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_custom_layout_timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reset_dock_widths</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_custom_layout_timer</span><span class="o">.</span><span class="n">setSingleShot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_custom_layout_timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_reset_dock_widths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># resize the plugins</span>
+        <span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dock_widths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">([</span><span class="n">w</span><span class="o">.</span><span class="n">dock</span><span class="p">],</span> <span class="p">[</span><span class="n">width</span><span class="p">],</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">height</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dock_heights</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">resizeDocks</span><span class="p">([</span><span class="n">w</span><span class="o">.</span><span class="n">dock</span><span class="p">],</span> <span class="p">[</span><span class="n">height</span><span class="p">],</span> <span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUpdatesEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">new_fname</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">new_fname</span> <span class="ow">or</span> <span class="s1">&#39;project_file&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Project destination&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                <span class="s1">&#39;Pickle files (*.pkl);;&#39;</span>
+                <span class="s1">&#39;All files (*)&#39;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>  <span class="c1"># the filter is passed as well</span>
+                <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fname</span><span class="p">:</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;project_file&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error_msg</span><span class="o">.</span><span class="n">showTraceback</span><span class="p">(</span><span class="s1">&#39;&lt;b&gt;Could not save the project!&lt;/b&gt;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;project_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_main</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_project_action</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.load_mp_preset"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.load_mp_preset">[docs]</a>    <span class="k">def</span> <span class="nf">load_mp_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_preset</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MainWindow.load_sp_preset"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.load_sp_preset">[docs]</a>    <span class="k">def</span> <span class="nf">load_sp_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_preset</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">_load_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Load preset&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_configdir</span><span class="p">(),</span> <span class="s2">&quot;presets&quot;</span><span class="p">),</span>
+            <span class="s1">&#39;YAML files (*.yml *.yaml);;&#39;</span>
+            <span class="s1">&#39;All files (*)&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">load_preset</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.open_mp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_mp">[docs]</a>    <span class="k">def</span> <span class="nf">open_mp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a new main project&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open_project</span><span class="p">(</span><span class="n">main</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.open_sp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_sp">[docs]</a>    <span class="k">def</span> <span class="nf">open_sp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a subproject and add it to the current main project&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open_project</span><span class="p">(</span><span class="n">main</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_open_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Project file&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+            <span class="s1">&#39;Pickle files (*.pkl);;&#39;</span>
+            <span class="s1">&#39;All files (*)&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>  <span class="c1"># the filter is passed as well</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fname</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;project_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_project_action</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.save_mp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_mp">[docs]</a>    <span class="k">def</span> <span class="nf">save_mp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current main project.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_project</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.save_sp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_sp">[docs]</a>    <span class="k">def</span> <span class="nf">save_sp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current sub project.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_project</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.save_sp_preset"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_sp_preset">[docs]</a>    <span class="k">def</span> <span class="nf">save_sp_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_preset</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="MainWindow.save_mp_preset"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_mp_preset">[docs]</a>    <span class="k">def</span> <span class="nf">save_mp_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_preset</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_save_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Save preset&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_configdir</span><span class="p">(),</span> <span class="s1">&#39;presets&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;YAML file (*.yml *.yaml);;&#39;</span>
+            <span class="s1">&#39;All files (*)&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">save_preset</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_export_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Picture destination&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+            <span class="s1">&#39;PDF files (*.pdf);;&#39;</span>
+            <span class="s1">&#39;Postscript file (*.ps);;&#39;</span>
+            <span class="s1">&#39;PNG image (*.png);;&#39;</span>
+            <span class="s1">&#39;JPG image (*.jpg *.jpeg);;&#39;</span>
+            <span class="s1">&#39;TIFF image (*.tif *.tiff);;&#39;</span>
+            <span class="s1">&#39;GIF image (*.gif);;&#39;</span>
+            <span class="s1">&#39;All files (*)&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>  <span class="c1"># the filter is passed as well</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fname</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error_msg</span><span class="o">.</span><span class="n">showTraceback</span><span class="p">(</span>
+                <span class="s1">&#39;&lt;b&gt;Could not export the figures!&lt;/b&gt;&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.export_mp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.export_mp">[docs]</a>    <span class="k">def</span> <span class="nf">export_mp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_export_project</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.export_sp"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.export_sp">[docs]</a>    <span class="k">def</span> <span class="nf">export_sp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_export_project</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.new_plots"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.new_plots">[docs]</a>    <span class="k">def</span> <span class="nf">new_plots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;plot_creator&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span> <span class="o">=</span> <span class="n">PlotCreator</span><span class="p">(</span>
+            <span class="n">help_explorer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">available_width</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">availableGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">3.</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="c1"># The plot creator window should cover at least one third of the screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">available_width</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">height</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exec_</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.excepthook"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.excepthook">[docs]</a>    <span class="k">def</span> <span class="nf">excepthook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A method to replace the sys.excepthook&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error_msg</span><span class="o">.</span><span class="n">excepthook</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.edit_preferences"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.edit_preferences">[docs]</a>    <span class="k">def</span> <span class="nf">edit_preferences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Edit Spyder preferences&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;preferences&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span> <span class="o">=</span> <span class="n">dlg</span> <span class="o">=</span> <span class="n">Prefences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">PrefPageClass</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_pages</span><span class="p">:</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">PrefPageClass</span><span class="p">(</span><span class="n">dlg</span><span class="p">)</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">add_page</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="n">available_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="mf">0.667</span><span class="o">*</span><span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">availableGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="c1"># The preferences window should cover at least one third of the screen</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">available_width</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">height</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exec_</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.about"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.about">[docs]</a>    <span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;About the tool&quot;&quot;&quot;</span>
+        <span class="n">versions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">psyplot</span><span class="o">.</span><span class="n">get_versions</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="n">versions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">psyplot_gui</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()[</span><span class="s1">&#39;requirements&#39;</span><span class="p">])</span>
+        <span class="n">versions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">psyplot</span><span class="o">.</span><span class="n">_get_versions</span><span class="p">()[</span><span class="s1">&#39;requirements&#39;</span><span class="p">])</span>
+        <span class="n">versions</span><span class="p">[</span><span class="s1">&#39;github&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/psyplot/psyplot&#39;</span>
+        <span class="n">versions</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psyplot</span><span class="o">.</span><span class="n">__author__</span>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;About psyplot&quot;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="sd">&quot;&quot;&quot;&lt;b&gt;psyplot: Interactive data visualization with python&lt;/b&gt;</span>
+<span class="sd">            &lt;br&gt;Copyright &amp;copy; 2017- Philipp Sommer</span>
+<span class="sd">            &lt;br&gt;Licensed under the terms of the GNU General Public License v2</span>
+<span class="sd">            (GPLv2)</span>
+<span class="sd">            &lt;p&gt;Created by %(author)s&lt;/p&gt;</span>
+<span class="sd">            &lt;p&gt;Most of the icons come from the</span>
+<span class="sd">            &lt;a href=&quot;https://www.iconfinder.com/&quot;&gt; iconfinder&lt;/a&gt;.&lt;/p&gt;</span>
+<span class="sd">            &lt;p&gt;For bug reports and feature requests, please go</span>
+<span class="sd">            to our &lt;a href=&quot;%(github)s&quot;&gt;Github website&lt;/a&gt; or contact the</span>
+<span class="sd">            author via mail.&lt;/p&gt;</span>
+<span class="sd">            &lt;p&gt;This package uses (besides others) the following packages:&lt;br&gt;</span>
+<span class="sd">            &lt;ul&gt;</span>
+<span class="sd">                &lt;li&gt;psyplot %(psyplot)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;Python %(python)s &lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;numpy %(numpy)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;xarray %(xarray)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;pandas %(pandas)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;psyplot_gui %(psyplot_gui)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;Qt %(qt)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;PyQt %(pyqt)s&lt;/li&gt;</span>
+<span class="sd">                &lt;li&gt;qtconsole %(qtconsole)s&lt;/li&gt;</span>
+<span class="sd">            &lt;/ul&gt;&lt;/p&gt;</span>
+<span class="sd">            &lt;p&gt;For a full list of requirements see the &lt;em&gt;dependencies&lt;/em&gt;</span>
+<span class="sd">            in the &lt;em&gt;Help&lt;/em&gt; menu.&lt;/p&gt;</span>
+<span class="sd">            &lt;p&gt;This software is provided &quot;as is&quot;, without warranty or support</span>
+<span class="sd">            of any kind.&lt;/p&gt;&quot;&quot;&quot;</span>
+            <span class="o">%</span> <span class="n">versions</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.show_dependencies"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.show_dependencies">[docs]</a>    <span class="k">def</span> <span class="nf">show_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a dialog that shows the dependencies&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;dependencies&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">dlg</span> <span class="o">=</span> <span class="n">DependenciesDialog</span><span class="p">(</span><span class="n">psyplot</span><span class="o">.</span><span class="n">get_versions</span><span class="p">(),</span>
+                                                     <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dlg</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">630</span><span class="p">,</span> <span class="mi">420</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exec_</span><span class="p">:</span>
+            <span class="n">dlg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.reset_rcParams"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.reset_rcParams">[docs]</a>    <span class="k">def</span> <span class="nf">reset_rcParams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rcParams</span><span class="o">.</span><span class="n">update_from_defaultParams</span><span class="p">()</span>
+        <span class="n">psy</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update_from_defaultParams</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.add_mp_to_menu"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.add_mp_to_menu">[docs]</a>    <span class="k">def</span> <span class="nf">add_mp_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mp</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;project_file&#39;</span><span class="p">,</span> <span class="s1">&#39;Untitled </span><span class="si">%s</span><span class="s1">*&#39;</span> <span class="o">%</span> <span class="n">mp</span><span class="o">.</span><span class="n">num</span><span class="p">)),</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span>
+            <span class="s1">&#39;Make project </span><span class="si">%s</span><span class="s1"> the current project&#39;</span> <span class="o">%</span> <span class="n">mp</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">psy</span><span class="o">.</span><span class="n">scp</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">num</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.update_project_action"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.update_project_action">[docs]</a>    <span class="k">def</span> <span class="nf">update_project_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">action</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s1">&#39;project_file&#39;</span><span class="p">,</span> <span class="s1">&#39;Untitled </span><span class="si">%s</span><span class="s1">*&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="MainWindow.eventually_add_mp_to_menu"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.eventually_add_mp_to_menu">[docs]</a>    <span class="k">def</span> <span class="nf">eventually_add_mp_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span>
+                <span class="n">psy</span><span class="o">.</span><span class="n">get_project_nums</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windows_menu</span><span class="o">.</span><span class="n">removeAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">is_main</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">num</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_actions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_mp_to_menu</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.start_open_files_server"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.start_open_files_server">[docs]</a>    <span class="k">def</span> <span class="nf">start_open_files_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method listens to the open_files_port and opens the plot</span>
+<span class="sd">        creator for new files</span>
+
+<span class="sd">        This method is inspired and to most parts copied from spyder&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span>
+                                          <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;main.open_files_port&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1 is faster than True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">req</span><span class="p">,</span> <span class="n">dummy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># See Issue 1275 for details on why errno EINTR is</span>
+                <span class="c1"># silently ignored here.</span>
+                <span class="n">eintr</span> <span class="o">=</span> <span class="n">errno</span><span class="o">.</span><span class="n">EINTR</span>
+                <span class="c1"># To avoid a traceback after closing on Windows</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">eintr</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># handle a connection abort on close error</span>
+                <span class="n">enotsock</span> <span class="o">=</span> <span class="p">(</span><span class="n">errno</span><span class="o">.</span><span class="n">WSAENOTSOCK</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span>
+                            <span class="k">else</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOTSOCK</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="n">errno</span><span class="o">.</span><span class="n">ECONNABORTED</span><span class="p">,</span> <span class="n">enotsock</span><span class="p">]:</span>
+                    <span class="k">return</span>
+                <span class="k">raise</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">))</span>
+            <span class="n">callback</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">[</span><span class="n">callback</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Emitting </span><span class="si">%s</span><span class="s1"> callback </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39; &#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.change_cwd"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.change_cwd">[docs]</a>    <span class="k">def</span> <span class="nf">change_cwd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Change the current working directory&quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_change_cwd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_cwd</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">docstrings</span><span class="o">.</span><span class="n">keep_params</span><span class="p">(</span>
+        <span class="s1">&#39;make_plot.parameters&#39;</span><span class="p">,</span> <span class="s1">&#39;fnames&#39;</span><span class="p">,</span> <span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="s1">&#39;engine&#39;</span><span class="p">,</span> <span class="s1">&#39;plot_method&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;dims&#39;</span><span class="p">,</span> <span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;enable_post&#39;</span><span class="p">,</span> <span class="s1">&#39;seaborn_style&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;concat_dim&#39;</span><span class="p">,</span> <span class="s1">&#39;chname&#39;</span><span class="p">,</span> <span class="s1">&#39;preset&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.open_files"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_files">[docs]</a>    <span class="k">def</span> <span class="nf">open_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fnames</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Open a file and ask the user how&quot;&quot;&quot;</span>
+        <span class="n">fnames_s</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">,</span> <span class="n">fnames</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fnames_s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="n">fnames_s</span> <span class="o">=</span> <span class="n">fnames_s</span><span class="p">[:</span><span class="mi">27</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;...&#39;</span>
+        <span class="n">item</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getItem</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Open file...&#39;</span><span class="p">,</span> <span class="s1">&#39;Open </span><span class="si">%s</span><span class="s1"> as...&#39;</span> <span class="o">%</span> <span class="n">fnames_s</span><span class="p">,</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_file_options</span><span class="p">),</span> <span class="n">current</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_file_options</span><span class="p">[</span><span class="n">item</span><span class="p">](</span><span class="n">fnames</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.open_external_files"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_external_files">[docs]</a>    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">get_sections</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;MainWindow.open_external_files&#39;</span><span class="p">)</span>
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="nf">open_external_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fnames</span><span class="o">=</span><span class="p">[],</span> <span class="n">project</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">plot_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enable_post</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">seaborn_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">concat_dim</span><span class="o">=</span><span class="n">get_default_value</span><span class="p">(</span>
+                                <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">,</span> <span class="s1">&#39;concat_dim&#39;</span><span class="p">),</span> <span class="n">chname</span><span class="o">=</span><span class="p">{},</span>
+                            <span class="n">preset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open external files</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset)s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">seaborn_style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">seaborn_style</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">project</span> <span class="o">=</span> <span class="n">psyd</span><span class="o">.</span><span class="n">safe_list</span><span class="p">(</span><span class="n">project</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">single_files</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">fnames</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">alternative_paths</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">single_files</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="n">alternative_paths</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">fnames</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span>
+                <span class="n">project</span><span class="p">,</span> <span class="n">alternative_paths</span><span class="o">=</span><span class="n">alternative_paths</span><span class="p">,</span>
+                <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="ow">not</span> <span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">(),</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+                <span class="n">enable_post</span><span class="o">=</span><span class="n">enable_post</span><span class="p">,</span> <span class="n">chname</span><span class="o">=</span><span class="n">chname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">preset</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">load_preset</span><span class="p">(</span><span class="n">preset</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;project_file&#39;</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_plots</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">fnames</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
+                                           <span class="n">concat_dim</span><span class="o">=</span><span class="n">concat_dim</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+                <span class="n">ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">get_ds</span><span class="p">()</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">insert_array</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">psy</span><span class="o">.</span><span class="n">safe_list</span><span class="p">(</span><span class="n">name</span><span class="p">))))</span>
+            <span class="k">if</span> <span class="n">dims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">get_ds</span><span class="p">()</span>
+                <span class="n">dims</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span>
+                        <span class="n">dims</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">array_table</span><span class="o">.</span><span class="n">vnames</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">array_table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">array_table</span><span class="o">.</span><span class="n">update_selected</span><span class="p">(</span>
+                        <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">array_table</span><span class="o">.</span><span class="n">selectAll</span><span class="p">()</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">vname</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">array_table</span><span class="o">.</span><span class="n">update_selected</span><span class="p">(</span>
+                    <span class="n">dims</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">psy</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">correct_dims</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">dims</span><span class="o">.</span><span class="n">copy</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">preset</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">set_preset</span><span class="p">(</span><span class="n">preset</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">plot_method</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">pm_combo</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">pm_combo</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">plot_method</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_creator</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="nf">_open_external_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_external_files</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.run"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">get_sections</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;MainWindow.run&#39;</span><span class="p">)</span>
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fnames</span><span class="o">=</span><span class="p">[],</span> <span class="n">project</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enable_post</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">seaborn_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">concat_dim</span><span class="o">=</span><span class="n">get_default_value</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">,</span> <span class="s1">&#39;concat_dim&#39;</span><span class="p">),</span>
+            <span class="n">chname</span><span class="o">=</span><span class="p">{},</span> <span class="n">preset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a mainwindow and open the given files or project</span>
+
+<span class="sd">        This class method creates a new mainwindow instance and sets the</span>
+<span class="sd">        global :attr:`mainwindow` variable.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        %(MainWindow.open_external_files.parameters)s</span>
+<span class="sd">        %(MainWindow.parameters)s</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - There can be only one mainwindow at the time</span>
+<span class="sd">        - This method does not create a QApplication instance! See</span>
+<span class="sd">          :meth:`run_app`</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        run_app</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mainwindow</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">)</span>
+        <span class="n">_set_mainwindow</span><span class="p">(</span><span class="n">mainwindow</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fnames</span> <span class="ow">or</span> <span class="n">project</span><span class="p">:</span>
+            <span class="n">mainwindow</span><span class="o">.</span><span class="n">open_external_files</span><span class="p">(</span>
+                <span class="n">fnames</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">plot_method</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span>
+                <span class="n">enable_post</span><span class="p">,</span> <span class="n">seaborn_style</span><span class="p">,</span> <span class="n">concat_dim</span><span class="p">,</span> <span class="n">chname</span><span class="p">,</span> <span class="n">preset</span><span class="p">)</span>
+        <span class="n">psyplot</span><span class="o">.</span><span class="n">with_gui</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">mainwindow</span></div>
+
+<div class="viewcode-block" id="MainWindow.register_shortcut"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.register_shortcut">[docs]</a>    <span class="k">def</span> <span class="nf">register_shortcut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">shortcut</span><span class="p">,</span>
+                          <span class="n">context</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">ApplicationShortcut</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register an action for a shortcut&quot;&quot;&quot;</span>
+        <span class="n">shortcuts</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">safe_list</span><span class="p">(</span><span class="n">shortcut</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">shortcut</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shortcuts</span><span class="p">):</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_shortcuts</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">shortcut</span><span class="p">:</span>
+                    <span class="n">new_shortcuts</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">sc</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shortcuts</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="n">sc</span> <span class="o">!=</span> <span class="n">s</span><span class="p">]</span>
+                    <span class="n">a</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="n">QKeySequence</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="n">new_shortcuts</span><span class="p">:</span>
+                        <span class="n">a</span><span class="o">.</span><span class="n">setShortcuts</span><span class="p">(</span><span class="n">new_shortcuts</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">current_shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">default_shortcuts</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">shortcut</span><span class="p">,</span> <span class="n">action</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_shortcuts</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">shortcut</span><span class="p">,</span> <span class="n">action</span><span class="p">])</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">setShortcuts</span><span class="p">(</span><span class="n">shortcuts</span><span class="p">)</span>
+        <span class="n">action</span><span class="o">.</span><span class="n">setShortcutContext</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.run_app"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.run_app">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="nd">@docstrings</span><span class="o">.</span><span class="n">dedent</span>
+    <span class="k">def</span> <span class="nf">run_app</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a QApplication, open the given files or project and enter the</span>
+<span class="sd">        mainloop</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        %(MainWindow.run.parameters)s</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        run</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="MainWindow.closeEvent"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;closeEvent reimplementation&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.close"><a class="viewcode-back" href="../../api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_set_mainwindow</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_files_server</span>
+        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

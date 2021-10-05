@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.fmt_widget module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.help_explorer module" href="psyplot_gui.help_explorer.html" />
+    <link rel="prev" title="psyplot_gui.dependencies module" href="psyplot_gui.dependencies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.fmt_widget module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.fmt_widget.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.fmt_widget">
+<span id="psyplot-gui-fmt-widget-module"></span><h1>psyplot_gui.fmt_widget module<a class="headerlink" href="#module-psyplot_gui.fmt_widget" title="Permalink to this headline"></a></h1>
+<p>Module defining a widget for updating the formatoption of the current
+project</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget" title="psyplot_gui.fmt_widget.DimensionsWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a>(parent[, dim])</p></td>
+<td><p>A widget for updating the dimensions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget" title="psyplot_gui.fmt_widget.FormatoptionWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Widget to update the formatoptions of the current project</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.fmt_widget.</span></span><span class="sig-name descname"><span class="pre">DimensionsWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>A widget for updating the dimensions</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.get_ds" title="psyplot_gui.fmt_widget.DimensionsWidget.get_ds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ds</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo" title="psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_from_combo</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox" title="psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_combobox</span></code></a>()</p></td>
+<td><p>Clear all comboboxes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.set_dim" title="psyplot_gui.fmt_widget.DimensionsWidget.set_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dim</span></code></a>(dim)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection" title="psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_single_selection</span></code></a>([yes])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.slice2list" title="psyplot_gui.fmt_widget.DimensionsWidget.slice2list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice2list</span></code></a>(sl)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup" title="psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_close_popup</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.get_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.get_ds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo">
+<span class="sig-name descname"><span class="pre">insert_from_combo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.insert_from_combo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox">
+<span class="sig-name descname"><span class="pre">reset_combobox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.reset_combobox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox" title="Permalink to this definition"></a></dt>
+<dd><p>Clear all comboboxes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.set_dim">
+<span class="sig-name descname"><span class="pre">set_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.set_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.set_dim" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection">
+<span class="sig-name descname"><span class="pre">set_single_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.set_single_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.slice2list">
+<span class="sig-name descname"><span class="pre">slice2list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.slice2list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.slice2list" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup">
+<span class="sig-name descname"><span class="pre">toggle_close_popup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#DimensionsWidget.toggle_close_popup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.fmt_widget.</span></span><span class="sig-name descname"><span class="pre">FormatoptionWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code>, <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.common.DockMixin</span></code></a></p>
+<p>Widget to update the formatoptions of the current project</p>
+<p>This widget, mainly made out of a combobox for the formatoption group,
+a combobox for the formatoption, and a text editor, is designed
+for updating the selected formatoptions for the current subproject.</p>
+<p>The widget is connected to the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.Project.oncpchange" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot.project.Project.oncpchange</span></code></a>
+signal and refills the comboboxes if the current subproject changes.</p>
+<p>The text editor either accepts python code that will be executed by the
+given <cite>console</cite>, or yaml code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>help_explorer</strong> (<a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer" title="psyplot_gui.help_explorer.HelpExplorer"><em>psyplot_gui.help_explorer.HelpExplorer</em></a>) – The help explorer to show the documentation of one formatoption</p></li>
+<li><p><strong>console</strong> (<a class="reference internal" href="psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget" title="psyplot_gui.console.ConsoleWidget"><em>psyplot_gui.console.ConsoleWidget</em></a>) – <p>The console that can be used to update the current subproject via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is defined through the selected formatoption
+in the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fmt_combo</span></code></a> combobox and the value in the
+<a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a> editor</p>
+</p></li>
+<li><p><strong>``*args</strong> – <p>Any other keyword for the QWidget class</p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – Any other keyword for the QWidget class</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.clear_text" title="psyplot_gui.fmt_widget.FormatoptionWidget.clear_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_text</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project" title="psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_combos_from_project</span></code></a>(project)</p></td>
+<td><p>Fill <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.group_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.group_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">group_combo</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fmt_combo</span></code></a> from a project</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_fmt_combo</span></code></a>(i[, current_text])</p></td>
+<td><p>Fill the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fmt_combo</span></code></a> combobox based on the current group name</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_name" title="psyplot_gui.fmt_widget.FormatoptionWidget.get_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_name</span></code></a>(fmto)</p></td>
+<td><p>Get the name of a <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Formatoption" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.plotter.Formatoption</span></code></a> instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_obj" title="psyplot_gui.fmt_widget.FormatoptionWidget.get_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_obj</span></code></a>()</p></td>
+<td><p>Get the current update text</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_text" title="psyplot_gui.fmt_widget.FormatoptionWidget.get_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_text</span></code></a>()</p></td>
+<td><p>Get the current update text</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj" title="psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_obj</span></code></a>(obj)</p></td>
+<td><p>Add a string to the formatoption widget</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget" title="psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_fmt_widget</span></code></a>(i)</p></td>
+<td><p>Load the formatoption specific widget</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc" title="psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refill_from_rc</span></code></a>(sort_by_key)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget" title="psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_fmt_widget</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget" title="psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_fmt_widget</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.run_code" title="psyplot_gui.fmt_widget.FormatoptionWidget.run_code"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_code</span></code></a>()</p></td>
+<td><p>Run the update of the project inside the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.shell" title="psyplot_gui.fmt_widget.FormatoptionWidget.shell"><code class="xref py py-attr docutils literal notranslate"><span class="pre">shell</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value" title="psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_current_fmt_value</span></code></a>(i)</p></td>
+<td><p>Add the value of the current formatoption to the line text</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto" title="psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_fmto</span></code></a>(name)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_obj" title="psyplot_gui.fmt_widget.FormatoptionWidget.set_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_obj</span></code></a>(obj)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model" title="psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_fmt_completion_model</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info" title="psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_all_fmt_info</span></code></a>(what)</p></td>
+<td><p>Show the keys, summaries or docs of the formatoptions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info" title="psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_fmt_info</span></code></a>(i)</p></td>
+<td><p>Show the documentation of the formatoption in the help explorer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_line_edit</span></code></a>()</p></td>
+<td><p>Switch between the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_edit</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmt_combo</span></code></a></p></td>
+<td><p>The combobox for the formatoptions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_widget" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmt_widget</span></code></a></p></td>
+<td><p>The formatoption specific widget that is loaded from the formatoption</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmto" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmto"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmto</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.group_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.group_combo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_combo</span></code></a></p></td>
+<td><p>The combobox for the formatoption groups</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.help_explorer" title="psyplot_gui.fmt_widget.FormatoptionWidget.help_explorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">help_explorer</span></code></a></p></td>
+<td><p>The help_explorer to display the documentation of the formatoptions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_edit</span></code></a></p></td>
+<td><p>A line edit for updating the formatoptions</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button" title="psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiline_button</span></code></a></p></td>
+<td><p>A button to switch between <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_edit</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.no_fmtos_update" title="psyplot_gui.fmt_widget.FormatoptionWidget.no_fmtos_update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_fmtos_update</span></code></a></p></td>
+<td><p>update the fmto combo box or not</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.shell" title="psyplot_gui.fmt_widget.FormatoptionWidget.shell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shell</span></code></a></p></td>
+<td><p>The shell to execute the update of the formatoptions in the current project</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text_edit</span></code></a></p></td>
+<td><p>A multiline text editor for updating the formatoptions</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.clear_text">
+<span class="sig-name descname"><span class="pre">clear_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.clear_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.clear_text" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project">
+<span class="sig-name descname"><span class="pre">fill_combos_from_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.fill_combos_from_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project" title="Permalink to this definition"></a></dt>
+<dd><p>Fill <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.group_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.group_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">group_combo</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fmt_combo</span></code></a> from a project</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.project.html#psyplot.project.Project" title="(in psyplot v1.3.1)"><em>psyplot.project.Project</em></a>) – The project to use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo">
+<span class="sig-name descname"><span class="pre">fill_fmt_combo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.fill_fmt_combo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo" title="Permalink to this definition"></a></dt>
+<dd><p>Fill the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fmt_combo</span></code></a> combobox based on the current group name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo">
+<span class="sig-name descname"><span class="pre">fmt_combo</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo" title="Permalink to this definition"></a></dt>
+<dd><p>The combobox for the formatoptions</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.fmt_widget">
+<span class="sig-name descname"><span class="pre">fmt_widget</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_widget" title="Permalink to this definition"></a></dt>
+<dd><p>The formatoption specific widget that is loaded from the formatoption</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.fmto">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">fmto</span></span><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.fmto" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmto</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of a <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Formatoption" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.plotter.Formatoption</span></code></a> instance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.get_obj">
+<span class="sig-name descname"><span class="pre">get_obj</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.get_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_obj" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current update text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.get_text">
+<span class="sig-name descname"><span class="pre">get_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.get_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.get_text" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current update text</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.group_combo">
+<span class="sig-name descname"><span class="pre">group_combo</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.group_combo" title="Permalink to this definition"></a></dt>
+<dd><p>The combobox for the formatoption groups</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.help_explorer">
+<span class="sig-name descname"><span class="pre">help_explorer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.help_explorer" title="Permalink to this definition"></a></dt>
+<dd><p>The help_explorer to display the documentation of the formatoptions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj">
+<span class="sig-name descname"><span class="pre">insert_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.insert_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj" title="Permalink to this definition"></a></dt>
+<dd><p>Add a string to the formatoption widget</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit">
+<span class="sig-name descname"><span class="pre">line_edit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="Permalink to this definition"></a></dt>
+<dd><p>A line edit for updating the formatoptions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget">
+<span class="sig-name descname"><span class="pre">load_fmt_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.load_fmt_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget" title="Permalink to this definition"></a></dt>
+<dd><p>Load the formatoption specific widget</p>
+<p>This method loads the formatoption specific widget from the
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Formatoption.get_fmt_widget" title="(in psyplot v1.3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">psyplot.plotter.Formatoption.get_fmt_widget()</span></code></a> method and
+displays it above the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The index of the current formatoption</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button">
+<span class="sig-name descname"><span class="pre">multiline_button</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button" title="Permalink to this definition"></a></dt>
+<dd><p>A button to switch between <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_edit</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.no_fmtos_update">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">no_fmtos_update</span></span><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.no_fmtos_update" title="Permalink to this definition"></a></dt>
+<dd><p>update the fmto combo box or not</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc">
+<span class="sig-name descname"><span class="pre">refill_from_rc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.refill_from_rc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget">
+<span class="sig-name descname"><span class="pre">remove_fmt_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.remove_fmt_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget">
+<span class="sig-name descname"><span class="pre">reset_fmt_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.reset_fmt_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.run_code">
+<span class="sig-name descname"><span class="pre">run_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.run_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.run_code" title="Permalink to this definition"></a></dt>
+<dd><p>Run the update of the project inside the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.shell" title="psyplot_gui.fmt_widget.FormatoptionWidget.shell"><code class="xref py py-attr docutils literal notranslate"><span class="pre">shell</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value">
+<span class="sig-name descname"><span class="pre">set_current_fmt_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.set_current_fmt_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value" title="Permalink to this definition"></a></dt>
+<dd><p>Add the value of the current formatoption to the line text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto">
+<span class="sig-name descname"><span class="pre">set_fmto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.set_fmto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.set_obj">
+<span class="sig-name descname"><span class="pre">set_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.set_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.set_obj" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model">
+<span class="sig-name descname"><span class="pre">setup_fmt_completion_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.setup_fmt_completion_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.shell">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">shell</span></span><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.shell" title="Permalink to this definition"></a></dt>
+<dd><p>The shell to execute the update of the formatoptions in the current
+project</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info">
+<span class="sig-name descname"><span class="pre">show_all_fmt_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">what</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.show_all_fmt_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info" title="Permalink to this definition"></a></dt>
+<dd><p>Show the keys, summaries or docs of the formatoptions</p>
+<p>Calling this function let’s the help browser show the documentation
+etc. of all docs or only the selected group determined by the state of
+the <code class="xref py py-attr docutils literal notranslate"><span class="pre">grouped_cb</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">all_groups_cb</span></code> checkboxes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>what</strong> (<em>{'keys'</em><em>, </em><em>'summaries'</em><em>, </em><em>'docs'}</em>) – Determines what to show</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info">
+<span class="sig-name descname"><span class="pre">show_fmt_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.show_fmt_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info" title="Permalink to this definition"></a></dt>
+<dd><p>Show the documentation of the formatoption in the help explorer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit">
+<span class="sig-name descname"><span class="pre">text_edit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="Permalink to this definition"></a></dt>
+<dd><p>A multiline text editor for updating the formatoptions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit">
+<span class="sig-name descname"><span class="pre">toggle_line_edit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/fmt_widget.html#FormatoptionWidget.toggle_line_edit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit" title="Permalink to this definition"></a></dt>
+<dd><p>Switch between the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">line_edit</span></code></a> and <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_edit</span></code></a></p>
+<p>This method is called when the <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button" title="psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button"><code class="xref py py-attr docutils literal notranslate"><span class="pre">multiline_button</span></code></a> is clicked
+and switches between the single line :attr:<a href="#id5"><span class="problematic" id="id6">``</span></a>line_edit` and the
+multiline <a class="reference internal" href="#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit" title="psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">text_edit</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.dependencies.html" class="btn btn-neutral float-left" title="psyplot_gui.dependencies module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.help_explorer.html" class="btn btn-neutral float-right" title="psyplot_gui.help_explorer module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

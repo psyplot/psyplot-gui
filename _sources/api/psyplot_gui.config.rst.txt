@@ -1,0 +1,15 @@
+psyplot\_gui.config package
+===========================
+
+.. automodule:: psyplot_gui.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   psyplot_gui.config.rcsetup

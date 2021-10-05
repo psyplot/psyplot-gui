@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.config.rcsetup module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.sphinx_supp package" href="psyplot_gui.sphinx_supp.html" />
+    <link rel="prev" title="psyplot_gui.config package" href="psyplot_gui.config.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.compat.html">psyplot_gui.compat package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="psyplot_gui.config.html">psyplot_gui.config package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="psyplot_gui.config.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+          <li><a href="psyplot_gui.config.html">psyplot_gui.config package</a> &raquo;</li>
+      <li>psyplot_gui.config.rcsetup module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.config.rcsetup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.config.rcsetup">
+<span id="psyplot-gui-config-rcsetup-module"></span><h1>psyplot_gui.config.rcsetup module<a class="headerlink" href="#module-psyplot_gui.config.rcsetup" title="Permalink to this headline"></a></h1>
+<p>Default management of the psyplot_gui package</p>
+<p>This module defines the necessary configuration parts for the psyplot gui</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.GuiRcParams" title="psyplot_gui.config.rcsetup.GuiRcParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GuiRcParams</span></code></a>(*args, **kwargs)</p></td>
+<td><p>RcParams for the psyplot-gui package.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.defaultParams" title="psyplot_gui.config.rcsetup.defaultParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">defaultParams</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with default values and validation functions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rcParams</span></code></a></p></td>
+<td><p><a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParams</span></code></a> instance that stores default formatoptions and configuration settings.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.try_and_error" title="psyplot_gui.config.rcsetup.try_and_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">try_and_error</span></code></a>(*funcs)</p></td>
+<td><p>Apply multiple validation functions</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.validate_all" title="psyplot_gui.config.rcsetup.validate_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_all</span></code></a>(v)</p></td>
+<td><p>Test if <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">==</span> <span class="pre">'all'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.validate_none" title="psyplot_gui.config.rcsetup.validate_none"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_none</span></code></a>(b)</p></td>
+<td><p>Validate that None is given</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.validate_str" title="psyplot_gui.config.rcsetup.validate_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_str</span></code></a>(s)</p></td>
+<td><p>Validate a string</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.GuiRcParams">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">GuiRcParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#GuiRcParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.GuiRcParams" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams</span></code></a></p>
+<p>RcParams for the psyplot-gui package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>defaultParams</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The defaultParams to use (see the <a class="reference internal" href="#psyplot_gui.config.rcsetup.defaultParams" title="psyplot_gui.config.rcsetup.defaultParams"><code class="xref py py-attr docutils literal notranslate"><span class="pre">defaultParams</span></code></a> attribute).
+By default, the <code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.defaultParams</span></code>
+dictionary is used</p></li>
+<li><p><strong>``*args</strong> – <p>Any key-value pair for the initialization of the dictionary</p>
+</p></li>
+<li><p><strong>**kwargs``</strong> – Any key-value pair for the initialization of the dictionary</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.GuiRcParams.HEADER" title="psyplot_gui.config.rcsetup.GuiRcParams.HEADER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HEADER</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.GuiRcParams.load_from_file" title="psyplot_gui.config.rcsetup.GuiRcParams.load_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_from_file</span></code></a>([fname])</p></td>
+<td><p>Update rcParams from user-defined settings</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.config.rcsetup.GuiRcParams.load_plugins" title="psyplot_gui.config.rcsetup.GuiRcParams.load_plugins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_plugins</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Load the plugins for the psyplot_gui MainWindow</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.GuiRcParams.HEADER">
+<span class="sig-name descname"><span class="pre">HEADER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Configuration</span> <span class="pre">parameters</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">psyplot</span> <span class="pre">module\n\nYou</span> <span class="pre">can</span> <span class="pre">copy</span> <span class="pre">this</span> <span class="pre">file</span> <span class="pre">(or</span> <span class="pre">parts</span> <span class="pre">of</span> <span class="pre">it)</span> <span class="pre">to</span> <span class="pre">another</span> <span class="pre">path</span> <span class="pre">and</span> <span class="pre">save</span> <span class="pre">it</span> <span class="pre">as\npsyplotguirc.yml.</span> <span class="pre">The</span> <span class="pre">directory</span> <span class="pre">should</span> <span class="pre">then</span> <span class="pre">be</span> <span class="pre">stored</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">PSYPLOTCONFIGDIR\nenvironment</span> <span class="pre">variable.'</span></em><a class="headerlink" href="#psyplot_gui.config.rcsetup.GuiRcParams.HEADER" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.GuiRcParams.load_from_file">
+<span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#GuiRcParams.load_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.GuiRcParams.load_from_file" title="Permalink to this definition"></a></dt>
+<dd><p>Update rcParams from user-defined settings</p>
+<p>This function updates the instance with what is found in <cite>fname</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Path to the yaml configuration file. Possible keys of the
+dictionary are defined by <code class="xref py py-data docutils literal notranslate"><span class="pre">config.rcsetup.defaultParams</span></code>.
+If None, the <code class="xref py py-func docutils literal notranslate"><span class="pre">config.rcsetup.psyplot_fname()</span></code> function is used.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_to_file</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">psyplot_fname</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.GuiRcParams.load_plugins">
+<span class="sig-name descname"><span class="pre">load_plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#GuiRcParams.load_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.GuiRcParams.load_plugins" title="Permalink to this definition"></a></dt>
+<dd><p>Load the plugins for the psyplot_gui MainWindow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A mapping from entry point name to the imported widget class</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> are ignored</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.defaultParams">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">defaultParams</span></span><a class="headerlink" href="#psyplot_gui.config.rcsetup.defaultParams" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with default values and validation functions</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.rcParams">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">rcParams</span></span><a class="headerlink" href="#psyplot_gui.config.rcsetup.rcParams" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParams</span></code></a> instance that stores default
+formatoptions and configuration settings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.try_and_error">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">try_and_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">funcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#try_and_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.try_and_error" title="Permalink to this definition"></a></dt>
+<dd><p>Apply multiple validation functions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*funcs</strong> – Validation functions to test</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.validate_all">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">validate_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#validate_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.validate_all" title="Permalink to this definition"></a></dt>
+<dd><p>Test if <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">==</span> <span class="pre">'all'</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.validate_none">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">validate_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#validate_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.validate_none" title="Permalink to this definition"></a></dt>
+<dd><p>Validate that None is given</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>b</strong> (<em>{None</em><em>, </em><em>'none'}</em>) – None or string (the case is ignored)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.config.rcsetup.validate_str">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.config.rcsetup.</span></span><span class="sig-name descname"><span class="pre">validate_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/config/rcsetup.html#validate_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.config.rcsetup.validate_str" title="Permalink to this definition"></a></dt>
+<dd><p>Validate a string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.config.html" class="btn btn-neutral float-left" title="psyplot_gui.config package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.sphinx_supp.html" class="btn btn-neutral float-right" title="psyplot_gui.sphinx_supp package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

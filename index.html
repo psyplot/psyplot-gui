@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphical User Interface for the psyplot package &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Graphical User Interface for the psyplot package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graphical-user-interface-for-the-psyplot-package">
+<span id="psyplot-gui"></span><h1>Graphical User Interface for the psyplot package<a class="headerlink" href="#graphical-user-interface-for-the-psyplot-package" title="Permalink to this headline"></a></h1>
+<p>Welcome! This package enhances the interactive visualization framework
+<a class="reference external" href="https://psyplot.github.io/psyplot/">psyplot</a> with a graphical user interface using <a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a>. See the homepage of the
+main project on examples on the possibilities with <a class="reference external" href="https://psyplot.github.io/psyplot/">psyplot</a>.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>docs</p></th>
+<td><p><a class="reference external" href="http://psyplot-gui.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="http://readthedocs.org/projects/psyplot-gui/badge/?version=latest" /></a></p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>tests</p></th>
+<td><p><a class="reference external" href="https://circleci.com/gh/psyplot/psyplot-gui/tree/master"><img alt="CircleCI" src="https://circleci.com/gh/psyplot/psyplot-gui/tree/master.svg?style=svg" /></a> <a class="reference external" href="https://ci.appveyor.com/project/psyplot/psyplot-gui-q726s"><img alt="AppVeyor" src="https://ci.appveyor.com/api/projects/status/bud4ov6lddrjvt88/branch/master?svg=true" /></a> <a class="reference external" href="https://requires.io/github/psyplot/psyplot-gui/requirements/?branch=master"><img alt="Requirements Status" src="https://requires.io/github/psyplot/psyplot-gui/requirements.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/psyplot/psyplot-gui"><img alt="Coverage" src="https://codecov.io/gh/psyplot/psyplot-gui/branch/master/graph/badge.svg" /></a></p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>package</p></th>
+<td><p><a class="reference external" href="https://pypi.python.org/pypi/psyplot-gui"><img alt="PyPI Package latest release" src="https://img.shields.io/pypi/v/psyplot-gui.svg?style=flat" /></a> <a class="reference external" href="https://anaconda.org/conda-forge/psyplot-gui"><img alt="conda" src="https://anaconda.org/conda-forge/psyplot-gui/badges/version.svg" /></a> <a class="reference external" href="https://github.com/psyplot/psyplot-gui/releases/latest"><img alt="Latest github release" src="https://img.shields.io/github/release/psyplot/psyplot-gui.svg" /></a> <a class="reference external" href="https://zenodo.org/badge/latestdoi/55793611"><img alt="Zenodo" src="https://zenodo.org/badge/55793611.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>implementations</p></th>
+<td><p><a class="reference external" href="https://pypi.python.org/pypi/psyplot-gui"><img alt="Supported versions" src="https://img.shields.io/pypi/pyversions/psyplot-gui.svg?style=flat" /></a> <a class="reference external" href="https://pypi.python.org/pypi/psyplot-gui"><img alt="Supported implementations" src="https://img.shields.io/pypi/implementation/psyplot-gui.svg?style=flat" /></a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">ToDos</a></li>
+</ul>
+</div>
+</section>
+<section id="copyright">
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline"></a></h2>
+<p>Copyright (C) 2021 Helmholtz-Zentrum Hereon</p>
+<p>Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht</p>
+<p>Copyright (C) 2016-2021 University of Lausanne</p>
+<p>psyplot-gui is released under the GNU LGPL-3.O license.
+See COPYING and COPYING.LESSER in the root of the repository for full
+licensing details.</p>
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License version 3.0 as
+published by the Free Software Foundation.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU LGPL-3.0 license for more details.</p>
+<p>You should have received a copy of the GNU LGPL-3.0 license
+along with the program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installing.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

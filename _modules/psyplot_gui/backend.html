@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.backend &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/psyplot_gui.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
+      <li>psyplot_gui.backend</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for psyplot_gui.backend</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Matplotlib backend to include matplotlib figures as dockwidgets in the</span>
+<span class="sd">psyplot gui</span>
+
+<span class="sd">This backend is based upon matplotlibs qt4agg and qt5agg backends.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QDockWidget</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">with_qt5</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.common</span> <span class="kn">import</span> <span class="n">DockMixin</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backend_bases</span> <span class="kn">import</span> <span class="n">FigureManagerBase</span>
+<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+<span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5agg</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">show</span><span class="p">,</span> <span class="n">FigureManagerQT</span><span class="p">,</span> <span class="n">FigureCanvasQTAgg</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt4agg</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">show</span><span class="p">,</span> <span class="n">FigureManagerQT</span><span class="p">,</span> <span class="n">FigureCanvasQTAgg</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="FiguresDock"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock">[docs]</a><span class="k">class</span> <span class="nc">FiguresDock</span><span class="p">(</span><span class="n">QDockWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reimplemented QDockWidget to remove the dock widget when closed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FiguresDock.close"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reimplemented to remove the dock widget from the mainwindow when closed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">psyplot_gui.main</span> <span class="kn">import</span> <span class="n">mainwindow</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mainwindow</span><span class="o">.</span><span class="n">figures</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mainwindow</span><span class="o">.</span><span class="n">removeDockWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">FiguresDock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="FigureWidget"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget">[docs]</a><span class="k">class</span> <span class="nc">FigureWidget</span><span class="p">(</span><span class="n">DockMixin</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A simple container for figures in the psyplot backend&quot;&quot;&quot;</span>
+
+    <span class="n">dock_cls</span> <span class="o">=</span> <span class="n">FiguresDock</span></div>
+
+
+<div class="viewcode-block" id="new_figure_manager"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager">[docs]</a><span class="k">def</span> <span class="nf">new_figure_manager</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new figure manager instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FigureClass</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;FigureClass&#39;</span><span class="p">,</span> <span class="n">Figure</span><span class="p">)</span>
+    <span class="n">thisFig</span> <span class="o">=</span> <span class="n">FigureClass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_figure_manager_given_figure</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">thisFig</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="new_figure_manager_given_figure"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure">[docs]</a><span class="k">def</span> <span class="nf">new_figure_manager_given_figure</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">figure</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new figure manager instance for the given figure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">canvas</span> <span class="o">=</span> <span class="n">PsyplotCanvas</span><span class="p">(</span><span class="n">figure</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">PsyplotCanvasManager</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PsyplotCanvasManager"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager">[docs]</a><span class="k">class</span> <span class="nc">PsyplotCanvasManager</span><span class="p">(</span><span class="n">FigureManagerQT</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The canvas manager for the psyplot backend interacting with the</span>
+<span class="sd">    mainwindow of the psyplot gui&quot;&quot;&quot;</span>
+
+    <span class="n">toolbar</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">psyplot_gui.main</span> <span class="kn">import</span> <span class="n">mainwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main</span> <span class="o">=</span> <span class="n">mainwindow</span>
+        <span class="k">if</span> <span class="n">mainwindow</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PsyplotCanvasManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="n">parent_widget</span> <span class="o">=</span> <span class="n">FigureWidget</span><span class="p">()</span>
+        <span class="n">parent_widget</span><span class="o">.</span><span class="n">vbox</span> <span class="o">=</span> <span class="n">vbox</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">dock</span> <span class="o">=</span> <span class="n">parent_widget</span><span class="o">.</span><span class="n">to_dock</span><span class="p">(</span>
+            <span class="n">mainwindow</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Figure </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">TopDockWidgetArea</span><span class="p">,</span>
+            <span class="n">docktype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">figures</span><span class="p">:</span>
+            <span class="n">mainwindow</span><span class="o">.</span><span class="n">tabifyDockWidget</span><span class="p">(</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">figures</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dock</span><span class="p">)</span>
+        <span class="n">mainwindow</span><span class="o">.</span><span class="n">figures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dock</span><span class="p">)</span>
+        <span class="n">FigureManagerBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Figure </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_toolbar</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">parent_widget</span><span class="p">)</span>
+
+        <span class="c1"># add text label to status bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusbar_label</span> <span class="o">=</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">figures_label</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statusbar_label</span><span class="o">.</span><span class="n">setText</span><span class="p">)</span>
+
+        <span class="n">vbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+        <span class="n">parent_widget</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">vbox</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_widget</span> <span class="o">=</span> <span class="n">parent_widget</span>
+
+        <span class="c1"># Give the keyboard focus to the figure instead of the</span>
+        <span class="c1"># manager; StrongFocus accepts both tab and click to focus and</span>
+        <span class="c1"># will enable the canvas to process event w/o clicking.</span>
+        <span class="c1"># ClickFocus only takes the focus is the window has been</span>
+        <span class="c1"># clicked</span>
+        <span class="c1"># on. http://qt-project.org/doc/qt-4.8/qt.html#FocusPolicy-enum or</span>
+        <span class="c1"># http://doc.qt.digia.com/qt/qt.html#FocusPolicy-enum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">setFocusPolicy</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">StrongFocus</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_destroying</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">notify_axes_change</span><span class="p">(</span><span class="n">fig</span><span class="p">):</span>
+            <span class="c1"># This will be called whenever the current axes is changed</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">add_axobserver</span><span class="p">(</span><span class="n">notify_axes_change</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PsyplotCanvasManager.statusBar"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager.statusBar">[docs]</a>    <span class="k">def</span> <span class="nf">statusBar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PsyplotCanvasManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">statusBar</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">statusBar</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PsyplotCanvasManager.resize"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager.resize">[docs]</a>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="PsyplotCanvas"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas">[docs]</a><span class="k">class</span> <span class="nc">PsyplotCanvas</span><span class="p">(</span><span class="n">FigureCanvasQTAgg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The canvas class with reimplemented resizing&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PsyplotCanvas.resizeEvent"><a class="viewcode-back" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas.resizeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reimplemented to make sure that the figure is only resized for</span>
+<span class="sd">        events with height and width greater 0&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">PsyplotCanvas</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">resizeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div></div>
+
+
+<span class="n">FigureManager</span> <span class="o">=</span> <span class="n">PsyplotCanvasManager</span>
+<span class="n">FigureCanvas</span> <span class="o">=</span> <span class="n">PsyplotCanvas</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.backend module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="psyplot_gui.common module" href="psyplot_gui.common.html" />
+    <link rel="prev" title="psyplot_gui.sphinx_supp.conf module" href="psyplot_gui.sphinx_supp.conf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.backend module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.backend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.backend">
+<span id="psyplot-gui-backend-module"></span><h1>psyplot_gui.backend module<a class="headerlink" href="#module-psyplot_gui.backend" title="Permalink to this headline"></a></h1>
+<p>Matplotlib backend to include matplotlib figures as dockwidgets in the
+psyplot gui</p>
+<p>This backend is based upon matplotlibs qt4agg and qt5agg backends.</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.FigureCanvas" title="psyplot_gui.backend.FigureCanvas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvas" title="psyplot_gui.backend.PsyplotCanvas"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.PsyplotCanvas</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.backend.FigureManager" title="psyplot_gui.backend.FigureManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FigureManager</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager" title="psyplot_gui.backend.PsyplotCanvasManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.PsyplotCanvasManager</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.FigureWidget" title="psyplot_gui.backend.FigureWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FigureWidget</span></code></a></p></td>
+<td><p>A simple container for figures in the psyplot backend</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.backend.FiguresDock" title="psyplot_gui.backend.FiguresDock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FiguresDock</span></code></a></p></td>
+<td><p>Reimplemented QDockWidget to remove the dock widget when closed</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvas" title="psyplot_gui.backend.PsyplotCanvas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a>([figure])</p></td>
+<td><p>The canvas class with reimplemented resizing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager" title="psyplot_gui.backend.PsyplotCanvasManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a>(canvas, num)</p></td>
+<td><p>The canvas manager for the psyplot backend interacting with the mainwindow of the psyplot gui</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.new_figure_manager" title="psyplot_gui.backend.new_figure_manager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_figure_manager</span></code></a>(num, *args, **kwargs)</p></td>
+<td><p>Create a new figure manager instance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.backend.new_figure_manager_given_figure" title="psyplot_gui.backend.new_figure_manager_given_figure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_figure_manager_given_figure</span></code></a>(num, figure)</p></td>
+<td><p>Create a new figure manager instance for the given figure.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FigureCanvas">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">FigureCanvas</span></span><a class="headerlink" href="#psyplot_gui.backend.FigureCanvas" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvas" title="psyplot_gui.backend.PsyplotCanvas"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.PsyplotCanvas</span></code></a>
+<strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resizeEvent</span></code>(event)</p></td>
+<td><p>Reimplemented to make sure that the figure is only resized for events with height and width greater 0</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FigureManager">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">FigureManager</span></span><a class="headerlink" href="#psyplot_gui.backend.FigureManager" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager" title="psyplot_gui.backend.PsyplotCanvasManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.PsyplotCanvasManager</span></code></a>
+<strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code>(width, height)</p></td>
+<td><p>For GUI backends, resize the window (in pixels).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">statusBar</span></code>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolbar</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FigureWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">FigureWidget</span></span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#FigureWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.FigureWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.common.DockMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>A simple container for figures in the psyplot backend</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.FigureWidget.dock_cls" title="psyplot_gui.backend.FigureWidget.dock_cls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dock_cls</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="#psyplot_gui.backend.FiguresDock" title="psyplot_gui.backend.FiguresDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.FiguresDock</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FigureWidget.dock_cls">
+<span class="sig-name descname"><span class="pre">dock_cls</span></span><a class="headerlink" href="#psyplot_gui.backend.FigureWidget.dock_cls" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#psyplot_gui.backend.FiguresDock" title="psyplot_gui.backend.FiguresDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.backend.FiguresDock</span></code></a>
+<strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to remove the dock widget from the mainwindow when closed</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FiguresDock">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">FiguresDock</span></span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#FiguresDock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.FiguresDock" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
+<p>Reimplemented QDockWidget to remove the dock widget when closed</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.FiguresDock.close" title="psyplot_gui.backend.FiguresDock.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Reimplemented to remove the dock widget from the mainwindow when closed</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.backend.FiguresDock.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#FiguresDock.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.FiguresDock.close" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to remove the dock widget from the mainwindow when closed</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvas">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">PsyplotCanvas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#PsyplotCanvas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvas" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg</span></code></p>
+<p>The canvas class with reimplemented resizing</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvas.resizeEvent" title="psyplot_gui.backend.PsyplotCanvas.resizeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resizeEvent</span></code></a>(event)</p></td>
+<td><p>Reimplemented to make sure that the figure is only resized for events with height and width greater 0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvas.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#PsyplotCanvas.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvas.resizeEvent" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplemented to make sure that the figure is only resized for
+events with height and width greater 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvasManager">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">PsyplotCanvasManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#PsyplotCanvasManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvasManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.backends.backend_qt5.FigureManagerQT</span></code></p>
+<p>The canvas manager for the psyplot backend interacting with the
+mainwindow of the psyplot gui</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager.resize" title="psyplot_gui.backend.PsyplotCanvasManager.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(width, height)</p></td>
+<td><p>For GUI backends, resize the window (in pixels).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager.statusBar" title="psyplot_gui.backend.PsyplotCanvasManager.statusBar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">statusBar</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.backend.PsyplotCanvasManager.toolbar" title="psyplot_gui.backend.PsyplotCanvasManager.toolbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toolbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvasManager.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#PsyplotCanvasManager.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvasManager.resize" title="Permalink to this definition"></a></dt>
+<dd><p>For GUI backends, resize the window (in pixels).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvasManager.statusBar">
+<span class="sig-name descname"><span class="pre">statusBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#PsyplotCanvasManager.statusBar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvasManager.statusBar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.backend.PsyplotCanvasManager.toolbar">
+<span class="sig-name descname"><span class="pre">toolbar</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.backend.PsyplotCanvasManager.toolbar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.backend.new_figure_manager">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#new_figure_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.new_figure_manager" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new figure manager instance</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="psyplot_gui.backend.new_figure_manager_given_figure">
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager_given_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/backend.html#new_figure_manager_given_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.backend.new_figure_manager_given_figure" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new figure manager instance for the given figure.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.sphinx_supp.conf.html" class="btn btn-neutral float-left" title="psyplot_gui.sphinx_supp.conf module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.common.html" class="btn btn-neutral float-right" title="psyplot_gui.common module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>psyplot_gui.preferences module &mdash; psyplot-gui 1.3.0+7.g7a27640 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="../changelog.html" />
+    <link rel="prev" title="psyplot_gui.plot_creator module" href="psyplot_gui.plot_creator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> psyplot-gui
+          </a>
+              <div class="version">
+                1.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.preferences module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
+      <li>psyplot_gui.preferences module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/psyplot_gui.preferences.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-psyplot_gui.preferences">
+<span id="psyplot-gui-preferences-module"></span><h1>psyplot_gui.preferences module<a class="headerlink" href="#module-psyplot_gui.preferences" title="Permalink to this headline"></a></h1>
+<p>Preferences widget for psyplot_gui</p>
+<p>This module defines the <code class="xref py py-class docutils literal notranslate"><span class="pre">Preferences</span></code> widget that creates an interface
+to the rcParams of psyplot and psyplot_gui</p>
+<p><strong>Classes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage" title="psyplot_gui.preferences.ConfigPage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigPage</span></code></a>()</p></td>
+<td><p>An abstract base class for configuration pages</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.GuiRcParamsWidget" title="psyplot_gui.preferences.GuiRcParamsWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a>(*args, **kwargs)</p></td>
+<td><p>The config page for the <a class="reference internal" href="psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.config.rcsetup.rcParams</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences" title="psyplot_gui.preferences.Prefences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Prefences</span></code></a>([main])</p></td>
+<td><p>Preferences dialog</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.PsyRcParamsWidget" title="psyplot_gui.preferences.PsyRcParamsWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a>(*args, **kwargs)</p></td>
+<td><p>The config page for the <code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.rcParams</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree" title="psyplot_gui.preferences.RcParamsTree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a>(rcParams, validators, ...)</p></td>
+<td><p>A QTreeWidget that can be used to display a RcParams instance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget" title="psyplot_gui.preferences.RcParamsWidget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A configuration page for RcParams instances</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">ConfigPage</span></span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#ConfigPage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An abstract base class for configuration pages</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.apply_changes" title="psyplot_gui.preferences.ConfigPage.apply_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_changes</span></code></a>()</p></td>
+<td><p>Apply the planned changes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.initialize" title="psyplot_gui.preferences.ConfigPage.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>()</p></td>
+<td><p>Initialize the page</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.auto_updates" title="psyplot_gui.preferences.ConfigPage.auto_updates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_updates</span></code></a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that is True, if the changes in this ConfigPage are set immediately</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.changed" title="psyplot_gui.preferences.ConfigPage.changed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">changed</span></code></a></p></td>
+<td><p>Check whether the preferences will change</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.icon" title="psyplot_gui.preferences.ConfigPage.icon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">icon</span></code></a></p></td>
+<td><p>The icon of the page</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.is_valid" title="psyplot_gui.preferences.ConfigPage.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
+<td><p>Check whether the page is valid</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.propose_changes" title="psyplot_gui.preferences.ConfigPage.propose_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propose_changes</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A signal that is emitted if changes are propsed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.title" title="psyplot_gui.preferences.ConfigPage.title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code></a></p></td>
+<td><p>The title for the config page</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.ConfigPage.validChanged" title="psyplot_gui.preferences.ConfigPage.validChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validChanged</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A signal that shall be emitted if the validation state changes</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.apply_changes">
+<span class="sig-name descname"><span class="pre">apply_changes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#ConfigPage.apply_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.apply_changes" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the planned changes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.auto_updates">
+<span class="sig-name descname"><span class="pre">auto_updates</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.auto_updates" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that is True, if the changes in this ConfigPage are set
+immediately</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.changed">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">changed</span></span><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.changed" title="Permalink to this definition"></a></dt>
+<dd><p>Check whether the preferences will change</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.icon">
+<span class="sig-name descname"><span class="pre">icon</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.icon" title="Permalink to this definition"></a></dt>
+<dd><p>The icon of the page</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#ConfigPage.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.initialize" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the page</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.is_valid">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.is_valid" title="Permalink to this definition"></a></dt>
+<dd><p>Check whether the page is valid</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.propose_changes">
+<span class="sig-name descname"><span class="pre">propose_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.propose_changes" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that is emitted if changes are propsed. The signal should be
+emitted with the instance of the page itself</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.title" title="Permalink to this definition"></a></dt>
+<dd><p>The title for the config page</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.ConfigPage.validChanged">
+<span class="sig-name descname"><span class="pre">validChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.preferences.ConfigPage.validChanged" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that shall be emitted if the validation state changes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.GuiRcParamsWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">GuiRcParamsWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#GuiRcParamsWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.GuiRcParamsWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget" title="psyplot_gui.preferences.RcParamsWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.preferences.RcParamsWidget</span></code></a></p>
+<p>The config page for the <a class="reference internal" href="psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.config.rcsetup.rcParams</span></code></a></p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.GuiRcParamsWidget.default_path" title="psyplot_gui.preferences.GuiRcParamsWidget.default_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_path</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.GuiRcParamsWidget.rc" title="psyplot_gui.preferences.GuiRcParamsWidget.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a></p></td>
+<td><p>the rcParams to use (must be implemented by subclasses)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.GuiRcParamsWidget.title" title="psyplot_gui.preferences.GuiRcParamsWidget.title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code></a></p></td>
+<td><p>The title for the config page</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.GuiRcParamsWidget.default_path">
+<span class="sig-name descname"><span class="pre">default_path</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/.config/psyplot/psyplotguirc.yml'</span></em><a class="headerlink" href="#psyplot_gui.preferences.GuiRcParamsWidget.default_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.GuiRcParamsWidget.rc">
+<span class="sig-name descname"><span class="pre">rc</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'backend':</span> <span class="pre">'psyplot',</span> <span class="pre">'console.auto_set_mp':</span> <span class="pre">True,</span> <span class="pre">'console.auto_set_sp':</span> <span class="pre">True,</span> <span class="pre">'console.connect_to_help':</span> <span class="pre">True,</span> <span class="pre">'console.start_channels':</span> <span class="pre">True,</span> <span class="pre">'content.load_tooltips':</span> <span class="pre">True,</span> <span class="pre">'fmt.sort_by_key':</span> <span class="pre">True,</span> <span class="pre">'help_explorer.online':</span> <span class="pre">None,</span> <span class="pre">'help_explorer.render_docs_parallel':</span> <span class="pre">True,</span> <span class="pre">'help_explorer.use_intersphinx':</span> <span class="pre">None,</span> <span class="pre">'help_explorer.use_webengineview':</span> <span class="pre">True,</span> <span class="pre">'main.listen_to_port':</span> <span class="pre">True,</span> <span class="pre">'main.open_files_port':</span> <span class="pre">30124,</span> <span class="pre">'main.opengl':</span> <span class="pre">'software',</span> <span class="pre">'plugins.exclude':</span> <span class="pre">[],</span> <span class="pre">'plugins.include':</span> <span class="pre">None}</span></em><a class="headerlink" href="#psyplot_gui.preferences.GuiRcParamsWidget.rc" title="Permalink to this definition"></a></dt>
+<dd><p>the rcParams to use (must be implemented by subclasses)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.GuiRcParamsWidget.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'GUI</span> <span class="pre">defaults'</span></em><a class="headerlink" href="#psyplot_gui.preferences.GuiRcParamsWidget.title" title="Permalink to this definition"></a></dt>
+<dd><p>The title for the config page</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">Prefences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Preferences dialog</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.accept" title="psyplot_gui.preferences.Prefences.accept"><code class="xref py py-obj docutils literal notranslate"><span class="pre">accept</span></code></a>()</p></td>
+<td><p>Reimplement Qt method</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.add_page" title="psyplot_gui.preferences.Prefences.add_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_page</span></code></a>(widget)</p></td>
+<td><p>Add a new page to the preferences dialog</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.apply_clicked" title="psyplot_gui.preferences.Prefences.apply_clicked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_clicked</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.check_changes" title="psyplot_gui.preferences.Prefences.check_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_changes</span></code></a>(configpage)</p></td>
+<td><p>Enable the apply button if there are changes to the settings</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.current_page_changed" title="psyplot_gui.preferences.Prefences.current_page_changed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_page_changed</span></code></a>(index)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.get_page" title="psyplot_gui.preferences.Prefences.get_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_page</span></code></a>([index])</p></td>
+<td><p>Return page widget</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.load_plugin_pages" title="psyplot_gui.preferences.Prefences.load_plugin_pages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_plugin_pages</span></code></a>()</p></td>
+<td><p>Load the rcParams for the plugins in separate pages</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.set_current_index" title="psyplot_gui.preferences.Prefences.set_current_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_current_index</span></code></a>(index)</p></td>
+<td><p>Set current page index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.bt_apply" title="psyplot_gui.preferences.Prefences.bt_apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bt_apply</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.Prefences.pages" title="psyplot_gui.preferences.Prefences.pages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pages</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.accept">
+<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.accept" title="Permalink to this definition"></a></dt>
+<dd><p>Reimplement Qt method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.add_page">
+<span class="sig-name descname"><span class="pre">add_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.add_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.add_page" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new page to the preferences dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<a class="reference internal" href="#psyplot_gui.preferences.ConfigPage" title="psyplot_gui.preferences.ConfigPage"><em>ConfigPage</em></a>) – The page to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.apply_clicked">
+<span class="sig-name descname"><span class="pre">apply_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.apply_clicked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.apply_clicked" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.bt_apply">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">bt_apply</span></span><a class="headerlink" href="#psyplot_gui.preferences.Prefences.bt_apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.check_changes">
+<span class="sig-name descname"><span class="pre">check_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configpage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.check_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.check_changes" title="Permalink to this definition"></a></dt>
+<dd><p>Enable the apply button if there are changes to the settings</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.current_page_changed">
+<span class="sig-name descname"><span class="pre">current_page_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.current_page_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.current_page_changed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.get_page">
+<span class="sig-name descname"><span class="pre">get_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.get_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.get_page" title="Permalink to this definition"></a></dt>
+<dd><p>Return page widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.load_plugin_pages">
+<span class="sig-name descname"><span class="pre">load_plugin_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.load_plugin_pages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.load_plugin_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Load the rcParams for the plugins in separate pages</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.pages">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">pages</span></span><a class="headerlink" href="#psyplot_gui.preferences.Prefences.pages" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.Prefences.set_current_index">
+<span class="sig-name descname"><span class="pre">set_current_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#Prefences.set_current_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.Prefences.set_current_index" title="Permalink to this definition"></a></dt>
+<dd><p>Set current page index</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.PsyRcParamsWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">PsyRcParamsWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#PsyRcParamsWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.PsyRcParamsWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget" title="psyplot_gui.preferences.RcParamsWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.preferences.RcParamsWidget</span></code></a></p>
+<p>The config page for the <code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.rcParams</span></code></p>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.PsyRcParamsWidget.default_path" title="psyplot_gui.preferences.PsyRcParamsWidget.default_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_path</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.PsyRcParamsWidget.rc" title="psyplot_gui.preferences.PsyRcParamsWidget.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a></p></td>
+<td><p>the rcParams to use (must be implemented by subclasses)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.PsyRcParamsWidget.title" title="psyplot_gui.preferences.PsyRcParamsWidget.title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code></a></p></td>
+<td><p>The title for the config page</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.PsyRcParamsWidget.default_path">
+<span class="sig-name descname"><span class="pre">default_path</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/.config/psyplot/psyplotrc.yml'</span></em><a class="headerlink" href="#psyplot_gui.preferences.PsyRcParamsWidget.default_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.PsyRcParamsWidget.rc">
+<span class="sig-name descname"><span class="pre">rc</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'auto_draw':</span> <span class="pre">True,</span> <span class="pre">'auto_show':</span> <span class="pre">False,</span> <span class="pre">'colors.cmaps':</span> <span class="pre">{},</span> <span class="pre">'datapath':</span> <span class="pre">None,</span> <span class="pre">'decoder.interp_kind':</span> <span class="pre">'linear',</span> <span class="pre">'decoder.t':</span> <span class="pre">{'time'},</span> <span class="pre">'decoder.x':</span> <span class="pre">{},</span> <span class="pre">'decoder.y':</span> <span class="pre">{},</span> <span class="pre">'decoder.z':</span> <span class="pre">{},</span> <span class="pre">'gridweights.use_cdo':</span> <span class="pre">None,</span> <span class="pre">'lists.auto_update':</span> <span class="pre">True,</span> <span class="pre">'plotter.bar.alpha':</span> <span class="pre">1.0,</span> <span class="pre">'plotter.bar.categorical':</span> <span class="pre">None,</span> <span class="pre">'plotter.bar.coord':</span> <span class="pre">None,</span> <span class="pre">'plotter.bar.plot':</span> <span class="pre">'bar',</span> <span class="pre">'plotter.bar.widths':</span> <span class="pre">'equal',</span> <span class="pre">'plotter.baseplotter.background':</span> <span class="pre">'rc',</span> <span class="pre">'plotter.baseplotter.figtitle':</span> <span class="pre">'',</span> <span class="pre">'plotter.baseplotter.figtitleprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.baseplotter.figtitlesize':</span> <span class="pre">12.0,</span> <span class="pre">'plotter.baseplotter.figtitleweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.mask':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.maskbetween':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.maskgeq':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.maskgreater':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.maskleq':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.maskless':</span> <span class="pre">None,</span> <span class="pre">'plotter.baseplotter.text':</span> <span class="pre">[],</span> <span class="pre">'plotter.baseplotter.tight':</span> <span class="pre">False,</span> <span class="pre">'plotter.baseplotter.title':</span> <span class="pre">'',</span> <span class="pre">'plotter.baseplotter.titleprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.baseplotter.titlesize':</span> <span class="pre">'large',</span> <span class="pre">'plotter.baseplotter.titleweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.combinedsimple.plot':</span> <span class="pre">'mesh',</span> <span class="pre">'plotter.combinedsimple.vbounds':</span> <span class="pre">[&lt;BoundsMethod.rounded:</span> <span class="pre">'rounded'&gt;,</span> <span class="pre">None,</span> <span class="pre">0.0,</span> <span class="pre">100.0,</span> <span class="pre">None,</span> <span class="pre">None],</span> <span class="pre">'plotter.combinedsimple.vcbar':</span> <span class="pre">{'b'},</span> <span class="pre">'plotter.combinedsimple.vcbarspacing':</span> <span class="pre">'uniform',</span> <span class="pre">'plotter.combinedsimple.vclabel':</span> <span class="pre">'',</span> <span class="pre">'plotter.combinedsimple.vclabelprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.combinedsimple.vclabelsize':</span> <span class="pre">'medium',</span> <span class="pre">'plotter.combinedsimple.vclabelweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.combinedsimple.vcmap':</span> <span class="pre">'white_blue_red',</span> <span class="pre">'plotter.combinedsimple.vcticklabels':</span> <span class="pre">None,</span> <span class="pre">'plotter.combinedsimple.vctickprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.combinedsimple.vcticks':</span> <span class="pre">None,</span> <span class="pre">'plotter.combinedsimple.vcticksize':</span> <span class="pre">'medium',</span> <span class="pre">'plotter.combinedsimple.vctickweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.combinedsimple.vplot':</span> <span class="pre">'quiver',</span> <span class="pre">'plotter.density.bins':</span> <span class="pre">10,</span> <span class="pre">'plotter.density.coord':</span> <span class="pre">None,</span> <span class="pre">'plotter.density.density':</span> <span class="pre">'hist',</span> <span class="pre">'plotter.density.normed':</span> <span class="pre">None,</span> <span class="pre">'plotter.density.precision':</span> <span class="pre">0.0,</span> <span class="pre">'plotter.density.xrange':</span> <span class="pre">('minmax',</span> <span class="pre">'minmax'),</span> <span class="pre">'plotter.density.yrange':</span> <span class="pre">('minmax',</span> <span class="pre">'minmax'),</span> <span class="pre">'plotter.fldmean.err_calc':</span> <span class="pre">'std',</span> <span class="pre">'plotter.fldmean.mean':</span> <span class="pre">'mean',</span> <span class="pre">'plotter.line.coord':</span> <span class="pre">None,</span> <span class="pre">'plotter.line.error':</span> <span class="pre">'fill',</span> <span class="pre">'plotter.line.erroralpha':</span> <span class="pre">0.15,</span> <span class="pre">'plotter.line.linewidth':</span> <span class="pre">None,</span> <span class="pre">'plotter.line.marker':</span> <span class="pre">None,</span> <span class="pre">'plotter.line.markersize':</span> <span class="pre">None,</span> <span class="pre">'plotter.line.plot':</span> <span class="pre">'-',</span> <span class="pre">'plotter.plot2d.bounds':</span> <span class="pre">[&lt;BoundsMethod.rounded:</span> <span class="pre">'rounded'&gt;,</span> <span class="pre">None,</span> <span class="pre">0.0,</span> <span class="pre">100.0,</span> <span class="pre">None,</span> <span class="pre">None],</span> <span class="pre">'plotter.plot2d.cbar':</span> <span class="pre">{'b'},</span> <span class="pre">'plotter.plot2d.cbarspacing':</span> <span class="pre">'uniform',</span> <span class="pre">'plotter.plot2d.clabel':</span> <span class="pre">'',</span> <span class="pre">'plotter.plot2d.clabelprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.plot2d.clabelsize':</span> <span class="pre">'medium',</span> <span class="pre">'plotter.plot2d.clabelweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.cmap':</span> <span class="pre">'white_blue_red',</span> <span class="pre">'plotter.plot2d.cticklabels':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.ctickprops':</span> <span class="pre">{},</span> <span class="pre">'plotter.plot2d.cticks':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.cticksize':</span> <span class="pre">'medium',</span> <span class="pre">'plotter.plot2d.ctickweight':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.datagrid':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.extend':</span> <span class="pre">'neither',</span> <span class="pre">'plotter.plot2d.interp_bounds':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.levels':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.mask_datagrid':</span> <span class="pre">True,</span> <span class="pre">'plotter.plot2d.miss_color':</span> <span class="pre">None,</span> <span class="pre">'plotter.plot2d.plot':</span> <span class="pre">'mesh',</span> <span class="pre">'plotter.plot2d.plot.min_circle_ratio':</span> <span class="pre">0.05,</span> <span class="pre">'plotter.simple.axiscolor':</span> <span class="pre">{'bottom':</span> <span class="pre">None,</span> <span class="pre">'left':</span> <span class="pre">None,</span> <span class="pre">'right':</span> <span class="pre">None,</span> <span class="pre">'top':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.color':</span> <span class="pre">None,</span> <span class="pre">'plotter.simple.grid':</span> <span class="pre">False,</span> <span class="pre">'plotter.simple.labelprops':</span> <span class="pre">{'x':</span> <span class="pre">{},</span> <span class="pre">'y':</span> <span class="pre">{}},</span> <span class="pre">'plotter.simple.labelsize':</span> <span class="pre">{'x':</span> <span class="pre">'medium',</span> <span class="pre">'y':</span> <span class="pre">'medium'},</span> <span class="pre">'plotter.simple.labelweight':</span> <span class="pre">{'x':</span> <span class="pre">None,</span> <span class="pre">'y':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.legend':</span> <span class="pre">{'loc':</span> <span class="pre">1},</span> <span class="pre">'plotter.simple.legendlabels':</span> <span class="pre">'%(arr_name)s',</span> <span class="pre">'plotter.simple.sym_lims':</span> <span class="pre">[None,</span> <span class="pre">None],</span> <span class="pre">'plotter.simple.ticksize':</span> <span class="pre">{'major':</span> <span class="pre">'medium'},</span> <span class="pre">'plotter.simple.tickweight':</span> <span class="pre">{'major':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.transpose':</span> <span class="pre">False,</span> <span class="pre">'plotter.simple.xlabel':</span> <span class="pre">'',</span> <span class="pre">'plotter.simple.xlim':</span> <span class="pre">('rounded',</span> <span class="pre">'rounded'),</span> <span class="pre">'plotter.simple.xrotation':</span> <span class="pre">0.0,</span> <span class="pre">'plotter.simple.xticklabels':</span> <span class="pre">{'major':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.xtickprops':</span> <span class="pre">{'major':</span> <span class="pre">{},</span> <span class="pre">'minor':</span> <span class="pre">{}},</span> <span class="pre">'plotter.simple.xticks':</span> <span class="pre">{'major':</span> <span class="pre">None,</span> <span class="pre">'minor':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.ylabel':</span> <span class="pre">'',</span> <span class="pre">'plotter.simple.ylim':</span> <span class="pre">('rounded',</span> <span class="pre">'rounded'),</span> <span class="pre">'plotter.simple.yrotation':</span> <span class="pre">0.0,</span> <span class="pre">'plotter.simple.yticklabels':</span> <span class="pre">{'major':</span> <span class="pre">None},</span> <span class="pre">'plotter.simple.ytickprops':</span> <span class="pre">{'major':</span> <span class="pre">{},</span> <span class="pre">'minor':</span> <span class="pre">{}},</span> <span class="pre">'plotter.simple.yticks':</span> <span class="pre">{'major':</span> <span class="pre">None,</span> <span class="pre">'minor':</span> <span class="pre">None},</span> <span class="pre">'plotter.user':</span> <span class="pre">{},</span> <span class="pre">'plotter.vector.arrowsize':</span> <span class="pre">None,</span> <span class="pre">'plotter.vector.arrowstyle':</span> <span class="pre">'-|&gt;',</span> <span class="pre">'plotter.vector.color':</span> <span class="pre">'k',</span> <span class="pre">'plotter.vector.density':</span> <span class="pre">1.0,</span> <span class="pre">'plotter.vector.linewidth':</span> <span class="pre">None,</span> <span class="pre">'plotter.vector.plot':</span> <span class="pre">'quiver',</span> <span class="pre">'plotter.violin.plot':</span> <span class="pre">True,</span> <span class="pre">'presets.trusted':</span> <span class="pre">[],</span> <span class="pre">'project.auto_import':</span> <span class="pre">False,</span> <span class="pre">'project.import_seaborn':</span> <span class="pre">None,</span> <span class="pre">'project.plotters':</span> <span class="pre">{'barplot':</span> <span class="pre">{'default_slice':</span> <span class="pre">None,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'BarPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">True,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">bar</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">one-dimensional</span> <span class="pre">data'},</span> <span class="pre">'combined':</span> <span class="pre">{'default_dims':</span> <span class="pre">{'x':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None),</span> <span class="pre">'y':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None)},</span> <span class="pre">'default_slice':</span> <span class="pre">0,</span> <span class="pre">'example_call':</span> <span class="pre">&quot;filename,</span> <span class="pre">name=[['my_variable',</span> <span class="pre">['u_var',</span> <span class="pre">'v_var']]],</span> <span class="pre">...&quot;,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'CombinedSimplePlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">True,</span> <span class="pre">'summary':</span> <span class="pre">'Plot</span> <span class="pre">a</span> <span class="pre">2D</span> <span class="pre">scalar</span> <span class="pre">field</span> <span class="pre">with</span> <span class="pre">an</span> <span class="pre">overlying</span> <span class="pre">vector</span> <span class="pre">field'},</span> <span class="pre">'density':</span> <span class="pre">{'default_slice':</span> <span class="pre">None,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'DensityPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">False,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">density</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">point</span> <span class="pre">data'},</span> <span class="pre">'fldmean':</span> <span class="pre">{'default_slice':</span> <span class="pre">None,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'FldmeanPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">True,</span> <span class="pre">'summary':</span> <span class="pre">'Calculate</span> <span class="pre">and</span> <span class="pre">plot</span> <span class="pre">the</span> <span class="pre">mean</span> <span class="pre">over</span> <span class="pre">x-</span> <span class="pre">and</span> <span class="pre">y-dimensions'},</span> <span class="pre">'lineplot':</span> <span class="pre">{'default_slice':</span> <span class="pre">None,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'LinePlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">True,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">line</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">one-dimensional</span> <span class="pre">data'},</span> <span class="pre">'plot2d':</span> <span class="pre">{'default_dims':</span> <span class="pre">{'x':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None),</span> <span class="pre">'y':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None)},</span> <span class="pre">'default_slice':</span> <span class="pre">0,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'Simple2DPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">False,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">simple</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">2D</span> <span class="pre">scalar</span> <span class="pre">field'},</span> <span class="pre">'simple':</span> <span class="pre">{'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plot_func':</span> <span class="pre">False,</span> <span class="pre">'plotter_name':</span> <span class="pre">'SimplePlotterBase',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'summary':</span> <span class="pre">'All</span> <span class="pre">plotters</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">visualized</span> <span class="pre">by</span> <span class="pre">the</span> <span class="pre">psy-simple</span> <span class="pre">package'},</span> <span class="pre">'vector':</span> <span class="pre">{'default_dims':</span> <span class="pre">{'x':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None),</span> <span class="pre">'y':</span> <span class="pre">slice(None,</span> <span class="pre">None,</span> <span class="pre">None)},</span> <span class="pre">'default_slice':</span> <span class="pre">0,</span> <span class="pre">'example_call':</span> <span class="pre">&quot;filename,</span> <span class="pre">name=[['u_var',</span> <span class="pre">'v_var']],</span> <span class="pre">...&quot;,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'SimpleVectorPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">False,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">simple</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">2D</span> <span class="pre">vector</span> <span class="pre">field'},</span> <span class="pre">'violinplot':</span> <span class="pre">{'default_slice':</span> <span class="pre">None,</span> <span class="pre">'module':</span> <span class="pre">'psy_simple.plotters',</span> <span class="pre">'plotter_name':</span> <span class="pre">'ViolinPlotter',</span> <span class="pre">'plugin':</span> <span class="pre">'psy_simple.plugin',</span> <span class="pre">'prefer_list':</span> <span class="pre">True,</span> <span class="pre">'summary':</span> <span class="pre">'Make</span> <span class="pre">a</span> <span class="pre">violin</span> <span class="pre">plot</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">data'}},</span> <span class="pre">'project.plotters.user':</span> <span class="pre">{},</span> <span class="pre">'texts.default_position':</span> <span class="pre">[1.0,</span> <span class="pre">1.0],</span> <span class="pre">'texts.delimiter':</span> <span class="pre">',</span> <span class="pre">',</span> <span class="pre">'texts.labels':</span> <span class="pre">{'desc':</span> <span class="pre">'%(long_name)s</span> <span class="pre">[%(units)s]',</span> <span class="pre">'dinfo':</span> <span class="pre">'%B</span> <span class="pre">%d,</span> <span class="pre">%Y',</span> <span class="pre">'dtinfo':</span> <span class="pre">'%B</span> <span class="pre">%d,</span> <span class="pre">%Y.</span> <span class="pre">%H:%M',</span> <span class="pre">'sdesc':</span> <span class="pre">'%(name)s</span> <span class="pre">[%(units)s]',</span> <span class="pre">'tinfo':</span> <span class="pre">'%H:%M'},</span> <span class="pre">'ticks.which':</span> <span class="pre">'major',</span> <span class="pre">'widgets.colors.cmaps':</span> <span class="pre">['viridis',</span> <span class="pre">'Reds',</span> <span class="pre">'Blues',</span> <span class="pre">'Greens',</span> <span class="pre">'binary',</span> <span class="pre">'RdBu',</span> <span class="pre">'coolwarm',</span> <span class="pre">'red_white_blue',</span> <span class="pre">'winter',</span> <span class="pre">'jet',</span> <span class="pre">'white_blue_red',</span> <span class="pre">'gist_ncar',</span> <span class="pre">'gist_earth',</span> <span class="pre">'Paired',</span> <span class="pre">'gnuplot',</span> <span class="pre">'gnuplot2']}</span></em><a class="headerlink" href="#psyplot_gui.preferences.PsyRcParamsWidget.rc" title="Permalink to this definition"></a></dt>
+<dd><p>the rcParams to use (must be implemented by subclasses)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.PsyRcParamsWidget.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'psyplot</span> <span class="pre">defaults'</span></em><a class="headerlink" href="#psyplot_gui.preferences.PsyRcParamsWidget.title" title="Permalink to this definition"></a></dt>
+<dd><p>The title for the config page</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">RcParamsTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rcParams</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTreeWidget</span></code></p>
+<p>A QTreeWidget that can be used to display a RcParams instance</p>
+<p>This widget is populated by a <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams</span></code></a>
+instance and displays whether the values are valid or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rcParams</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary that contains the rcParams</p></li>
+<li><p><strong>validators</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from the <cite>rcParams</cite> key to the validation function for
+the corresponding value</p></li>
+<li><p><strong>descriptions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from the <cite>rcParams</cite> key to it’s description</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams</span></code></a>, <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams.validate" title="(in psyplot v1.3.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams.validate</span></code></a>, <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams.descriptions" title="(in psyplot v1.3.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams.descriptions</span></code></a></p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.apply_changes" title="psyplot_gui.preferences.RcParamsTree.apply_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_changes</span></code></a>()</p></td>
+<td><p>Update the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.rc" title="psyplot_gui.preferences.RcParamsTree.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> with the proposed changes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.changed_rc" title="psyplot_gui.preferences.RcParamsTree.changed_rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">changed_rc</span></code></a>([use_items])</p></td>
+<td><p>Iterate over the changed rcParams</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.initialize" title="psyplot_gui.preferences.RcParamsTree.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>()</p></td>
+<td><p>Fill the items of the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.rc" title="psyplot_gui.preferences.RcParamsTree.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> into the tree</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.open_menu" title="psyplot_gui.preferences.RcParamsTree.open_menu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_menu</span></code></a>(position)</p></td>
+<td><p>Open a menu to expand and collapse all items in the tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.select_changes" title="psyplot_gui.preferences.RcParamsTree.select_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_changes</span></code></a>()</p></td>
+<td><p>Select all the items that changed comparing to the current rcParams</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.selected_rc" title="psyplot_gui.preferences.RcParamsTree.selected_rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selected_rc</span></code></a>([use_items])</p></td>
+<td><p>Iterate over the selected rcParams</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.set_icon_func" title="psyplot_gui.preferences.RcParamsTree.set_icon_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_icon_func</span></code></a>(i, item, validator)</p></td>
+<td><p>Create a function to change the icon of one topLevelItem</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.set_valid" title="psyplot_gui.preferences.RcParamsTree.set_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_valid</span></code></a>(i, b)</p></td>
+<td><p>Set the validation status</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.is_valid" title="psyplot_gui.preferences.RcParamsTree.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
+<td><p>True if all the proposed values in this tree are valid</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.propose_changes" title="psyplot_gui.preferences.RcParamsTree.propose_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propose_changes</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A signal that is emitted if changes are propsed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.rc" title="psyplot_gui.preferences.RcParamsTree.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a></p></td>
+<td><p>The <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParams</span></code></a> to display</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.top_level_items" title="psyplot_gui.preferences.RcParamsTree.top_level_items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">top_level_items</span></code></a></p></td>
+<td><p>An iterator over the topLevelItems in this tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.valid" title="psyplot_gui.preferences.RcParamsTree.valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid</span></code></a></p></td>
+<td><p>list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.validChanged" title="psyplot_gui.preferences.RcParamsTree.validChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validChanged</span></code></a>(*args, **kwargs)</p></td>
+<td><p>A signal that shall be emitted if the validation state changes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.value_col" title="psyplot_gui.preferences.RcParamsTree.value_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value_col</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.apply_changes">
+<span class="sig-name descname"><span class="pre">apply_changes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.apply_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.apply_changes" title="Permalink to this definition"></a></dt>
+<dd><p>Update the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.rc" title="psyplot_gui.preferences.RcParamsTree.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> with the proposed changes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.changed_rc">
+<span class="sig-name descname"><span class="pre">changed_rc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_items</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.changed_rc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.changed_rc" title="Permalink to this definition"></a></dt>
+<dd><p>Iterate over the changed rcParams</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>use_items</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the topLevelItems are used instead of the keys</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>QTreeWidgetItem or str</em> – The item identifier</p></li>
+<li><p><em>object</em> – The proposed value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.initialize" title="Permalink to this definition"></a></dt>
+<dd><p>Fill the items of the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.rc" title="psyplot_gui.preferences.RcParamsTree.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> into the tree</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.is_valid">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.is_valid" title="Permalink to this definition"></a></dt>
+<dd><p>True if all the proposed values in this tree are valid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.open_menu">
+<span class="sig-name descname"><span class="pre">open_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.open_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.open_menu" title="Permalink to this definition"></a></dt>
+<dd><p>Open a menu to expand and collapse all items in the tree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<em>QPosition</em>) – The position where to open the menu</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.propose_changes">
+<span class="sig-name descname"><span class="pre">propose_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.propose_changes" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that is emitted if changes are propsed. It is either emitted
+with the parent of this instance (if this is not None) or with the
+instance itself</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.rc">
+<span class="sig-name descname"><span class="pre">rc</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.rc" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParams</span></code></a> to display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.select_changes">
+<span class="sig-name descname"><span class="pre">select_changes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.select_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.select_changes" title="Permalink to this definition"></a></dt>
+<dd><p>Select all the items that changed comparing to the current rcParams</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.selected_rc">
+<span class="sig-name descname"><span class="pre">selected_rc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_items</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.selected_rc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.selected_rc" title="Permalink to this definition"></a></dt>
+<dd><p>Iterate over the selected rcParams</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>use_items</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the topLevelItems are used instead of the keys</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>QTreeWidgetItem or str</em> – The item identifier</p></li>
+<li><p><em>object</em> – The proposed value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.set_icon_func">
+<span class="sig-name descname"><span class="pre">set_icon_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.set_icon_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.set_icon_func" title="Permalink to this definition"></a></dt>
+<dd><p>Create a function to change the icon of one topLevelItem</p>
+<p>This method creates a function that can be called when the value of an
+item changes to display it’s valid state. The returned function changes
+the icon of the given topLevelItem depending on
+whether the proposed changes are valid or not and it modifies the
+<a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.valid" title="psyplot_gui.preferences.RcParamsTree.valid"><code class="xref py py-attr docutils literal notranslate"><span class="pre">valid</span></code></a> attribute accordingly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The index of the topLevelItem</p></li>
+<li><p><strong>item</strong> (<em>QTreeWidgetItem</em>) – The topLevelItem</p></li>
+<li><p><strong>validator</strong> (<em>func</em>) – The validation function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The function that can be called to set the correct icon</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.set_valid">
+<span class="sig-name descname"><span class="pre">set_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsTree.set_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.set_valid" title="Permalink to this definition"></a></dt>
+<dd><p>Set the validation status</p>
+<p>If the validation status changed compared to the old one, the
+<a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree.validChanged" title="psyplot_gui.preferences.RcParamsTree.validChanged"><code class="xref py py-attr docutils literal notranslate"><span class="pre">validChanged</span></code></a> signal is emitted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The index of the topLevelItem</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – The valid state of the item</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.top_level_items">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">top_level_items</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.top_level_items" title="Permalink to this definition"></a></dt>
+<dd><p>An iterator over the topLevelItems in this tree</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.valid">
+<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.valid" title="Permalink to this definition"></a></dt>
+<dd><p>list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>. A boolean for each rcParams key that states
+whether the proposed value is valid or not</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.validChanged">
+<span class="sig-name descname"><span class="pre">validChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.validChanged" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that shall be emitted if the validation state changes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsTree.value_col">
+<span class="sig-name descname"><span class="pre">value_col</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#psyplot_gui.preferences.RcParamsTree.value_col" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.preferences.</span></span><span class="sig-name descname"><span class="pre">RcParamsWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#psyplot_gui.preferences.ConfigPage" title="psyplot_gui.preferences.ConfigPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.preferences.ConfigPage</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<p>A configuration page for RcParams instances</p>
+<p>This page displays the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams" title="(in psyplot v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot.config.rcsetup.RcParams</span></code></a> instance in
+the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="psyplot_gui.preferences.RcParamsWidget.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> attribute and let’s the user modify it.</p>
+<p class="rubric">Notes</p>
+<p>After the initialization, you have to call the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.initialize" title="psyplot_gui.preferences.RcParamsWidget.initialize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">initialize()</span></code></a> method</p>
+<p><strong>Methods:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.apply_changes" title="psyplot_gui.preferences.RcParamsWidget.apply_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_changes</span></code></a>()</p></td>
+<td><p>Apply the changes in the config page</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.initialize" title="psyplot_gui.preferences.RcParamsWidget.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>([rcParams, validators, descriptions])</p></td>
+<td><p>Initialize the config page</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.save_settings_action" title="psyplot_gui.preferences.RcParamsWidget.save_settings_action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_settings_action</span></code></a>([update, target])</p></td>
+<td><p>Create an action to save the selected settings in the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.tree" title="psyplot_gui.preferences.RcParamsWidget.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.changed" title="psyplot_gui.preferences.RcParamsWidget.changed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">changed</span></code></a></p></td>
+<td><p>True if any changes are proposed by this config page</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.icon" title="psyplot_gui.preferences.RcParamsWidget.icon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">icon</span></code></a></p></td>
+<td><p>The icon of this instance in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Preferences</span></code> dialog</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.is_valid" title="psyplot_gui.preferences.RcParamsWidget.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
+<td><p>True if all the settings are valid</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.propose_changes" title="psyplot_gui.preferences.RcParamsWidget.propose_changes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">propose_changes</span></code></a></p></td>
+<td><p>A signal that is emitted if the user changes the values in the rcParams</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="psyplot_gui.preferences.RcParamsWidget.rc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rc</span></code></a></p></td>
+<td><p>the rcParams to use (must be implemented by subclasses)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.tree" title="psyplot_gui.preferences.RcParamsWidget.tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree</span></code></a></p></td>
+<td><p>the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree" title="psyplot_gui.preferences.RcParamsTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a> that is used to display the rcParams</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.validChanged" title="psyplot_gui.preferences.RcParamsWidget.validChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validChanged</span></code></a></p></td>
+<td><p>A signal that is emitted if the user changes the valid state of this page</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.apply_changes">
+<span class="sig-name descname"><span class="pre">apply_changes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsWidget.apply_changes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.apply_changes" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the changes in the config page</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.changed">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">changed</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.changed" title="Permalink to this definition"></a></dt>
+<dd><p>True if any changes are proposed by this config page</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.icon">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.icon" title="Permalink to this definition"></a></dt>
+<dd><p>The icon of this instance in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Preferences</span></code> dialog</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rcParams</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsWidget.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.initialize" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the config page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rcParams</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The rcParams to use. If None, the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="psyplot_gui.preferences.RcParamsWidget.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> attribute of this
+instance is used</p></li>
+<li><p><strong>validators</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from the <cite>rcParams</cite> key to the corresponding validation
+function for the value. If None, the
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams.validate" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">validate</span></code></a> attribute of the
+<a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="psyplot_gui.preferences.RcParamsWidget.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> attribute is used</p></li>
+<li><p><strong>descriptions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from the <cite>rcParams</cite> key to it’s description. If None, the
+<a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.RcParams.descriptions" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">descriptions</span></code></a> attribute of
+the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="psyplot_gui.preferences.RcParamsWidget.rc"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rc</span></code></a> attribute is used</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.is_valid">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.is_valid" title="Permalink to this definition"></a></dt>
+<dd><p>True if all the settings are valid</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.propose_changes">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">propose_changes</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.propose_changes" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that is emitted if the user changes the values in the
+rcParams</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.rc">
+<span class="sig-name descname"><span class="pre">rc</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.rc" title="Permalink to this definition"></a></dt>
+<dd><p>the rcParams to use (must be implemented by subclasses)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.save_settings_action">
+<span class="sig-name descname"><span class="pre">save_settings_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/preferences.html#RcParamsWidget.save_settings_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.save_settings_action" title="Permalink to this definition"></a></dt>
+<dd><p>Create an action to save the selected settings in the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsWidget.tree" title="psyplot_gui.preferences.RcParamsWidget.tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tree</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, it is expected that the file already exists and it will be
+updated. Otherwise, existing files will be overwritten</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.tree">
+<span class="sig-name descname"><span class="pre">tree</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.tree" title="Permalink to this definition"></a></dt>
+<dd><p>the <a class="reference internal" href="#psyplot_gui.preferences.RcParamsTree" title="psyplot_gui.preferences.RcParamsTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a> that is used to display the rcParams</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="psyplot_gui.preferences.RcParamsWidget.validChanged">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">validChanged</span></span><a class="headerlink" href="#psyplot_gui.preferences.RcParamsWidget.validChanged" title="Permalink to this definition"></a></dt>
+<dd><p>A signal that is emitted if the user changes the valid state of this
+page</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.plot_creator.html" class="btn btn-neutral float-left" title="psyplot_gui.plot_creator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
