@@ -1,103 +1,114 @@
 version: 2.1
 
 orbs:
-  win: circleci/windows@2.2.0
+  psyplot: psyplot/psyplot-ci-orb@1.5.22
+  mattermost-plugin-notify: nathanaelhoun/mattermost-plugin-notify@1.2.0
 
-commands:
-  configure_conda:
-    description: "Install conda on the sytem"
-    steps:
-      - run:
-          name: Configure
-          command: |
-            which conda || source $HOME/miniconda3/bin/activate base
-            conda config --set always_yes yes --set changeps1 no
-            conda config --add channels conda-forge
-            conda config --add channels psyplot
-            conda update -q conda
-            conda install conda-build anaconda-client conda-verify
-            if [[ $CIRCLE_PULL_REQUEST != "" ]]; then
-              conda config --add channels psyplot/label/master;
-            elif [[ $CIRCLE_TAG == "" ]]; then
-              conda config --add channels psyplot/label/master;
-              conda config --add channels psyplot/label/${CIRCLE_BRANCH};
-            fi
-      - run:
-          name: Environment info
-          command: |
-            which conda || source $HOME/miniconda3/bin/activate base
-            conda info -a
-            conda list
-      - run:
-          name: Setup append
-          command: |
-            which conda || source $HOME/miniconda3/bin/activate base
-            python ci/setup_append.py ci/conda-recipe pyqt=5
-  build_recipe:
-    description: "Build the conda recipe"
-    parameters:
-      python_version:
-        type: string
-        default: "3.8"
-    steps:
-      - run:
-          name: Build conda recipe
-          command: |
-            which conda || source $HOME/miniconda3/bin/activate base
-            conda build ci/conda-recipe --python << parameters.python_version >>
+executors:
+  default: psyplot/default
+  macos: psyplot/macos
 
-
-jobs:
-  build_windows:
-    executor:
-      name: win/default
-      shell: bash.exe
-    parameters:
-      python_version:
-        type: string
-        default: "3.8"
-    working_directory: ~/test
-    steps:
-      - checkout
-      - configure_conda
-      - run:
-          name: Build recipe
-          shell: cmd.exe
-          command: conda activate & conda build ci/conda-recipe --python << parameters.python_version >>
-  build_linux:
-    parameters:
-      python_version:
-        type: string
-        default: "3.8"
-    working_directory: ~/test
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: install apt requirements
-          command: |
-            sudo apt-get update
-            sudo apt-get install libgl1-mesa-glx libegl1-mesa-dev
-      - run:
-          name: Install conda
-          command: |
-            echo ""
-            echo "Installing a fresh version of Miniconda."
-            MINICONDA_URL="https://repo.continuum.io/miniconda"
-            MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
-            curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
-            bash $MINICONDA_FILE -bp $HOME/miniconda3
-      - configure_conda
-      - build_recipe:
-          python_version: << parameters.python_version >>
+parameters:
+  unit-test-executor:
+    description: Executor for the unit tests. Can be default or macos
+    type: string
+    default: default
+  deploy-release:
+    description: Deploy the comment as a new release to github and pypi
+    type: boolean
+    default: false
+  run-tests:
+    description: Run the test suite
+    type: boolean
+    default: true
+  build_docs:
+    description: Build the documentation
+    type: boolean
+    default: true
 
 workflows:
-  version: 2.1
-  build_and_test:
+  build-and-test:
+    unless: << pipeline.parameters.deploy-release >>
     jobs:
-      - build_linux
-      - build_linux:
-          python_version: "3.7"
-#      - build_windows
-#      - build_windows:
-#          python_version: "3.7"
+      - psyplot/install-and-build:
+          name: install
+          exec_environment: << pipeline.parameters.unit-test-executor >>
+          setup_env: true
+          build_args: "--no-test"
+          build_docs: << pipeline.parameters.build_docs >>
+          # HACK: force netcdf4 and hdf5 version to resolve dependency issue
+          env_packages: dask scipy netcdf4=1.5.7 h5py=3.4.0 hdf5=1.12.1 pytest-qt pyqt=5
+      - psyplot/test-parallel:
+          name: run-tests
+          parallelism: 2
+          run-job: << pipeline.parameters.run-tests >>
+          requires:
+            - install
+      - psyplot/build-docs:
+          name: test-docs
+          run-job: << pipeline.parameters.build_docs >>
+          builders: linkcheck
+          requires:
+            - install
+      - mattermost-plugin-notify/approval-notification:
+          name: notify-deploy
+          context: mattermost
+          message: >-
+            Hello @all! A workflow on https://app.circleci.com/pipelines/github/psyplot/psyplot-gui is awaiting your approval.
+            Please check the uploaded docs and builds prior to approval.
+          requires:
+            - run-tests
+            - test-docs
+      - hold-for-deploy:
+          type: approval
+          requires:
+            - notify-deploy
+      - psyplot/deploy-pkg:
+          exec_environment: << pipeline.parameters.unit-test-executor >>
+          context: anaconda
+          requires:
+            - hold-for-deploy
+      - psyplot/deploy-docs:
+          fingerprint: "fc:e3:0f:d0:c6:5a:6a:a5:0e:7c:d6:47:37:48:dd:67"
+          run-job: << pipeline.parameters.build_docs >>
+          requires:
+            - hold-for-deploy
+          filters:
+            branches:
+              only: master
+      - psyplot/trigger-release-workflow:
+          context: trigger-release
+          filters:
+            branches:
+              only: master
+          requires:
+            - psyplot/deploy-pkg
+            - psyplot/deploy-docs
+  publish-release:
+    when: << pipeline.parameters.deploy-release >>
+    jobs:
+      - psyplot/create-tag:
+          ssh-fingerprints: "fc:e3:0f:d0:c6:5a:6a:a5:0e:7c:d6:47:37:48:dd:67"
+          context: psyplot-admin
+          user-name: psyplot-admin
+          publish-release: true
+          publish-version-tag: true
+      - mattermost-plugin-notify/approval-notification:
+          name: notify-release
+          context: mattermost
+          message: >-
+            Hello @all! A new release has been created at https://github.com/psyplot/psyplot-gui/releases.
+            Please review it carefully, publish it and approve the upload to pypi.
+          requires:
+            - psyplot/create-tag
+      - hold-for-pypi:
+          type: approval
+          requires:
+            - notify-release
+      - psyplot/deploy-pypi:
+          context: pypi
+          requires:
+            - hold-for-pypi
+          filters:
+            branches:
+              only: master
