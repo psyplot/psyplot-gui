@@ -51,6 +51,7 @@ test:
     - pip install tests/test_plugin/
     - psyplot --help
     - pytest -sv --cov=psyplot_gui
+    - codecov
 
 app:
   entry: psyplot
@@ -68,5 +69,5 @@ about:
   description: |
     This package provides a graphical user interface to interact with the
     psyplot framework.
-  doc_url: http://psyplot.readthedocs.io/projects/psyplot-gui
+  doc_url: http://psyplot.github.io/psyplot-gui
   dev_url: https://github.com/psyplot/psyplot-gui

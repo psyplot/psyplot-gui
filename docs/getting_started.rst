@@ -18,14 +18,7 @@ Starting the GUI
 ----------------
 Starting the GUI is straight forward but depends on how you installed it. If
 you installed it via `conda` or `pip`, just open a terminal (or Command Window
-``cmd`` on Windows) and type ``psyplot``. If you installed it through the
-standalone-installers (see :ref:`psyplot:install-standalone`) and decided to
-add the binaries to your ``PATH`` variable (the default setting), just type
-``psyplot`` in the terminal/cmd.
-
-Otherwise, on MacOSX, look for the `Psyplot` app, e.g. via spotlight, and on
-Windows look in the  :menuselection:`Start --> All Programs --> Psyplot`
-directory in your Windows start menu.
+``cmd`` on Windows) and type ``psyplot``.
 
 .. _console:
 
@@ -43,9 +36,7 @@ It is based on the qtconsole module and it is, by default, connected to the
     np.sum(
 
 it will show you the documentation of the :func:`numpy.sum` module in the
-:ref:`help explorer <help-explorer>`. The same comes, if you type
-
-.. code-block:: python
+:ref:`help explorer <help-explorer>`. The same comes, if you type::
 
     np.sum?
 
@@ -105,7 +96,7 @@ If you do not wish this behaviour, set the ``console.auto_set_mp`` and
 
 .. _IPython: http://ipython.readthedocs.io/en/stable/
 .. _qtconsole: https://qtconsole.readthedocs.io/en/stable/
-.. _Spyder: https://pythonhosted.org/spyder/
+.. _Spyder: https://www.spyder-ide.org/
 
 .. _help-explorer:
 
