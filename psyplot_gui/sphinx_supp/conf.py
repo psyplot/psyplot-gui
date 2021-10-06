@@ -152,20 +152,13 @@ intersphinx_mapping = {
     'xarray': ('https://xarray.pydata.org/en/stable/', None),
     'cartopy': ('https://scitools.org.uk/cartopy/docs/latest/', None),
     'psyplot': ('https://psyplot.readthedocs.io/en/latest/', None),
-    'psyplot_gui': ('https://psyplot.readthedocs.io/projects/psyplot-gui/en/'
-                    'latest/', None),
-    'psy_maps': ('https://psyplot.readthedocs.io/projects/psy-maps/en/'
-                 'latest/', None),
-    'psy_simple': ('https://psyplot.readthedocs.io/projects/psy-simple/en/'
-                   'latest/', None),
+    'psyplot_gui': ('https://psyplot.github.io/psyplot-gui/', None),
+    'psy_maps': ('https://psyplot.github.io/psy-maps/', None),
+    'psy_simple': ('https://psyplot.github.io/psy-simple/', None),
     'psy_reg': ('https://psyplot.readthedocs.io/projects/psy-reg/en/'
                 'latest/', None),
+    'python': ('https://docs.python.org/3/', None),
 }
-if six.PY3:
-    intersphinx_mapping['python'] = ('https://docs.python.org/3.6/', None)
-else:
-    intersphinx_mapping['python'] = ('https://docs.python.org/2.7/', None)
-
 
 replacements = {
     '`psyplot.rcParams`': '`~psyplot.config.rcsetup.rcParams`',

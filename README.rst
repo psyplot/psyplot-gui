@@ -16,9 +16,9 @@ Graphical User Interface for the psyplot package
     * - implementations
       - |supported-versions| |supported-implementations|
 
-.. |docs| image:: http://readthedocs.org/projects/psyplot-gui/badge/?version=latest
-    :alt: Documentation Status
-    :target: http://psyplot-gui.readthedocs.io/en/latest/?badge=latest
+.. |docs| image:: https://img.shields.io/github/deployments/psyplot/psyplot-gui/github-pages
+    :alt: Documentation
+    :target: http://psyplot.github.io/psyplot-gui/
 
 .. |circleci| image:: https://circleci.com/gh/psyplot/psyplot-gui/tree/master.svg?style=svg
     :alt: CircleCI
@@ -64,10 +64,10 @@ psyplot_ with a graphical user interface using PyQt_. See the homepage of the
 main project on examples on the possibilities with psyplot_.
 
 You can see the full documentation under
-`readthedocs.org <http://psyplot-gui.readthedocs.io/en/latest/?badge=latest>`__
+`psyplot.github.io/psyplot-gui/ <http://psyplot.github.io/psyplot-gui>`__
 
 .. _PyQt: https://riverbankcomputing.com/software/pyqt/intro
-.. _psyplot: http://psyplot.readthedocs.io/en/latest/
+.. _psyplot: http://psyplot.github.io/
 
 
 Copyright

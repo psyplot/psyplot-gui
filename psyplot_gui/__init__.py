@@ -456,19 +456,13 @@ will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
 UNIT_TESTING = os.getenv('CI')
 
 
-#: Disable the default for the ListGuiPluginsAction on RTD, because it looks
-#: better in the docs
-_on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-
 class ListGuiPluginsAction(argparse.Action):
 
     def __init__(self, option_strings, dest=argparse.SUPPRESS, nargs=None,
                  default=argparse.SUPPRESS, **kwargs):
         if nargs is not None:
             raise ValueError("nargs not allowed")
-        if not _on_rtd:
-            kwargs['default'] = default
+        kwargs['default'] = default
         super(ListGuiPluginsAction, self).__init__(
             option_strings, nargs=0, dest=dest,
             **kwargs)
