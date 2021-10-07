@@ -151,10 +151,11 @@ intersphinx_mapping = {
     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
     'xarray': ('https://xarray.pydata.org/en/stable/', None),
     'cartopy': ('https://scitools.org.uk/cartopy/docs/latest/', None),
-    'psyplot': ('https://psyplot.readthedocs.io/en/latest/', None),
+    'psyplot': ('https://psyplot.github.io/psyplot/', None),
     'psyplot_gui': ('https://psyplot.github.io/psyplot-gui/', None),
     'psy_maps': ('https://psyplot.github.io/psy-maps/', None),
     'psy_simple': ('https://psyplot.github.io/psy-simple/', None),
+    'psy_view': ('https://psyplot.github.io/psy-view/', None),
     'psy_reg': ('https://psyplot.readthedocs.io/projects/psy-reg/en/'
                 'latest/', None),
     'python': ('https://docs.python.org/3/', None),
