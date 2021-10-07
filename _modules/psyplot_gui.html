@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psyplot_gui &mdash; psyplot-gui 1.3.0+8.gb3860f5 documentation</title>
+  <title>psyplot_gui &mdash; psyplot-gui 1.3.0+10.gbca2600 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -134,12 +134,16 @@
 <span class="kn">from</span> <span class="nn">psyplot.compat.pycompat</span> <span class="kn">import</span> <span class="n">get_default_value</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Philipp S. Sommer&quot;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2016 - 2020, Philipp S. Sommer&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Copyright (C) 2021 Helmholtz-Zentrum Hereon</span>
+<span class="s2">Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht</span>
+<span class="s2">Copyright (C) 2016-2021 University of Lausanne</span>
+<span class="s2">&quot;&quot;&quot;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Philipp S. Sommer&quot;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GPL-2.0-only&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;LGPL-3.0-only&quot;</span>
 
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Philipp S. Sommer&quot;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;philipp.sommer@hzg.de&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;psyplot@hereon.de&quot;</span>
 
 <span class="n">__status__</span> <span class="o">=</span> <span class="s2">&quot;Production&quot;</span>
 
@@ -533,19 +537,13 @@
 <span class="n">UNIT_TESTING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CI&#39;</span><span class="p">)</span>
 
 
-<span class="c1">#: Disable the default for the ListGuiPluginsAction on RTD, because it looks</span>
-<span class="c1">#: better in the docs</span>
-<span class="n">_on_rtd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;READTHEDOCS&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span>
-
-
 <div class="viewcode-block" id="ListGuiPluginsAction"><a class="viewcode-back" href="../api/psyplot_gui.html#psyplot_gui.ListGuiPluginsAction">[docs]</a><span class="k">class</span> <span class="nc">ListGuiPluginsAction</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">Action</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_strings</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">default</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">SUPPRESS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">nargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nargs not allowed&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">_on_rtd</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ListGuiPluginsAction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">option_strings</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -595,7 +593,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+    <p>&#169; Copyright 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum Geesthacht, 2016-2021 University of Lausanne.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

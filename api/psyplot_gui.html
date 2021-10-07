@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Reference &mdash; psyplot-gui 1.3.0+8.gb3860f5 documentation</title>
+  <title>API Reference &mdash; psyplot-gui 1.3.0+10.gbca2600 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -150,7 +150,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.ListGuiPluginsAction">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.</span></span><span class="sig-name descname"><span class="pre">ListGuiPluginsAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'==SUPPRESS=='</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'==SUPPRESS=='</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui.html#ListGuiPluginsAction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.ListGuiPluginsAction" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Action" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Action" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></a></p>
 </dd></dl>
 
 <dl class="py data">
@@ -167,7 +167,7 @@ true on CI services</p>
 from the command line</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></a> instance</p>
+<dd class="field-odd"><p>The <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></a> instance</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>psyplot.parser.FuncArgParser</p>
@@ -203,45 +203,45 @@ executable to an already running instance.</p>
 the a list of <cite>,</cite>-separated filenames to make a mapping from the
 original filename to a new one</p></li>
 <li><p><strong>name</strong> (<em>list of str</em>) – The variable names to plot if the <cite>output</cite> parameter is set</p></li>
-<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from coordinate names to integers if the <cite>project</cite> is not
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A mapping from coordinate names to integers if the <cite>project</cite> is not
 given</p></li>
-<li><p><strong>plot_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the plot_method to use</p></li>
-<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>list of str</em>) – If set, the data is loaded and the figures are saved to the specified
+<li><p><strong>plot_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the plot_method to use</p></li>
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of str</em>) – If set, the data is loaded and the figures are saved to the specified
 filename and now graphical user interface is shown</p></li>
-<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If set, the project located at the given file name is loaded</p></li>
-<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The engine to use for opening the dataset (see
+<li><p><strong>project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – If set, the project located at the given file name is loaded</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The engine to use for opening the dataset (see
 <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.data.html#psyplot.data.open_dataset" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">psyplot.data.open_dataset()</span></code></a>)</p></li>
-<li><p><strong>formatoptions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary of formatoption that is applied to the data visualized by
+<li><p><strong>formatoptions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A dictionary of formatoption that is applied to the data visualized by
 the chosen <cite>plot_method</cite></p></li>
-<li><p><strong>tight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True/set, it is tried to figure out the tight bbox of the figure and
+<li><p><strong>tight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True/set, it is tried to figure out the tight bbox of the figure and
 adjust the paper size of the <cite>output</cite> to it</p></li>
-<li><p><strong>rc_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to a yaml configuration file that can be used to update  the
+<li><p><strong>rc_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to a yaml configuration file that can be used to update  the
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">rcParams</span></code></p></li>
-<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The encoding to use for loading the project. If None, it is
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The encoding to use for loading the project. If None, it is
 automatically determined by pickle. Note: Set this to <code class="docutils literal notranslate"><span class="pre">'latin1'</span></code>
 if using a project created with python2 on python3.</p></li>
-<li><p><strong>enable_post</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Enable the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Plotter.post" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">post</span></code></a> processing
+<li><p><strong>enable_post</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Enable the <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.plotter.html#psyplot.plotter.Plotter.post" title="(in psyplot v1.3.1)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">post</span></code></a> processing
 formatoption. If True/set, post processing scripts are enabled in the
 given <cite>project</cite>. Only set this if you are sure that you can trust the
 given project file because it may be a security vulnerability.</p></li>
-<li><p><strong>seaborn_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the style of the seaborn package that can be used for
+<li><p><strong>seaborn_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the style of the seaborn package that can be used for
 the <code class="xref py py-func docutils literal notranslate"><span class="pre">seaborn.set_style()</span></code> function</p></li>
-<li><p><strong>output_project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of a project file to save the project to</p></li>
-<li><p><strong>concat_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The concatenation dimension if multiple files in <cite>fnames</cite> are
+<li><p><strong>output_project</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of a project file to save the project to</p></li>
+<li><p><strong>concat_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The concatenation dimension if multiple files in <cite>fnames</cite> are
 provided</p></li>
-<li><p><strong>chname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A mapping from variable names in the project to variable names in the
+<li><p><strong>chname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A mapping from variable names in the project to variable names in the
 datasets that should be used instead</p></li>
-<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The filename or identifier of a preset. If the given <cite>preset</cite> is
+<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The filename or identifier of a preset. If the given <cite>preset</cite> is
 the path to an existing yaml file, it will be loaded. Otherwise we
 look up the <cite>preset</cite> in the psyplot configuration directory (see
 <a class="reference external" href="https://psyplot.github.io/psyplot/api/psyplot.config.rcsetup.html#psyplot.config.rcsetup.get_configdir" title="(in psyplot v1.3.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_configdir()</span></code></a>).</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The backend to use. By default, the <code class="docutils literal notranslate"><span class="pre">'gui.backend'</span></code> key in the
+<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The backend to use. By default, the <code class="docutils literal notranslate"><span class="pre">'gui.backend'</span></code> key in the
 <a class="reference internal" href="psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rcParams</span></code></a> dictionary is used.
 Otherwise it can be None to use the standard matplotlib backend or a
 string identifying the backend</p></li>
-<li><p><strong>new_instance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True/set and the <cite>output</cite> parameter is not set, a new application is
+<li><p><strong>new_instance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True/set and the <cite>output</cite> parameter is not set, a new application is
 created</p></li>
-<li><p><strong>rc_gui_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to a yaml configuration file that can be used to update  the
+<li><p><strong>rc_gui_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to a yaml configuration file that can be used to update  the
 <a class="reference internal" href="psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams" title="psyplot_gui.config.rcsetup.rcParams"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rcParams</span></code></a></p></li>
 <li><p><strong>include_plugins</strong> (<em>list of str</em>) – The plugin widget to include. Can be either None to load all that are
 not explicitly excluded by <cite>exclude_plugins</cite> or a list of
@@ -249,24 +249,24 @@ plugins to include. List items can be either module names, plugin
 names or the module name and widget via <code class="docutils literal notranslate"><span class="pre">'&lt;module_name&gt;:&lt;widget&gt;'</span></code></p></li>
 <li><p><strong>exclude_plugins</strong> (<em>list of str</em>) – The plugin widgets to exclude. Can be either <code class="docutils literal notranslate"><span class="pre">'all'</span></code> to exclude
 all plugins or a list like in <cite>include_plugins</cite>.</p></li>
-<li><p><strong>offline</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True/set, psyplot will be started in offline mode without
+<li><p><strong>offline</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True/set, psyplot will be started in offline mode without
 intersphinx and remote access for the help explorer</p></li>
-<li><p><strong>pwd</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to the working directory to use. Note if you do not provide
+<li><p><strong>pwd</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the working directory to use. Note if you do not provide
 any <cite>fnames</cite> or <cite>project</cite>, but set the <cite>pwd</cite>, it will switch the
 <cite>pwd</cite> of the current GUI.</p></li>
-<li><p><strong>script</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to a python script that shall be run in the GUI. If the GUI
+<li><p><strong>script</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to a python script that shall be run in the GUI. If the GUI
 is already running, the commands will be executed in this GUI.</p></li>
-<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Python commands that shall be run in the GUI. If the GUI is already
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Python commands that shall be run in the GUI. If the GUI is already
 running, the commands will be executed in this GUI</p></li>
-<li><p><strong>use_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, use all variables. Note that this is the default if the
+<li><p><strong>use_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, use all variables. Note that this is the default if the
 <cite>output</cite> is specified and not <cite>name</cite></p></li>
-<li><p><strong>exec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the main loop is entered.</p></li>
-<li><p><strong>callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A unique identifier for the method that should be used if psyplot is
+<li><p><strong>exec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, the main loop is entered.</p></li>
+<li><p><strong>callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A unique identifier for the method that should be used if psyplot is
 already running. Set this parameter to None to avoid sending</p></li>
 <li><p><strong>opengl_implementation</strong> (<em>{'software'</em><em>, </em><em>'desktop'</em><em>, </em><em>'gles'</em><em>, </em><em>'automatic'}</em>) – OpenGL implementation to pass to Qt. Possible options are
 ‘software’, ‘desktop’, ‘gles’ and ‘automatic’ (which let’s PyQt
 decide).</p></li>
-<li><p><strong>webengineview</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True (default), use an HTML help widget. This might not be available
+<li><p><strong>webengineview</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True (default), use an HTML help widget. This might not be available
 for all builds of PyQt5 under all circumstances. If not set, the
 rcParams key <code class="docutils literal notranslate"><span class="pre">'help_explorer.use_webengineview'</span></code> is used.</p></li>
 </ul>
@@ -340,7 +340,7 @@ rcParams key <code class="docutils literal notranslate"><span class="pre">'help_
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright Copyright 2016 - 2020, Philipp S. Sommer.</p>
+    <p>&#169; Copyright 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum Geesthacht, 2016-2021 University of Lausanne.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
