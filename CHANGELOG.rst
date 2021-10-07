@@ -11,7 +11,7 @@ Changed
 - psyplot is now officially licensed under LGPL-3.0-only,
   see `#29 <https://github.com/psyplot/psyplot/pull/29>`__
 - Documentation is now hosted with Github Pages at https://psyplot.github.io/psyplot-gui.
-  Redirects from the old documentation at https://psyplot-gui.readthedocs.io have been
+  Redirects from the old documentation at `https://psyplot-gui.readthedocs.io` have been
   configured.
 - We use CicleCI now for a standardized CI/CD pipeline to build and test
   the code and docs all at one place, see `#28 <https://github.com/psyplot/psyplot-gui/pull/28>`__

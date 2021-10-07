@@ -165,7 +165,7 @@ class UrlBrowser(QFrame):
 
     doc_urls = OrderedDict([
         ('startpage', 'https://startpage.com/'),
-        ('psyplot', 'http://psyplot.readthedocs.org/en/latest/'),
+        ('psyplot', 'http://psyplot.github.io/psyplot/'),
         ('pyplot', 'http://matplotlib.org/api/pyplot_api.html'),
         ('seaborn', 'http://stanford.edu/~mwaskom/software/seaborn/api.html'),
         ('cartopy', 'http://scitools.org.uk/cartopy/docs/latest/index.html'),

@@ -94,7 +94,7 @@ If you do not wish this behaviour, set the ``console.auto_set_mp`` and
 
 .. |ipython_console| image:: ipython_console.png
 
-.. _IPython: http://ipython.readthedocs.io/en/stable/
+.. _IPython: https://ipython.readthedocs.io/en/stable/
 .. _qtconsole: https://qtconsole.readthedocs.io/en/stable/
 .. _Spyder: https://www.spyder-ide.org/
 

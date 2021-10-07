@@ -23,21 +23,10 @@
 # You should have received a copy of the GNU LGPL-3.0 license
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
 import os.path as osp
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import sys
-
-
-if os.getenv("READTHEDOCS") == "True":
-    # to make versioneer working, we need to unshallow this repo
-    # because RTD does a checkout with --depth 50
-    import subprocess as spr
-    rootdir = osp.dirname(__file__)
-    spr.call(["git", "-C", rootdir, "fetch", "--unshallow", "origin"])
-
-
 import versioneer
 
 
@@ -75,20 +64,21 @@ setup(name='psyplot-gui',
         'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Scientific/Engineering :: GIS',
         'Topic :: Scientific/Engineering',
-        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Operating System :: OS Independent',
       ],
       keywords=('visualization netcdf raster cartopy earth-sciences pyqt qt '
                 'ipython jupyter qtconsole'),
       url='https://github.com/psyplot/psyplot-gui',
       author='Philipp S. Sommer',
-      author_email='philipp.sommer@hzg.de',
-      license="GPLv2",
+      author_email='psyplot@hereon.de',
+      license="LGPL-3.0-only",
       packages=find_packages(exclude=['docs', 'tests*', 'examples']),
       install_requires=[
           'psyplot>=1.3.0',
@@ -105,7 +95,7 @@ setup(name='psyplot-gui',
           osp.join('psyplot_gui', 'icons', '*.svg'),
           ]},
       project_urls={
-          'Documentation': 'https://psyplot.readthedocs.io/projects/psyplot-gui',
+          'Documentation': 'https://psyplot.github.io/psyplot-gui',
           'Source': 'https://github.com/psyplot/psyplot-gui',
           'Tracker': 'https://github.com/psyplot/psyplot-gui/issues',
       },

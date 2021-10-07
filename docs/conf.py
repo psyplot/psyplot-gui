@@ -118,8 +118,6 @@ todo_include_todos = True
 
 html_theme = 'sphinx_rtd_theme'
 
-# otherwise, readthedocs.org uses their theme by default, so no need to specify
-
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".

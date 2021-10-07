@@ -41,17 +41,12 @@ built upon multiple other packages, namely
 - fasteners_: Which provides an inprocess lock to communicate to the psyplot
   mainwindow
 - PyQt5_: Python bindings to the Qt_ software
-
-Optional dependencies
-^^^^^^^^^^^^^^^^^^^^^
-We furthermore recommend to use
-
 - sphinx_>=1.3.5: To use all features of the interactive documentation access
 
 .. _conda: https://docs.conda.io/en/latest/
 .. _psyplot: https://psyplot.github.io/psyplot/installing.html
 .. _qtconsole: https://qtconsole.readthedocs.io/en/latest/
-.. _fasteners: http://fasteners.readthedocs.org/en/latest/index.html
+.. _fasteners: https://fasteners.readthedocs.org/en/latest/index.html
 .. _sphinx: https://www.sphinx-doc.org/en/master/index.html
 .. _PyQt5: https://www.riverbankcomputing.com/static/Docs/PyQt5/installation.html
 .. _Qt: https://www.qt.io/

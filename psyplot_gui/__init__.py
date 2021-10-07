@@ -57,12 +57,16 @@ del get_versions
 from psyplot.compat.pycompat import get_default_value
 
 __author__ = "Philipp S. Sommer"
-__copyright__ = "Copyright 2016 - 2020, Philipp S. Sommer"
+__copyright__ = """
+Copyright (C) 2021 Helmholtz-Zentrum Hereon
+Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
+Copyright (C) 2016-2021 University of Lausanne
+"""
 __credits__ = ["Philipp S. Sommer"]
-__license__ = "GPL-2.0-only"
+__license__ = "LGPL-3.0-only"
 
 __maintainer__ = "Philipp S. Sommer"
-__email__ = "philipp.sommer@hzg.de"
+__email__ = "psyplot@hereon.de"
 
 __status__ = "Production"
 
@@ -456,19 +460,13 @@ will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
 UNIT_TESTING = os.getenv('CI')
 
 
-#: Disable the default for the ListGuiPluginsAction on RTD, because it looks
-#: better in the docs
-_on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-
 class ListGuiPluginsAction(argparse.Action):
 
     def __init__(self, option_strings, dest=argparse.SUPPRESS, nargs=None,
                  default=argparse.SUPPRESS, **kwargs):
         if nargs is not None:
             raise ValueError("nargs not allowed")
-        if not _on_rtd:
-            kwargs['default'] = default
+        kwargs['default'] = default
         super(ListGuiPluginsAction, self).__init__(
             option_strings, nargs=0, dest=dest,
             **kwargs)

@@ -24,9 +24,9 @@ main project on examples on the possibilities with psyplot_.
         * - implementations
           - |supported-versions| |supported-implementations|
 
-    .. |docs| image:: http://readthedocs.org/projects/psyplot-gui/badge/?version=latest
-        :alt: Documentation Status
-        :target: http://psyplot-gui.readthedocs.io/en/latest/?badge=latest
+    .. |docs| image:: https://img.shields.io/github/deployments/psyplot/psyplot-gui/github-pages
+        :alt: Documentation
+        :target: http://psyplot.github.io/psyplot-gui/
 
     .. |circleci| image:: https://circleci.com/gh/psyplot/psyplot-gui/tree/master.svg?style=svg
         :alt: CircleCI
