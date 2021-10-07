@@ -57,12 +57,16 @@ del get_versions
 from psyplot.compat.pycompat import get_default_value
 
 __author__ = "Philipp S. Sommer"
-__copyright__ = "Copyright 2016 - 2020, Philipp S. Sommer"
+__copyright__ = """
+Copyright (C) 2021 Helmholtz-Zentrum Hereon
+Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
+Copyright (C) 2016-2021 University of Lausanne
+"""
 __credits__ = ["Philipp S. Sommer"]
-__license__ = "GPL-2.0-only"
+__license__ = "LGPL-3.0-only"
 
 __maintainer__ = "Philipp S. Sommer"
-__email__ = "philipp.sommer@hzg.de"
+__email__ = "psyplot@hereon.de"
 
 __status__ = "Production"
 
