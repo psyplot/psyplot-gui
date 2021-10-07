@@ -156,8 +156,7 @@ intersphinx_mapping = {
     'psy_maps': ('https://psyplot.github.io/psy-maps/', None),
     'psy_simple': ('https://psyplot.github.io/psy-simple/', None),
     'psy_view': ('https://psyplot.github.io/psy-view/', None),
-    'psy_reg': ('https://psyplot.readthedocs.io/projects/psy-reg/en/'
-                'latest/', None),
+    'psy_reg': ('https://psyplot.github.io/psy-reg/', None),
     'python': ('https://docs.python.org/3/', None),
 }
 
