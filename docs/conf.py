@@ -22,7 +22,7 @@ copyright = '2021, Philipp S. Sommer'
 author = 'Philipp S. Sommer'
 
 # The full version, including alpha/beta/rc tags
-release = '1.3.0'
+release = '1.3.1'
 
 
 # -- General configuration ---------------------------------------------------

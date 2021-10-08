@@ -1,9 +1,0 @@
-include README.rst
-include LICENSE
-include psyplot_gui/sphinx_supp/_static/*
-include psyplot_gui/sphinx_supp/conf.py
-include psyplot_gui/sphinx_supp/psyplot.rst
-include psyplot_gui/icons/*.png
-include psyplot_gui/icons/*.svg
-include versioneer.py
-include psyplot_gui/_version.py
