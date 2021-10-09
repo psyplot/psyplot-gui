@@ -6,6 +6,11 @@ As with psyplot 1.4.0, psyplot-gui is now continuously tested and deployed with
 CircleCI.
 
 
+Added
+-----
+- psyplot-gui does now have a CITATION.cff file, see https://citation-file-format.github.io
+
+
 Changed
 -------
 - psyplot is now officially licensed under LGPL-3.0-only,
