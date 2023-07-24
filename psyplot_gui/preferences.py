@@ -674,7 +674,7 @@ class Prefences(QDialog):
             if rc is None:
                 rc = RcParams()
             w = RcParamsWidget(parent=self)
-            w.title = 'rcParams of ' + ep.module_name
+            w.title = 'rcParams of ' + ep.module
             w.default_path = PsyRcParamsWidget.default_path
             w.initialize(rcParams=rc, validators=validators,
                          descriptions=descriptions)

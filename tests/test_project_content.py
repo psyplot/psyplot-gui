@@ -130,8 +130,11 @@ class FiguresTreeTest(bt.PsyPlotGuiTestCase):
             figs = iter(sp.figs)
             for item in map(self.tree.topLevelItem,
                             range(self.tree.topLevelItemCount())):
-                self.assertEqual(asstring(item.text(0)),
-                                 next(figs).canvas.get_window_title(), msg=msg)
+                self.assertEqual(
+                    asstring(item.text(0)),
+                    next(figs).canvas.manager.get_window_title(),
+                    msg=msg
+                )
         sp = psy.plot.plot2d(self.get_file('test-t2m-u-v.nc'), name='t2m',
                              time=[0, 1])
         check_figs()
@@ -145,7 +148,7 @@ class FiguresTreeTest(bt.PsyPlotGuiTestCase):
             for i, (fig, val) in enumerate(sp.figs.items()):
                 top = self.tree.topLevelItem(i)
                 self.assertEqual(asstring(top.text(0)),
-                                 fig.canvas.get_window_title())
+                                 fig.canvas.manager.get_window_title())
                 for child in map(top.child, range(top.childCount())):
                     self.assertEqual(asstring(child.text(0)),
                                      next(arrays).psy._short_info(), msg=msg)

@@ -106,7 +106,9 @@ class PsyplotCanvasManager(FigureManagerQT):
 
         self.window.setWindowTitle("Figure %d" % num)
 
-        self.toolbar = self._get_toolbar(canvas, parent_widget)
+        if hasattr(self, "_get_toolbar"):
+            # legacy solution for matplotlib < 3.6
+            self.toolbar = self._get_toolbar(canvas, parent_widget)
 
         # add text label to status bar
         self.statusbar_label = mainwindow.figures_label
