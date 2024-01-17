@@ -571,8 +571,13 @@ class FormatoptionWidget(QWidget, DockMixin):
         else:
             code = "psy.gcp().update(%s={'%s': %s})" % (param, key, text)
             if ExecutionInfo is not None:
-                info = ExecutionInfo(raw_cell=code, store_history=False,
-                                     silent=True, shell_futures=False)
+                info = ExecutionInfo(
+                    raw_cell=code,
+                    store_history=False,
+                    silent=True,
+                    shell_futures=False,
+                    cell_id=None
+                )
                 e = ExecutionResult(info)
             else:
                 e = ExecutionResult()

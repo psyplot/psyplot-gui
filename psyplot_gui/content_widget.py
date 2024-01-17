@@ -741,7 +741,7 @@ class FiguresTree(QTreeWidget, DockMixin):
                 child.disconnect_from_array()
         for fig, arrays in six.iteritems(project.figs):
             item = QTreeWidgetItem(0)
-            item.setText(0, fig.canvas.get_window_title())
+            item.setText(0, fig.canvas.manager.get_window_title())
             item.addChildren(
                 [FiguresTreeItem(weakref.ref(arr), 0) for arr in arrays])
             self.addTopLevelItem(item)

@@ -149,21 +149,30 @@ class GuiRcParams(RcParams):
         logger = logging.getLogger(__name__)
         self._plugins = self._plugins or []
         for ep in iter_entry_points('psyplot_gui'):
-            plugin_name = '%s:%s:%s' % (ep.module_name, ':'.join(ep.attrs),
+
+            try:
+                ep.module
+            except AttributeError:  # python<3.10
+                try:
+                    ep.module = ep.pattern.match(ep.value).group("module")
+                except AttributeError: # python<3.8
+                    ep.module = ep.module_name
+
+            plugin_name = '%s:%s:%s' % (ep.module, ':'.join(ep.attrs),
                                         ep.name)
             # check if the user wants to explicitly this plugin
             include_user = None
             if inc:
                 include_user = (
-                    ep.module_name in inc or ep.name in inc or
-                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in inc)
+                    ep.module in inc or ep.name in inc or
+                    '%s:%s' % (ep.module, ':'.join(ep.attrs)) in inc)
             if include_user is None and exc == 'all':
                 include_user = False
             elif include_user is None:
                 # check for exclude
                 include_user = not (
-                    ep.module_name in exc or ep.name in exc or
-                    '%s:%s' % (ep.module_name, ':'.join(ep.attrs)) in exc)
+                    ep.module in exc or ep.name in exc or
+                    '%s:%s' % (ep.module, ':'.join(ep.attrs)) in exc)
             if not include_user:
                 logger.debug('Skipping plugin %s: Excluded by user',
                              plugin_name)

@@ -157,8 +157,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         nfigs = int(ceil(nvar / 3.))
         # create the subplots
         axes = self.pc.array_table.axes
-        self.assertEqual([ax.numCols for ax in axes], [2] * nvar)
-        self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().ncols for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().nrows for ax in axes], [2] * nvar)
         rows = [0, 0, 1] * nfigs
         cols = [0, 1, 0] * nfigs
         self.assertEqual([get_row_num(ax) for ax in axes], rows)
@@ -182,8 +182,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # create the subplots
         axes = self.pc.array_table.axes
         # test rows, cols and figure numbers
-        self.assertEqual([ax.numCols for ax in axes], [2] * nvar)
-        self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().ncols for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().nrows for ax in axes], [2] * nvar)
         self.assertEqual([get_row_num(ax) for ax in axes], [0] * nvar)
         self.assertEqual([get_col_num(ax) for ax in axes], [1] * nvar)
         self.assertEqual([ax.get_figure().number for ax in axes], list(
@@ -215,8 +215,8 @@ class PlotCreatorTest(bt.PsyPlotGuiTestCase):
         # create the subplots
         axes = self.pc.array_table.axes
         # test rows, cols and figure numbers
-        self.assertEqual([ax.numCols for ax in axes], [2] * nvar)
-        self.assertEqual([ax.numRows for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().ncols for ax in axes], [2] * nvar)
+        self.assertEqual([ax.get_gridspec().nrows for ax in axes], [2] * nvar)
         self.assertEqual([get_row_num(ax) for ax in axes], [0] * nvar)
         self.assertEqual([get_col_num(ax) for ax in axes], [1] * nvar)
         self.assertEqual([ax.get_figure().number for ax in axes], list(
