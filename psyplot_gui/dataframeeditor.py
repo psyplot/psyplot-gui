@@ -1,42 +1,47 @@
 """A widget to display and edit DataFrames"""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
 import os
 import os.path as osp
-import six
 from functools import partial
+
 import numpy as np
-from psyplot.docstring import docstrings
-from psyplot_gui.compat.qtcompat import (
-    QWidget, QHBoxLayout, QVBoxLayout, QtCore, QLineEdit,
-    QPushButton, Qt, QToolButton, QIcon, QMenu, QLabel, QtGui, QApplication,
-    QCheckBox, QFileDialog, with_qt5, QTableView, QHeaderView,
-    QDockWidget)
-from psyplot_gui.common import (DockMixin, get_icon, LoadFromConsoleButton,
-                                PyErrorMessage)
 import pandas as pd
+import six
+from psyplot.docstring import docstrings
+
+from psyplot_gui.common import (
+    DockMixin,
+    LoadFromConsoleButton,
+    PyErrorMessage,
+    get_icon,
+)
+from psyplot_gui.compat.qtcompat import (
+    QApplication,
+    QCheckBox,
+    QDockWidget,
+    QFileDialog,
+    QHBoxLayout,
+    QHeaderView,
+    QIcon,
+    QLabel,
+    QLineEdit,
+    QMenu,
+    QPushButton,
+    Qt,
+    QTableView,
+    QtCore,
+    QtGui,
+    QToolButton,
+    QVBoxLayout,
+    QWidget,
+    with_qt5,
+)
 
 if six.PY2:
     try:
@@ -54,7 +59,7 @@ LARGE_COLS = 60
 REAL_NUMBER_TYPES = (float, int, np.int64, np.int32)
 COMPLEX_NUMBER_TYPES = (complex, np.complex64, np.complex128)
 
-_bool_false = ['false', '0']
+_bool_false = ["false", "0"]
 
 
 def bool_false_check(value):
@@ -63,22 +68,23 @@ def bool_false_check(value):
     will return True
     """
     if value.lower() in _bool_false:
-        value = ''
+        value = ""
     return value
 
 
 class DataFrameModel(QtCore.QAbstractTableModel):
-    """ DataFrame Table Model"""
+    """DataFrame Table Model"""
 
     ROWS_TO_LOAD = 500
     COLS_TO_LOAD = 40
 
-    _format = '%0.6g'
+    _format = "%0.6g"
 
-    @docstrings.get_sections(base='DataFrameModel')
+    @docstrings.get_sections(base="DataFrameModel")
     @docstrings.dedent
-    def __init__(self, df, parent=None, index_editable=True,
-                 dtypes_changeable=True):
+    def __init__(
+        self, df, parent=None, index_editable=True, dtypes_changeable=True
+    ):
         """
         Parameters
         ----------
@@ -140,12 +146,12 @@ class DataFrameModel(QtCore.QAbstractTableModel):
 
         if orientation == Qt.Horizontal:
             if section == 0:
-                return six.text_type('Index')
-            elif isinstance(self.df_header[section-1], six.string_types):
-                header = self.df_header[section-1]
+                return six.text_type("Index")
+            elif isinstance(self.df_header[section - 1], six.string_types):
+                header = self.df_header[section - 1]
                 return six.text_type(header)
             else:
-                return six.text_type(self.df_header[section-1])
+                return six.text_type(self.df_header[section - 1])
         else:
             return None
 
@@ -169,7 +175,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
             if column == 0:
                 return six.text_type(self.df_index[row])
             else:
-                value = self.get_value(row, column-1)
+                value = self.get_value(row, column - 1)
                 if isinstance(value, float):
                     try:
                         return self._format % value
@@ -180,29 +186,37 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 else:
                     return six.text_type(value)
 
-    def sort(self, column, order=Qt.AscendingOrder, return_check=False,
-             report=True):
+    def sort(
+        self, column, order=Qt.AscendingOrder, return_check=False, report=True
+    ):
         """Overriding sort method"""
         try:
             ascending = order == Qt.AscendingOrder
             if column > 0:
                 try:
-                    self.df.sort_values(by=self.df.columns[column-1],
-                                        ascending=ascending, inplace=True,
-                                        kind='mergesort')
+                    self.df.sort_values(
+                        by=self.df.columns[column - 1],
+                        ascending=ascending,
+                        inplace=True,
+                        kind="mergesort",
+                    )
                 except AttributeError:
                     # for pandas version < 0.17
-                    self.df.sort(columns=self.df.columns[column-1],
-                                 ascending=ascending, inplace=True,
-                                 kind='mergesort')
+                    self.df.sort(
+                        columns=self.df.columns[column - 1],
+                        ascending=ascending,
+                        inplace=True,
+                        kind="mergesort",
+                    )
                 self.update_df_index()
             else:
                 self.df.sort_index(inplace=True, ascending=ascending)
                 self.update_df_index()
-        except TypeError as e:
+        except TypeError:
             if report:
                 self._parent.error_msg.showTraceback(
-                    "<b>Failed to sort column!</b>")
+                    "<b>Failed to sort column!</b>"
+                )
             return False if return_check else None
         self.reset()
         return True if return_check else None
@@ -211,8 +225,9 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         """Set flags"""
         if index.column() == 0 and not self.index_editable:
             return Qt.ItemIsEnabled | Qt.ItemIsSelectable
-        return Qt.ItemFlags(QtCore.QAbstractTableModel.flags(self, index) |
-                            Qt.ItemIsEditable)
+        return Qt.ItemFlags(
+            QtCore.QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable
+        )
 
     def setData(self, index, value, role=Qt.EditRole, change_type=None):
         """Cell content change"""
@@ -229,33 +244,44 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 value = np.asarray(change_type(value))  # to make sure it works
                 icol = column - 1
                 self.df.iloc[:, icol] = self.df.iloc[:, icol].astype(
-                    change_type)
+                    change_type
+                )
             except ValueError:
-                self.df.iloc[row, icol] = self.df.iloc[row, icol].astype(object)
+                self.df.iloc[row, icol] = self.df.iloc[row, icol].astype(
+                    object
+                )
         else:
-            current_value = self.get_value(row, column-1) if column else \
-                self.df.index[row]
+            current_value = (
+                self.get_value(row, column - 1)
+                if column
+                else self.df.index[row]
+            )
             if isinstance(current_value, bool):
                 value = bool_false_check(value)
-            supported_types = (bool,) + REAL_NUMBER_TYPES + \
-                COMPLEX_NUMBER_TYPES
-            if (isinstance(current_value, supported_types) or
-                    isinstance(current_value, six.string_types)):
+            supported_types = (
+                (bool,) + REAL_NUMBER_TYPES + COMPLEX_NUMBER_TYPES
+            )
+            if isinstance(current_value, supported_types) or isinstance(
+                current_value, six.string_types
+            ):
                 if column:
                     try:
-                        self.df.iloc[row, column-1] = current_value.__class__(
-                            value)
-                    except ValueError as e:
+                        self.df.iloc[
+                            row, column - 1
+                        ] = current_value.__class__(value)
+                    except ValueError:
                         self._parent.error_msg.showTraceback(
-                            "<b>Failed to set value with %r!</b>" % value)
+                            "<b>Failed to set value with %r!</b>" % value
+                        )
                         return False
                 elif self.index_editable:
                     index = self.df.index.values.copy()
                     try:
                         index[row] = value
-                    except ValueError as e:
+                    except ValueError:
                         self._parent.error_msg.showTraceback(
-                            "<b>Failed to set value with %r!</b>" % value)
+                            "<b>Failed to set value with %r!</b>" % value
+                        )
                         return False
                     self.df.index = pd.Index(index, name=self.df.index.name)
                     self.update_df_index()
@@ -263,8 +289,8 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                     return False
             else:
                 self._parent.error_msg.showTraceback(
-                            "<b>The type of the cell is not a supported type"
-                            "</b>")
+                    "<b>The type of the cell is not a supported type" "</b>"
+                )
                 return False
         self._parent.cell_edited.emit(row, column, current_value, value)
         return True
@@ -292,15 +318,21 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         if self.can_fetch_more(rows=rows):
             reminder = self.total_rows - self.rows_loaded
             items_to_fetch = min(reminder, self.ROWS_TO_LOAD)
-            self.beginInsertRows(QtCore.QModelIndex(), self.rows_loaded,
-                                 self.rows_loaded + items_to_fetch - 1)
+            self.beginInsertRows(
+                QtCore.QModelIndex(),
+                self.rows_loaded,
+                self.rows_loaded + items_to_fetch - 1,
+            )
             self.rows_loaded += items_to_fetch
             self.endInsertRows()
         if self.can_fetch_more(columns=columns):
             reminder = self.total_cols - self.cols_loaded
             items_to_fetch = min(reminder, self.COLS_TO_LOAD)
-            self.beginInsertColumns(QtCore.QModelIndex(), self.cols_loaded,
-                                    self.cols_loaded + items_to_fetch - 1)
+            self.beginInsertColumns(
+                QtCore.QModelIndex(),
+                self.cols_loaded,
+                self.cols_loaded + items_to_fetch - 1,
+            )
             self.cols_loaded += items_to_fetch
             self.endInsertColumns()
 
@@ -315,7 +347,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
             return self.cols_loaded + 1
 
     def update_df_index(self):
-        """"Update the DataFrame index"""
+        """ "Update the DataFrame index"""
         self.df_index = self.df.index.tolist()
 
     def reset(self):
@@ -351,7 +383,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 idx = df.index.values[0]
         else:
             try:
-                idx = df.index.values[irow-1:irow+1].mean()
+                idx = df.index.values[irow - 1 : irow + 1].mean()
             except TypeError:
                 idx = df.index.values[min(irow, len(df) - 1)]
             else:
@@ -373,8 +405,11 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         df.set_index(new_idx_name, inplace=True, drop=True)
         df.index.name = idx_name
         self.update_df_index()
-        self.beginInsertRows(QtCore.QModelIndex(), self.rows_loaded,
-                             self.rows_loaded + nrows - 1)
+        self.beginInsertRows(
+            QtCore.QModelIndex(),
+            self.rows_loaded,
+            self.rows_loaded + nrows - 1,
+        )
         self.total_rows += nrows
         self.rows_loaded += nrows
         self.endInsertRows()
@@ -385,6 +420,7 @@ class FrozenTableView(QTableView):
     """This class implements a table with its first column frozen
     For more information please see:
     http://doc.qt.io/qt-5/qtwidgets-itemviews-frozencolumn-example.html"""
+
     def __init__(self, parent):
         """Constructor."""
         QTableView.__init__(self, parent)
@@ -410,19 +446,22 @@ class FrozenTableView(QTableView):
         self.setVerticalScrollMode(QTableView.ScrollPerPixel)
 
         self.verticalScrollBar().valueChanged.connect(
-            parent.verticalScrollBar().setValue)
+            parent.verticalScrollBar().setValue
+        )
         parent.verticalScrollBar().valueChanged.connect(
-            self.verticalScrollBar().setValue)
+            self.verticalScrollBar().setValue
+        )
 
     def update_geometry(self):
         """Update the frozen column size when an update occurs in its parent
         table"""
-        self.setGeometry(self.parent.verticalHeader().width() +
-                         self.parent.frameWidth(),
-                         self.parent.frameWidth(),
-                         self.parent.columnWidth(0),
-                         self.parent.viewport().height() +
-                         self.parent.horizontalHeader().height())
+        self.setGeometry(
+            self.parent.verticalHeader().width() + self.parent.frameWidth(),
+            self.parent.frameWidth(),
+            self.parent.columnWidth(0),
+            self.parent.viewport().height()
+            + self.parent.horizontalHeader().height(),
+        )
 
     def contextMenuEvent(self, event):
         """Show the context Menu
@@ -458,19 +497,24 @@ class DataFrameView(QTableView):
         self.setVerticalScrollMode(1)
 
         self.horizontalHeader().sectionResized.connect(
-            self.update_section_width)
+            self.update_section_width
+        )
         self.verticalHeader().sectionResized.connect(
-            self.update_section_height)
+            self.update_section_height
+        )
 
         self.sort_old = [None]
         self.header_class = self.horizontalHeader()
         self.header_class.sectionClicked.connect(self.sortByColumn)
         self.frozen_table_view.horizontalHeader().sectionClicked.connect(
-            self.sortByColumn)
+            self.sortByColumn
+        )
         self.horizontalScrollBar().valueChanged.connect(
-                        lambda val: self.load_more_data(val, columns=True))
+            lambda val: self.load_more_data(val, columns=True)
+        )
         self.verticalScrollBar().valueChanged.connect(
-                        lambda val: self.load_more_data(val, rows=True))
+            lambda val: self.load_more_data(val, rows=True)
+        )
 
     def update_section_width(self, logical_index, old_size, new_size):
         """Update the horizontal width of the frozen column when a
@@ -501,16 +545,16 @@ class DataFrameView(QTableView):
         """
         current = QTableView.moveCursor(self, cursor_action, modifiers)
 
-        col_width = (self.columnWidth(0) +
-                     self.columnWidth(1))
+        col_width = self.columnWidth(0) + self.columnWidth(1)
         topleft_x = self.visualRect(current).topLeft().x()
 
         overflow = self.MoveLeft and current.column() > 1
         overflow = overflow and topleft_x < col_width
 
         if cursor_action == overflow:
-            new_value = (self.horizontalScrollBar().value() +
-                         topleft_x - col_width)
+            new_value = (
+                self.horizontalScrollBar().value() + topleft_x - col_width
+            )
             self.horizontalScrollBar().setValue(new_value)
         return current
 
@@ -532,7 +576,7 @@ class DataFrameView(QTableView):
             self.model().fetch_more(columns=columns)
 
     def sortByColumn(self, index):
-        """ Implement a Column sort """
+        """Implement a Column sort"""
         frozen_header = self.frozen_table_view.horizontalHeader()
         if not self.isSortingEnabled():
             self.header_class.setSortIndicatorShown(False)
@@ -550,11 +594,13 @@ class DataFrameView(QTableView):
                 self.header_class.setSortIndicatorShown(False)
                 frozen_header.setSortIndicatorShown(False)
             else:
-                self.header_class.setSortIndicator(self.sort_old[0],
-                                                   self.sort_old[1])
+                self.header_class.setSortIndicator(
+                    self.sort_old[0], self.sort_old[1]
+                )
                 if index == 0:
-                    frozen_header.setSortIndicator(self.sort_old[0],
-                                                   self.sort_old[1])
+                    frozen_header.setSortIndicator(
+                        self.sort_old[0], self.sort_old[1]
+                    )
             return
         self.sort_old = [index, self.header_class.sortIndicatorOrder()]
 
@@ -563,7 +609,7 @@ class DataFrameView(QTableView):
         model = self.model()
         index_list = self.selectedIndexes()
         for i in index_list:
-            model.setData(i, '', change_type=func)
+            model.setData(i, "", change_type=func)
 
     def insert_row_above_selection(self):
         """Insert rows above the selection
@@ -601,7 +647,7 @@ class DataFrameView(QTableView):
             return [], []
         return list(zip(*[(i.row(), i.column()) for i in index_list]))
 
-    docstrings.delete_params('DataFrameModel.parameters', 'parent')
+    docstrings.delete_params("DataFrameModel.parameters", "parent")
 
     @docstrings.dedent
     def set_df(self, df, *args, **kwargs):
@@ -625,10 +671,12 @@ class DataFrameView(QTableView):
         for a in self.dtype_actions.values():
             a.setEnabled(model.dtypes_changeable)
         nrows = max(len(set(self._selected_rows_and_cols()[0])), 1)
-        self.insert_row_above_action.setText('Insert %i row%s above' % (
-            nrows, 's' if nrows - 1 else ''))
-        self.insert_row_below_action.setText('Insert %i row%s below' % (
-            nrows, 's' if nrows - 1 else ''))
+        self.insert_row_above_action.setText(
+            "Insert %i row%s above" % (nrows, "s" if nrows - 1 else "")
+        )
+        self.insert_row_below_action.setText(
+            "Insert %i row%s below" % (nrows, "s" if nrows - 1 else "")
+        )
         self.insert_row_above_action.setEnabled(model.index_editable)
         self.insert_row_below_action.setEnabled(model.index_editable)
         self.menu.popup(event.globalPos())
@@ -637,24 +685,33 @@ class DataFrameView(QTableView):
     def setup_menu(self):
         """Setup context menu"""
         menu = QMenu(self)
-        menu.addAction('Copy', self.copy, QtGui.QKeySequence.Copy)
+        menu.addAction("Copy", self.copy, QtGui.QKeySequence.Copy)
         menu.addSeparator()
-        functions = (("To bool", bool), ("To complex", complex),
-                     ("To int", int), ("To float", float),
-                     ("To str", str))
+        functions = (
+            ("To bool", bool),
+            ("To complex", complex),
+            ("To int", int),
+            ("To float", float),
+            ("To str", str),
+        )
         self.dtype_actions = {
             name: menu.addAction(name, partial(self.change_type, func))
-            for name, func in functions}
+            for name, func in functions
+        }
         menu.addSeparator()
         self.insert_row_above_action = menu.addAction(
-            'Insert rows above', self.insert_row_above_selection)
+            "Insert rows above", self.insert_row_above_selection
+        )
         self.insert_row_below_action = menu.addAction(
-            'Insert rows below', self.insert_row_below_selection)
+            "Insert rows below", self.insert_row_below_selection
+        )
         menu.addSeparator()
         self.set_index_action = menu.addAction(
-            'Set as index', partial(self.set_index, False))
+            "Set as index", partial(self.set_index, False)
+        )
         self.append_index_action = menu.addAction(
-            'Append to as index', partial(self.set_index, True))
+            "Append to as index", partial(self.set_index, True)
+        )
         return menu
 
     def set_index(self, append=False):
@@ -672,8 +729,9 @@ class DataFrameView(QTableView):
         if len(cols) == 1:
             df.set_index(df.columns[cols[0]], inplace=True, append=append)
         else:
-            df.set_index(df.columns[cols].tolist(), inplace=True,
-                         append=append)
+            df.set_index(
+                df.columns[cols].tolist(), inplace=True, append=append
+            )
         self.set_df(df, *args)
 
     def copy(self):
@@ -689,18 +747,21 @@ class DataFrameView(QTableView):
             index = True
         df = self.model().df
         if col_max == 0:  # To copy indices
-            contents = '\n'.join(map(str, df.index.tolist()[slice(row_min,
-                                                            row_max+1)]))
+            contents = "\n".join(
+                map(str, df.index.tolist()[slice(row_min, row_max + 1)])
+            )
         else:  # To copy DataFrame
             if (col_min == 0 or col_min == 1) and (df.shape[1] == col_max):
                 header = True
-            obj = df.iloc[slice(row_min, row_max+1), slice(col_min-1, col_max)]
+            obj = df.iloc[
+                slice(row_min, row_max + 1), slice(col_min - 1, col_max)
+            ]
             output = io.StringIO()
-            obj.to_csv(output, sep='\t', index=index, header=header)
+            obj.to_csv(output, sep="\t", index=index, header=header)
             if not six.PY2:
                 contents = output.getvalue()
             else:
-                contents = output.getvalue().decode('utf-8')
+                contents = output.getvalue().decode("utf-8")
             output.close()
         clipboard = QApplication.clipboard()
         clipboard.setText(contents)
@@ -722,7 +783,7 @@ class DataFrameDock(QDockWidget):
             mainwindow.removeDockWidget(self)
         except Exception:
             pass
-        if getattr(self.widget(), '_view_action', None) is not None:
+        if getattr(self.widget(), "_view_action", None) is not None:
             mainwindow.dataframe_menu.removeAction(self.widget()._view_action)
         return super(DataFrameDock, self).close()
 
@@ -757,21 +818,21 @@ class DataFrameEditor(DockMixin, QWidget):
         self.lbl_size = QLabel()
 
         # A Checkbox for enabling and disabling the editability of the index
-        self.cb_index_editable = QCheckBox('Index editable')
+        self.cb_index_editable = QCheckBox("Index editable")
 
         # A checkbox for enabling and disabling the change of data types
-        self.cb_dtypes_changeable = QCheckBox('Datatypes changeable')
+        self.cb_dtypes_changeable = QCheckBox("Datatypes changeable")
 
         # A checkbox for enabling and disabling sorting
-        self.cb_enable_sort = QCheckBox('Enable sorting')
+        self.cb_enable_sort = QCheckBox("Enable sorting")
 
         # A button to open a dataframe from the file
         self.btn_open_df = QToolButton(parent=self)
-        self.btn_open_df.setIcon(QIcon(get_icon('run_arrow.png')))
-        self.btn_open_df.setToolTip('Open a DataFrame from your disk')
+        self.btn_open_df.setIcon(QIcon(get_icon("run_arrow.png")))
+        self.btn_open_df.setToolTip("Open a DataFrame from your disk")
 
         self.btn_from_console = LoadFromConsoleButton(pd.DataFrame)
-        self.btn_from_console.setToolTip('Show a DataFrame from the console')
+        self.btn_from_console.setToolTip("Show a DataFrame from the console")
 
         # The table to display the DataFrame
         self.table = DataFrameView(pd.DataFrame(), self)
@@ -781,22 +842,23 @@ class DataFrameEditor(DockMixin, QWidget):
         self.format_editor.setText(self.table.model()._format)
 
         # format update button
-        self.btn_change_format = QPushButton('Update')
+        self.btn_change_format = QPushButton("Update")
         self.btn_change_format.setEnabled(False)
 
         # table clearing button
-        self.btn_clear = QPushButton('Clear')
+        self.btn_clear = QPushButton("Clear")
         self.btn_clear.setToolTip(
-            'Clear the table and disconnect from the DataFrame')
+            "Clear the table and disconnect from the DataFrame"
+        )
 
         # refresh button
         self.btn_refresh = QToolButton()
-        self.btn_refresh.setIcon(QIcon(get_icon('refresh.png')))
-        self.btn_refresh.setToolTip('Refresh the table')
+        self.btn_refresh.setIcon(QIcon(get_icon("refresh.png")))
+        self.btn_refresh.setToolTip("Refresh the table")
 
         # close button
-        self.btn_close = QPushButton('Close')
-        self.btn_close.setToolTip('Close this widget permanentely')
+        self.btn_close = QPushButton("Close")
+        self.btn_close.setToolTip("Close this widget permanentely")
 
         # ---------------------------------------------------------------------
         # ------------------------ layout --------------------------------
@@ -826,7 +888,8 @@ class DataFrameEditor(DockMixin, QWidget):
         # ------------------------ Connections --------------------------------
         # ---------------------------------------------------------------------
         self.cb_dtypes_changeable.stateChanged.connect(
-            self.set_dtypes_changeable)
+            self.set_dtypes_changeable
+        )
         self.cb_index_editable.stateChanged.connect(self.set_index_editable)
         self.btn_from_console.object_loaded.connect(self._open_ds_from_console)
         self.rows_inserted.connect(lambda i, n: self.set_lbl_size_text())
@@ -838,11 +901,12 @@ class DataFrameEditor(DockMixin, QWidget):
         self.btn_refresh.clicked.connect(self.table.reset_model)
         self.btn_open_df.clicked.connect(self._open_dataframe)
         self.table.set_index_action.triggered.connect(
-            self.update_index_editable)
+            self.update_index_editable
+        )
         self.table.append_index_action.triggered.connect(
-            self.update_index_editable)
-        self.cb_enable_sort.stateChanged.connect(
-            self.table.setSortingEnabled)
+            self.update_index_editable
+        )
+        self.cb_enable_sort.stateChanged.connect(self.table.setSortingEnabled)
 
     def update_index_editable(self):
         model = self.table.model()
@@ -857,9 +921,9 @@ class DataFrameEditor(DockMixin, QWidget):
         nrows = nrows if nrows is not None else model.rowCount()
         ncols = ncols if ncols is not None else model.columnCount()
         if not nrows and not ncols:
-            self.lbl_size.setText('')
+            self.lbl_size.setText("")
         else:
-            self.lbl_size.setText('Rows: %i, Columns: %i' % (nrows, ncols))
+            self.lbl_size.setText("Rows: %i, Columns: %i" % (nrows, ncols))
 
     def clear_table(self):
         """Clear the table and emit the :attr:`cleared` signal"""
@@ -880,7 +944,7 @@ class DataFrameEditor(DockMixin, QWidget):
         show: bool
             If True (default), show and raise_ the editor
         """
-        show = kwargs.pop('show', True)
+        show = kwargs.pop("show", True)
         self.table.set_df(df, *args, **kwargs)
         self.set_lbl_size_text(*df.shape)
         model = self.table.model()
@@ -912,7 +976,8 @@ class DataFrameEditor(DockMixin, QWidget):
             self.btn_change_format.setEnabled(False)
         else:
             self.btn_change_format.setEnabled(
-                text.strip() != self.table.model()._format)
+                text.strip() != self.table.model()._format
+            )
 
     def update_format(self):
         """Update the format of the table"""
@@ -927,7 +992,8 @@ class DataFrameEditor(DockMixin, QWidget):
     def maybe_tabify(self):
         main = self.dock.parent()
         if self.is_shown and main.dockWidgetArea(
-                main.help_explorer.dock) == main.dockWidgetArea(self.dock):
+            main.help_explorer.dock
+        ) == main.dockWidgetArea(self.dock):
             main.tabifyDockWidget(main.help_explorer.dock, self.dock)
 
     def _open_dataframe(self):
@@ -937,12 +1003,14 @@ class DataFrameEditor(DockMixin, QWidget):
         """Opens a file dialog and the dataset that has been inserted"""
         if fname is None:
             fname = QFileDialog.getOpenFileName(
-                self, 'Open dataset', os.getcwd(),
-                'Comma separated files (*.csv);;'
-                'Excel files (*.xls *.xlsx);;'
-                'JSON files (*.json);;'
-                'All files (*)'
-                )
+                self,
+                "Open dataset",
+                os.getcwd(),
+                "Comma separated files (*.csv);;"
+                "Excel files (*.xls *.xlsx);;"
+                "JSON files (*.json);;"
+                "All files (*)",
+            )
             if with_qt5:  # the filter is passed as well
                 fname = fname[0]
         if isinstance(fname, pd.DataFrame):
@@ -952,18 +1020,20 @@ class DataFrameEditor(DockMixin, QWidget):
         else:
             ext = osp.splitext(fname)[1]
             open_funcs = {
-                '.xls': pd.read_excel, '.xlsx': pd.read_excel,
-                '.json': pd.read_json,
-                '.tab': partial(pd.read_csv, delimiter='\t'),
-                '.dat': partial(pd.read_csv, delim_whitespace=True),
-                }
+                ".xls": pd.read_excel,
+                ".xlsx": pd.read_excel,
+                ".json": pd.read_json,
+                ".tab": partial(pd.read_csv, delimiter="\t"),
+                ".dat": partial(pd.read_csv, delim_whitespace=True),
+            }
             open_func = open_funcs.get(ext, pd.read_csv)
             try:
                 df = open_func(fname)
             except Exception:
                 self.error_msg.showTraceback(
-                    '<b>Could not open DataFrame %s with %s</b>' % (
-                        fname, open_func))
+                    "<b>Could not open DataFrame %s with %s</b>"
+                    % (fname, open_func)
+                )
                 return
             self.set_df(df)
 

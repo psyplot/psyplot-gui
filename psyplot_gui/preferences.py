@@ -3,41 +3,49 @@
 This module defines the :class:`Preferences` widget that creates an interface
 to the rcParams of psyplot and psyplot_gui"""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
+
+from warnings import warn
 
 import yaml
-from warnings import warn
-from psyplot_gui.compat.qtcompat import (
-    QTreeWidget, QTreeWidgetItem, Qt, QMenu, QAction, QTextEdit, QIcon,
-    QWidget, QVBoxLayout, QHBoxLayout, QtCore, QDialog, QScrollArea,
-    QDialogButtonBox, QStackedWidget, QListWidget, QListView, QSplitter,
-    QListWidgetItem, QPushButton, QFileDialog, with_qt5,
-    QAbstractItemView, QToolButton, QLabel, QtGui, asstring)
-from psyplot_gui.common import get_icon
+from psyplot.config.rcsetup import RcParams, psyplot_fname
+from psyplot.config.rcsetup import rcParams as psy_rcParams
+
 from psyplot_gui import rcParams as rcParams
-from psyplot.config.rcsetup import (
-    psyplot_fname, RcParams, rcParams as psy_rcParams)
+from psyplot_gui.common import get_icon
+from psyplot_gui.compat.qtcompat import (
+    QAbstractItemView,
+    QAction,
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QHBoxLayout,
+    QIcon,
+    QLabel,
+    QListView,
+    QListWidget,
+    QListWidgetItem,
+    QMenu,
+    QPushButton,
+    QScrollArea,
+    QSplitter,
+    QStackedWidget,
+    Qt,
+    QtCore,
+    QTextEdit,
+    QtGui,
+    QToolButton,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+    asstring,
+    with_qt5,
+)
 
 
 class ConfigPage(object):
@@ -127,7 +135,7 @@ class RcParamsTree(QTreeWidget):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.open_menu)
         self.setColumnCount(self.value_col + 1)
-        self.setHeaderLabels(['RcParams key', '', 'Value'])
+        self.setHeaderLabels(["RcParams key", "", "Value"])
 
     @property
     def is_valid(self):
@@ -150,7 +158,7 @@ class RcParamsTree(QTreeWidget):
             item = QTreeWidgetItem(0)
             item.setText(0, key)
             item.setToolTip(0, key)
-            item.setIcon(1, QIcon(get_icon('valid.png')))
+            item.setIcon(1, QIcon(get_icon("valid.png")))
             desc = descriptions.get(key)
             if desc:
                 item.setText(vcol, desc)
@@ -161,11 +169,13 @@ class RcParamsTree(QTreeWidget):
             editor = QTextEdit(self)
             # set maximal height of the editor to 3 rows
             editor.setMaximumHeight(
-                4 * QtGui.QFontMetrics(editor.font()).height())
+                4 * QtGui.QFontMetrics(editor.font()).height()
+            )
             editor.setPlainText(yaml.dump(val))
             self.setItemWidget(child, vcol, editor)
             editor.textChanged.connect(
-                self.set_icon_func(i, item, validators[key]))
+                self.set_icon_func(i, item, validators[key])
+            )
         self.resizeColumnToContents(0)
         self.resizeColumnToContents(1)
 
@@ -191,26 +201,28 @@ class RcParamsTree(QTreeWidget):
         -------
         function
             The function that can be called to set the correct icon"""
+
         def func():
             editor = self.itemWidget(item.child(0), self.value_col)
             s = asstring(editor.toPlainText())
             try:
                 val = yaml.load(s, Loader=yaml.Loader)
             except Exception as e:
-                item.setIcon(1, QIcon(get_icon('warning.png')))
+                item.setIcon(1, QIcon(get_icon("warning.png")))
                 item.setToolTip(1, "Could not parse yaml code: %s" % e)
                 self.set_valid(i, False)
                 return
             try:
                 validator(val)
             except Exception as e:
-                item.setIcon(1, QIcon(get_icon('invalid.png')))
+                item.setIcon(1, QIcon(get_icon("invalid.png")))
                 item.setToolTip(1, "Wrong value: %s" % e)
                 self.set_valid(i, False)
             else:
-                item.setIcon(1, QIcon(get_icon('valid.png')))
+                item.setIcon(1, QIcon(get_icon("valid.png")))
                 self.set_valid(i, True)
             self.propose_changes.emit(self.parent() or self)
+
         return func
 
     def set_valid(self, i, b):
@@ -240,10 +252,10 @@ class RcParamsTree(QTreeWidget):
         position: QPosition
             The position where to open the menu"""
         menu = QMenu()
-        expand_all_action = QAction('Expand all', self)
+        expand_all_action = QAction("Expand all", self)
         expand_all_action.triggered.connect(self.expandAll)
         menu.addAction(expand_all_action)
-        collapse_all_action = QAction('Collapse all', self)
+        collapse_all_action = QAction("Collapse all", self)
         collapse_all_action.triggered.connect(self.collapseAll)
         menu.addAction(collapse_all_action)
         menu.exec_(self.viewport().mapToGlobal(position))
@@ -262,8 +274,10 @@ class RcParamsTree(QTreeWidget):
             The item identifier
         object
             The proposed value"""
+
         def equals(item, key, val, orig):
             return val != orig
+
         for t in self._get_rc(equals):
             yield t[0 if use_items else 1], t[2]
 
@@ -281,8 +295,10 @@ class RcParamsTree(QTreeWidget):
             The item identifier
         object
             The proposed value"""
+
         def is_selected(item, key, val, orig):
             return item.isSelected()
+
         for t in self._get_rc(is_selected):
             yield t[0 if use_items else 1], t[2]
 
@@ -317,8 +333,10 @@ class RcParamsTree(QTreeWidget):
         object
             The current value
         """
+
         def no_check(item, key, val, orig):
             return True
+
         rc = self.rc
         filter_func = filter_func or no_check
         for item in self.top_level_items:
@@ -327,13 +345,12 @@ class RcParamsTree(QTreeWidget):
             val = yaml.load(asstring(editor.toPlainText()), Loader=yaml.Loader)
             try:
                 val = rc.validate[key](val)
-            except:
+            except Exception:
                 pass
             try:
                 include = filter_func(item, key, val, rc[key])
-            except:
-                warn('Could not check state for %s key' % key,
-                     RuntimeWarning)
+            except Exception:
+                warn("Could not check state for %s key" % key, RuntimeWarning)
             else:
                 if include:
                     yield (item, key, val, rc[key])
@@ -345,8 +362,7 @@ class RcParamsTree(QTreeWidget):
             self.rc.update(new)
 
     def select_changes(self):
-        """Select all the items that changed comparing to the current rcParams
-        """
+        """Select all the items that changed comparing to the current rcParams"""
         for item, val in self.changed_rc(True):
             item.setSelected(True)
 
@@ -392,29 +408,34 @@ class RcParamsWidget(ConfigPage, QWidget):
     @property
     def icon(self):
         """The icon of this instance in the :class:`Preferences` dialog"""
-        return QIcon(get_icon('rcParams.png'))
+        return QIcon(get_icon("rcParams.png"))
 
     def __init__(self, *args, **kwargs):
         super(RcParamsWidget, self).__init__(*args, **kwargs)
         self.vbox = vbox = QVBoxLayout()
 
         self.description = QLabel(
-            '<p>Modify the rcParams for your need. Changes will not be applied'
-            ' until you click the Apply or Ok button.</p>'
-            '<p>Values must be entered in yaml syntax</p>', parent=self)
+            "<p>Modify the rcParams for your need. Changes will not be applied"
+            " until you click the Apply or Ok button.</p>"
+            "<p>Values must be entered in yaml syntax</p>",
+            parent=self,
+        )
         vbox.addWidget(self.description)
         self.tree = tree = RcParamsTree(
-            self.rc, getattr(self.rc, 'validate', None),
-            getattr(self.rc, 'descriptions', None), parent=self)
+            self.rc,
+            getattr(self.rc, "validate", None),
+            getattr(self.rc, "descriptions", None),
+            parent=self,
+        )
         tree.setSelectionMode(QAbstractItemView.MultiSelection)
         vbox.addWidget(self.tree)
 
-        self.bt_select_all = QPushButton('Select All', self)
-        self.bt_select_changed = QPushButton('Select changes', self)
-        self.bt_select_none = QPushButton('Clear Selection', self)
+        self.bt_select_all = QPushButton("Select All", self)
+        self.bt_select_changed = QPushButton("Select changes", self)
+        self.bt_select_none = QPushButton("Clear Selection", self)
         self.bt_export = QToolButton(self)
-        self.bt_export.setText('Export Selection...')
-        self.bt_export.setToolTip('Export the selected rcParams to a file')
+        self.bt_export.setText("Export Selection...")
+        self.bt_export.setToolTip("Export the selected rcParams to a file")
         self.bt_export.setPopupMode(QToolButton.InstantPopup)
         self.export_menu = export_menu = QMenu(self)
         export_menu.addAction(self.save_settings_action())
@@ -443,6 +464,7 @@ class RcParamsWidget(ConfigPage, QWidget):
             If True, it is expected that the file already exists and it will be
             updated. Otherwise, existing files will be overwritten
         """
+
         def func():
             if update:
                 meth = QFileDialog.getOpenFileName
@@ -450,12 +472,11 @@ class RcParamsWidget(ConfigPage, QWidget):
                 meth = QFileDialog.getSaveFileName
             if target is None:
                 fname = meth(
-                    self, 'Select a file to %s' % (
-                        'update' if update else 'create'),
+                    self,
+                    "Select a file to %s" % ("update" if update else "create"),
                     self.default_path,
-                    'YAML files (*.yml);;'
-                    'All files (*)'
-                    )
+                    "YAML files (*.yml);;" "All files (*)",
+                )
                 if with_qt5:  # the filter is passed as well
                     fname = fname[0]
             else:
@@ -469,14 +490,17 @@ class RcParamsWidget(ConfigPage, QWidget):
                 selected = dict(self.tree.selected_rc())
                 new_keys = list(selected)
                 rc.update(selected)
-                rc.dump(fname, include_keys=old_keys + new_keys,
-                        exclude_keys=[])
+                rc.dump(
+                    fname, include_keys=old_keys + new_keys, exclude_keys=[]
+                )
             else:
-                rc = self.rc.__class__(self.tree.selected_rc(),
-                                       defaultParams=self.rc.defaultParams)
+                rc = self.rc.__class__(
+                    self.tree.selected_rc(),
+                    defaultParams=self.rc.defaultParams,
+                )
                 rc.dump(fname, exclude_keys=[])
 
-        action = QAction('Update...' if update else 'Overwrite...', self)
+        action = QAction("Update..." if update else "Overwrite...", self)
         action.triggered.connect(func)
         return action
 
@@ -516,10 +540,11 @@ class GuiRcParamsWidget(RcParamsWidget):
 
     rc = rcParams
 
-    title = 'GUI defaults'
+    title = "GUI defaults"
 
-    default_path = psyplot_fname('PSYPLOTGUIRC', 'psyplotguirc.yml',
-                                 if_exists=False)
+    default_path = psyplot_fname(
+        "PSYPLOTGUIRC", "psyplotguirc.yml", if_exists=False
+    )
 
 
 class PsyRcParamsWidget(RcParamsWidget):
@@ -527,7 +552,7 @@ class PsyRcParamsWidget(RcParamsWidget):
 
     rc = psy_rcParams
 
-    title = 'psyplot defaults'
+    title = "psyplot defaults"
 
     default_path = psyplot_fname(if_exists=False)
 
@@ -545,19 +570,22 @@ class Prefences(QDialog):
 
     def __init__(self, main=None):
         super(Prefences, self).__init__(parent=main)
-        self.setWindowTitle('Preferences')
+        self.setWindowTitle("Preferences")
 
         # Widgets
         self.pages_widget = QStackedWidget()
         self.contents_widget = QListWidget()
-        self.bt_reset = QPushButton('Reset to defaults')
-        self.bt_load_plugins = QPushButton('Load plugin pages')
+        self.bt_reset = QPushButton("Reset to defaults")
+        self.bt_load_plugins = QPushButton("Load plugin pages")
         self.bt_load_plugins.setToolTip(
-            'Load the rcParams for the plugins in separate pages')
+            "Load the rcParams for the plugins in separate pages"
+        )
 
         self.bbox = bbox = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Apply |
-            QDialogButtonBox.Cancel)
+            QDialogButtonBox.Ok
+            | QDialogButtonBox.Apply
+            | QDialogButtonBox.Cancel
+        )
 
         # Widgets setup
         # Destroying the C++ object right after closing the dialog box,
@@ -565,7 +593,7 @@ class Prefences(QDialog):
         # (e.g. the editor's analysis thread in Spyder), thus leading to
         # a segmentation fault on UNIX or an application crash on Windows
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setWindowTitle('Preferences')
+        self.setWindowTitle("Preferences")
         self.contents_widget.setMovement(QListView.Static)
         self.contents_widget.setSpacing(1)
         self.contents_widget.setCurrentRow(0)
@@ -594,7 +622,8 @@ class Prefences(QDialog):
         self.bt_load_plugins.clicked.connect(self.load_plugin_pages)
         self.pages_widget.currentChanged.connect(self.current_page_changed)
         self.contents_widget.currentRowChanged.connect(
-            self.pages_widget.setCurrentIndex)
+            self.pages_widget.setCurrentIndex
+        )
         bbox.accepted.connect(self.accept)
         bbox.rejected.connect(self.reject)
         self.bt_apply.clicked.connect(self.apply_clicked)
@@ -641,7 +670,8 @@ class Prefences(QDialog):
             The page to add"""
         widget.validChanged.connect(self.bt_apply.setEnabled)
         widget.validChanged.connect(
-            self.bbox.button(QDialogButtonBox.Ok).setEnabled)
+            self.bbox.button(QDialogButtonBox.Ok).setEnabled
+        )
         scrollarea = QScrollArea(self)
         scrollarea.setWidgetResizable(True)
         scrollarea.setWidget(widget)
@@ -661,8 +691,10 @@ class Prefences(QDialog):
         if configpage != self.get_page():
             return
         self.bt_apply.setEnabled(
-            not configpage.auto_updates and configpage.is_valid and
-            configpage.changed)
+            not configpage.auto_updates
+            and configpage.is_valid
+            and configpage.changed
+        )
 
     def load_plugin_pages(self):
         """Load the rcParams for the plugins in separate pages"""
@@ -670,14 +702,15 @@ class Prefences(QDialog):
         descriptions = psy_rcParams.descriptions
         for ep in psy_rcParams._load_plugin_entrypoints():
             plugin = ep.load()
-            rc = getattr(plugin, 'rcParams', None)
+            rc = getattr(plugin, "rcParams", None)
             if rc is None:
                 rc = RcParams()
             w = RcParamsWidget(parent=self)
-            w.title = 'rcParams of ' + ep.module_name
+            w.title = "rcParams of " + ep.module
             w.default_path = PsyRcParamsWidget.default_path
-            w.initialize(rcParams=rc, validators=validators,
-                         descriptions=descriptions)
+            w.initialize(
+                rcParams=rc, validators=validators, descriptions=descriptions
+            )
             # use the full rcParams after initialization
             w.rc = psy_rcParams
             self.add_page(w)

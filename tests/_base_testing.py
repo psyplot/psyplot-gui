@@ -1,43 +1,47 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
+
 # -*- coding: utf-8 -*-
 """Module defining the base class for the gui test"""
 import os
 import os.path as osp
 import unittest
 
-os.environ['PSYPLOT_PLUGINS'] = ('yes:psyplot_gui_test.plugin::'
-                                 'yes:psy_simple.plugin')
-
-
+from psyplot import rcParams as psy_rcParams
 from psyplot.config import setup_logging
+
+from psyplot_gui import rcParams
+from psyplot_gui.compat.qtcompat import QApplication
+
+os.environ["PSYPLOT_PLUGINS"] = (
+    "yes:psyplot_gui_test.plugin::" "yes:psy_simple.plugin"
+)
 
 
 test_dir = osp.dirname(__file__)
-setup_logging(osp.join(test_dir, 'logging.yml'), env_key='')
-
-
-from psyplot_gui.compat.qtcompat import QApplication
-from psyplot_gui import rcParams
-from psyplot import rcParams as psy_rcParams
+setup_logging(osp.join(test_dir, "logging.yml"), env_key="")
 
 
 def is_running_in_gui():
     from psyplot_gui.main import mainwindow
+
     return mainwindow is not None
 
 
 running_in_gui = is_running_in_gui()
 
 
-on_travis = os.environ.get('TRAVIS')
+on_travis = os.environ.get("TRAVIS")
 
 
 def setup_rcparams():
-    rcParams.defaultParams['console.start_channels'][0] = False
-    rcParams.defaultParams['main.listen_to_port'][0] = False
-    rcParams.defaultParams['help_explorer.render_docs_parallel'][0] = False
-    rcParams.defaultParams['help_explorer.use_intersphinx'][0] = False
-    rcParams.defaultParams['plugins.include'][0] = ['psyplot_gui_test.plugin']
-    rcParams.defaultParams['plugins.exclude'][0] = 'all'
+    rcParams.defaultParams["console.start_channels"][0] = False
+    rcParams.defaultParams["main.listen_to_port"][0] = False
+    rcParams.defaultParams["help_explorer.render_docs_parallel"][0] = False
+    rcParams.defaultParams["help_explorer.use_intersphinx"][0] = False
+    rcParams.defaultParams["plugins.include"][0] = ["psyplot_gui_test.plugin"]
+    rcParams.defaultParams["plugins.exclude"][0] = "all"
     rcParams.update_from_defaultParams()
 
 
@@ -59,10 +63,12 @@ class PsyPlotGuiTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         from psyplot_gui.main import mainwindow
+
         cls._close_app = mainwindow is None
         cls._app = app
         if not running_in_gui:
             import psyplot_gui
+
             psyplot_gui.UNIT_TESTING = True
 
     @classmethod
@@ -71,6 +77,7 @@ class PsyPlotGuiTestCase(unittest.TestCase):
 
     def setUp(self):
         import psyplot_gui.main as main
+
         if not running_in_gui:
             setup_rcparams()
             self.window = main.MainWindow.run(show=False)
@@ -78,10 +85,12 @@ class PsyPlotGuiTestCase(unittest.TestCase):
             self.window = main.mainwindow
 
     def tearDown(self):
-        import psyplot.project as psy
         import matplotlib.pyplot as plt
+        import psyplot.project as psy
+
         if not running_in_gui:
             import psyplot_gui.main as main
+
             self.window.close()
             rcParams.update_from_defaultParams()
             psy_rcParams.update_from_defaultParams()
@@ -89,8 +98,8 @@ class PsyPlotGuiTestCase(unittest.TestCase):
             psy_rcParams.disconnect()
             main._set_mainwindow(None)
         del self.window
-        psy.close('all')
-        plt.close('all')
+        psy.close("all")
+        plt.close("all")
 
     def get_file(self, fname):
         """Get the path to the file `fname`

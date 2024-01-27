@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
+
 # Test module that defines a plotter
 #
 # The plotter in this module has been registered by the rcParams in the plugin
 # package
-from psyplot.plotter import Plotter, Formatoption
+from psyplot.plotter import Formatoption, Plotter
 
 
 class TestFmt(Formatoption):
@@ -10,13 +14,13 @@ class TestFmt(Formatoption):
 
     default = None
 
-    name = 'Test formatoption'
+    name = "Test formatoption"
 
     def get_fmt_widget(self, parent, project):
-        """Get the formatoption widget to update this formatoption in the GUI
-        """
+        """Get the formatoption widget to update this formatoption in the GUI"""
         from psyplot_gui.compat.qtcompat import QPushButton
-        button = QPushButton('Test', parent)
+
+        button = QPushButton("Test", parent)
         button.clicked.connect(lambda: parent.insert_obj(button.text()))
         return button
 
@@ -27,18 +31,17 @@ class TestFmt(Formatoption):
 class TestFmt2(TestFmt):
     """Another formatoption to the different types of get_fmt_widget"""
 
-    name = 'Second test formatoption'
+    name = "Second test formatoption"
 
     def get_fmt_widget(self, parent, project):
-        """Get the formatoption widget to update this formatoption in the GUI
-        """
+        """Get the formatoption widget to update this formatoption in the GUI"""
         from psyplot_gui.compat.qtcompat import QPushButton
-        button = QPushButton('Test', parent)
+
+        button = QPushButton("Test", parent)
         button.clicked.connect(lambda: parent.insert_obj(2))
         return button
 
 
 class TestPlotter(Plotter):
-
-    fmt1 = TestFmt('fmt1')
-    fmt2 = TestFmt2('fmt2')
+    fmt1 = TestFmt("fmt1")
+    fmt2 = TestFmt2("fmt2")

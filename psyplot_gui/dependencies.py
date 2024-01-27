@@ -3,34 +3,31 @@
 This module defines the :class:`DependenciesWidget` that shows the versions of
 of psyplot, psyplot_gui, psyplot plugins and their requirements"""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
+
+from psyplot.docstring import docstrings
 
 from psyplot_gui.compat.qtcompat import (
-    QDialog, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QLabel, QMenu, QAction,
-    Qt, QApplication, QMessageBox, QPushButton, QHBoxLayout, QAbstractItemView,
-    QDialogButtonBox, QtCore)
-from psyplot.docstring import docstrings
+    QAbstractItemView,
+    QAction,
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QHBoxLayout,
+    QLabel,
+    QMenu,
+    QMessageBox,
+    QPushButton,
+    Qt,
+    QtCore,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+)
 
 
 class DependenciesTree(QTreeWidget):
@@ -40,7 +37,7 @@ class DependenciesTree(QTreeWidget):
     :func:`psyplot.get_versions` function to display the requirements and
     versions."""
 
-    @docstrings.get_sections(base='DependenciesTree')
+    @docstrings.get_sections(base="DependenciesTree")
     def __init__(self, versions, *args, **kwargs):
         """
         Parameters
@@ -55,7 +52,7 @@ class DependenciesTree(QTreeWidget):
         super(DependenciesTree, self).__init__(*args, **kwargs)
         self.resizeColumnToContents(0)
         self.setColumnCount(2)
-        self.setHeaderLabels(['Package', 'installed version'])
+        self.setHeaderLabels(["Package", "installed version"])
         self.add_dependencies(versions)
         self.expandAll()
         self.resizeColumnToContents(0)
@@ -82,15 +79,15 @@ class DependenciesTree(QTreeWidget):
             new_item = QTreeWidgetItem(0)
             new_item.setText(0, pkg)
             if isinstance(pkg_d, dict):
-                new_item.setText(1, pkg_d['version'])
+                new_item.setText(1, pkg_d["version"])
             else:
                 new_item.setText(1, pkg_d)
             if parent is None:
                 self.addTopLevelItem(new_item)
             else:
                 parent.addChild(new_item)
-            if 'requirements' in pkg_d:
-                self.add_dependencies(pkg_d['requirements'], new_item)
+            if "requirements" in pkg_d:
+                self.add_dependencies(pkg_d["requirements"], new_item)
 
     def open_menu(self, position):
         """Open a menu to expand and collapse all items in the tree
@@ -100,10 +97,10 @@ class DependenciesTree(QTreeWidget):
         position: QPosition
             The position where to open the menu"""
         menu = QMenu()
-        expand_all_action = QAction('Expand all', self)
+        expand_all_action = QAction("Expand all", self)
         expand_all_action.triggered.connect(self.expandAll)
         menu.addAction(expand_all_action)
-        collapse_all_action = QAction('Collapse all', self)
+        collapse_all_action = QAction("Collapse all", self)
         collapse_all_action.triggered.connect(self.collapseAll)
         menu.addAction(collapse_all_action)
         menu.exec_(self.viewport().mapToGlobal(position))
@@ -138,15 +135,18 @@ class DependenciesDialog(QDialog):
         %(DependenciesTree.parameters)s
         """
         super(DependenciesDialog, self).__init__(*args, **kwargs)
-        self.setWindowTitle('Dependencies')
+        self.setWindowTitle("Dependencies")
         self.versions = versions
         self.vbox = layout = QVBoxLayout()
 
-        self.label = QLabel("""
+        self.label = QLabel(
+            """
             psyplot and the plugins depend on several python libraries. The
             tree widget below lists the versions of the plugins and the
             requirements. You can select the items in the tree and copy them to
-            clipboard.""", parent=self)
+            clipboard.""",
+            parent=self,
+        )
 
         layout.addWidget(self.label)
 
@@ -155,9 +155,10 @@ class DependenciesDialog(QDialog):
         layout.addWidget(self.tree)
 
         # copy button
-        self.bt_copy = QPushButton('Copy selection to clipboard')
+        self.bt_copy = QPushButton("Copy selection to clipboard")
         self.bt_copy.setToolTip(
-            'Copy the selected packages in the above table to the clipboard.')
+            "Copy the selected packages in the above table to the clipboard."
+        )
         self.bt_copy.clicked.connect(lambda: self.copy_selected())
 
         self.bbox = QDialogButtonBox(QDialogButtonBox.Ok)
@@ -170,7 +171,7 @@ class DependenciesDialog(QDialog):
         layout.addLayout(hbox)
 
         #: A label for simple status update
-        self.info_label = QLabel('', self)
+        self.info_label = QLabel("", self)
         layout.addWidget(self.info_label)
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.clear_label)
@@ -182,18 +183,20 @@ class DependenciesDialog(QDialog):
         d = {}
         items = self.tree.selectedItems()
         if not items:
-            QMessageBox.warning(self, "No packages selected!",
-                                "Please select packages in the tree!")
+            QMessageBox.warning(
+                self,
+                "No packages selected!",
+                "Please select packages in the tree!",
+            )
             return
         for item in items:
             d[item.text(0)] = item.text(1)
         if label is None:
             label = QApplication.clipboard()
-        label.setText("\n".join(
-            '%s: %s' % t for t in d.items()))
-        self.info_label.setText('Packages copied to clipboard.')
+        label.setText("\n".join("%s: %s" % t for t in d.items()))
+        self.info_label.setText("Packages copied to clipboard.")
         self.timer.start(3000)
 
     def clear_label(self):
         """Clear the info label"""
-        self.info_label.setText('')
+        self.info_label.setText("")
