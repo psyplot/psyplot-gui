@@ -2,50 +2,47 @@
 """Module defining a widget for updating the formatoption of the current
 project"""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
+import logging
+from collections import defaultdict
+from functools import partial
+from itertools import chain
+from warnings import warn
+
+import psyplot.plotter as psyp
+import psyplot.project as psy
 import six
 import yaml
-from functools import partial
-from collections import defaultdict
-from itertools import chain
-import logging
-from warnings import warn
 from IPython.core.interactiveshell import ExecutionResult
-import psyplot.project as psy
+from psyplot.data import isstring, safe_list
 from psyplot.utils import _temp_bool_prop, unique_everseen
+
+from psyplot_gui.common import DockMixin, PyErrorMessage, get_icon
 from psyplot_gui.compat.qtcompat import (
-    QWidget, QHBoxLayout, QComboBox, QLineEdit, QVBoxLayout, QToolButton,
-    QIcon, QPushButton, QCheckBox, QTextEdit, QListView, QCompleter, Qt,
-    QStandardItemModel, QStandardItem, with_qt5)
-from psyplot_gui.plot_creator import CoordComboBox
+    QCheckBox,
+    QComboBox,
+    QCompleter,
+    QHBoxLayout,
+    QIcon,
+    QLineEdit,
+    QListView,
+    QPushButton,
+    QStandardItem,
+    QStandardItemModel,
+    Qt,
+    QTextEdit,
+    QToolButton,
+    QVBoxLayout,
+    QWidget,
+    with_qt5,
+)
 from psyplot_gui.config.rcsetup import rcParams
-from psyplot.compat.pycompat import OrderedDict, map
-from psyplot_gui.common import DockMixin, get_icon, PyErrorMessage
-from psyplot.data import safe_list
-import psyplot.plotter as psyp
-from psyplot.data import isstring
+from psyplot_gui.plot_creator import CoordComboBox
 
 try:
     from IPython.core.interactiveshell import ExecutionInfo
@@ -56,8 +53,8 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
-COORDSGROUP = '__coords'
-ALLGROUP = '__all'
+COORDSGROUP = "__coords"
+ALLGROUP = "__all"
 
 
 class DimensionsWidget(QWidget):
@@ -66,8 +63,8 @@ class DimensionsWidget(QWidget):
     def __init__(self, parent, dim=None):
         super(DimensionsWidget, self).__init__(parent)
         self.coord_combo = CoordComboBox(self.get_ds, dim)
-        self.cb_use_coord = QCheckBox('show coordinates')
-        self.cb_close_popups = QCheckBox('close dropdowns')
+        self.cb_use_coord = QCheckBox("show coordinates")
+        self.cb_close_popups = QCheckBox("close dropdowns")
         self.cb_close_popups.setChecked(True)
         self.toggle_close_popup()
         self._single_selection = False
@@ -104,13 +101,15 @@ class DimensionsWidget(QWidget):
         inserts = list(
             ind.row() - 1
             for ind in cb.view().selectionModel().selectedIndexes()
-            if ind.row() > 0)
+            if ind.row() > 0
+        )
         if not inserts:
             return
         elif not self._single_selection:
             try:
-                current = yaml.load(self.parent().get_text(),
-                                    Loader=yaml.Loader)
+                current = yaml.load(
+                    self.parent().get_text(), Loader=yaml.Loader
+                )
             except Exception:
                 pass
             else:
@@ -124,23 +123,26 @@ class DimensionsWidget(QWidget):
 
     def get_ds(self):
         import psyplot.project as psy
+
         project = psy.gcp()
         datasets = project.datasets
         dim = self.dim
         dims = {ds.coords[dim].shape[0]: ds for ds in datasets.values()}
         if len(dims) > 1:
-            warn("Datasets have differing dimensions lengths for the "
-                 "%s dimension!" % dim)
+            warn(
+                "Datasets have differing dimensions lengths for the "
+                "%s dimension!" % dim
+            )
         return min(dims.items())[1]
 
     def set_single_selection(self, yes=True):
         self._single_selection = yes
         if yes:
-            self.coord_combo.view().setSelectionMode(
-                QListView.SingleSelection)
+            self.coord_combo.view().setSelectionMode(QListView.SingleSelection)
         else:
             self.coord_combo.view().setSelectionMode(
-                QListView.ExtendedSelection)
+                QListView.ExtendedSelection
+            )
 
 
 class FormatoptionWidget(QWidget, DockMixin):
@@ -159,7 +161,8 @@ class FormatoptionWidget(QWidget, DockMixin):
     """
 
     no_fmtos_update = _temp_bool_prop(
-        'no_fmtos_update', """update the fmto combo box or not""")
+        "no_fmtos_update", """update the fmto combo box or not"""
+    )
 
     #: The combobox for the formatoption groups
     group_combo = None
@@ -205,8 +208,8 @@ class FormatoptionWidget(QWidget, DockMixin):
         ``*args, **kwargs``
             Any other keyword for the QWidget class
         """
-        help_explorer = kwargs.pop('help_explorer', None)
-        console = kwargs.pop('console', None)
+        help_explorer = kwargs.pop("help_explorer", None)
+        console = kwargs.pop("console", None)
         super(FormatoptionWidget, self).__init__(*args, **kwargs)
         self.help_explorer = help_explorer
         self.console = console
@@ -225,9 +228,9 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.fmt_combo.setEditable(True)
         self.fmt_combo.setInsertPolicy(QComboBox.NoInsert)
         self.fmto_completer = completer = QCompleter(
-            ['time', 'lat', 'lon', 'lev'])
-        completer.setCompletionMode(
-            QCompleter.PopupCompletion)
+            ["time", "lat", "lon", "lev"]
+        )
+        completer.setCompletionMode(QCompleter.PopupCompletion)
         completer.activated[str].connect(self.set_fmto)
         if with_qt5:
             completer.setFilterMode(Qt.MatchContains)
@@ -237,19 +240,19 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.dim_widget = DimensionsWidget(parent=self)
         self.dim_widget.setVisible(False)
 
-        self.multiline_button = QPushButton('Multiline', parent=self)
+        self.multiline_button = QPushButton("Multiline", parent=self)
         self.multiline_button.setCheckable(True)
 
-        self.yaml_cb = QCheckBox('Yaml syntax')
+        self.yaml_cb = QCheckBox("Yaml syntax")
         self.yaml_cb.setChecked(True)
 
-        self.keys_button = QPushButton('Keys', parent=self)
-        self.summaries_button = QPushButton('Summaries', parent=self)
-        self.docs_button = QPushButton('Docs', parent=self)
+        self.keys_button = QPushButton("Keys", parent=self)
+        self.summaries_button = QPushButton("Summaries", parent=self)
+        self.docs_button = QPushButton("Docs", parent=self)
 
-        self.grouped_cb = QCheckBox('grouped', parent=self)
-        self.all_groups_cb = QCheckBox('all groups', parent=self)
-        self.include_links_cb = QCheckBox('include links', parent=self)
+        self.grouped_cb = QCheckBox("grouped", parent=self)
+        self.all_groups_cb = QCheckBox("all groups", parent=self)
+        self.include_links_cb = QCheckBox("include links", parent=self)
 
         self.text_edit.setVisible(False)
 
@@ -257,39 +260,48 @@ class FormatoptionWidget(QWidget, DockMixin):
         # -------------------------- Descriptions -----------------------------
         # ---------------------------------------------------------------------
 
-        self.group_combo.setToolTip('Select the formatoption group')
-        self.fmt_combo.setToolTip('Select the formatoption to update')
+        self.group_combo.setToolTip("Select the formatoption group")
+        self.fmt_combo.setToolTip("Select the formatoption to update")
         self.line_edit.setToolTip(
-            'Insert the value which what you want to update the selected '
-            'formatoption and hit right button. The code is executed in the '
-            'main console.')
+            "Insert the value which what you want to update the selected "
+            "formatoption and hit right button. The code is executed in the "
+            "main console."
+        )
         self.yaml_cb.setToolTip(
             "Use the yaml syntax for the values inserted in the above cell. "
             "Otherwise the content there is evaluated as a python expression "
-            "in the terminal")
+            "in the terminal"
+        )
         self.text_edit.setToolTip(self.line_edit.toolTip())
-        self.run_button.setIcon(QIcon(get_icon('run_arrow.png')))
-        self.run_button.setToolTip('Update the selected formatoption')
+        self.run_button.setIcon(QIcon(get_icon("run_arrow.png")))
+        self.run_button.setToolTip("Update the selected formatoption")
         self.multiline_button.setToolTip(
-            'Allow linebreaks in the text editor line above.')
+            "Allow linebreaks in the text editor line above."
+        )
         self.keys_button.setToolTip(
-            'Show the formatoption keys in this group (or in all '
-            'groups) in the help explorer')
+            "Show the formatoption keys in this group (or in all "
+            "groups) in the help explorer"
+        )
         self.summaries_button.setToolTip(
-            'Show the formatoption summaries in this group (or in all '
-            'groups) in the help explorer')
+            "Show the formatoption summaries in this group (or in all "
+            "groups) in the help explorer"
+        )
         self.docs_button.setToolTip(
-            'Show the formatoption documentations in this group (or in all '
-            'groups) in the help explorer')
+            "Show the formatoption documentations in this group (or in all "
+            "groups) in the help explorer"
+        )
         self.grouped_cb.setToolTip(
-            'Group the formatoptions before displaying them in the help '
-            'explorer')
-        self.all_groups_cb.setToolTip('Use all groups when displaying the '
-                                      'keys, docs or summaries')
+            "Group the formatoptions before displaying them in the help "
+            "explorer"
+        )
+        self.all_groups_cb.setToolTip(
+            "Use all groups when displaying the " "keys, docs or summaries"
+        )
         self.include_links_cb.setToolTip(
-            'Include links to remote documentations when showing the '
-            'keys, docs and summaries in the help explorer (requires '
-            'intersphinx)')
+            "Include links to remote documentations when showing the "
+            "keys, docs and summaries in the help explorer (requires "
+            "intersphinx)"
+        )
 
         # ---------------------------------------------------------------------
         # -------------------------- Connections ------------------------------
@@ -298,16 +310,20 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.fmt_combo.currentIndexChanged[int].connect(self.show_fmt_info)
         self.fmt_combo.currentIndexChanged[int].connect(self.load_fmt_widget)
         self.fmt_combo.currentIndexChanged[int].connect(
-            self.set_current_fmt_value)
+            self.set_current_fmt_value
+        )
         self.run_button.clicked.connect(self.run_code)
         self.line_edit.returnPressed.connect(self.run_button.click)
         self.multiline_button.clicked.connect(self.toggle_line_edit)
         self.keys_button.clicked.connect(
-            partial(self.show_all_fmt_info, 'keys'))
+            partial(self.show_all_fmt_info, "keys")
+        )
         self.summaries_button.clicked.connect(
-            partial(self.show_all_fmt_info, 'summaries'))
+            partial(self.show_all_fmt_info, "summaries")
+        )
         self.docs_button.clicked.connect(
-            partial(self.show_all_fmt_info, 'docs'))
+            partial(self.show_all_fmt_info, "docs")
+        )
 
         # ---------------------------------------------------------------------
         # ------------------------------ Layouts ------------------------------
@@ -325,8 +341,14 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.info_box.addWidget(self.multiline_button)
         self.info_box.addWidget(self.yaml_cb)
         self.info_box.addStretch(0)
-        for w in [self.keys_button, self.summaries_button, self.docs_button,
-                  self.all_groups_cb, self.grouped_cb, self.include_links_cb]:
+        for w in [
+            self.keys_button,
+            self.summaries_button,
+            self.docs_button,
+            self.all_groups_cb,
+            self.grouped_cb,
+            self.include_links_cb,
+        ]:
             self.info_box.addWidget(w)
 
         self.vbox = QVBoxLayout()
@@ -342,10 +364,11 @@ class FormatoptionWidget(QWidget, DockMixin):
         # fill with content
         self.fill_combos_from_project(psy.gcp())
         psy.Project.oncpchange.connect(self.fill_combos_from_project)
-        rcParams.connect('fmt.sort_by_key', self.refill_from_rc)
+        rcParams.connect("fmt.sort_by_key", self.refill_from_rc)
 
     def refill_from_rc(self, sort_by_key):
         from psyplot.project import gcp
+
         self.fill_combos_from_project(gcp())
 
     def fill_combos_from_project(self, project):
@@ -355,9 +378,11 @@ class FormatoptionWidget(QWidget, DockMixin):
         ----------
         project: psyplot.project.Project
             The project to use"""
-        if rcParams['fmt.sort_by_key']:
+        if rcParams["fmt.sort_by_key"]:
+
             def sorter(fmto):
                 return fmto.key
+
         else:
             sorter = self.get_name
 
@@ -373,14 +398,15 @@ class FormatoptionWidget(QWidget, DockMixin):
             self.line_edit.setEnabled(True)
             # get dimensions
             it_vars = chain.from_iterable(
-                arr.psy.iter_base_variables for arr in project.arrays)
+                arr.psy.iter_base_variables for arr in project.arrays
+            )
             dims = next(it_vars).dims
             sdims = set(dims)
             for var in it_vars:
                 sdims.intersection_update(var.dims)
             coords = [d for d in dims if d in sdims]
             coords_name = [COORDSGROUP] if coords else []
-            coords_verbose = ['Dimensions'] if coords else []
+            coords_verbose = ["Dimensions"] if coords else []
             coords = [coords] if coords else []
 
             if len(project.plotters):
@@ -390,20 +416,26 @@ class FormatoptionWidget(QWidget, DockMixin):
                     grouped_fmts[fmto.group].append(fmto)
                 for val in six.itervalues(grouped_fmts):
                     val.sort(key=sorter)
-                grouped_fmts = OrderedDict(
-                    sorted(six.iteritems(grouped_fmts),
-                           key=lambda t: psyp.groups.get(t[0], t[0])))
+                grouped_fmts = dict(
+                    sorted(
+                        six.iteritems(grouped_fmts),
+                        key=lambda t: psyp.groups.get(t[0], t[0]),
+                    )
+                )
                 fmt_groups = list(grouped_fmts.keys())
                 # save original names
                 self.groups = coords_name + [ALLGROUP] + fmt_groups
                 # save verbose group names (which are used in the combo box)
                 self.groupnames = (
-                    coords_verbose + ['All formatoptions'] + list(
-                        map(lambda s: psyp.groups.get(s, s), fmt_groups)))
+                    coords_verbose
+                    + ["All formatoptions"]
+                    + list(map(lambda s: psyp.groups.get(s, s), fmt_groups))
+                )
                 # save formatoptions
                 fmtos = list(grouped_fmts.values())
-                self.fmtos = coords + [sorted(
-                    chain(*fmtos), key=sorter)] + fmtos
+                self.fmtos = (
+                    coords + [sorted(chain(*fmtos), key=sorter)] + fmtos
+                )
             else:
                 self.groups = coords_name
                 self.groupnames = coords_verbose
@@ -417,12 +449,13 @@ class FormatoptionWidget(QWidget, DockMixin):
         """Get the name of a :class:`psyplot.plotter.Formatoption` instance"""
         if isinstance(fmto, six.string_types):
             return fmto
-        return '%s (%s)' % (fmto.name, fmto.key) if fmto.name else fmto.key
+        return "%s (%s)" % (fmto.name, fmto.key) if fmto.name else fmto.key
 
     @property
     def fmto(self):
         return self.fmtos[self.group_combo.currentIndex()][
-            self.fmt_combo.currentIndex()]
+            self.fmt_combo.currentIndex()
+        ]
 
     @fmto.setter
     def fmto(self, value):
@@ -444,27 +477,31 @@ class FormatoptionWidget(QWidget, DockMixin):
         multiline :attr:`text_edit`
         """
         # switch to multiline text edit
-        if (self.multiline_button.isChecked() and
-                not self.text_edit.isVisible()):
+        if (
+            self.multiline_button.isChecked()
+            and not self.text_edit.isVisible()
+        ):
             self.line_edit.setVisible(False)
             self.text_edit.setVisible(True)
             self.text_edit.setPlainText(self.line_edit.text())
-        elif (not self.multiline_button.isChecked() and
-              not self.line_edit.isVisible()):
+        elif (
+            not self.multiline_button.isChecked()
+            and not self.line_edit.isVisible()
+        ):
             self.line_edit.setVisible(True)
             self.text_edit.setVisible(False)
             self.line_edit.setText(self.text_edit.toPlainText())
 
     def fill_fmt_combo(self, i, current_text=None):
-        """Fill the :attr:`fmt_combo` combobox based on the current group name
-        """
+        """Fill the :attr:`fmt_combo` combobox based on the current group name"""
         if not self.no_fmtos_update:
             with self.no_fmtos_update:
                 if current_text is None:
                     current_text = self.fmt_combo.currentText()
                 self.fmt_combo.clear()
                 self.fmt_combo.addItems(
-                    list(map(self.get_name, self.fmtos[i])))
+                    list(map(self.get_name, self.fmtos[i]))
+                )
                 ind = self.fmt_combo.findText(current_text)
                 self.fmt_combo.setCurrentIndex(ind if ind >= 0 else 0)
                 # update completer model
@@ -478,8 +515,11 @@ class FormatoptionWidget(QWidget, DockMixin):
         self.fmto = name
 
     def setup_fmt_completion_model(self):
-        fmtos = list(unique_everseen(map(
-            self.get_name, chain.from_iterable(self.fmtos))))
+        fmtos = list(
+            unique_everseen(
+                map(self.get_name, chain.from_iterable(self.fmtos))
+            )
+        )
         model = self.fmto_completer.model()
         model.setRowCount(len(fmtos))
         for i, name in enumerate(fmtos):
@@ -500,12 +540,12 @@ class FormatoptionWidget(QWidget, DockMixin):
         group_ind = self.group_combo.currentIndex()
         if not self.no_fmtos_update:
             from psyplot.project import gcp
+
             if self.groups[group_ind] == COORDSGROUP:
                 dim = self.fmtos[group_ind][i]
                 self.fmt_widget = self.dim_widget
                 self.dim_widget.set_dim(dim)
-                self.dim_widget.set_single_selection(
-                    dim not in gcp()[0].dims)
+                self.dim_widget.set_single_selection(dim not in gcp()[0].dims)
                 self.dim_widget.setVisible(True)
             else:
                 fmto = self.fmtos[group_ind][i]
@@ -534,6 +574,7 @@ class FormatoptionWidget(QWidget, DockMixin):
         if not self.no_fmtos_update:
             if self.groups[group_ind] == COORDSGROUP:
                 from psyplot.project import gcp
+
                 dim = self.fmtos[group_ind][i]
                 self.set_obj(gcp().arrays[0].psy.idims[dim])
             else:
@@ -541,14 +582,13 @@ class FormatoptionWidget(QWidget, DockMixin):
                 self.set_obj(fmto.value)
 
     def show_fmt_info(self, i):
-        """Show the documentation of the formatoption in the help explorer
-        """
+        """Show the documentation of the formatoption in the help explorer"""
         group_ind = self.group_combo.currentIndex()
-        if (not self.no_fmtos_update and
-                self.groups[group_ind] != COORDSGROUP):
+        if not self.no_fmtos_update and self.groups[group_ind] != COORDSGROUP:
             fmto = self.fmtos[self.group_combo.currentIndex()][i]
             fmto.plotter.show_docs(
-                fmto.key, include_links=self.include_links_cb.isChecked())
+                fmto.key, include_links=self.include_links_cb.isChecked()
+            )
 
     def run_code(self):
         """Run the update of the project inside the :attr:`shell`"""
@@ -561,18 +601,24 @@ class FormatoptionWidget(QWidget, DockMixin):
         group_ind = self.group_combo.currentIndex()
         if self.groups[group_ind] == COORDSGROUP:
             key = self.fmtos[group_ind][self.fmt_combo.currentIndex()]
-            param = 'dims'
+            param = "dims"
         else:
             key = self.fmtos[group_ind][self.fmt_combo.currentIndex()].key
-            param = 'fmt'
+            param = "fmt"
         if self.yaml_cb.isChecked():
             import psyplot.project as psy
+
             psy.gcp().update(**{key: yaml.load(text, Loader=yaml.Loader)})
         else:
             code = "psy.gcp().update(%s={'%s': %s})" % (param, key, text)
             if ExecutionInfo is not None:
-                info = ExecutionInfo(raw_cell=code, store_history=False,
-                                     silent=True, shell_futures=False)
+                info = ExecutionInfo(
+                    raw_cell=code,
+                    store_history=False,
+                    silent=True,
+                    shell_futures=False,
+                    cell_id=None,
+                )
                 e = ExecutionResult(info)
             else:
                 e = ExecutionResult()
@@ -626,14 +672,14 @@ class FormatoptionWidget(QWidget, DockMixin):
                     s = '"' + obj + current + '"'
                 else:
                     s = '"' + current + obj + '"'
-                current = ''
+                current = ""
         elif isstring(obj):  # add quotation marks
             s = '"' + obj + '"'
         elif not use_yaml:
             s = repr(obj)
         else:
             s = yaml.dump(obj, default_flow_style=True).strip()
-            if s.endswith('\n...'):
+            if s.endswith("\n..."):
                 s = s[:-4]
         if use_line_edit:
             self.line_edit.insert(s)
@@ -663,14 +709,22 @@ class FormatoptionWidget(QWidget, DockMixin):
             Determines what to show"""
         if not self.fmtos:
             return
-        if (self.all_groups_cb.isChecked() or
-                self.group_combo.currentIndex() < 2):
-            fmtos = list(chain.from_iterable(
-                fmto_group for i, fmto_group in enumerate(self.fmtos)
-                if self.groups[i] not in [ALLGROUP, COORDSGROUP]))
+        if (
+            self.all_groups_cb.isChecked()
+            or self.group_combo.currentIndex() < 2
+        ):
+            fmtos = list(
+                chain.from_iterable(
+                    fmto_group
+                    for i, fmto_group in enumerate(self.fmtos)
+                    if self.groups[i] not in [ALLGROUP, COORDSGROUP]
+                )
+            )
         else:
             fmtos = self.fmtos[self.group_combo.currentIndex()]
         plotter = fmtos[0].plotter
-        getattr(plotter, 'show_' + what)(
-            [fmto.key for fmto in fmtos], grouped=self.grouped_cb.isChecked(),
-            include_links=self.include_links_cb.isChecked())
+        getattr(plotter, "show_" + what)(
+            [fmto.key for fmto in fmtos],
+            grouped=self.grouped_cb.isChecked(),
+            include_links=self.include_links_cb.isChecked(),
+        )

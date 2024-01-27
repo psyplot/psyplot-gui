@@ -1,13 +1,17 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
+
 """Configuration module for running tests with pytest
 
 We use a methodology inspired by
 https://nvbn.github.io/2017/02/02/pytest-leaking/
 to show huw many MB are leaked from each test."""
 import os
-from psutil import Process
 from collections import namedtuple
 from itertools import groupby
 
+from psutil import Process
 
 _proc = Process(os.getpid())
 
@@ -18,23 +22,30 @@ def get_consumed_ram():
 
 def pytest_addoption(parser):
     group = parser.getgroup("psyplot", "psyplot specific options")
-    group.addoption('--leak-threshold', help="Threshold for leak report",
-                    default=20, type=int)
     group.addoption(
-        '--sort-leaks', help="Sort the leaking report in ascending order",
-        action='store_true')
+        "--leak-threshold",
+        help="Threshold for leak report",
+        default=20,
+        type=int,
+    )
+    group.addoption(
+        "--sort-leaks",
+        help="Sort the leaking report in ascending order",
+        action="store_true",
+    )
 
 
 def pytest_configure(config):
     global LEAK_LIMIT, SORT_LEAKS
-    LEAK_LIMIT = config.getoption('leak_threshold') * 1024 * 1024
-    SORT_LEAKS = config.getoption('sort_leaks')
+    LEAK_LIMIT = config.getoption("leak_threshold") * 1024 * 1024
+    SORT_LEAKS = config.getoption("sort_leaks")
 
 
-START = 'START'
-END = 'END'
-ConsumedRamLogEntry = namedtuple('ConsumedRamLogEntry',
-                                 ('nodeid', 'on', 'consumed_ram'))
+START = "START"
+END = "END"
+ConsumedRamLogEntry = namedtuple(
+    "ConsumedRamLogEntry", ("nodeid", "on", "consumed_ram")
+)
 consumed_ram_log = []
 
 
@@ -60,10 +71,14 @@ def pytest_terminal_summary(terminalreporter):
     for nodeid, (start_entry, end_entry) in grouped:
         leaked = end_entry.consumed_ram - start_entry.consumed_ram
         if leaked > LEAK_LIMIT:
-            leaks.append((leaked // 1024 // 1024, nodeid,
-                          end_entry.consumed_ram // 1024 // 1024))
+            leaks.append(
+                (
+                    leaked // 1024 // 1024,
+                    nodeid,
+                    end_entry.consumed_ram // 1024 // 1024,
+                )
+            )
     if SORT_LEAKS:
         leaks.sort()
     for t in leaks:
-        terminalreporter.write(
-            'LEAKED %s MB in %s. Total: %s MB\n' % t)
+        terminalreporter.write("LEAKED %s MB in %s. Total: %s MB\n" % t)

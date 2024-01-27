@@ -7,54 +7,46 @@ There is no need to import this module because the
 :class:`GuiProject` class defined here replaces the project class in the
 :mod:`psyplot.project` module."""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
-import sys
-import six
 import os.path as osp
 import re
-import sip
+import sys
 import weakref
 from itertools import chain
-from psyplot_gui import rcParams
-from psyplot_gui.compat.qtcompat import (
-    QToolBox, QListWidget, QListWidgetItem, QAbstractItemView,
-    QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QTreeWidget,
-    QTreeWidgetItem, QtCore, QMenu, QAction, Qt, QLabel, QScrollArea)
-from psyplot.config.rcsetup import safe_list
-from psyplot.compat.pycompat import OrderedDict, map, range
-from psyplot.project import scp, gcp, Project
-from psyplot.data import ArrayList, InteractiveList
-from psyplot.utils import _TempBool
-from psyplot_gui.common import DockMixin
 from xml.sax.saxutils import escape
 
+import sip
+import six
+from psyplot.config.rcsetup import safe_list
+from psyplot.data import ArrayList, InteractiveList
+from psyplot.project import Project, gcp, scp
+from psyplot.utils import _TempBool
 
-html_escape_table = {
-    '"': "&quot;",
-    "'": "&apos;"
-    }
+from psyplot_gui import rcParams
+from psyplot_gui.common import DockMixin
+from psyplot_gui.compat.qtcompat import (
+    QAbstractItemView,
+    QAction,
+    QHBoxLayout,
+    QListWidget,
+    QListWidgetItem,
+    QMenu,
+    QPushButton,
+    Qt,
+    QtCore,
+    QToolBox,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
+
+html_escape_table = {'"': "&quot;", "'": "&apos;"}
 
 
 def escape_html(s):
@@ -90,7 +82,7 @@ class ArrayItem(QListWidgetItem):
         """
         if not sip.isdeleted(self):
             self.setText(self.arr()._short_info())
-            if rcParams['content.load_tooltips']:
+            if rcParams["content.load_tooltips"]:
                 if isinstance(self.arr(), InteractiveList):
                     self.setToolTip(str(self.arr()))
                 else:
@@ -126,15 +118,19 @@ class PlotterList(QListWidget):
     @property
     def arrays(self):
         """List of The InteractiveBase instances in this list"""
-        return ArrayList([
-            getattr(item.arr(), 'arr', item.arr())
-            for item in self.array_items])
+        return ArrayList(
+            [
+                getattr(item.arr(), "arr", item.arr())
+                for item in self.array_items
+            ]
+        )
 
     @property
     def array_items(self):
         """Iterable of :class:`ArrayItem` items in this list"""
-        return filter(lambda i: i is not None,
-                      map(self.item, range(self.count())))
+        return filter(
+            lambda i: i is not None, map(self.item, range(self.count()))
+        )
 
     def __init__(self, plotter_type=None, *args, **kwargs):
         """
@@ -211,8 +207,7 @@ class PlotterList(QListWidget):
                             self.insertItem(0, self.takeItem(i))
             cp = gcp()
             for item in self.array_items:
-                item.setSelected(
-                    getattr(item.arr(), 'arr', item.arr()) in cp)
+                item.setSelected(getattr(item.arr(), "arr", item.arr()) in cp)
         self.updated_from_project.emit(self)
 
     def update_cp(self, *args, **kwargs):
@@ -223,7 +218,8 @@ class PlotterList(QListWidget):
             selected = [item.arr().arr_name for item in self.selectedItems()]
             arrays = self.arrays
             other_selected = [
-                arr.psy.arr_name for arr in sp if arr not in arrays]
+                arr.psy.arr_name for arr in sp if arr not in arrays
+            ]
             with self._no_project_update:
                 scp(mp(arr_name=selected + other_selected))
 
@@ -241,9 +237,9 @@ class ProjectContent(QToolBox):
     This toolbox contains several :class:`PlotterList` that show the content
     of the current main and subproject"""
 
-    #: :class:`OrderedDict` containing the :class:`PlotterList` instances
+    #: :class:`dict` containing the :class:`PlotterList` instances
     #: of the different selection attributes
-    lists = OrderedDict()
+    lists = dict()
 
     @property
     def current_names(self):
@@ -251,9 +247,9 @@ class ProjectContent(QToolBox):
 
     def __init__(self, *args, **kwargs):
         super(ProjectContent, self).__init__(*args, **kwargs)
-        self.lists = OrderedDict()
-        for attr in chain(['All'], sorted(Project._registered_plotters)):
-            item = self.add_plotterlist(attr, force=(attr == 'All'))
+        self.lists = dict()
+        for attr in chain(["All"], sorted(Project._registered_plotters)):
+            item = self.add_plotterlist(attr, force=(attr == "All"))
             self.lists[attr] = item
         self.currentChanged.connect(self.update_current_list)
         Project.oncpchange.connect(self.update_lists)
@@ -267,7 +263,7 @@ class ProjectContent(QToolBox):
     def add_plotterlist(self, identifier, force=False):
         """Create a :class:`PlotterList` from an identifier from the
         :class:`psyplot.project.Project` class"""
-        attr = identifier if identifier != 'All' else None
+        attr = identifier if identifier != "All" else None
         item = PlotterList(attr)
         if not item.can_import_plotter:
             return item
@@ -293,7 +289,7 @@ class ProjectContent(QToolBox):
             l.update_from_project(p)
             if l.is_empty:
                 l.disconnect_items()
-            if name != 'All' and l.is_empty:
+            if name != "All" and l.is_empty:
                 i = self.indexOf(l)
                 self.removeItem(i)
             elif not l.is_empty and name not in current_items:
@@ -306,7 +302,8 @@ class SelectAllButton(QPushButton):
     def __init__(self, *args, **kwargs):
         super(SelectAllButton, self).__init__(*args, **kwargs)
         self.setToolTip(
-            'Click to select all data arrays in the entire project')
+            "Click to select all data arrays in the entire project"
+        )
         self.clicked.connect(self.select_all)
         Project.oncpchange.connect(self.enable_from_project)
 
@@ -324,7 +321,7 @@ class SelectNoneButton(QPushButton):
 
     def __init__(self, *args, **kwargs):
         super(SelectNoneButton, self).__init__(*args, **kwargs)
-        self.setToolTip('Click to deselect all data arrays')
+        self.setToolTip("Click to deselect all data arrays")
         self.clicked.connect(self.select_none)
         Project.oncpchange.connect(self.enable_from_project)
 
@@ -344,8 +341,8 @@ class ProjectContentWidget(QWidget, DockMixin):
         super(ProjectContentWidget, self).__init__(*args, **kwargs)
         vbox = QVBoxLayout()
         # create buttons for unselecting and selecting all arrays
-        self.unselect_button = SelectNoneButton('Unselect all', parent=self)
-        self.select_all_button = SelectAllButton('Select all', parent=self)
+        self.unselect_button = SelectNoneButton("Unselect all", parent=self)
+        self.select_all_button = SelectAllButton("Select all", parent=self)
         button_hbox = QHBoxLayout()
         button_hbox.addWidget(self.unselect_button)
         button_hbox.addWidget(self.select_all_button)
@@ -367,11 +364,11 @@ class DatasetTreeItem(QTreeWidgetItem):
         super(DatasetTreeItem, self).__init__(*args, **kwargs)
         self.variables = variables = QTreeWidgetItem(0)
         self.columns = columns
-        variables.setText(0, 'variables (%i)' % len(ds))
+        variables.setText(0, "variables (%i)" % len(ds))
         self.coords = coords = QTreeWidgetItem(0)
-        coords.setText(0, 'coords (%i)' % len(ds.coords))
+        coords.setText(0, "coords (%i)" % len(ds.coords))
         self.attrs = attrs = QTreeWidgetItem(0)
-        attrs.setText(0, 'Global Attributes (%i)' % len(ds.attrs))
+        attrs.setText(0, "Global Attributes (%i)" % len(ds.attrs))
         self.addChildren([variables, coords])
         self.addChild(variables)
         self.addChild(attrs)
@@ -393,53 +390,59 @@ class DatasetTreeItem(QTreeWidgetItem):
             item = QTreeWidgetItem(0)
             item.setText(0, str(vname))
             for i, attr in enumerate(columns, 1):
-                if attr == 'dims':
-                    item.setText(i, ', '.join(variable.dims))
+                if attr == "dims":
+                    item.setText(i, ", ".join(variable.dims))
                 else:
-                    item.setText(i, str(variable.attrs.get(attr, getattr(
-                        variable, attr, ''))))
+                    item.setText(
+                        i,
+                        str(
+                            variable.attrs.get(
+                                attr, getattr(variable, attr, "")
+                            )
+                        ),
+                    )
             if vname in ds.coords:
                 coords.addChild(item)
             else:
                 variables.addChild(item)
-            if rcParams['content.load_tooltips']:
+            if rcParams["content.load_tooltips"]:
                 item.setToolTip(
-                    0, '<pre>' + escape_html(str(variable)) + '</pre>')
+                    0, "<pre>" + escape_html(str(variable)) + "</pre>"
+                )
 
             # Add shape
             shape_item = QTreeWidgetItem(0)
-            shape_item.setText(0, 'shape')
+            shape_item.setText(0, "shape")
             shape_item.setText(1, str(variable.shape))
             item.addChild(shape_item)
 
-
             # Add dimensions
             dims_item = QTreeWidgetItem(0)
-            dims_item.setText(0, 'dims')
-            dims_item.setText(1, ', '.join(variable.dims))
+            dims_item.setText(0, "dims")
+            dims_item.setText(1, ", ".join(variable.dims))
             item.addChild(dims_item)
 
             # add open plots
             plots_item = QTreeWidgetItem(0)
-            plots_item.setText(0, 'Plots')
+            plots_item.setText(0, "Plots")
             self.refresh_plots_item(plots_item, vname)
             item.addChild(plots_item)
 
             # add variable attribute
             attrs_item = QTreeWidgetItem(0)
-            attrs_item.setText(0, 'Attributes')
+            attrs_item.setText(0, "Attributes")
             self.add_attrs(variable.attrs, attrs_item)
             item.addChild(attrs_item)
 
             # add variable encoding
             encoding_item = QTreeWidgetItem(0)
-            encoding_item.setText(0, 'Encoded attributes')
+            encoding_item.setText(0, "Encoded attributes")
             self.add_attrs(variable.encoding, encoding_item)
             item.addChild(encoding_item)
 
     def get_plots_item(self, item):
         for child in map(item.child, range(item.childCount())):
-            if child.text(0) == 'Plots':
+            if child.text(0) == "Plots":
                 return child
 
     def refresh_plots_item(self, item, vname, mp=None, sp=None):
@@ -454,20 +457,20 @@ class DatasetTreeItem(QTreeWidgetItem):
         if sp is None:
             sp = gcp()
         for i in range(len(mp)):
-            sub = mp[i:i+1]
-            array_info = sub.array_info(ds_description={'arr', 'num'})
+            sub = mp[i : i + 1]
+            array_info = sub.array_info(ds_description={"arr", "num"})
             arrs = sub._get_ds_descriptions(array_info).get(num, {})
-            if arrs and any(vname in arr.psy.base_variables
-                            for arr in arrs['arr']):
+            if arrs and any(
+                vname in arr.psy.base_variables for arr in arrs["arr"]
+            ):
                 child = QTreeWidgetItem(0)
-                prefix = '*' if sub[0] in sp else ''
+                prefix = "*" if sub[0] in sp else ""
                 text = sub[0].psy._short_info()
                 child.setText(0, prefix + text)
                 child.setToolTip(0, text)
                 item.addChild(child)
         if expand and item.childCount():
             item.setExpanded(True)
-
 
     def add_attrs(self, attrs=None, item=None):
         if attrs is None:
@@ -479,19 +482,20 @@ class DatasetTreeItem(QTreeWidgetItem):
             child = QTreeWidgetItem(0)
             child.setText(0, key)
             child.setText(1, str(val))
-            child.setToolTip(1, '{}: {}'.format(key, str(val)))
+            child.setToolTip(1, "{}: {}".format(key, str(val)))
             item.addChild(child)
 
 
 class DatasetTree(QTreeWidget, DockMixin):
-    """A QTreeWidget showing informations on all datasets in the main project
-    """
+    """A QTreeWidget showing informations on all datasets in the main project"""
 
     tooltips = {
-        'Refresh': 'Refresh the selected dataset',
-        'Refresh all': 'Refresh all datasets',
-        'Add to project': ('Add this variable or a plot of it to the current '
-                           'project')}
+        "Refresh": "Refresh the selected dataset",
+        "Refresh all": "Refresh all datasets",
+        "Add to project": (
+            "Add this variable or a plot of it to the current " "project"
+        ),
+    }
 
     def __init__(self, *args, **kwargs):
         super(DatasetTree, self).__init__(*args, **kwargs)
@@ -504,16 +508,19 @@ class DatasetTree(QTreeWidget, DockMixin):
 
     @staticmethod
     def is_variable(item):
-        return re.match(r'variables \(\d+\)', item.parent().text(0))
+        return re.match(r"variables \(\d+\)", item.parent().text(0))
 
     @staticmethod
     def is_coord(item):
-        return re.match(r'coords\(\d+\)', item.parent().text(0))
+        return re.match(r"coords\(\d+\)", item.parent().text(0))
 
     def load_variable_desc(self, item):
         parent = item.parent()
-        if parent is self or parent is None or not (self.is_variable(item) or
-                                                    self.is_coord(item)):
+        if (
+            parent is self
+            or parent is None
+            or not (self.is_variable(item) or self.is_coord(item))
+        ):
             return
         if self.isColumnHidden(1):
             self.showColumn(1)
@@ -526,7 +533,7 @@ class DatasetTree(QTreeWidget, DockMixin):
         if ds is None:
             return
         desc = escape_html(str(ds.variables[item.text(0)]))
-        item.setToolTip(0, '<pre>' + desc + '</pre>')
+        item.setToolTip(0, "<pre>" + desc + "</pre>")
 
     def create_dataset_tree(self):
         """Set up the columns and insert the :class:`DatasetTreeItem`
@@ -534,7 +541,7 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.set_columns()
         self.add_datasets_from_cp(gcp())
 
-    def set_columns(self, columns=['Value']):
+    def set_columns(self, columns=["Value"]):
         """Set up the columns in the DatasetTree.
 
         Parameters
@@ -544,7 +551,7 @@ class DatasetTree(QTreeWidget, DockMixin):
         self.setColumnCount(len(columns) + 1)
         if columns:
             self.setHeaderHidden(False)
-            self.setHeaderLabels(['Dataset'] + list(columns))
+            self.setHeaderLabels(["Dataset"] + list(columns))
         else:
             self.setHeaderHidden(True)
         self.attr_columns = columns
@@ -560,7 +567,8 @@ class DatasetTree(QTreeWidget, DockMixin):
                     if child.childCount() and child.isExpanded():
                         d[child.text(0)] = variables = []
                         for vchild in map(
-                                child.child, range(child.childCount())):
+                            child.child, range(child.childCount())
+                        ):
                             if vchild.childCount() and vchild.isExpanded():
                                 variables.append(vchild.text(0))
         return ret
@@ -586,20 +594,35 @@ class DatasetTree(QTreeWidget, DockMixin):
         expanded_items = self.expanded_items()
         # remove items from the tree
         self.clear()
-        for i, ds_desc in six.iteritems(project._get_ds_descriptions(
-                project.array_info(ds_description='all'))):
-            top_item = DatasetTreeItem(ds_desc['ds'], self.attr_columns, 0)
-            if ds_desc['fname'] is not None and not all(
-                    s is None for s in ds_desc['fname']):
-                ds_desc['fname'] = ', '.join(map(osp.basename,
-                                                 safe_list(ds_desc['fname'])))
+        for i, ds_desc in six.iteritems(
+            project._get_ds_descriptions(
+                project.array_info(ds_description="all")
+            )
+        ):
+            top_item = DatasetTreeItem(ds_desc["ds"], self.attr_columns, 0)
+            if ds_desc["fname"] is not None and not all(
+                s is None for s in ds_desc["fname"]
+            ):
+                ds_desc["fname"] = ", ".join(
+                    map(osp.basename, safe_list(ds_desc["fname"]))
+                )
             else:
-                ds_desc['fname'] = None
-            top_item.setText(0, '%s%i: %s' % (
-                '*' if any(any(arr is arr2 for arr2 in sp_arrs)
-                           for arr in ds_desc['arr']) else '',
-                i, ds_desc['fname']))
-            for arr in ds_desc['arr']:
+                ds_desc["fname"] = None
+            top_item.setText(
+                0,
+                "%s%i: %s"
+                % (
+                    "*"
+                    if any(
+                        any(arr is arr2 for arr2 in sp_arrs)
+                        for arr in ds_desc["arr"]
+                    )
+                    else "",
+                    i,
+                    ds_desc["fname"],
+                ),
+            )
+            for arr in ds_desc["arr"]:
                 arr.psy.onbasechange.connect(self.add_datasets_from_cp)
             self.addTopLevelItem(top_item)
         self.expand_items(expanded_items)
@@ -619,8 +642,9 @@ class DatasetTree(QTreeWidget, DockMixin):
                 for child in map(top.child, range(top.childCount())):
                     if child.text(0) in d:
                         self.expandItem(child)
-                        for vchild in map(child.child,
-                                          range(child.childCount())):
+                        for vchild in map(
+                            child.child, range(child.childCount())
+                        ):
                             if vchild.text(0) in d[child.text(0)]:
                                 self.expandItem(vchild)
 
@@ -629,24 +653,25 @@ class DatasetTree(QTreeWidget, DockMixin):
         item = self.itemAt(pos)
         parent, item_type, vname = self._get_toplevel_item(item)
         # ---- Refresh the selected item action
-        refresh_action = QAction('Refresh', self)
-        refresh_action.setToolTip(self.tooltips['Refresh'])
+        refresh_action = QAction("Refresh", self)
+        refresh_action.setToolTip(self.tooltips["Refresh"])
         refresh_action.triggered.connect(lambda: self.refresh_items(parent))
 
         # ---- Refresh all items action
-        refresh_all_action = QAction('Refresh all', self)
-        refresh_all_action.setToolTip(self.tooltips['Refresh all'])
+        refresh_all_action = QAction("Refresh all", self)
+        refresh_all_action.setToolTip(self.tooltips["Refresh all"])
         refresh_all_action.triggered.connect(lambda: self.refresh_items())
 
         # ---- add refresh actions
         menu.addActions([refresh_action, refresh_all_action])
 
         # ---- add plot option
-        if item_type == 'variable':
-            add2p_action = QAction(f'Add new plot of {vname}', self)
-            add2p_action.setToolTip(self.tooltips['Add to project'])
-            add2p_action.triggered.connect(lambda: self.make_plot(
-                parent.ds(), item.text(0), True))
+        if item_type == "variable":
+            add2p_action = QAction(f"Add new plot of {vname}", self)
+            add2p_action.setToolTip(self.tooltips["Add to project"])
+            add2p_action.triggered.connect(
+                lambda: self.make_plot(parent.ds(), item.text(0), True)
+            )
             menu.addSeparator()
             menu.addAction(add2p_action)
 
@@ -658,12 +683,14 @@ class DatasetTree(QTreeWidget, DockMixin):
         if item is not None:
             item.add_variables()
         else:
-            for item in map(self.topLevelItem,
-                            range(self.topLevelItemCount())):
+            for item in map(
+                self.topLevelItem, range(self.topLevelItemCount())
+            ):
                 item.add_variables()
 
     def make_plot(self, ds, name, exec_=None):
         from psyplot_gui.main import mainwindow
+
         mainwindow.new_plots()
         mainwindow.plot_creator.switch2ds(ds)
         mainwindow.plot_creator.insert_array(safe_list(name))
@@ -680,10 +707,10 @@ class DatasetTree(QTreeWidget, DockMixin):
         while parent is not None:
             if self.is_variable(item):
                 vname = item.text(0)
-                item_type = 'variable'
+                item_type = "variable"
             elif self.is_coord(item):
                 vname = item.text(0)
-                item_type = 'coord'
+                item_type = "coord"
             item = item.parent()
             parent = item.parent()
         return item, item_type, vname
@@ -708,7 +735,7 @@ class FiguresTreeItem(QTreeWidgetItem):
         :meth:`psyplot.data.InteractiveArray._short_info` and __str__ methods
         """
         self.setText(0, self.arr().psy._short_info())
-        if rcParams['content.load_tooltips']:
+        if rcParams["content.load_tooltips"]:
             self.setToolTip(0, str(self.arr()))
 
     def disconnect_from_array(self):
@@ -727,7 +754,7 @@ class FiguresTree(QTreeWidget, DockMixin):
 
     def __init__(self, *args, **kwargs):
         super(FiguresTree, self).__init__(*args, **kwargs)
-        self.setHeaderLabel('Figure')
+        self.setHeaderLabel("Figure")
         Project.oncpchange.connect(self.add_figures_from_cp)
         self.add_figures_from_cp(gcp(True))
 
@@ -741,7 +768,8 @@ class FiguresTree(QTreeWidget, DockMixin):
                 child.disconnect_from_array()
         for fig, arrays in six.iteritems(project.figs):
             item = QTreeWidgetItem(0)
-            item.setText(0, fig.canvas.get_window_title())
+            item.setText(0, fig.canvas.manager.get_window_title())
             item.addChildren(
-                [FiguresTreeItem(weakref.ref(arr), 0) for arr in arrays])
+                [FiguresTreeItem(weakref.ref(arr), 0) for arr in arrays]
+            )
             self.addTopLevelItem(item)

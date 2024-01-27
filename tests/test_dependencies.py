@@ -1,12 +1,18 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
+
 # -*- coding: utf-8 -*-
 """Script to test the :mod:`psyplot_gui.dependencies` module"""
 import unittest
-import yaml
+
 import _base_testing as bt
-from psyplot_gui.compat.qtcompat import QLabel
-import psyplot
 import numpy as np
+import psyplot
+import yaml
+
 import psyplot_gui
+from psyplot_gui.compat.qtcompat import QLabel
 
 
 class TestDependencies(bt.PsyPlotGuiTestCase):
@@ -26,16 +32,16 @@ class TestDependencies(bt.PsyPlotGuiTestCase):
     def test_widget(self):
         """Test whether the tree is filled correctly"""
         deps = self.deps
-        label = QLabel('', parent=self.window)
+        label = QLabel("", parent=self.window)
         deps.tree.selectAll()
         deps.copy_selected(label)
         d = yaml.load(str(label.text()), Loader=yaml.Loader)
-        self.assertEqual(d['psyplot'], psyplot.__version__)
-        self.assertEqual(d['psyplot_gui'], psyplot_gui.__version__)
-        self.assertIn('numpy', d)
-        self.assertEqual(d['numpy'], np.__version__)
+        self.assertEqual(d["psyplot"], psyplot.__version__)
+        self.assertEqual(d["psyplot_gui"], psyplot_gui.__version__)
+        self.assertIn("numpy", d)
+        self.assertEqual(d["numpy"], np.__version__)
         label.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

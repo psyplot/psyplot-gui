@@ -1,79 +1,63 @@
-"""Core package for the psyplot graphical user interface"""
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
 
-# Disclaimer
-# ----------
-#
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""psyplot-gui
 
-import sys
-import os
-import os.path as osp
-import six
-import tempfile
-import yaml
-import socket
+Graphical user interface for the psyplot package
+"""
+
+from __future__ import annotations
+
+import argparse
 import atexit
-import fasteners
-import time
-import pickle
 import datetime as dt
 import logging
-import argparse
-import xarray as xr
-import psyplot
-from psyplot.__main__ import make_plot
-from psyplot_gui.config.rcsetup import rcParams
-import psyplot_gui.config as config
+import os
+import os.path as osp
+import pickle
+import socket
+import sys
+import tempfile
+import time
 from itertools import chain
+
+import fasteners
+import psyplot
+import six
+import xarray as xr
+import yaml
+from psyplot.__main__ import make_plot
 from psyplot.config.rcsetup import get_configdir, safe_list
 from psyplot.docstring import docstrings
+from psyplot.utils import get_default_value
 from psyplot.warning import warn
-from psyplot.compat.pycompat import map
 
+import psyplot_gui.config as config
+from psyplot_gui.config.rcsetup import rcParams
 
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
+from . import _version
 
-
-from psyplot.compat.pycompat import get_default_value
+__version__ = _version.get_versions()["version"]
 
 __author__ = "Philipp S. Sommer"
-__copyright__ = """
-Copyright (C) 2021 Helmholtz-Zentrum Hereon
-Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-Copyright (C) 2016-2021 University of Lausanne
-"""
-__credits__ = ["Philipp S. Sommer"]
+__copyright__ = "2021-2024 Helmholtz-Zentrum hereon GmbH"
+__credits__ = [
+    "Philipp S. Sommer",
+]
 __license__ = "LGPL-3.0-only"
 
 __maintainer__ = "Philipp S. Sommer"
-__email__ = "psyplot@hereon.de"
+__email__ = "philipp.sommer@hereon.de"
 
 __status__ = "Production"
 
 logger = logging.getLogger(__name__)
 logger.debug(
     "%s: Initializing psyplot gui, version %s",
-    dt.datetime.now().isoformat(), __version__)
+    dt.datetime.now().isoformat(),
+    __version__,
+)
 logger.debug("psyplot version: %s", psyplot.__version__)
 logger.debug("Logging configuration file: %s", config.logcfg_path)
 logger.debug("Configuration file: %s", config.config_path)
@@ -86,39 +70,60 @@ logger = logging.getLogger(__name__)
 
 
 def get_versions(requirements=True):
-    ret = {'version': __version__}
+    ret = {"version": __version__}
     if requirements:
-        req = ret['requirements'] = {}
+        req = ret["requirements"] = {}
         try:
             import qtconsole
         except Exception:
-            logger.error('Could not load qtconsole!', exc_info=True)
+            logger.error("Could not load qtconsole!", exc_info=True)
         else:
-            req['qtconsole'] = qtconsole.__version__
+            req["qtconsole"] = qtconsole.__version__
         try:
             from psyplot_gui.compat.qtcompat import PYQT_VERSION, QT_VERSION
         except Exception:
-            logger.error('Could not load qt and pyqt!', exc_info=True)
+            logger.error("Could not load qt and pyqt!", exc_info=True)
         else:
-            req['qt'] = QT_VERSION
-            req['pyqt'] = PYQT_VERSION
+            req["qt"] = QT_VERSION
+            req["pyqt"] = PYQT_VERSION
     return ret
 
 
-@docstrings.get_sections(base='psyplot_gui.start_app')
+@docstrings.get_sections(base="psyplot_gui.start_app")
 @docstrings.dedent
-def start_app(fnames=[], name=[], dims=None, plot_method=None,
-              output=None, project=None, engine=None, formatoptions=None,
-              tight=False, encoding=None, enable_post=False,
-              seaborn_style=None, output_project=None,
-              concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
-              chname={},
-              backend=False, new_instance=False, rc_file=None,
-              rc_gui_file=None, include_plugins=rcParams['plugins.include'],
-              exclude_plugins=rcParams['plugins.exclude'], offline=False,
-              pwd=None, script=None, command=None, exec_=True, use_all=False,
-              callback=None, preset=None,
-              opengl_implementation=None, webengineview=True):
+def start_app(
+    fnames=[],
+    name=[],
+    dims=None,
+    plot_method=None,
+    output=None,
+    project=None,
+    engine=None,
+    formatoptions=None,
+    tight=False,
+    encoding=None,
+    enable_post=False,
+    seaborn_style=None,
+    output_project=None,
+    concat_dim=get_default_value(xr.open_mfdataset, "concat_dim"),
+    chname={},
+    backend=False,
+    new_instance=False,
+    rc_file=None,
+    rc_gui_file=None,
+    include_plugins=rcParams["plugins.include"],
+    exclude_plugins=rcParams["plugins.exclude"],
+    offline=False,
+    pwd=None,
+    script=None,
+    command=None,
+    exec_=True,
+    use_all=False,
+    callback=None,
+    preset=None,
+    opengl_implementation=None,
+    webengineview=True,
+):
     """
     Eventually start the QApplication or only make a plot
 
@@ -186,36 +191,50 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
         script = osp.abspath(script)
 
     if project is not None and (name != [] or dims is not None):
-        warn('The `name` and `dims` parameter are ignored if the `project`'
-             ' parameter is set!')
+        warn(
+            "The `name` and `dims` parameter are ignored if the `project`"
+            " parameter is set!"
+        )
 
     # load rcParams from file
     if rc_gui_file is not None:
         rcParams.load_from_file(rc_gui_file)
 
     # set plugins
-    rcParams['plugins.include'] = include_plugins
-    rcParams['plugins.exclude'] = exclude_plugins
+    rcParams["plugins.include"] = include_plugins
+    rcParams["plugins.exclude"] = exclude_plugins
     if webengineview is not None:
-        rcParams['help_explorer.use_webengineview'] = webengineview
+        rcParams["help_explorer.use_webengineview"] = webengineview
 
     if offline:
-        rcParams['help_explorer.online'] = False
-        rcParams['help_explorer.use_intersphinx'] = False
+        rcParams["help_explorer.online"] = False
+        rcParams["help_explorer.use_intersphinx"] = False
 
     if dims is not None and not isinstance(dims, dict):
         dims = dict(chain(*map(six.iteritems, dims)))
 
     if output is not None:
         return make_plot(
-            fnames=fnames, name=name, dims=dims, plot_method=plot_method,
-            output=output, project=project, engine=engine,
-            formatoptions=formatoptions, tight=tight, rc_file=rc_file,
-            encoding=encoding, enable_post=enable_post,
-            seaborn_style=seaborn_style, output_project=output_project,
-            concat_dim=concat_dim, chname=chname, preset=preset)
+            fnames=fnames,
+            name=name,
+            dims=dims,
+            plot_method=plot_method,
+            output=output,
+            project=project,
+            engine=engine,
+            formatoptions=formatoptions,
+            tight=tight,
+            rc_file=rc_file,
+            encoding=encoding,
+            enable_post=enable_post,
+            seaborn_style=seaborn_style,
+            output_project=output_project,
+            concat_dim=concat_dim,
+            chname=chname,
+            preset=preset,
+        )
     if use_all:
-        name = 'all'
+        name = "all"
     else:
         name = safe_list(name)
 
@@ -227,22 +246,26 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
             formatoptions = formatoptions[0]
         if preset is not None:
             import psyplot.project as psy
+
             preset_data = psy.Project._load_preset(preset)
         else:
             preset_data = {}
         preset_data.update(formatoptions)
-        preset = tempfile.NamedTemporaryFile(prefix='psy_', suffix='.yml').name
-        with open(preset, 'w') as f:
+        preset = tempfile.NamedTemporaryFile(prefix="psy_", suffix=".yml").name
+        with open(preset, "w") as f:
             yaml.dump(preset_data, f)
 
     # make preset path absolute
-    if preset is not None and not isinstance(preset, dict) and \
-            osp.exists(preset):
+    if (
+        preset is not None
+        and not isinstance(preset, dict)
+        and osp.exists(preset)
+    ):
         preset = osp.abspath(preset)
 
     # Lock file creation
     if not new_instance:
-        lock_file = osp.join(get_configdir(), 'psyplot.lock')
+        lock_file = osp.join(get_configdir(), "psyplot.lock")
         lock = fasteners.InterProcessLock(lock_file)
 
         # Try to lock psyplot.lock. If it's *possible* to do it, then
@@ -261,32 +284,45 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     elif not new_instance:
         if callback is None:
             if fnames or project:
-                callback = 'new_plot'
+                callback = "new_plot"
             elif pwd is not None:
-                callback = 'change_cwd'
+                callback = "change_cwd"
                 fnames = [pwd]
             elif script is not None:
-                callback = 'run_script'
+                callback = "run_script"
                 fnames = [script]
             elif command is not None:
-                callback = 'command'
+                callback = "command"
                 engine = command
         if callback:
             send_files_to_psyplot(
-                callback, fnames, project, engine, plot_method, name, dims,
-                encoding, enable_post, seaborn_style, concat_dim, chname,
-                preset)
+                callback,
+                fnames,
+                project,
+                engine,
+                plot_method,
+                name,
+                dims,
+                encoding,
+                enable_post,
+                seaborn_style,
+                concat_dim,
+                chname,
+                preset,
+            )
         return
     elif new_instance:
-        rcParams['main.listen_to_port'] = False
+        rcParams["main.listen_to_port"] = False
     if backend is not False:
-        rcParams['backend'] = backend
+        rcParams["backend"] = backend
     from psyplot_gui.main import MainWindow
+
     fnames = _get_abs_names(fnames)
     if project is not None:
         project = _get_abs_names([project])[0]
     if exec_:
         from psyplot_gui.compat.qtcompat import QApplication
+
         app = QApplication(sys.argv)
 
     _set_opengl_implementation(opengl_implementation)
@@ -294,9 +330,20 @@ def start_app(fnames=[], name=[], dims=None, plot_method=None,
     if isinstance(new_instance, MainWindow):
         mainwindow = new_instance
     else:
-        mainwindow = MainWindow.run(fnames, project, engine, plot_method, name,
-                                    dims, encoding, enable_post, seaborn_style,
-                                    concat_dim, chname, preset)
+        mainwindow = MainWindow.run(
+            fnames,
+            project,
+            engine,
+            plot_method,
+            name,
+            dims,
+            encoding,
+            enable_post,
+            seaborn_style,
+            concat_dim,
+            chname,
+            preset,
+        )
     if script is not None:
         mainwindow.console.run_script_in_shell(script)
     if command is not None:
@@ -315,7 +362,7 @@ def send_files_to_psyplot(callback, fnames, project, *args):
 
     This function has to most parts been taken from spyder
     """
-    port = rcParams['main.open_files_port']
+    port = rcParams["main.open_files_port"]
 
     # Wait ~50 secs for the server to be up
     # Taken from http://stackoverflow.com/a/4766598/438386
@@ -324,8 +371,9 @@ def send_files_to_psyplot(callback, fnames, project, *args):
         if project is not None:
             project = _get_abs_names([project])[0]
         try:
-            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM,
-                                   socket.IPPROTO_TCP)
+            client = socket.socket(
+                socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP
+            )
             client.connect(("127.0.0.1", port))
             client.send(pickle.dumps([callback, fnames, project] + list(args)))
             client.close()
@@ -341,7 +389,7 @@ def _get_abs_names(fnames):
         return
     for i, fname in enumerate(fnames):
         if fname:
-            fnames[i] = ','.join(map(osp.abspath, fname.split(',')))
+            fnames[i] = ",".join(map(osp.abspath, fname.split(",")))
     return fnames
 
 
@@ -360,74 +408,103 @@ def get_parser(create=True):
     psyplot.parser.FuncArgParser
     psyplot.main.main"""
     from psyplot.__main__ import get_parser
+
     parser = get_parser(create=False)
 
     parser.setup_args(start_app)
 
     gui_grp = parser.add_argument_group(
-        'Gui options',
-        'Options specific to the graphical user interface')
+        "Gui options", "Options specific to the graphical user interface"
+    )
 
     parser.update_arg(
-        'backend', short='b', const=None, nargs='?', metavar='backend',
+        "backend",
+        short="b",
+        const=None,
+        nargs="?",
+        metavar="backend",
         help="""
         The backend to use. By default, the ``'gui.backend'`` key in the
         :attr:`~psyplot_gui.config.rcsetup.rcParams` dictionary is used. If
         used without options, the default matplotlib backend is used.""",
-        group=gui_grp)
+        group=gui_grp,
+    )
 
-    parser.update_arg('new_instance', short='ni', group=gui_grp)
+    parser.update_arg("new_instance", short="ni", group=gui_grp)
 
-    parser.update_arg('rc_gui_file', short='rc-gui', group=gui_grp)
-    parser.pop_key('rc_gui_file', 'metavar')
-    parser.update_arg('include_plugins', short='inc', group=gui_grp,
-                      default=rcParams['plugins.include'])
-    parser.append2help('include_plugins', '. Default: %(default)s')
-    parser.update_arg('exclude_plugins', short='exc', group=gui_grp,
-                      default=rcParams['plugins.exclude'])
-    parser.append2help('exclude_plugins', '. Default: %(default)s')
+    parser.update_arg("rc_gui_file", short="rc-gui", group=gui_grp)
+    parser.pop_key("rc_gui_file", "metavar")
+    parser.update_arg(
+        "include_plugins",
+        short="inc",
+        group=gui_grp,
+        default=rcParams["plugins.include"],
+    )
+    parser.append2help("include_plugins", ". Default: %(default)s")
+    parser.update_arg(
+        "exclude_plugins",
+        short="exc",
+        group=gui_grp,
+        default=rcParams["plugins.exclude"],
+    )
+    parser.append2help("exclude_plugins", ". Default: %(default)s")
 
-    parser.update_arg('offline', group=gui_grp)
-    parser.update_arg('pwd', group=gui_grp)
-    parser.update_arg('script', short='s', group=gui_grp)
-    parser.update_arg('command', short='c', group=gui_grp)
+    parser.update_arg("offline", group=gui_grp)
+    parser.update_arg("pwd", group=gui_grp)
+    parser.update_arg("script", short="s", group=gui_grp)
+    parser.update_arg("command", short="c", group=gui_grp)
 
-    parser.update_arg('opengl_implementation', group=gui_grp, short='opengl',
-                      choices=['software', 'desktop', 'gles', 'automatic'])
+    parser.update_arg(
+        "opengl_implementation",
+        group=gui_grp,
+        short="opengl",
+        choices=["software", "desktop", "gles", "automatic"],
+    )
 
     # add an action to display the GUI plugins
-    info_grp = parser.unfinished_arguments['list_plugins'].get('group')
+    info_grp = parser.unfinished_arguments["list_plugins"].get("group")
     parser.update_arg(
-        'list_gui_plugins', short='lgp', long='list-gui-plugins',
-        action=ListGuiPluginsAction, if_existent=False,
-        help=("Print the names of the GUI plugins and exit. Note that the "
-              "displayed plugins are not affected by the `include-plugins` "
-              "and `exclude-plugins` options"))
+        "list_gui_plugins",
+        short="lgp",
+        long="list-gui-plugins",
+        action=ListGuiPluginsAction,
+        if_existent=False,
+        help=(
+            "Print the names of the GUI plugins and exit. Note that the "
+            "displayed plugins are not affected by the `include-plugins` "
+            "and `exclude-plugins` options"
+        ),
+    )
     if info_grp is not None:
-        parser.unfinished_arguments['list_gui_plugins']['group'] = info_grp
+        parser.unfinished_arguments["list_gui_plugins"]["group"] = info_grp
 
-    parser.pop_key('offline', 'short')
+    parser.pop_key("offline", "short")
 
-    parser.append2help('output_project',
-                       '. This option has only an effect if the `output` '
-                       ' option is set.')
+    parser.append2help(
+        "output_project",
+        ". This option has only an effect if the `output` " " option is set.",
+    )
 
-    parser.update_arg('use_all', short='a')
+    parser.update_arg("use_all", short="a")
 
-    parser.pop_arg('exec_')
-    parser.pop_arg('callback')
+    parser.pop_arg("exec_")
+    parser.pop_arg("callback")
 
-    parser.pop_key('webengineview', 'short')
-    parser.update_arg('webengineview', default=None, action='store_true',
-                      group=gui_grp)
+    parser.pop_key("webengineview", "short")
+    parser.update_arg(
+        "webengineview", default=None, action="store_true", group=gui_grp
+    )
 
-    parser.unfinished_arguments['no-webengineview'] = dict(
-        long='no-webengineview', default=None, action='store_false',
-        dest='webengineview',
+    parser.unfinished_arguments["no-webengineview"] = dict(
+        long="no-webengineview",
+        default=None,
+        action="store_false",
+        dest="webengineview",
         help="Do not use HTML rendering.",
-        group=gui_grp)
+        group=gui_grp,
+    )
 
-    if psyplot.__version__ < '1.0':
+    if psyplot.__version__ < "1.0":
         parser.set_main(start_app)
 
     parser.epilog += """
@@ -457,22 +534,28 @@ will execute ``print("Hello World")`` in the GUI. The output, of the `-s` and
 
 #: A boolean variable to check if the GUI is tested. This is set automatically
 #: true on CI services
-UNIT_TESTING = os.getenv('CI')
+UNIT_TESTING = os.getenv("CI")
 
 
 class ListGuiPluginsAction(argparse.Action):
-
-    def __init__(self, option_strings, dest=argparse.SUPPRESS, nargs=None,
-                 default=argparse.SUPPRESS, **kwargs):
+    def __init__(
+        self,
+        option_strings,
+        dest=argparse.SUPPRESS,
+        nargs=None,
+        default=argparse.SUPPRESS,
+        **kwargs,
+    ):
         if nargs is not None:
             raise ValueError("nargs not allowed")
-        kwargs['default'] = default
+        kwargs["default"] = default
         super(ListGuiPluginsAction, self).__init__(
-            option_strings, nargs=0, dest=dest,
-            **kwargs)
+            option_strings, nargs=0, dest=dest, **kwargs
+        )
 
     def __call__(self, parser, namespace, values, option_string=None):
         import yaml
+
         if not rcParams._plugins:
             list(rcParams._load_plugin_entrypoints())
         print(yaml.dump(rcParams._plugins, default_flow_style=False))
@@ -493,17 +576,18 @@ def _set_opengl_implementation(option):
     except Exception:
         QQuickWindow = QSGRendererInterface = None
     from PyQt5.QtCore import QCoreApplication, Qt
+
     if option is None:
-        option = rcParams['main.opengl']
-    if option == 'software':
+        option = rcParams["main.opengl"]
+    if option == "software":
         QCoreApplication.setAttribute(Qt.AA_UseSoftwareOpenGL)
         if QQuickWindow is not None:
             QQuickWindow.setSceneGraphBackend(QSGRendererInterface.Software)
-    elif option == 'desktop':
+    elif option == "desktop":
         QCoreApplication.setAttribute(Qt.AA_UseDesktopOpenGL)
         if QQuickWindow is not None:
             QQuickWindow.setSceneGraphBackend(QSGRendererInterface.OpenGL)
-    elif option == 'gles':
+    elif option == "gles":
         QCoreApplication.setAttribute(Qt.AA_UseOpenGLES)
         if QQuickWindow is not None:
             QQuickWindow.setSceneGraphBackend(QSGRendererInterface.OpenGL)

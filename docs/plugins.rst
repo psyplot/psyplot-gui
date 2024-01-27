@@ -1,3 +1,7 @@
+.. SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+..
+.. SPDX-License-Identifier: CC-BY-4.0
+
 .. currentmodule:: psyplot_gui.main
 
 .. _plugins:
@@ -34,13 +38,17 @@ script of a package, include the following:
 
 .. code-block:: python
 
-    setup(...,
-          entry_points={'psyplot_gui': [
-                            'widget-name1=widget-module1:widget-class-name1',
-                            'widget-name2=widget-module2:widget-class-name2',
-                            ...],
-                        },
-          ...)
+    setup(
+        ...,
+        entry_points={
+            "psyplot_gui": [
+                "widget-name1=widget-module1:widget-class-name1",
+                "widget-name2=widget-module2:widget-class-name2",
+                ...,
+            ],
+        },
+        ...,
+    )
 
 Here, `widget-name1` is an arbitrary name you want to assign to the widget,
 `widget-module1` is the module from where to import the plugin, and
@@ -51,9 +59,12 @@ For the :attr:`~MainWindow.help_explorer`, this, for example, would like like
 
 .. code-block:: python
 
-    setup(...,
-          entry_points={'psyplot_gui': [
-                            'help=psyplot_gui.help_explorer:HelpExplorer',
-                            ],
-                        },
-          ...)
+    setup(
+        ...,
+        entry_points={
+            "psyplot_gui": [
+                "help=psyplot_gui.help_explorer:HelpExplorer",
+            ],
+        },
+        ...,
+    )

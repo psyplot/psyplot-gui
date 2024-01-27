@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: LGPL-3.0-only
+
 """Dummy module
 
 Just a dummy module for documentation testing purposes"""
