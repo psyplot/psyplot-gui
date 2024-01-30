@@ -244,13 +244,21 @@ class ConsoleWidget(QtInProcessRichJupyterWidget, DockMixin):
         """Update the `mp` variable in the shell is
         ``rcParams['console.auto_set_mp']`` with a main project"""
         if self.rc["auto_set_mp"] and project is not None and project.is_main:
-            self.run_command_in_shell("mp = psy.gcp(True)")
+            try:
+                self.run_command_in_shell("mp = psy.gcp(True)")
+            except RuntimeError:
+                # probably running a script that via IPythons `run` magick
+                pass
 
     def update_sp(self, project):
         """Update the `sp` variable in the shell is
         ``rcParams['console.auto_set_sp']`` with a sub project"""
         if self.rc["auto_set_sp"] and (project is None or not project.is_main):
-            self.run_command_in_shell("sp = psy.gcp()")
+            try:
+                self.run_command_in_shell("sp = psy.gcp()")
+            except RuntimeError:
+                # probably running a script that via IPythons `run` magick
+                pass
 
     def show_current_help(self, to_end=False, force=False):
         """Show the help of the object at the cursor position if
