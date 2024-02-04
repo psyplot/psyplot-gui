@@ -1025,6 +1025,7 @@ class MainWindow(QMainWindow):
         "concat_dim",
         "chname",
         "preset",
+        "decoder",
     )
 
     def open_files(self, fnames):
@@ -1059,13 +1060,14 @@ class MainWindow(QMainWindow):
         concat_dim=get_default_value(xr.open_mfdataset, "concat_dim"),
         chname={},
         preset=None,
+        decoder=None,
     ):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset|decoder)s
         """
         if seaborn_style is not None:
             import seaborn as sns
@@ -1127,6 +1129,8 @@ class MainWindow(QMainWindow):
                 self.plot_creator.pm_combo.setCurrentIndex(
                     self.plot_creator.pm_combo.findText(plot_method)
                 )
+            if decoder:
+                self.plot_creator.set_decoder(decoder)
             self.plot_creator.exec_()
             return True
 
@@ -1150,6 +1154,7 @@ class MainWindow(QMainWindow):
         concat_dim=get_default_value(xr.open_mfdataset, "concat_dim"),
         chname={},
         preset=None,
+        decoder=None,
         show=True,
     ):
         """
@@ -1189,6 +1194,7 @@ class MainWindow(QMainWindow):
                 concat_dim,
                 chname,
                 preset,
+                decoder,
             )
         psyplot.with_gui = True
         return mainwindow

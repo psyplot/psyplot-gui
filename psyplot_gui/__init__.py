@@ -123,6 +123,7 @@ def start_app(
     preset=None,
     opengl_implementation=None,
     webengineview=True,
+    decoder=None,
 ):
     """
     Eventually start the QApplication or only make a plot
@@ -232,6 +233,7 @@ def start_app(
             concat_dim=concat_dim,
             chname=chname,
             preset=preset,
+            decoder=decoder,
         )
     if use_all:
         name = "all"
@@ -309,6 +311,7 @@ def start_app(
                 concat_dim,
                 chname,
                 preset,
+                decoder,
             )
         return
     elif new_instance:
@@ -343,6 +346,7 @@ def start_app(
             concat_dim,
             chname,
             preset,
+            decoder,
         )
     if script is not None:
         mainwindow.console.run_script_in_shell(script)

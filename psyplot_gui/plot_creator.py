@@ -1832,6 +1832,8 @@ class PlotCreator(QDialog):
 
     _preset = None
 
+    _decoder = None
+
     def __init__(self, *args, **kwargs):
         self.help_explorer = kwargs.pop("help_explorer", None)
         super(PlotCreator, self).__init__(*args, **kwargs)
@@ -1972,9 +1974,11 @@ class PlotCreator(QDialog):
 
         # ------------------- plot method connections -------------------------
         self.pm_combo.currentIndexChanged[str].connect(
-            lambda s: self.pm_combo.setToolTip(getattr(psy.plot, s)._summary)
-            if s
-            else self.NO_PM_TT
+            lambda s: (
+                self.pm_combo.setToolTip(getattr(psy.plot, s)._summary)
+                if s
+                else self.NO_PM_TT
+            )
         )
         self.pm_info.clicked.connect(self.show_pm_info)
         self.pm_combo.currentIndexChanged[str].connect(self.array_table.set_pm)
@@ -2229,6 +2233,7 @@ class PlotCreator(QDialog):
                 self.ds,
                 arr_names=names,
                 load=self.cbox_load.isChecked(),
+                decoder=self._decoder,
                 **kwargs,
             )
         except Exception:
@@ -2299,6 +2304,10 @@ class PlotCreator(QDialog):
         self._preset = psy.Project._load_preset(preset)
         if self.fmt_tree_widget.isVisible():
             self.fill_fmt_tree(self.pm_combo.currentText())
+
+    def set_decoder(self, decoder):
+        """Set the decoder for the new plots."""
+        self._decoder = decoder
 
     def add_new_ds(self, oname, ds, fname=None):
         d = {"ds": ds}
