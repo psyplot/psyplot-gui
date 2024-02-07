@@ -14,27 +14,17 @@ description = "Graphical user interface for the psyplot package"
 readme = "README.md"
 keywords = [
     "visualization",
-
     "psyplot",
-
     "netcdf",
-
     "raster",
-
     "cartopy",
-
     "earth-sciences",
-
     "pyqt",
-
     "qt",
-
     "ipython",
-
     "jupyter",
-
     "qtconsole",
-    ]
+]
 
 authors = [
     { name = 'Philipp S. Sommer', email = 'philipp.sommer@hereon.de' },

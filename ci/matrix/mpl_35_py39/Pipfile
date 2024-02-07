@@ -14,7 +14,7 @@ psy-simple = {ref = "develop", git = "git+https://codebase.helmholtz.cloud/psypl
 PyQt5 = {version="*"}
 PyQtWebEngine = {version="*"}
 psyplot_gui_test = {path = "../../../tests/test_plugin/"}
-
+matplotlib = "3.5.*"
 
 [dev-packages]
 

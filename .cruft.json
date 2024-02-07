@@ -1,6 +1,6 @@
 {
   "template": "https://codebase.helmholtz.cloud/psyplot/psyplot-plugin-template.git",
-  "commit": "f0ad88b667f92604f1c0383a044c4d2546d30887",
+  "commit": "63fa8a2b3c1bab8e173cb91b9fca045639a243dd",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -26,7 +26,9 @@
       "keywords": "visualization,psyplot,netcdf,raster,cartopy,earth-sciences,pyqt,qt,ipython,jupyter,qtconsole",
       "documentation_url": "https://psyplot.github.io/psyplot-gui",
       "use_markdown_for_documentation": "no",
+      "ci_build_stage": "no",
       "ci_matrix": "pipenv",
+      "use_pytest_xdist": "no",
       "requires_gui": "yes",
       "deploy_package_in_ci": "yes",
       "deploy_pages_in_ci": "git-push",
