@@ -74,7 +74,6 @@ testsite = [
     "pytest-cov",
     "reuse",
     "cffconvert",
-    "pytest-xdist",
     "netCDF4",
     "dask",
     "scipy",

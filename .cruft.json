@@ -28,7 +28,7 @@
       "use_markdown_for_documentation": "no",
       "ci_build_stage": "no",
       "ci_matrix": "pipenv",
-      "use_pytest_xdist": "yes",
+      "use_pytest_xdist": "no",
       "requires_gui": "yes",
       "deploy_package_in_ci": "yes",
       "deploy_pages_in_ci": "git-push",

@@ -42,7 +42,7 @@ test:
     - apt-get install -y xvfb python3-pyqt5.qtwebengine
     - pip install pipenv
     - pipenv install
-    - NPROCS=auto xvfb-run make pipenv-test
+    - xvfb-run make pipenv-test
   parallel:
     matrix:
       - SCENARIO: default
