@@ -2,6 +2,23 @@
 ..
 .. SPDX-License-Identifier: CC-BY-4.0
 
+v1.5.0
+======
+Compatibility and bug fixes, cli improvements and code formatting
+
+Changed
+-------
+- migrate to psyplot-plugin-template `!34 <https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/merge_requests/34>`__
+- Update psyplot min version `!38 <https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/merge_requests/38>`__
+
+Fixed
+-----
+- fix updating current projects in console `!35 <https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/merge_requests/35>`__
+
+Added
+-----
+- implement decoder command-line argument `!36 <https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/merge_requests/36>`__
+
 v1.4.0
 ======
 Compatibility fixes and LGPL license
