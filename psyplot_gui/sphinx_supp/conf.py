@@ -12,36 +12,16 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
-
-import sys
-import sphinx
-import sphinx_rtd_theme
 import re
-import six
+import sys
 from itertools import product
+
 import psyplot_gui
 
 # -- General configuration ------------------------------------------------
@@ -50,57 +30,57 @@ import psyplot_gui
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autosummary',
-    'sphinx.ext.todo',
-    'sphinx.ext.viewcode',
-    'psyplot.sphinxext.extended_napoleon',
+    "sphinx.ext.autosummary",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "psyplot.sphinxext.extended_napoleon",
 ]
 
-if psyplot_gui.rcParams['help_explorer.use_intersphinx'] is None:
+if psyplot_gui.rcParams["help_explorer.use_intersphinx"] is None:
     if sys.platform.startswith("win"):
         use_intersphinx = False
     else:
-        use_intersphinx = psyplot_gui.rcParams['help_explorer.online']
+        use_intersphinx = psyplot_gui.rcParams["help_explorer.online"]
 else:
-    use_intersphinx = psyplot_gui.rcParams['help_explorer.use_intersphinx']
+    use_intersphinx = psyplot_gui.rcParams["help_explorer.use_intersphinx"]
 
 if use_intersphinx:
-    extensions.append('sphinx.ext.intersphinx')
+    extensions.append("sphinx.ext.intersphinx")
 del use_intersphinx
 
-autodoc_default_options = {
-    'show_inheritance': True
-}
+autodoc_default_options = {"show_inheritance": True}
 
 try:
-    import autodocsumm
+    import autodocsumm  # noqa: F401
 except ImportError:
     pass
 else:
-    extensions.append('autodocsumm')
-    autodoc_default_options['autosummary'] = True
-    not_document_data = ['psyplot.config.rcsetup.defaultParams',
-                         'psyplot.config.rcsetup.rcParams']
+    extensions.append("autodocsumm")
+    autodoc_default_options["autosummary"] = True
+    not_document_data = [
+        "psyplot.config.rcsetup.defaultParams",
+        "psyplot.config.rcsetup.rcParams",
+    ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 napoleon_use_admonition_for_examples = True
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'psyplot'
+master_doc = "psyplot"
 
-autoclass_content = 'both'
+autoclass_content = "both"
 
 # General information about the project.
-project = 'psyplot Help'
+project = "psyplot Help"
 copyright = psyplot_gui.__copyright__
 author = psyplot_gui.__author__
 
@@ -109,7 +89,7 @@ author = psyplot_gui.__author__
 # built documents.
 #
 # The short X.Y version.
-version = re.match(r'\d+\.\d+\.\d+', psyplot_gui.__version__).group()
+version = re.match(r"\d+\.\d+\.\d+", psyplot_gui.__version__).group()
 # The full version, including alpha/beta/rc tags.
 release = psyplot_gui.__version__
 #
@@ -119,62 +99,62 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ["_build"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = "sphinx_rtd_theme"
 html_theme_options = {
-    'prev_next_buttons_location': None
-    }
+    "prev_next_buttons_location": None,
+    "collapse_navigation": False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'psyplotdoc'
+htmlhelp_basename = "psyplotdoc"
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'matplotlib': ('https://matplotlib.org/', None),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-    'xarray': ('https://xarray.pydata.org/en/stable/', None),
-    'cartopy': ('https://scitools.org.uk/cartopy/docs/latest/', None),
-    'psyplot': ('https://psyplot.github.io/psyplot/', None),
-    'psyplot_gui': ('https://psyplot.github.io/psyplot-gui/', None),
-    'psy_maps': ('https://psyplot.github.io/psy-maps/', None),
-    'psy_simple': ('https://psyplot.github.io/psy-simple/', None),
-    'psy_view': ('https://psyplot.github.io/psy-view/', None),
-    'psy_reg': ('https://psyplot.github.io/psy-reg/', None),
-    'python': ('https://docs.python.org/3/', None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "matplotlib": ("https://matplotlib.org/", None),
+    "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
+    "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "cartopy": ("https://scitools.org.uk/cartopy/docs/latest/", None),
+    "psyplot": ("https://psyplot.github.io/psyplot/", None),
+    "psyplot_gui": ("https://psyplot.github.io/psyplot-gui/", None),
+    "psy_maps": ("https://psyplot.github.io/psy-maps/", None),
+    "psy_simple": ("https://psyplot.github.io/psy-simple/", None),
+    "psy_view": ("https://psyplot.github.io/psy-view/", None),
+    "psy_reg": ("https://psyplot.github.io/psy-reg/", None),
+    "python": ("https://docs.python.org/3/", None),
 }
 
 replacements = {
-    '`psyplot.rcParams`': '`~psyplot.config.rcsetup.rcParams`',
-    '`psyplot.InteractiveList`': '`~psyplot.data.InteractiveList`',
-    '`psyplot.InteractiveArray`': '`~psyplot.data.InteractiveArray`',
-    '`psyplot.open_dataset`': '`~psyplot.data.open_dataset`',
-    '`psyplot.open_mfdataset`': '`~psyplot.data.open_mfdataset`',
-    }
+    "`psyplot.rcParams`": "`~psyplot.config.rcsetup.rcParams`",
+    "`psyplot.InteractiveList`": "`~psyplot.data.InteractiveList`",
+    "`psyplot.InteractiveArray`": "`~psyplot.data.InteractiveArray`",
+    "`psyplot.open_dataset`": "`~psyplot.data.open_dataset`",
+    "`psyplot.open_mfdataset`": "`~psyplot.data.open_mfdataset`",
+}
 
 
 def link_aliases(app, what, name, obj, options, lines):
-    for (key, val), (i, line) in product(six.iteritems(replacements),
-                                         enumerate(lines)):
+    for (key, val), (i, line) in product(
+        replacements.items(), enumerate(lines)
+    ):
         lines[i] = line.replace(key, val)
 
 
 def setup(app):
-    app.connect('autodoc-process-docstring', link_aliases)
-    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
+    app.connect("autodoc-process-docstring", link_aliases)

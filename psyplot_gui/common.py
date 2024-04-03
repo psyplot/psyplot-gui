@@ -1,38 +1,31 @@
 """Common functions used for the psyplot gui"""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
-import sys
-import six
 import inspect
+import logging
+import os.path as osp
+import sys
 import traceback as tb
 from functools import partial
-import os.path as osp
+
+import six
+
 from psyplot_gui.compat.qtcompat import (
-    QDockWidget, QRegExpValidator, QtCore, QErrorMessage, QDesktopWidget,
-    QToolButton, QInputDialog, QIcon, QAction)
-import logging
+    QAction,
+    QDesktopWidget,
+    QDockWidget,
+    QErrorMessage,
+    QIcon,
+    QInputDialog,
+    QRegExpValidator,
+    QtCore,
+    QToolButton,
+)
 
 if six.PY2:
     try:
@@ -48,6 +41,7 @@ def is_running_tests():
 
     This function returns the :attr:`psyplot_gui.UNIT_TESTING` variable"""
     import psyplot_gui
+
     return psyplot_gui.UNIT_TESTING
 
 
@@ -59,7 +53,7 @@ def get_module_path(modname):
 
 def get_icon(name):
     """Get the path to an icon in the icons directory"""
-    return osp.join(get_module_path('psyplot_gui'), 'icons', name)
+    return osp.join(get_module_path("psyplot_gui"), "icons", name)
 
 
 class DockMixin(object):
@@ -96,21 +90,23 @@ class DockMixin(object):
     @property
     def is_shown(self):
         """Boolean that is True, if the dock widget is shown"""
-        return (self.dock is not None and
-                self.dock.toggleViewAction().isChecked())
+        return (
+            self.dock is not None and self.dock.toggleViewAction().isChecked()
+        )
 
-    def to_dock(self, main, title=None, position=None, docktype='pane', *args,
-                **kwargs):
+    def to_dock(
+        self, main, title=None, position=None, docktype="pane", *args, **kwargs
+    ):
         if title is None:
             title = self.title
         if title is None:
-            raise ValueError(
-                "No title specified for the %s widget" % (self))
+            raise ValueError("No title specified for the %s widget" % (self))
         if position is None:
             position = self.dock_position
         if position is None:
-            raise ValueError("No position specified for the %s widget (%s)" % (
-                title, self))
+            raise ValueError(
+                "No position specified for the %s widget (%s)" % (title, self)
+            )
         self.title = title
         self.dock_position = position
         if self.dock is None:
@@ -136,7 +132,6 @@ class DockMixin(object):
         main: psyplot_gui.main.Mainwindow
             The main window where the dock is added"""
         main.addDockWidget(self.dock_position, self.dock, *args, **kwargs)
-
 
     def show_plugin(self):
         """Show the plugin widget"""
@@ -169,29 +164,32 @@ class DockMixin(object):
             group.addAction(action)
         return self._set_central_action
 
-    def create_view_action(self, main, docktype='pane'):
+    def create_view_action(self, main, docktype="pane"):
         if self._view_action is None:
             self._view_action = action = self.dock.toggleViewAction()
-            if docktype == 'pane':
+            if docktype == "pane":
                 main.panes_menu.addAction(action)
-            elif docktype == 'df':
+            elif docktype == "df":
                 main.dataframe_menu.addAction(action)
         return self._view_action
 
     def remove_plugin(self):
         """Remove this plugin and close it"""
         mainwindow = self.dock.parent() if self.dock else self.parent()
-        key = next((key for key, w in mainwindow.plugins.items()
-                    if w is self), None)
+        key = next(
+            (key for key, w in mainwindow.plugins.items() if w is self), None
+        )
         if mainwindow.centralWidget() is self:
             mainwindow.set_central_widget(
-                mainwindow.__class__.central_widget_key)
+                mainwindow.__class__.central_widget_key
+            )
         if self._view_action is not None:
             mainwindow.panes_menu.removeAction(self._view_action)
             mainwindow.dataframe_menu.removeAction(self._view_action)
         if self._set_central_action is not None:
             mainwindow.central_widgets_menu.removeAction(
-                self._set_central_action)
+                self._set_central_action
+            )
         if key is not None:
             del mainwindow.plugins[key]
         if self.dock is not None:
@@ -209,15 +207,21 @@ class LoadFromConsoleButton(QToolButton):
 
     @property
     def instances2check_str(self):
-        return ', '.join('%s.%s' % (cls.__module__, cls.__name__)
-                         for cls in self._instances2check)
+        return ", ".join(
+            "%s.%s" % (cls.__module__, cls.__name__)
+            for cls in self._instances2check
+        )
 
     @property
     def potential_object_names(self):
         from ipykernel.inprocess.ipkernel import InProcessInteractiveShell
+
         shell = InProcessInteractiveShell.instance()
-        return sorted(name for name, obj in shell.user_global_ns.items()
-                      if not name.startswith('_') and self.check(obj))
+        return sorted(
+            name
+            for name, obj in shell.user_global_ns.items()
+            if not name.startswith("_") and self.check(obj)
+        )
 
     def __init__(self, instances=None, *args, **kwargs):
         """
@@ -227,46 +231,55 @@ class LoadFromConsoleButton(QToolButton):
             The classes that should be used for an instance check
         """
         super(LoadFromConsoleButton, self).__init__(*args, **kwargs)
-        self.setIcon(QIcon(get_icon('console-go.png')))
+        self.setIcon(QIcon(get_icon("console-go.png")))
         if instances is not None and inspect.isclass(instances):
-            instances = (instances, )
+            instances = (instances,)
         self._instances2check = instances
         self.error_msg = PyErrorMessage(self)
         self.clicked.connect(partial(self.get_from_shell, None))
 
     def check(self, obj):
-        return True if not self._instances2check else isinstance(
-            obj, self._instances2check)
+        return (
+            True
+            if not self._instances2check
+            else isinstance(obj, self._instances2check)
+        )
 
     def get_from_shell(self, oname=None):
         """Open an input dialog, receive an object and emit the
         :attr:`object_loaded` signal"""
         if oname is None:
             oname, ok = QInputDialog.getItem(
-                self, 'Select variable',
-                'Select a variable to import from the console',
-                self.potential_object_names)
+                self,
+                "Select variable",
+                "Select a variable to import from the console",
+                self.potential_object_names,
+            )
             if not ok:
                 return
-        if self.check(oname) and (self._instances2check or
-                                  not isinstance(oname, six.string_types)):
+        if self.check(oname) and (
+            self._instances2check or not isinstance(oname, six.string_types)
+        ):
             obj = oname
-            oname = 'object'
+            oname = "object"
         else:
             found, obj = self.get_obj(oname.strip())
             if found:
                 if not self.check(obj):
                     self.error_msg.showMessage(
-                        'Object must be an instance of %r, not %r' % (
+                        "Object must be an instance of %r, not %r"
+                        % (
                             self.instances2check_str,
-                            '%s.%s' % (type(obj).__module__,
-                                       type(obj).__name__)))
+                            "%s.%s"
+                            % (type(obj).__module__, type(obj).__name__),
+                        )
+                    )
                     return
             else:
                 if not oname.strip():
-                    msg = 'The variable name must not be empty!'
+                    msg = "The variable name must not be empty!"
                 else:
-                    msg = 'Could not find object ' + oname
+                    msg = "Could not find object " + oname
                 self.error_msg.showMessage(msg)
                 return
         self.object_loaded.emit(oname, obj)
@@ -274,6 +287,7 @@ class LoadFromConsoleButton(QToolButton):
     def get_obj(self, oname):
         """Load an object from the current shell"""
         from psyplot_gui.main import mainwindow
+
         return mainwindow.console.get_obj(oname)
 
 
@@ -281,7 +295,7 @@ class ListValidator(QRegExpValidator):
     """A validator class to validate that a string consists of strings in a
     list of strings"""
 
-    def __init__(self, valid, sep=',', *args, **kwargs):
+    def __init__(self, valid, sep=",", *args, **kwargs):
         """
         Parameters
         ----------
@@ -292,7 +306,7 @@ class ListValidator(QRegExpValidator):
         ``*args,**kwargs``
             Determined by PyQt5.QtGui.QValidator
         """
-        patt = QtCore.QRegExp('^((%s)(;;)?)+$' % '|'.join(valid))
+        patt = QtCore.QRegExp("^((%s)(;;)?)+$" % "|".join(valid))
         super(QRegExpValidator, self).__init__(patt, *args, **kwargs)
 
 
@@ -301,18 +315,16 @@ class PyErrorMessage(QErrorMessage):
     method"""
 
     def showTraceback(self, header=None):
-
         if is_running_tests():
             raise
 
         s = io.StringIO()
         tb.print_exc(file=s)
-        last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
-            '</p>'
-        header = header + '\n' if header else ''
+        last_tb = "<p>" + "<br>".join(s.getvalue().splitlines()) + "</p>"
+        header = header + "\n" if header else ""
         self.showMessage(header + last_tb)
-        available_width = QDesktopWidget().availableGeometry().width() / 3.
-        available_height = QDesktopWidget().availableGeometry().height() / 3.
+        available_width = QDesktopWidget().availableGeometry().width() / 3.0
+        available_height = QDesktopWidget().availableGeometry().height() / 3.0
         width = self.sizeHint().width()
         height = self.sizeHint().height()
         # The message window should cover at least one third of the screen
@@ -321,12 +333,11 @@ class PyErrorMessage(QErrorMessage):
     def excepthook(self, type, value, traceback):
         s = io.StringIO()
         tb.print_exception(type, value, traceback, file=s)
-        last_tb = '<p>' + '<br>'.join(s.getvalue().splitlines()) + \
-            '</p>'
+        last_tb = "<p>" + "<br>".join(s.getvalue().splitlines()) + "</p>"
         header = value.message if six.PY2 else str(value)
-        self.showMessage(header + '\n' + last_tb)
-        available_width = QDesktopWidget().availableGeometry().width() / 3.
-        available_height = QDesktopWidget().availableGeometry().height() / 3.
+        self.showMessage(header + "\n" + last_tb)
+        available_width = QDesktopWidget().availableGeometry().width() / 3.0
+        available_height = QDesktopWidget().availableGeometry().height() / 3.0
         width = self.sizeHint().width()
         height = self.sizeHint().height()
         # The message window should cover at least one third of the screen
@@ -337,10 +348,11 @@ class StreamToLogger(object):
     """
     Fake file-like stream object that redirects writes to a logger instance.
     """
+
     def __init__(self, logger, log_level=logging.INFO):
         self.logger = logger
         self.log_level = log_level
-        self.linebuf = ''
+        self.linebuf = ""
 
     def write(self, buf):
         for line in buf.rstrip().splitlines():

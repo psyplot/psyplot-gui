@@ -1,9 +1,14 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: CC0-1.0
+
 include README.rst
-include LICENSE
+include LICENSES/*
 include psyplot_gui/sphinx_supp/_static/*
 include psyplot_gui/sphinx_supp/conf.py
 include psyplot_gui/sphinx_supp/psyplot.rst
 include psyplot_gui/icons/*.png
+include psyplot_gui/icons/*.png.license
 include psyplot_gui/icons/*.svg
-include versioneer.py
+include psyplot_gui/icons/*.svg.license
 include psyplot_gui/_version.py

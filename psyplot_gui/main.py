@@ -6,75 +6,76 @@ There is no need to import this module because the
 :class:`GuiProject` class defined here replaces the project class in the
 :mod:`psyplot.project` module."""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
-import sys
-import six
-import socket
 import errno
-import pickle
-import os
-from pkg_resources import iter_entry_points
-from functools import partial
-from collections import defaultdict, OrderedDict
-import matplotlib as mpl
-from psyplot.compat.pycompat import get_default_value
-from psyplot_gui import rcParams
-from threading import Thread
 import logging
+import os
+import pickle
+import socket
+import sys
+from collections import OrderedDict, defaultdict
+from functools import partial
+from threading import Thread
 
-# change backend here before the project module is imported
-backend = rcParams['backend']
-if backend is not None:
-    if backend == 'psyplot':
-        backend = 'module://psyplot_gui.backend'
-    mpl.use(backend)
-
-from psyplot_gui.console import ConsoleWidget
-from psyplot_gui.compat.qtcompat import (
-    QMainWindow, QApplication, Qt, QMenu, QAction, QDesktopWidget, QLabel,
-    QFileDialog, QKeySequence, QtCore, with_qt5, QMessageBox, QIcon,
-    QInputDialog, QActionGroup)
-from psyplot_gui.content_widget import (
-    ProjectContentWidget, DatasetTree, FiguresTree)
-from psyplot_gui.plot_creator import PlotCreator
-from psyplot_gui.help_explorer import HelpExplorer
-from psyplot_gui.dataframeeditor import DataFrameEditor
-from psyplot_gui.fmt_widget import FormatoptionWidget
-from psyplot_gui.common import PyErrorMessage, get_icon, StreamToLogger
-from psyplot_gui.preferences import (
-    Prefences, GuiRcParamsWidget, PsyRcParamsWidget)
-from psyplot_gui.dependencies import DependenciesDialog
-
-from psyplot.docstring import docstrings
+import matplotlib as mpl
+import psyplot
+import psyplot.data as psyd
 import psyplot.plotter as psyp
 import psyplot.project as psy
-import psyplot
-from psyplot.config.rcsetup import get_configdir
-import psyplot.data as psyd
-import psyplot_gui
+import six
 import xarray as xr
+from psyplot.config.rcsetup import get_configdir
+from psyplot.docstring import docstrings
+from psyplot.utils import get_default_value
+
+import psyplot_gui
+from psyplot_gui import rcParams
+from psyplot_gui.common import PyErrorMessage, StreamToLogger, get_icon
+from psyplot_gui.compat.qtcompat import (
+    QAction,
+    QActionGroup,
+    QApplication,
+    QDesktopWidget,
+    QFileDialog,
+    QIcon,
+    QInputDialog,
+    QKeySequence,
+    QLabel,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
+    Qt,
+    QtCore,
+    with_qt5,
+)
+from psyplot_gui.console import ConsoleWidget
+from psyplot_gui.content_widget import (
+    DatasetTree,
+    FiguresTree,
+    ProjectContentWidget,
+)
+from psyplot_gui.dataframeeditor import DataFrameEditor
+from psyplot_gui.dependencies import DependenciesDialog
+from psyplot_gui.fmt_widget import FormatoptionWidget
+from psyplot_gui.help_explorer import HelpExplorer
+from psyplot_gui.plot_creator import PlotCreator
+from psyplot_gui.preferences import (
+    GuiRcParamsWidget,
+    Prefences,
+    PsyRcParamsWidget,
+)
+
+# change backend here before the project module is imported
+backend = rcParams["backend"]
+if backend is not None:
+    if backend == "psyplot":
+        backend = "module://psyplot_gui.backend"
+    mpl.use(backend)
 
 
 #: The :class:`PyQt5.QtWidgets.QMainWindow` of the graphical user interface
@@ -87,7 +88,6 @@ def _set_mainwindow(obj):
 
 
 class MainWindow(QMainWindow):
-
     #: A signal that is emmitted when the a signal is received through the
     #: open_files_server
     open_external = QtCore.pyqtSignal(list)
@@ -135,15 +135,16 @@ class MainWindow(QMainWindow):
 
     #: The key for the central widget for the main window in the
     #: :attr:`plugins` dictionary
-    central_widget_key = 'console'
+    central_widget_key = "console"
 
     @property
     def logger(self):
         """The logger of this instance"""
-        return logging.getLogger('%s.%s' % (self.__class__.__module__,
-                                            self.__class__.__name__))
+        return logging.getLogger(
+            "%s.%s" % (self.__class__.__module__, self.__class__.__name__)
+        )
 
-    @docstrings.get_sections(base='MainWindow')
+    @docstrings.get_sections(base="MainWindow")
     @docstrings.dedent
     def __init__(self, show=True):
         """
@@ -157,24 +158,28 @@ class MainWindow(QMainWindow):
         if sys.stderr is None:
             sys.stderr = StreamToLogger(self.logger)
         super(MainWindow, self).__init__()
-        self.setWindowIcon(QIcon(get_icon('logo.png')))
+        self.setWindowIcon(QIcon(get_icon("logo.png")))
 
         #: list of figures from the psyplot backend
         self.figures = []
         self.error_msg = PyErrorMessage(self)
         self.setDockOptions(
-            QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks |
-            QMainWindow.AllowTabbedDocks)
+            QMainWindow.AnimatedDocks
+            | QMainWindow.AllowNestedDocks
+            | QMainWindow.AllowTabbedDocks
+        )
         #: Inprocess console
         self.console = ConsoleWidget(self)
         self.project_actions = {}
 
         self.config_pages = []
 
-        self.open_file_options = OrderedDict([
-            ('new psyplot plot from dataset', self.open_external_files),
-            ('new psyplot project', partial(self.open_external_files, [])),
-            ])
+        self.open_file_options = OrderedDict(
+            [
+                ("new psyplot plot from dataset", self.open_external_files),
+                ("new psyplot project", partial(self.open_external_files, [])),
+            ]
+        )
 
         # ---------------------------------------------------------------------
         # ----------------------------- Menus ---------------------------------
@@ -184,143 +189,165 @@ class MainWindow(QMainWindow):
 
         # --------------------------- New plot --------------------------------
 
-        self.file_menu = QMenu('File', parent=self)
-        self.new_plot_action = QAction('New plot', self)
+        self.file_menu = QMenu("File", parent=self)
+        self.new_plot_action = QAction("New plot", self)
         self.new_plot_action.setStatusTip(
-            'Use an existing dataset (or open a new one) to create one or '
-            'more plots')
+            "Use an existing dataset (or open a new one) to create one or "
+            "more plots"
+        )
         self.register_shortcut(self.new_plot_action, QKeySequence.New)
         self.new_plot_action.triggered.connect(lambda: self.new_plots(True))
         self.file_menu.addAction(self.new_plot_action)
 
         # --------------------------- Open project ----------------------------
 
-        self.open_project_menu = QMenu('Open project', self)
+        self.open_project_menu = QMenu("Open project", self)
         self.file_menu.addMenu(self.open_project_menu)
 
-        self.open_mp_action = QAction('New main project', self)
+        self.open_mp_action = QAction("New main project", self)
         self.register_shortcut(self.open_mp_action, QKeySequence.Open)
-        self.open_mp_action.setStatusTip('Open a new main project')
+        self.open_mp_action.setStatusTip("Open a new main project")
         self.open_mp_action.triggered.connect(self.open_mp)
         self.open_project_menu.addAction(self.open_mp_action)
 
-        self.open_sp_action = QAction('Add to current', self)
+        self.open_sp_action = QAction("Add to current", self)
 
         self.register_shortcut(
-            self.open_sp_action, QKeySequence(
-                'Ctrl+Shift+O', QKeySequence.NativeText))
+            self.open_sp_action,
+            QKeySequence("Ctrl+Shift+O", QKeySequence.NativeText),
+        )
         self.open_sp_action.setStatusTip(
-            'Load a project as a sub project and add it to the current main '
-            'project')
+            "Load a project as a sub project and add it to the current main "
+            "project"
+        )
         self.open_sp_action.triggered.connect(self.open_sp)
         self.open_project_menu.addAction(self.open_sp_action)
 
         # ---------------------- load preset menu -----------------------------
 
-        self.load_preset_menu = QMenu('Load preset', parent=self)
+        self.load_preset_menu = QMenu("Load preset", parent=self)
         self.file_menu.addMenu(self.load_preset_menu)
 
         self.load_sp_preset_action = self.load_preset_menu.addAction(
-            "For selection", self.load_sp_preset)
+            "For selection", self.load_sp_preset
+        )
         self.load_sp_preset_action.setStatusTip(
-            "Load a preset for the selected project")
+            "Load a preset for the selected project"
+        )
 
         self.load_mp_preset_action = self.load_preset_menu.addAction(
-            "For full project", self.load_mp_preset)
+            "For full project", self.load_mp_preset
+        )
         self.load_sp_preset_action.setStatusTip(
-            "Load a preset for the full project")
+            "Load a preset for the full project"
+        )
 
         # ----------------------- Save project --------------------------------
 
-        self.save_project_menu = QMenu('Save', parent=self)
+        self.save_project_menu = QMenu("Save", parent=self)
         self.file_menu.addMenu(self.save_project_menu)
 
-        self.save_mp_action = QAction('Full psyplot project', self)
+        self.save_mp_action = QAction("Full psyplot project", self)
         self.save_mp_action.setStatusTip(
-            'Save the entire project into a pickle file')
+            "Save the entire project into a pickle file"
+        )
         self.register_shortcut(self.save_mp_action, QKeySequence.Save)
         self.save_mp_action.triggered.connect(self.save_mp)
         self.save_project_menu.addAction(self.save_mp_action)
 
-        self.save_sp_action = QAction('Selected psyplot project', self)
+        self.save_sp_action = QAction("Selected psyplot project", self)
         self.save_sp_action.setStatusTip(
-            'Save the selected sub project into a pickle file')
+            "Save the selected sub project into a pickle file"
+        )
         self.save_sp_action.triggered.connect(self.save_sp)
         self.save_project_menu.addAction(self.save_sp_action)
 
         # ------------------------ Save project as ----------------------------
 
-        self.save_project_as_menu = QMenu('Save as', parent=self)
+        self.save_project_as_menu = QMenu("Save as", parent=self)
         self.file_menu.addMenu(self.save_project_as_menu)
 
-        self.save_mp_as_action = QAction('Full psyplot project', self)
+        self.save_mp_as_action = QAction("Full psyplot project", self)
         self.save_mp_as_action.setStatusTip(
-            'Save the entire project into a pickle file')
-        self.register_shortcut(self.save_mp_as_action,
-                                       QKeySequence.SaveAs)
+            "Save the entire project into a pickle file"
+        )
+        self.register_shortcut(self.save_mp_as_action, QKeySequence.SaveAs)
         self.save_mp_as_action.triggered.connect(
-            partial(self.save_mp, new_fname=True))
+            partial(self.save_mp, new_fname=True)
+        )
         self.save_project_as_menu.addAction(self.save_mp_as_action)
 
-        self.save_sp_as_action = QAction('Selected psyplot project', self)
+        self.save_sp_as_action = QAction("Selected psyplot project", self)
         self.save_sp_as_action.setStatusTip(
-            'Save the selected sub project into a pickle file')
+            "Save the selected sub project into a pickle file"
+        )
         self.save_sp_as_action.triggered.connect(
-            partial(self.save_sp, new_fname=True))
+            partial(self.save_sp, new_fname=True)
+        )
         self.save_project_as_menu.addAction(self.save_sp_as_action)
 
         # ------------------------ Save preset --------------------------------
 
-        self.save_preset_menu = QMenu('Save preset', parent=self)
+        self.save_preset_menu = QMenu("Save preset", parent=self)
         self.file_menu.addMenu(self.save_preset_menu)
 
         self.save_sp_preset_action = self.save_preset_menu.addAction(
-            "Selection", self.save_sp_preset)
+            "Selection", self.save_sp_preset
+        )
         self.save_sp_preset_action.setStatusTip(
-            "Save the formatoptions of the selected project as a preset")
+            "Save the formatoptions of the selected project as a preset"
+        )
 
         self.save_mp_preset_action = self.save_preset_menu.addAction(
-            "Full project", self.save_mp_preset)
+            "Full project", self.save_mp_preset
+        )
         self.save_sp_preset_action.setStatusTip(
-            "Save the formatoptions of the full project as a preset")
+            "Save the formatoptions of the full project as a preset"
+        )
 
         # -------------------------- Pack project -----------------------------
 
-        self.pack_project_menu = QMenu('Zip project files', parent=self)
+        self.pack_project_menu = QMenu("Zip project files", parent=self)
         self.file_menu.addMenu(self.pack_project_menu)
 
-        self.pack_mp_action = QAction('Full psyplot project', self)
+        self.pack_mp_action = QAction("Full psyplot project", self)
         self.pack_mp_action.setStatusTip(
-            'Pack all the data of the main project into one folder')
+            "Pack all the data of the main project into one folder"
+        )
         self.pack_mp_action.triggered.connect(partial(self.save_mp, pack=True))
         self.pack_project_menu.addAction(self.pack_mp_action)
 
-        self.pack_sp_action = QAction('Selected psyplot project', self)
+        self.pack_sp_action = QAction("Selected psyplot project", self)
         self.pack_sp_action.setStatusTip(
-            'Pack all the data of the current sub project into one folder')
+            "Pack all the data of the current sub project into one folder"
+        )
         self.pack_sp_action.triggered.connect(partial(self.save_sp, pack=True))
         self.pack_project_menu.addAction(self.pack_sp_action)
 
         # ------------------------ Export figures -----------------------------
 
-        self.export_project_menu = QMenu('Export figures', parent=self)
+        self.export_project_menu = QMenu("Export figures", parent=self)
         self.file_menu.addMenu(self.export_project_menu)
 
-        self.export_mp_action = QAction('Full psyplot project', self)
+        self.export_mp_action = QAction("Full psyplot project", self)
         self.export_mp_action.setStatusTip(
-            'Pack all the data of the main project into one folder')
+            "Pack all the data of the main project into one folder"
+        )
         self.export_mp_action.triggered.connect(self.export_mp)
         self.register_shortcut(
-            self.export_mp_action, QKeySequence(
-                'Ctrl+E', QKeySequence.NativeText))
+            self.export_mp_action,
+            QKeySequence("Ctrl+E", QKeySequence.NativeText),
+        )
         self.export_project_menu.addAction(self.export_mp_action)
 
-        self.export_sp_action = QAction('Selected psyplot project', self)
+        self.export_sp_action = QAction("Selected psyplot project", self)
         self.export_sp_action.setStatusTip(
-            'Pack all the data of the current sub project into one folder')
+            "Pack all the data of the current sub project into one folder"
+        )
         self.register_shortcut(
-            self.export_sp_action, QKeySequence(
-                'Ctrl+Shift+E', QKeySequence.NativeText))
+            self.export_sp_action,
+            QKeySequence("Ctrl+Shift+E", QKeySequence.NativeText),
+        )
         self.export_sp_action.triggered.connect(self.export_sp)
         self.export_project_menu.addAction(self.export_sp_action)
 
@@ -328,77 +355,82 @@ class MainWindow(QMainWindow):
 
         self.file_menu.addSeparator()
 
-        self.close_project_menu = QMenu('Close project', parent=self)
+        self.close_project_menu = QMenu("Close project", parent=self)
         self.file_menu.addMenu(self.close_project_menu)
 
-        self.close_mp_action = QAction('Full psyplot project', self)
+        self.close_mp_action = QAction("Full psyplot project", self)
         self.register_shortcut(
-            self.close_mp_action, QKeySequence(
-                'Ctrl+Shift+W', QKeySequence.NativeText))
+            self.close_mp_action,
+            QKeySequence("Ctrl+Shift+W", QKeySequence.NativeText),
+        )
         self.close_mp_action.setStatusTip(
-            'Close the main project and delete all data and plots out of '
-            'memory')
+            "Close the main project and delete all data and plots out of "
+            "memory"
+        )
         self.close_mp_action.triggered.connect(
-            lambda: psy.close(psy.gcp(True).num))
+            lambda: psy.close(psy.gcp(True).num)
+        )
         self.close_project_menu.addAction(self.close_mp_action)
 
-        self.close_sp_action = QAction('Selected psyplot project', self)
+        self.close_sp_action = QAction("Selected psyplot project", self)
         self.close_sp_action.setStatusTip(
-            'Close the selected arrays project and delete all data and plots '
-            'out of memory')
+            "Close the selected arrays project and delete all data and plots "
+            "out of memory"
+        )
         self.register_shortcut(self.close_sp_action, QKeySequence.Close)
         self.close_sp_action.triggered.connect(
-            lambda: psy.gcp().close(True, True))
+            lambda: psy.gcp().close(True, True)
+        )
         self.close_project_menu.addAction(self.close_sp_action)
 
         # ----------------------------- Quit ----------------------------------
 
-        if sys.platform != 'darwin':  # mac os makes this anyway
-            self.quit_action = QAction('Quit', self)
+        if sys.platform != "darwin":  # mac os makes this anyway
+            self.quit_action = QAction("Quit", self)
             self.quit_action.triggered.connect(self.close)
             self.quit_action.triggered.connect(
-                QtCore.QCoreApplication.instance().quit)
-            self.register_shortcut(
-                self.quit_action, QKeySequence.Quit)
+                QtCore.QCoreApplication.instance().quit
+            )
+            self.register_shortcut(self.quit_action, QKeySequence.Quit)
             self.file_menu.addAction(self.quit_action)
 
         self.menuBar().addMenu(self.file_menu)
 
         # ######################## Console menu ###############################
 
-        self.console_menu = QMenu('Console', self)
+        self.console_menu = QMenu("Console", self)
         self.console_menu.addActions(self.console.actions())
         self.menuBar().addMenu(self.console_menu)
 
         # ######################## Windows menu ###############################
 
-        self.windows_menu = QMenu('Windows', self)
+        self.windows_menu = QMenu("Windows", self)
         self.menuBar().addMenu(self.windows_menu)
 
         # ############################ Help menu ##############################
 
-        self.help_menu = QMenu('Help', parent=self)
+        self.help_menu = QMenu("Help", parent=self)
         self.menuBar().addMenu(self.help_menu)
 
         # -------------------------- Preferences ------------------------------
 
-        self.help_action = QAction('Preferences', self)
+        self.help_action = QAction("Preferences", self)
         self.help_action.triggered.connect(lambda: self.edit_preferences(True))
-        self.register_shortcut(self.help_action,
-                                       QKeySequence.Preferences)
+        self.register_shortcut(self.help_action, QKeySequence.Preferences)
         self.help_menu.addAction(self.help_action)
 
         # ---------------------------- About ----------------------------------
 
-        self.about_action = QAction('About', self)
+        self.about_action = QAction("About", self)
         self.about_action.triggered.connect(self.about)
         self.help_menu.addAction(self.about_action)
 
         # ---------------------------- Dependencies ---------------------------
 
-        self.dependencies_action = QAction('Dependencies', self)
+        self.dependencies_action = QAction("Dependencies", self)
         self.dependencies_action.triggered.connect(
-            lambda: self.show_dependencies(True))
+            lambda: self.show_dependencies(True)
+        )
         self.help_menu.addAction(self.dependencies_action)
 
         self.dockwidgets = []
@@ -414,27 +446,31 @@ class MainWindow(QMainWindow):
         self.figures_tree = FiguresTree(parent=self)
         #: help explorer
         self.help_explorer = help_explorer = HelpExplorer(parent=self)
-        if 'HTML help' in help_explorer.viewers and help_explorer.viewers[
-                'HTML help'].sphinx_thread is not None:
+        if (
+            "HTML help" in help_explorer.viewers
+            and help_explorer.viewers["HTML help"].sphinx_thread is not None
+        ):
             help_explorer.viewers[
-                'HTML help'].sphinx_thread.html_ready.connect(
-                    self.focus_on_console)
+                "HTML help"
+            ].sphinx_thread.html_ready.connect(self.focus_on_console)
         #: the DataFrameEditor widgets
         self.dataframeeditors = []
         #: general formatoptions widget
         self.fmt_widget = FormatoptionWidget(
-            parent=self, help_explorer=help_explorer,
-            console=self.console)
+            parent=self, help_explorer=help_explorer, console=self.console
+        )
 
         # load plugin widgets
-        self.plugins = plugins = OrderedDict([
-            ('console', self.console),
-            ('project_content', self.project_content),
-            ('ds_tree', self.ds_tree),
-            ('figures_tree', self.figures_tree),
-            ('help_explorer', self.help_explorer),
-            ('fmt_widget', self.fmt_widget),
-            ])
+        self.plugins = plugins = OrderedDict(
+            [
+                ("console", self.console),
+                ("project_content", self.project_content),
+                ("ds_tree", self.ds_tree),
+                ("figures_tree", self.figures_tree),
+                ("help_explorer", self.help_explorer),
+                ("fmt_widget", self.fmt_widget),
+            ]
+        )
         self.default_plugins = list(plugins)
         for plugin_name, w_class in six.iteritems(rcParams.load_plugins()):
             plugins[plugin_name] = w_class(parent=self)
@@ -443,23 +479,24 @@ class MainWindow(QMainWindow):
         psy.Project.oncpchange.connect(self.eventually_add_mp_to_menu)
         self.windows_menu.addSeparator()
 
-        self.window_layouts_menu = QMenu('Window layouts', self)
-        self.restore_layout_action = QAction('Restore default layout', self)
+        self.window_layouts_menu = QMenu("Window layouts", self)
+        self.restore_layout_action = QAction("Restore default layout", self)
         self.restore_layout_action.triggered.connect(self.setup_default_layout)
         self.window_layouts_menu.addAction(self.restore_layout_action)
         self.windows_menu.addMenu(self.window_layouts_menu)
 
-        self.panes_menu = QMenu('Panes', self)
+        self.panes_menu = QMenu("Panes", self)
         self.windows_menu.addMenu(self.panes_menu)
 
-        self.dataframe_menu = QMenu('DataFrame editors', self)
+        self.dataframe_menu = QMenu("DataFrame editors", self)
         self.dataframe_menu.addAction(
-            'New Editor', partial(self.new_data_frame_editor, None,
-                                  'DataFrame Editor'))
+            "New Editor",
+            partial(self.new_data_frame_editor, None, "DataFrame Editor"),
+        )
         self.dataframe_menu.addSeparator()
         self.windows_menu.addMenu(self.dataframe_menu)
 
-        self.central_widgets_menu = menu = QMenu('Central widget', self)
+        self.central_widgets_menu = menu = QMenu("Central widget", self)
         self.windows_menu.addMenu(menu)
         self.central_widgets_actions = group = QActionGroup(self)
         group.setExclusive(True)
@@ -469,8 +506,9 @@ class MainWindow(QMainWindow):
         # ---------------------------------------------------------------------
 
         self.console.help_explorer = help_explorer
-        psyp.default_print_func = partial(help_explorer.show_rst,
-                                          oname='formatoption_docs')
+        psyp.default_print_func = partial(
+            help_explorer.show_rst, oname="formatoption_docs"
+        )
         psy.PlotterInterface._print_func = psyp.default_print_func
         self.setCentralWidget(self.console)
 
@@ -493,18 +531,19 @@ class MainWindow(QMainWindow):
         # ---------------------------------------------------------------------
         # ------------------------- open_files_server -------------------------
         # ---------------------------------------------------------------------
-        self.callbacks = {'new_plot': self.open_external.emit,
-                          'change_cwd': self._change_cwd,
-                          'run_script': self.console.run_script.emit,
-                          'command': self.console.run_command.emit,
-                          }
+        self.callbacks = {
+            "new_plot": self.open_external.emit,
+            "change_cwd": self._change_cwd,
+            "run_script": self.console.run_script.emit,
+            "command": self.console.run_command.emit,
+        }
 
         # Server to open external files on a single instance
-        self.open_files_server = socket.socket(socket.AF_INET,
-                                               socket.SOCK_STREAM,
-                                               socket.IPPROTO_TCP)
+        self.open_files_server = socket.socket(
+            socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP
+        )
 
-        if rcParams['main.listen_to_port']:
+        if rcParams["main.listen_to_port"]:
             self._file_thread = Thread(target=self.start_open_files_server)
             self._file_thread.setDaemon(True)
             self._file_thread.start()
@@ -549,7 +588,7 @@ class MainWindow(QMainWindow):
         """Put focus on the ipython console"""
         self.console._control.setFocus()
 
-    def new_data_frame_editor(self, df=None, title='DataFrame Editor'):
+    def new_data_frame_editor(self, df=None, title="DataFrame Editor"):
         """Open a new dataframe editor
 
         Parameters
@@ -565,8 +604,7 @@ class MainWindow(QMainWindow):
             The newly created editor"""
         editor = DataFrameEditor()
         self.dataframeeditors.append(editor)
-        editor.to_dock(self, title,
-                       Qt.RightDockWidgetArea, docktype='df')
+        editor.to_dock(self, title, Qt.RightDockWidgetArea, docktype="df")
         if df is not None:
             editor.set_df(df)
         editor.show_plugin()
@@ -576,13 +614,15 @@ class MainWindow(QMainWindow):
 
     def setup_default_layout(self):
         """Set up the default window layout"""
-        self.project_content.to_dock(self, 'Plot objects',
-                                     Qt.LeftDockWidgetArea)
-        self.ds_tree.to_dock(self, 'Datasets', Qt.LeftDockWidgetArea)
-        self.figures_tree.to_dock(self, 'Figures', Qt.LeftDockWidgetArea)
-        self.help_explorer.to_dock(self, 'Help explorer',
-                                   Qt.RightDockWidgetArea)
-        self.fmt_widget.to_dock(self, 'Formatoptions', Qt.BottomDockWidgetArea)
+        self.project_content.to_dock(
+            self, "Plot objects", Qt.LeftDockWidgetArea
+        )
+        self.ds_tree.to_dock(self, "Datasets", Qt.LeftDockWidgetArea)
+        self.figures_tree.to_dock(self, "Figures", Qt.LeftDockWidgetArea)
+        self.help_explorer.to_dock(
+            self, "Help explorer", Qt.RightDockWidgetArea
+        )
+        self.fmt_widget.to_dock(self, "Formatoptions", Qt.BottomDockWidgetArea)
 
         modify_widths = bool(self.default_widths)
         for w in map(self.plugins.__getitem__, self.default_plugins):
@@ -590,8 +630,9 @@ class MainWindow(QMainWindow):
                 w.show_plugin()
 
                 if modify_widths and with_qt5:
-                    self.resizeDocks([w.dock], [self.default_widths[w]],
-                                     Qt.Horizontal)
+                    self.resizeDocks(
+                        [w.dock], [self.default_widths[w]], Qt.Horizontal
+                    )
 
         # hide plugin widgets that should be hidden at startup
         for name, w in self.plugins.items():
@@ -615,6 +656,7 @@ class MainWindow(QMainWindow):
         name: str or QWidget
             The key or the plugin widget in the :attr:`plugins` dictionary"""
         from PyQt5.QtCore import QTimer
+
         self.setUpdatesEnabled(False)
         current = self.centralWidget()
         if isinstance(name, six.string_types):
@@ -623,7 +665,6 @@ class MainWindow(QMainWindow):
             new = name
             name = next(key for key, val in self.plugins.items() if val is new)
         if new is not current:
-
             self._dock_widths = dock_widths = OrderedDict()
             self._dock_heights = dock_heights = OrderedDict()
             for key, w in self.plugins.items():
@@ -672,24 +713,25 @@ class MainWindow(QMainWindow):
         self.setUpdatesEnabled(True)
 
     def _save_project(self, p, new_fname=False, *args, **kwargs):
-        if new_fname or 'project_file' not in p.attrs:
+        if new_fname or "project_file" not in p.attrs:
             fname = QFileDialog.getSaveFileName(
-                self, 'Project destination', os.getcwd(),
-                'Pickle files (*.pkl);;'
-                'All files (*)'
-                )
+                self,
+                "Project destination",
+                os.getcwd(),
+                "Pickle files (*.pkl);;" "All files (*)",
+            )
             if with_qt5:  # the filter is passed as well
                 fname = fname[0]
             if not fname:
                 return
         else:
-            fname = p.attrs['project_file']
+            fname = p.attrs["project_file"]
         try:
             p.save_project(fname, *args, **kwargs)
         except Exception:
-            self.error_msg.showTraceback('<b>Could not save the project!</b>')
+            self.error_msg.showTraceback("<b>Could not save the project!</b>")
         else:
-            p.attrs['project_file'] = fname
+            p.attrs["project_file"] = fname
             if p.is_main:
                 self.update_project_action(p.num)
 
@@ -701,10 +743,11 @@ class MainWindow(QMainWindow):
 
     def _load_preset(self, project, *args, **kwargs):
         fname, ok = QFileDialog.getOpenFileName(
-            self, 'Load preset', os.path.join(get_configdir(), "presets"),
-            'YAML files (*.yml *.yaml);;'
-            'All files (*)'
-            )
+            self,
+            "Load preset",
+            os.path.join(get_configdir(), "presets"),
+            "YAML files (*.yml *.yaml);;" "All files (*)",
+        )
         if ok:
             project.load_preset(fname, *args, **kwargs)
 
@@ -718,16 +761,17 @@ class MainWindow(QMainWindow):
 
     def _open_project(self, *args, **kwargs):
         fname = QFileDialog.getOpenFileName(
-            self, 'Project file', os.getcwd(),
-            'Pickle files (*.pkl);;'
-            'All files (*)'
-            )
+            self,
+            "Project file",
+            os.getcwd(),
+            "Pickle files (*.pkl);;" "All files (*)",
+        )
         if with_qt5:  # the filter is passed as well
             fname = fname[0]
         if not fname:
             return
         p = psy.Project.load_project(fname, *args, **kwargs)
-        p.attrs['project_file'] = fname
+        p.attrs["project_file"] = fname
         self.update_project_action(p.num)
 
     def save_mp(self, *args, **kwargs):
@@ -746,24 +790,27 @@ class MainWindow(QMainWindow):
 
     def _save_preset(self, project, *args, **kwargs):
         fname, ok = QFileDialog.getSaveFileName(
-            self, 'Save preset', os.path.join(get_configdir(), 'presets'),
-            'YAML file (*.yml *.yaml);;'
-            'All files (*)'
-            )
+            self,
+            "Save preset",
+            os.path.join(get_configdir(), "presets"),
+            "YAML file (*.yml *.yaml);;" "All files (*)",
+        )
         if ok:
             project.save_preset(fname, *args, **kwargs)
 
     def _export_project(self, p, *args, **kwargs):
         fname = QFileDialog.getSaveFileName(
-            self, 'Picture destination', os.getcwd(),
-            'PDF files (*.pdf);;'
-            'Postscript file (*.ps);;'
-            'PNG image (*.png);;'
-            'JPG image (*.jpg *.jpeg);;'
-            'TIFF image (*.tif *.tiff);;'
-            'GIF image (*.gif);;'
-            'All files (*)'
-            )
+            self,
+            "Picture destination",
+            os.getcwd(),
+            "PDF files (*.pdf);;"
+            "Postscript file (*.ps);;"
+            "PNG image (*.png);;"
+            "JPG image (*.jpg *.jpeg);;"
+            "TIFF image (*.tif *.tiff);;"
+            "GIF image (*.gif);;"
+            "All files (*)",
+        )
         if with_qt5:  # the filter is passed as well
             fname = fname[0]
         if not fname:
@@ -772,7 +819,8 @@ class MainWindow(QMainWindow):
             p.export(fname, *args, **kwargs)
         except Exception:
             self.error_msg.showTraceback(
-                '<b>Could not export the figures!</b>')
+                "<b>Could not export the figures!</b>"
+            )
 
     def export_mp(self, *args, **kwargs):
         self._export_project(psy.gcp(True), **kwargs)
@@ -781,14 +829,15 @@ class MainWindow(QMainWindow):
         self._export_project(psy.gcp(), **kwargs)
 
     def new_plots(self, exec_=None):
-        if hasattr(self, 'plot_creator'):
+        if hasattr(self, "plot_creator"):
             try:
                 self.plot_creator.close()
             except RuntimeError:
                 pass
         self.plot_creator = PlotCreator(
-            help_explorer=self.help_explorer, parent=self)
-        available_width = QDesktopWidget().availableGeometry().width() / 3.
+            help_explorer=self.help_explorer, parent=self
+        )
+        available_width = QDesktopWidget().availableGeometry().width() // 3
         width = self.plot_creator.sizeHint().width()
         height = self.plot_creator.sizeHint().height()
         # The plot creator window should cover at least one third of the screen
@@ -802,7 +851,7 @@ class MainWindow(QMainWindow):
 
     def edit_preferences(self, exec_=None):
         """Edit Spyder preferences"""
-        if hasattr(self, 'preferences'):
+        if hasattr(self, "preferences"):
             try:
                 self.preferences.close()
             except RuntimeError:
@@ -813,7 +862,7 @@ class MainWindow(QMainWindow):
             widget.initialize()
             dlg.add_page(widget)
         available_width = int(
-            0.667*QDesktopWidget().availableGeometry().width()
+            0.667 * QDesktopWidget().availableGeometry().width()
         )
         width = dlg.sizeHint().width()
         height = dlg.sizeHint().height()
@@ -825,21 +874,22 @@ class MainWindow(QMainWindow):
     def about(self):
         """About the tool"""
         versions = {
-            key: d['version'] for key, d in psyplot.get_versions(False).items()
-            }
-        versions.update(psyplot_gui.get_versions()['requirements'])
-        versions.update(psyplot._get_versions()['requirements'])
-        versions['github'] = 'https://github.com/psyplot/psyplot'
-        versions['author'] = psyplot.__author__
+            key: d["version"] for key, d in psyplot.get_versions(False).items()
+        }
+        versions.update(psyplot_gui.get_versions()["requirements"])
+        versions.update(psyplot._get_versions()["requirements"])
+        versions["github"] = "https://github.com/psyplot/psyplot"
+        versions["author"] = psyplot.__author__
         QMessageBox.about(
-            self, "About psyplot",
-            u"""<b>psyplot: Interactive data visualization with python</b>
+            self,
+            "About psyplot",
+            """<b>psyplot: Interactive data visualization with python</b>
             <br>Copyright &copy; 2017- Philipp Sommer
             <br>Licensed under the terms of the GNU General Public License v2
             (GPLv2)
             <p>Created by %(author)s</p>
             <p>Most of the icons come from the
-            <a href="https://www.iconfinder.com/"> iconfinder</a>.</p>
+            <a href="https://fontawesome.com/">Fontawesom</a>.</p>
             <p>For bug reports and feature requests, please go
             to our <a href="%(github)s">Github website</a> or contact the
             author via mail.</p>
@@ -859,17 +909,19 @@ class MainWindow(QMainWindow):
             in the <em>Help</em> menu.</p>
             <p>This software is provided "as is", without warranty or support
             of any kind.</p>"""
-            % versions)
+            % versions,
+        )
 
     def show_dependencies(self, exec_=None):
         """Open a dialog that shows the dependencies"""
-        if hasattr(self, 'dependencies'):
+        if hasattr(self, "dependencies"):
             try:
                 self.dependencies.close()
             except RuntimeError:
                 pass
-        self.dependencies = dlg = DependenciesDialog(psyplot.get_versions(),
-                                                     parent=self)
+        self.dependencies = dlg = DependenciesDialog(
+            psyplot.get_versions(), parent=self
+        )
         dlg.resize(630, 420)
         if exec_:
             dlg.exec_()
@@ -880,10 +932,13 @@ class MainWindow(QMainWindow):
 
     def add_mp_to_menu(self):
         mp = psy.gcp(True)
-        action = QAction(os.path.basename(mp.attrs.get(
-            'project_file', 'Untitled %s*' % mp.num)), self)
-        action.setStatusTip(
-            'Make project %s the current project' % mp.num)
+        action = QAction(
+            os.path.basename(
+                mp.attrs.get("project_file", "Untitled %s*" % mp.num)
+            ),
+            self,
+        )
+        action.setStatusTip("Make project %s the current project" % mp.num)
         action.triggered.connect(lambda: psy.scp(psy.project(mp.num)))
         self.project_actions[mp.num] = action
         self.windows_menu.addAction(action)
@@ -892,12 +947,16 @@ class MainWindow(QMainWindow):
         action = self.project_actions.get(num)
         p = psy.project(num)
         if action:
-            action.setText(os.path.basename(p.attrs.get(
-                'project_file', 'Untitled %s*' % num)))
+            action.setText(
+                os.path.basename(
+                    p.attrs.get("project_file", "Untitled %s*" % num)
+                )
+            )
 
     def eventually_add_mp_to_menu(self, p):
         for num in set(self.project_actions).difference(
-                psy.get_project_nums()):
+            psy.get_project_nums()
+        ):
             self.windows_menu.removeAction(self.project_actions.pop(num))
         if p is None or not p.is_main:
             return
@@ -909,11 +968,12 @@ class MainWindow(QMainWindow):
         creator for new files
 
         This method is inspired and to most parts copied from spyder"""
-        self.open_files_server.setsockopt(socket.SOL_SOCKET,
-                                          socket.SO_REUSEADDR, 1)
-        port = rcParams['main.open_files_port']
+        self.open_files_server.setsockopt(
+            socket.SOL_SOCKET, socket.SO_REUSEADDR, 1
+        )
+        port = rcParams["main.open_files_port"]
         try:
-            self.open_files_server.bind(('127.0.0.1', port))
+            self.open_files_server.bind(("127.0.0.1", port))
         except Exception:
             return
         self.open_files_server.listen(20)
@@ -928,21 +988,23 @@ class MainWindow(QMainWindow):
                 if e.args[0] == eintr:
                     continue
                 # handle a connection abort on close error
-                enotsock = (errno.WSAENOTSOCK if os.name == 'nt'
-                            else errno.ENOTSOCK)
+                enotsock = (
+                    errno.WSAENOTSOCK if os.name == "nt" else errno.ENOTSOCK
+                )
                 if e.args[0] in [errno.ECONNABORTED, enotsock]:
                     return
                 raise
             args = pickle.loads(req.recv(1024))
             callback = args[0]
             func = self.callbacks[callback]
-            self.logger.debug('Emitting %s callback %s', callback, func)
+            self.logger.debug("Emitting %s callback %s", callback, func)
             func(args[1:])
-            req.sendall(b' ')
+            req.sendall(b" ")
 
     def change_cwd(self, path):
         """Change the current working directory"""
         import os
+
         os.chdir(path)
 
     def _change_cwd(self, args):
@@ -950,83 +1012,125 @@ class MainWindow(QMainWindow):
         self.change_cwd(path)
 
     docstrings.keep_params(
-        'make_plot.parameters', 'fnames', 'project', 'engine', 'plot_method',
-        'name', 'dims', 'encoding', 'enable_post', 'seaborn_style',
-        'concat_dim', 'chname', 'preset')
+        "make_plot.parameters",
+        "fnames",
+        "project",
+        "engine",
+        "plot_method",
+        "name",
+        "dims",
+        "encoding",
+        "enable_post",
+        "seaborn_style",
+        "concat_dim",
+        "chname",
+        "preset",
+        "decoder",
+    )
 
     def open_files(self, fnames):
         """Open a file and ask the user how"""
-        fnames_s = ', '.join(map(os.path.basename, fnames))
+        fnames_s = ", ".join(map(os.path.basename, fnames))
         if len(fnames_s) > 30:
-            fnames_s = fnames_s[:27] + '...'
+            fnames_s = fnames_s[:27] + "..."
         item, ok = QInputDialog.getItem(
-            self, 'Open file...', 'Open %s as...' % fnames_s,
-            list(self.open_file_options), current=0, editable=False)
+            self,
+            "Open file...",
+            "Open %s as..." % fnames_s,
+            list(self.open_file_options),
+            current=0,
+            editable=False,
+        )
         if ok:
             return self.open_file_options[item](fnames)
 
-    @docstrings.get_sections(base='MainWindow.open_external_files')
+    @docstrings.get_sections(base="MainWindow.open_external_files")
     @docstrings.dedent
-    def open_external_files(self, fnames=[], project=None, engine=None,
-                            plot_method=None, name=None, dims=None,
-                            encoding=None, enable_post=False,
-                            seaborn_style=None, concat_dim=get_default_value(
-                                xr.open_mfdataset, 'concat_dim'), chname={},
-                            preset=None):
+    def open_external_files(
+        self,
+        fnames=[],
+        project=None,
+        engine=None,
+        plot_method=None,
+        name=None,
+        dims=None,
+        encoding=None,
+        enable_post=False,
+        seaborn_style=None,
+        concat_dim=get_default_value(xr.open_mfdataset, "concat_dim"),
+        chname={},
+        preset=None,
+        decoder=None,
+    ):
         """
         Open external files
 
         Parameters
         ----------
-        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset)s
+        %(make_plot.parameters.fnames|project|engine|plot_method|name|dims|encoding|enable_post|seaborn_style|concat_dim|chname|preset|decoder)s
         """
         if seaborn_style is not None:
             import seaborn as sns
+
             sns.set_style(seaborn_style)
         if project is not None:
-            fnames = [s.split(',') for s in fnames]
+            fnames = [s.split(",") for s in fnames]
             if not isinstance(project, dict):
                 project = psyd.safe_list(project)[0]
-            single_files = (l[0] for l in fnames if len(l) == 1)
+            single_files = (files[0] for files in fnames if len(files) == 1)
             alternative_paths = defaultdict(lambda: next(single_files, None))
-            alternative_paths.update(list(l for l in fnames if len(l) == 2))
+            alternative_paths.update(
+                list(files for files in fnames if len(files) == 2)
+            )
             p = psy.Project.load_project(
-                project, alternative_paths=alternative_paths,
-                engine=engine, main=not psy.gcp(), encoding=encoding,
-                enable_post=enable_post, chname=chname)
+                project,
+                alternative_paths=alternative_paths,
+                engine=engine,
+                main=not psy.gcp(),
+                encoding=encoding,
+                enable_post=enable_post,
+                chname=chname,
+            )
             if preset:
                 p.load_preset(preset)
             if isinstance(project, six.string_types):
-                p.attrs.setdefault('project_file', project)
+                p.attrs.setdefault("project_file", project)
             return True
         else:
             self.new_plots(False)
-            self.plot_creator.open_dataset(fnames, engine=engine,
-                                           concat_dim=concat_dim)
-            if name == 'all':
+            self.plot_creator.open_dataset(
+                fnames, engine=engine, concat_dim=concat_dim
+            )
+            if name == "all":
                 ds = self.plot_creator.get_ds()
                 name = sorted(set(ds.variables) - set(ds.coords))
             self.plot_creator.insert_array(
-                list(filter(None, psy.safe_list(name))))
+                list(filter(None, psy.safe_list(name)))
+            )
             if dims is not None:
                 ds = self.plot_creator.get_ds()
-                dims = {key: ', '.join(
-                    map(str, val)) for key, val in six.iteritems(
-                        dims)}
+                dims = {
+                    key: ", ".join(map(str, val))
+                    for key, val in six.iteritems(dims)
+                }
                 for i, vname in enumerate(
-                        self.plot_creator.array_table.vnames):
+                    self.plot_creator.array_table.vnames
+                ):
                     self.plot_creator.array_table.selectRow(i)
-                    self.plot_creator.array_table.update_selected(
-                        )
+                    self.plot_creator.array_table.update_selected()
                 self.plot_creator.array_table.selectAll()
                 var = ds[vname[0]]
                 self.plot_creator.array_table.update_selected(
-                    dims=var.psy.decoder.correct_dims(var, dims.copy()))
+                    dims=var.psy.decoder.correct_dims(var, dims.copy())
+                )
             if preset:
                 self.plot_creator.set_preset(preset)
             if plot_method:
                 self.plot_creator.pm_combo.setCurrentIndex(
-                    self.plot_creator.pm_combo.findText(plot_method))
+                    self.plot_creator.pm_combo.findText(plot_method)
+                )
+            if decoder:
+                self.plot_creator.set_decoder(decoder)
             self.plot_creator.exec_()
             return True
 
@@ -1034,13 +1138,25 @@ class MainWindow(QMainWindow):
         self.open_external_files(*args)
 
     @classmethod
-    @docstrings.get_sections(base='MainWindow.run')
+    @docstrings.get_sections(base="MainWindow.run")
     @docstrings.dedent
-    def run(cls, fnames=[], project=None, engine=None, plot_method=None,
-            name=None, dims=None, encoding=None, enable_post=False,
-            seaborn_style=None,
-            concat_dim=get_default_value(xr.open_mfdataset, 'concat_dim'),
-            chname={}, preset=None, show=True):
+    def run(
+        cls,
+        fnames=[],
+        project=None,
+        engine=None,
+        plot_method=None,
+        name=None,
+        dims=None,
+        encoding=None,
+        enable_post=False,
+        seaborn_style=None,
+        concat_dim=get_default_value(xr.open_mfdataset, "concat_dim"),
+        chname={},
+        preset=None,
+        decoder=None,
+        show=True,
+    ):
         """
         Create a mainwindow and open the given files or project
 
@@ -1066,13 +1182,26 @@ class MainWindow(QMainWindow):
         _set_mainwindow(mainwindow)
         if fnames or project:
             mainwindow.open_external_files(
-                fnames, project, engine, plot_method, name, dims, encoding,
-                enable_post, seaborn_style, concat_dim, chname, preset)
+                fnames,
+                project,
+                engine,
+                plot_method,
+                name,
+                dims,
+                encoding,
+                enable_post,
+                seaborn_style,
+                concat_dim,
+                chname,
+                preset,
+                decoder,
+            )
         psyplot.with_gui = True
         return mainwindow
 
-    def register_shortcut(self, action, shortcut,
-                          context=Qt.ApplicationShortcut):
+    def register_shortcut(
+        self, action, shortcut, context=Qt.ApplicationShortcut
+    ):
         """Register an action for a shortcut"""
         shortcuts = psy.safe_list(shortcut)
         for j, shortcut in enumerate(shortcuts):
@@ -1080,8 +1209,10 @@ class MainWindow(QMainWindow):
             for i, (s, a) in enumerate(self.current_shortcuts):
                 if s == shortcut:
                     new_shortcuts = [
-                        sc for sc in self.current_shortcuts[i][1].shortcuts()
-                        if sc != s]
+                        sc
+                        for sc in self.current_shortcuts[i][1].shortcuts()
+                        if sc != s
+                    ]
                     a.setShortcut(QKeySequence())
                     if new_shortcuts:
                         a.setShortcuts(new_shortcuts)

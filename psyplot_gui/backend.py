@@ -3,51 +3,45 @@ psyplot gui
 
 This backend is based upon matplotlibs qt4agg and qt5agg backends."""
 
-# Disclaimer
-# ----------
+# SPDX-FileCopyrightText: 2016-2024 University of Lausanne
+# SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
 #
-# Copyright (C) 2021 Helmholtz-Zentrum Hereon
-# Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht
-# Copyright (C) 2016-2021 University of Lausanne
-#
-# This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.
-# See COPYING and COPYING.LESSER in the root of the repository for full
-# licensing details.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License version 3.0 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU LGPL-3.0 license for more details.
-#
-# You should have received a copy of the GNU LGPL-3.0 license
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-3.0-only
 
-from psyplot_gui.compat.qtcompat import (
-    QDockWidget, Qt, QWidget, QVBoxLayout, with_qt5)
-from psyplot_gui.common import DockMixin
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
+
+from psyplot_gui.common import DockMixin
+from psyplot_gui.compat.qtcompat import (
+    QDockWidget,
+    Qt,
+    QVBoxLayout,
+    QWidget,
+    with_qt5,
+)
+
 if with_qt5:
     from matplotlib.backends.backend_qt5agg import (
-        show, FigureManagerQT, FigureCanvasQTAgg)
+        FigureCanvasQTAgg,
+        FigureManagerQT,
+    )
 else:
     from matplotlib.backends.backend_qt4agg import (
-        show, FigureManagerQT, FigureCanvasQTAgg)
+        FigureCanvasQTAgg,
+        FigureManagerQT,
+    )
 
 
 class FiguresDock(QDockWidget):
-    """Reimplemented QDockWidget to remove the dock widget when closed
-    """
+    """Reimplemented QDockWidget to remove the dock widget when closed"""
 
     def close(self, *args, **kwargs):
         """
         Reimplemented to remove the dock widget from the mainwindow when closed
         """
         from psyplot_gui.main import mainwindow
+
         try:
             mainwindow.figures.remove(self)
         except Exception:
@@ -69,7 +63,7 @@ def new_figure_manager(num, *args, **kwargs):
     """
     Create a new figure manager instance
     """
-    FigureClass = kwargs.pop('FigureClass', Figure)
+    FigureClass = kwargs.pop("FigureClass", Figure)
     thisFig = FigureClass(*args, **kwargs)
     return new_figure_manager_given_figure(num, thisFig)
 
@@ -90,14 +84,18 @@ class PsyplotCanvasManager(FigureManagerQT):
 
     def __init__(self, canvas, num):
         from psyplot_gui.main import mainwindow
+
         self.main = mainwindow
         if mainwindow is None:
             return super(PsyplotCanvasManager, self).__init__(canvas, num)
         parent_widget = FigureWidget()
         parent_widget.vbox = vbox = QVBoxLayout()
         self.window = dock = parent_widget.to_dock(
-            mainwindow, title="Figure %d" % num, position=Qt.TopDockWidgetArea,
-            docktype=None)
+            mainwindow,
+            title="Figure %d" % num,
+            position=Qt.TopDockWidgetArea,
+            docktype=None,
+        )
         if mainwindow.figures:
             mainwindow.tabifyDockWidget(mainwindow.figures[-1], dock)
         mainwindow.figures.append(dock)
@@ -106,7 +104,9 @@ class PsyplotCanvasManager(FigureManagerQT):
 
         self.window.setWindowTitle("Figure %d" % num)
 
-        self.toolbar = self._get_toolbar(canvas, parent_widget)
+        if hasattr(self, "_get_toolbar"):
+            # legacy solution for matplotlib < 3.6
+            self.toolbar = self._get_toolbar(canvas, parent_widget)
 
         # add text label to status bar
         self.statusbar_label = mainwindow.figures_label
@@ -136,6 +136,7 @@ class PsyplotCanvasManager(FigureManagerQT):
             # This will be called whenever the current axes is changed
             if self.toolbar is not None:
                 self.toolbar.update()
+
         self.canvas.figure.add_axobserver(notify_axes_change)
 
     def statusBar(self, *args, **kwargs):

@@ -1,0 +1,149 @@
+# SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+#
+# SPDX-License-Identifier: CC0-1.0
+
+[build-system]
+build-backend = 'setuptools.build_meta'
+requires = ['setuptools >= 61.0', 'versioneer[toml]']
+
+[project]
+name = "psyplot-gui"
+dynamic = ["version"]
+description = "Graphical user interface for the psyplot package"
+
+readme = "README.md"
+keywords = [
+    "visualization",
+    "psyplot",
+    "netcdf",
+    "raster",
+    "cartopy",
+    "earth-sciences",
+    "pyqt",
+    "qt",
+    "ipython",
+    "jupyter",
+    "qtconsole",
+]
+
+authors = [
+    { name = 'Philipp S. Sommer', email = 'philipp.sommer@hereon.de' },
+]
+maintainers = [
+    { name = 'Philipp S. Sommer', email = 'philipp.sommer@hereon.de' },
+]
+license = { text = 'LGPL-3.0-only' }
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+]
+
+requires-python = '>= 3.9'
+dependencies = [
+    "psyplot>=1.5.0",
+    # add your dependencies here
+    "qtconsole",
+    "fasteners",
+    "sphinx>=2.4.0",
+    "sphinx-rtd-theme",
+]
+
+[project.urls]
+Homepage = 'https://codebase.helmholtz.cloud/psyplot/psyplot-gui'
+Documentation = "https://psyplot.github.io/psyplot-gui"
+Source = "https://codebase.helmholtz.cloud/psyplot/psyplot-gui"
+Tracker = "https://codebase.helmholtz.cloud/psyplot/psyplot-gui/issues/"
+
+[project.optional-dependencies]
+testsite = [
+    "tox",
+    "isort==5.12.0",
+    "black==23.1.0",
+    "blackdoc==0.3.8",
+    "flake8==6.0.0",
+    "pre-commit",
+    "mypy",
+    "pytest-cov",
+    "reuse",
+    "cffconvert",
+    "netCDF4",
+    "dask",
+    "scipy",
+    "psutil",
+]
+docs = [
+    "autodocsumm",
+    "sphinx-rtd-theme",
+    "hereon-netcdf-sphinxext",
+    "sphinx-design",
+    "dask",
+    "netcdf4",
+    "psy-simple",
+    "sphinx-argparse",
+]
+dev = [
+    "psyplot-gui[testsite]",
+    "psyplot-gui[docs]",
+    "PyYAML",
+    "types-PyYAML",
+]
+
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.setuptools]
+zip-safe = false
+license-files = ["LICENSES/*"]
+
+[tool.setuptools.package-data]
+psyplot_gui = [
+    "psyplot_gui/sphinx_supp/conf.py",
+    "psyplot_gui/sphinx_supp/psyplot.rst",
+    "psyplot_gui/sphinx_supp/_static/*",
+    "psyplot_gui/icons/*.png",
+    "psyplot_gui/icons/*.png.license",
+    "psyplot_gui/icons/*.svg",
+    "psyplot_gui/icons/*.svg.license",
+]
+
+[tool.setuptools.packages.find]
+namespaces = false
+exclude = [
+    'docs',
+    'tests*',
+    'examples'
+]
+
+[tool.pytest.ini_options]
+addopts = '-v'
+
+[tool.versioneer]
+VCS = 'git'
+style = 'pep440'
+versionfile_source = 'psyplot_gui/_version.py'
+versionfile_build = 'psyplot_gui/_version.py'
+tag_prefix = 'v'
+parentdir_prefix = 'psyplot-gui-'
+
+[tool.isort]
+profile = "black"
+line_length = 79
+src_paths = ["psyplot_gui"]
+float_to_top = true
+known_first_party = "psyplot_gui"
+
+[tool.black]
+line-length = 79
+target-version = ['py39']
+
+[tool.coverage.run]
+omit = ["psyplot_gui/_version.py"]
