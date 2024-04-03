@@ -93,10 +93,10 @@ Indices and tables
 * :ref:`search`
 
 
-.. |CI| image:: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/badges/main/pipeline.svg
-   :target: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/pipelines?page=1&scope=all&ref=main
-.. |Code coverage| image:: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/badges/main/coverage.svg
-   :target: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/graphs/main/charts
+.. |CI| image:: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/badges/master/pipeline.svg
+   :target: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/pipelines?page=1&scope=all&ref=master
+.. |Code coverage| image:: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/badges/master/coverage.svg
+   :target: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/graphs/master/charts
 .. |Latest Release| image:: https://codebase.helmholtz.cloud/psyplot/psyplot-gui/-/badges/release.svg
    :target: https://codebase.helmholtz.cloud/psyplot/psyplot-gui
 .. |PyPI version| image:: https://img.shields.io/pypi/v/psyplot-gui.svg
@@ -107,6 +107,5 @@ Indices and tables
    :target: https://pycqa.github.io/isort/
 .. |PEP8| image:: https://img.shields.io/badge/code%20style-pep8-orange.svg
    :target: https://www.python.org/dev/peps/pep-0008/
-.. TODO: uncomment the following line when the package is registered at https://api.reuse.software
-.. .. |REUSE status| image:: https://api.reuse.software/badge/codebase.helmholtz.cloud/psyplot/psyplot-gui
-..    :target: https://api.reuse.software/info/codebase.helmholtz.cloud/psyplot/psyplot-gui
+.. |REUSE status| image:: https://api.reuse.software/badge/codebase.helmholtz.cloud/psyplot/psyplot-gui
+   :target: https://api.reuse.software/info/codebase.helmholtz.cloud/psyplot/psyplot-gui
