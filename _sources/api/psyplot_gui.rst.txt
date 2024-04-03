@@ -1,4 +1,4 @@
-API Reference
+psyplot\_gui package
 ====================
 
 .. automodule:: psyplot_gui

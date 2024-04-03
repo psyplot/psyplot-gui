@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psyplot_gui.common module &mdash; psyplot-gui 1.3.0+11.g227d84e documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <title>&lt;no title&gt; &mdash; psyplot-gui  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nc-table-styles.css?v=d585f46f" />
+      <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="psyplot_gui.console module" href="psyplot_gui.console.html" />
-    <link rel="prev" title="psyplot_gui.backend module" href="psyplot_gui.backend.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="psyplot_gui.console.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="psyplot_gui.backend.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,45 +34,183 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> psyplot-gui
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            psyplot-gui
           </a>
-              <div class="version">
-                1.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installing.html#how-to-install">How to install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#installation-using-conda">Installation using conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#installation-using-pip">Installation using pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installing.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#required-dependencies">Required dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#starting-the-gui">Starting the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-console">The Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-help-explorer">The Help Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-plot-creator">The Plot Creator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-project-content">The Project content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-formatoptions-widget">The formatoptions widget</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.common module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dataframeeditor.html">psyplot_gui.dataframeeditor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#named-arguments">Named Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#info-options">Info options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#output-options">Output options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#gui-options">Gui options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html#plugin-config">Plugin configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html#developing-plugins">Developing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contribution and development hints</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html">psyplot_gui package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.ListGuiPluginsAction"><code class="docutils literal notranslate"><span class="pre">ListGuiPluginsAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.UNIT_TESTING"><code class="docutils literal notranslate"><span class="pre">UNIT_TESTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.send_files_to_psyplot"><code class="docutils literal notranslate"><span class="pre">send_files_to_psyplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.start_app"><code class="docutils literal notranslate"><span class="pre">start_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.compat.html">psyplot_gui.compat package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.config.html">psyplot_gui.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html"><code class="docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock"><code class="docutils literal notranslate"><span class="pre">FiguresDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">DockMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.ListValidator"><code class="docutils literal notranslate"><span class="pre">ListValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.LoadFromConsoleButton"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.PyErrorMessage"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.StreamToLogger"><code class="docutils literal notranslate"><span class="pre">StreamToLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.get_module_path"><code class="docutils literal notranslate"><span class="pre">get_module_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.common.is_running_tests"><code class="docutils literal notranslate"><span class="pre">is_running_tests()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html#psyplot_gui.console.IPythonControl"><code class="docutils literal notranslate"><span class="pre">IPythonControl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html#psyplot_gui.console.init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">init_asyncio_patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html"><code class="docutils literal notranslate"><span class="pre">ArrayItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree"><code class="docutils literal notranslate"><span class="pre">DatasetTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree"><code class="docutils literal notranslate"><span class="pre">FiguresTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList"><code class="docutils literal notranslate"><span class="pre">PlotterList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent"><code class="docutils literal notranslate"><span class="pre">ProjectContent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContentWidget"><code class="docutils literal notranslate"><span class="pre">ProjectContentWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton"><code class="docutils literal notranslate"><span class="pre">SelectAllButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.escape_html"><code class="docutils literal notranslate"><span class="pre">escape_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html"><code class="docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel"><code class="docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView"><code class="docutils literal notranslate"><span class="pre">DataFrameView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView"><code class="docutils literal notranslate"><span class="pre">FrozenTableView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.bool_false_check"><code class="docutils literal notranslate"><span class="pre">bool_false_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dependencies.html"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree"><code class="docutils literal notranslate"><span class="pre">DependenciesTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.fmt_widget.html"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html"><code class="docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin"><code class="docutils literal notranslate"><span class="pre">HelpMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread"><code class="docutils literal notranslate"><span class="pre">SphinxThread</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp"><code class="docutils literal notranslate"><span class="pre">TextHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser"><code class="docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo"><code class="docutils literal notranslate"><span class="pre">UrlCombo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp"><code class="docutils literal notranslate"><span class="pre">UrlHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.file2html"><code class="docutils literal notranslate"><span class="pre">file2html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.html2file"><code class="docutils literal notranslate"><span class="pre">html2file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.main.html"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.main.html#psyplot_gui.main.mainwindow"><code class="docutils literal notranslate"><span class="pre">mainwindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable"><code class="docutils literal notranslate"><span class="pre">ArrayTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator"><code class="docutils literal notranslate"><span class="pre">AxesCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector"><code class="docutils literal notranslate"><span class="pre">AxesSelector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer"><code class="docutils literal notranslate"><span class="pre">AxesViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox"><code class="docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable"><code class="docutils literal notranslate"><span class="pre">CoordsTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable"><code class="docutils literal notranslate"><span class="pre">DragDropTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator"><code class="docutils literal notranslate"><span class="pre">PlotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable"><code class="docutils literal notranslate"><span class="pre">VariablesTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html"><code class="docutils literal notranslate"><span class="pre">ConfigPage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences"><code class="docutils literal notranslate"><span class="pre">Prefences</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree"><code class="docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-4-0">v1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-3-0">v1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-4">v1.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-3">v1.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-2">v1.2.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-1">v1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-0">v1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-1-0">v1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-0-1">v1.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
 </ul>
 
@@ -83,9 +227,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
-      <li>psyplot_gui.common module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="psyplot_gui.html">psyplot_gui package</a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/psyplot_gui.common.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,15 +240,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-psyplot_gui.common">
-<span id="psyplot-gui-common-module"></span><h1>psyplot_gui.common module<a class="headerlink" href="#module-psyplot_gui.common" title="Permalink to this headline"></a></h1>
-<p>Common functions used for the psyplot gui</p>
+  <p id="module-psyplot_gui.common">Common functions used for the psyplot gui</p>
 <p><strong>Classes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DockMixin</span></code></a>()</p></td>
 <td><p>A mixin class to define psyplot_gui plugins</p></td>
@@ -123,11 +262,7 @@
 </tbody>
 </table>
 <p><strong>Functions:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.get_icon" title="psyplot_gui.common.get_icon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_icon</span></code></a>(name)</p></td>
 <td><p>Get the path to an icon in the icons directory</p></td>
@@ -142,18 +277,14 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">DockMixin</span></span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">DockMixin</span></span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A mixin class to define psyplot_gui plugins</p>
 <p class="rubric">Notes</p>
 <p>Each external plugin should set the <a class="reference internal" href="#psyplot_gui.common.DockMixin.dock_position" title="psyplot_gui.common.DockMixin.dock_position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dock_position</span></code></a> and the
 <a class="reference internal" href="#psyplot_gui.common.DockMixin.title" title="psyplot_gui.common.DockMixin.title"><code class="xref py py-attr docutils literal notranslate"><span class="pre">title</span></code></a> attribute!</p>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.DockMixin.config_page" title="psyplot_gui.common.DockMixin.config_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_page</span></code></a></p></td>
 <td><p>The config page for this widget.</p></td>
@@ -176,11 +307,7 @@
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.DockMixin.create_central_widget_action" title="psyplot_gui.common.DockMixin.create_central_widget_action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_central_widget_action</span></code></a>(main)</p></td>
 <td><p>Setup the action to make this plugin the central widget</p></td>
@@ -209,51 +336,44 @@
 </tbody>
 </table>
 <p><strong>Classes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.DockMixin.dock_cls" title="psyplot_gui.common.DockMixin.dock_cls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dock_cls</span></code></a></p></td>
-<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p></td>
+<td><p>The class to use for the DockWidget</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.config_page">
-<span class="sig-name descname"><span class="pre">config_page</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.config_page" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">config_page</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.config_page" title="Link to this definition"></a></dt>
 <dd><p>The config page for this widget. Should inherit the
 <a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage" title="psyplot_gui.preferences.ConfigPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.preferences.ConfigPage</span></code></a> widget</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.create_central_widget_action">
-<span class="sig-name descname"><span class="pre">create_central_widget_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.create_central_widget_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.create_central_widget_action" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_central_widget_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.create_central_widget_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.create_central_widget_action" title="Link to this definition"></a></dt>
 <dd><p>Setup the action to make this plugin the central widget</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.create_view_action">
-<span class="sig-name descname"><span class="pre">create_view_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pane'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.create_view_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.create_view_action" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_view_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pane'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.create_view_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.create_view_action" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.dock">
-<span class="sig-name descname"><span class="pre">dock</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock" title="Link to this definition"></a></dt>
 <dd><p>The instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">QDockWidget</span></code> of this plugin</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.dock_cls">
-<span class="sig-name descname"><span class="pre">dock_cls</span></span><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock_cls" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code>
+<span class="sig-name descname"><span class="pre">dock_cls</span></span><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock_cls" title="Link to this definition"></a></dt>
+<dd><p>The class to use for the DockWidget</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">QDockWidget</span></code>
 <strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">AllDockWidgetFeatures</span></code></p></td>
 <td><p></p></td>
@@ -274,84 +394,76 @@
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">allowedAreasChanged</span></code>(*args, **kwargs)</p></td>
-<td><p>allowedAreasChanged(self, Union[Qt.DockWidgetAreas, Qt.DockWidgetArea]) [signal]</p></td>
+<td><p>Union[Qt.DockWidgetAreas, Qt.DockWidgetArea]) [signal]</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dockLocationChanged</span></code>(*args, **kwargs)</p></td>
-<td><p>dockLocationChanged(self, Qt.DockWidgetArea) [signal]</p></td>
+<td><p>Qt.DockWidgetArea) [signal]</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">featuresChanged</span></code>(*args, **kwargs)</p></td>
-<td><p>featuresChanged(self, Union[QDockWidget.DockWidgetFeatures, QDockWidget.DockWidgetFeature]) [signal]</p></td>
+<td><p>Union[QDockWidget.DockWidgetFeatures, QDockWidget.DockWidgetFeature]) [signal]</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">topLevelChanged</span></code>(*args, **kwargs)</p></td>
-<td><p>topLevelChanged(self, bool) [signal]</p></td>
+<td><p>bool) [signal]</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">visibilityChanged</span></code>(*args, **kwargs)</p></td>
-<td><p>visibilityChanged(self, bool) [signal]</p></td>
+<td><p>bool) [signal]</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Classes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DockWidgetFeature</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DockWidgetFeatures</span></code>(-&gt; None)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DockWidgetFeatures</span></code>()</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">allowedAreas</span></code>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">changeEvent</span></code>(self, QEvent)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">changeEvent</span></code>(self, event)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">closeEvent</span></code>(self, QCloseEvent)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">closeEvent</span></code>(self, event)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">event</span></code>(self, QEvent)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">event</span></code>(self, event)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">features</span></code>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">initStyleOption</span></code>(self, QStyleOptionDockWidget)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">initStyleOption</span></code>(self, option)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isAreaAllowed</span></code>(self, Qt.DockWidgetArea)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isAreaAllowed</span></code>(self, area)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">isFloating</span></code>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEvent</span></code>(self, QPaintEvent)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">paintEvent</span></code>(self, event)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAllowedAreas</span></code>(self, ...)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setAllowedAreas</span></code>(self, areas)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFeatures</span></code>(self, ...)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFeatures</span></code>(self, features)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFloating</span></code>(self, bool)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setFloating</span></code>(self, floating)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTitleBarWidget</span></code>(self, QWidget)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTitleBarWidget</span></code>(self, widget)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWidget</span></code>(self, QWidget)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setWidget</span></code>(self, widget)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">titleBarWidget</span></code>(self)</p></td>
@@ -369,37 +481,37 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.dock_position">
-<span class="sig-name descname"><span class="pre">dock_position</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock_position" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dock_position</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.dock_position" title="Link to this definition"></a></dt>
 <dd><p>The position of the plugin</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.hidden">
-<span class="sig-name descname"><span class="pre">hidden</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.hidden" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">hidden</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.hidden" title="Link to this definition"></a></dt>
 <dd><p>Boolean that is True if the dock widget should be hidden automatically
 after startup</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.hide_plugin">
-<span class="sig-name descname"><span class="pre">hide_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.hide_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.hide_plugin" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">hide_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.hide_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.hide_plugin" title="Link to this definition"></a></dt>
 <dd><p>Hide the plugin widget</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.is_shown">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_shown</span></span><a class="headerlink" href="#psyplot_gui.common.DockMixin.is_shown" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_shown</span></span><a class="headerlink" href="#psyplot_gui.common.DockMixin.is_shown" title="Link to this definition"></a></dt>
 <dd><p>Boolean that is True, if the dock widget is shown</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.position_dock">
-<span class="sig-name descname"><span class="pre">position_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.position_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.position_dock" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">position_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.position_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.position_dock" title="Link to this definition"></a></dt>
 <dd><p>Set the position of the dock widget</p>
 <p>This method places the plugin widget at the desired dock position
 (by default, indicated with the <a class="reference internal" href="#psyplot_gui.common.DockMixin.dock_position" title="psyplot_gui.common.DockMixin.dock_position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dock_position</span></code></a> attribute)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>main</strong> (<em>psyplot_gui.main.Mainwindow</em>) – The main window where the dock is added</p>
 </dd>
 </dl>
@@ -407,71 +519,50 @@ after startup</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.remove_plugin">
-<span class="sig-name descname"><span class="pre">remove_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.remove_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.remove_plugin" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.remove_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.remove_plugin" title="Link to this definition"></a></dt>
 <dd><p>Remove this plugin and close it</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.show_plugin">
-<span class="sig-name descname"><span class="pre">show_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.show_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.show_plugin" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">show_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.show_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.show_plugin" title="Link to this definition"></a></dt>
 <dd><p>Show the plugin widget</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.show_status_message">
-<span class="sig-name descname"><span class="pre">show_status_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.show_status_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.show_status_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">show_status_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.show_status_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.show_status_message" title="Link to this definition"></a></dt>
 <dd><p>Show a status message</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.title">
-<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.title" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#psyplot_gui.common.DockMixin.title" title="Link to this definition"></a></dt>
 <dd><p>The title of the plugin</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.DockMixin.to_dock">
-<span class="sig-name descname"><span class="pre">to_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pane'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.to_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.to_dock" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pane'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#DockMixin.to_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.DockMixin.to_dock" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.common.ListValidator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">ListValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#ListValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.ListValidator" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtGui.QRegExpValidator</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">ListValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#ListValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.ListValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QRegExpValidator</span></code></p>
 <p>A validator class to validate that a string consists of strings in a
 list of strings</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>valid</strong> (<em>list of str</em>) – The possible choices</p></li>
-<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The separation pattern</p></li>
-<li><p><strong>``*args</strong> – <p>Determined by PyQt5.QtGui.QValidator</p>
-</p></li>
-<li><p><strong>**kwargs``</strong> – <p>Determined by PyQt5.QtGui.QValidator</p>
-</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">LoadFromConsoleButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QToolButton</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">LoadFromConsoleButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QToolButton</span></code></p>
 <p>A toolbutton to load an object from the console</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instances</strong> (<em>class</em><em> or </em><em>tuple of classes</em>) – The classes that should be used for an instance check</p>
-</dd>
-</dl>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.LoadFromConsoleButton.check" title="psyplot_gui.common.LoadFromConsoleButton.check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check</span></code></a>(obj)</p></td>
 <td><p></p></td>
@@ -485,11 +576,7 @@ list of strings</p>
 </tbody>
 </table>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.LoadFromConsoleButton.instances2check_str" title="psyplot_gui.common.LoadFromConsoleButton.instances2check_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instances2check_str</span></code></a></p></td>
 <td><p></p></td>
@@ -504,53 +591,49 @@ list of strings</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.check">
-<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.check" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.check" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.get_from_shell">
-<span class="sig-name descname"><span class="pre">get_from_shell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.get_from_shell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.get_from_shell" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_from_shell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.get_from_shell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.get_from_shell" title="Link to this definition"></a></dt>
 <dd><p>Open an input dialog, receive an object and emit the
 <a class="reference internal" href="#psyplot_gui.common.LoadFromConsoleButton.object_loaded" title="psyplot_gui.common.LoadFromConsoleButton.object_loaded"><code class="xref py py-attr docutils literal notranslate"><span class="pre">object_loaded</span></code></a> signal</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.get_obj">
-<span class="sig-name descname"><span class="pre">get_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.get_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.get_obj" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#LoadFromConsoleButton.get_obj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.get_obj" title="Link to this definition"></a></dt>
 <dd><p>Load an object from the current shell</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.instances2check_str">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">instances2check_str</span></span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.instances2check_str" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instances2check_str</span></span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.instances2check_str" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.object_loaded">
-<span class="sig-name descname"><span class="pre">object_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.object_loaded" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">object_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.object_loaded" title="Link to this definition"></a></dt>
 <dd><p>The signal that is emitted when an object has been loaded. The first
 argument is the object name, the second the object itself</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="psyplot_gui.common.LoadFromConsoleButton.potential_object_names">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">potential_object_names</span></span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.potential_object_names" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">potential_object_names</span></span><a class="headerlink" href="#psyplot_gui.common.LoadFromConsoleButton.potential_object_names" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.common.PyErrorMessage">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">PyErrorMessage</span></span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QErrorMessage</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">PyErrorMessage</span></span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QErrorMessage</span></code></p>
 <p>Widget designed to display python errors via the <a class="reference internal" href="#psyplot_gui.common.PyErrorMessage.showTraceback" title="psyplot_gui.common.PyErrorMessage.showTraceback"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showTraceback()</span></code></a>
 method</p>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.PyErrorMessage.excepthook" title="psyplot_gui.common.PyErrorMessage.excepthook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">excepthook</span></code></a>(type, value, traceback)</p></td>
 <td><p></p></td>
@@ -562,27 +645,23 @@ method</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.PyErrorMessage.excepthook">
-<span class="sig-name descname"><span class="pre">excepthook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traceback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage.excepthook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage.excepthook" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">excepthook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traceback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage.excepthook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage.excepthook" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.PyErrorMessage.showTraceback">
-<span class="sig-name descname"><span class="pre">showTraceback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage.showTraceback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage.showTraceback" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">showTraceback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#PyErrorMessage.showTraceback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.PyErrorMessage.showTraceback" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.common.StreamToLogger">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">StreamToLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">StreamToLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Fake file-like stream object that redirects writes to a logger instance.</p>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.common.StreamToLogger.flush" title="psyplot_gui.common.StreamToLogger.flush"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flush</span></code></a>()</p></td>
 <td><p></p></td>
@@ -594,55 +673,74 @@ method</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.StreamToLogger.flush">
-<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger.flush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger.flush" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger.flush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger.flush" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.common.StreamToLogger.write">
-<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger.write" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#StreamToLogger.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.StreamToLogger.write" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="psyplot_gui.common.get_icon">
-<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#get_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.get_icon" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#get_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.get_icon" title="Link to this definition"></a></dt>
 <dd><p>Get the path to an icon in the icons directory</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="psyplot_gui.common.get_module_path">
-<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">get_module_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#get_module_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.get_module_path" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">get_module_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#get_module_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.get_module_path" title="Link to this definition"></a></dt>
 <dd><p>Return module <cite>modname</cite> base path</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="psyplot_gui.common.is_running_tests">
-<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">is_running_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#is_running_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.is_running_tests" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.common.</span></span><span class="sig-name descname"><span class="pre">is_running_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/common.html#is_running_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.common.is_running_tests" title="Link to this definition"></a></dt>
 <dd><p>Check if there are any GUI tests running</p>
 <p>This function returns the <a class="reference internal" href="psyplot_gui.html#psyplot_gui.UNIT_TESTING" title="psyplot_gui.UNIT_TESTING"><code class="xref py py-attr docutils literal notranslate"><span class="pre">psyplot_gui.UNIT_TESTING</span></code></a> variable</p>
 </dd></dl>
 
-</section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="psyplot_gui.backend.html" class="btn btn-neutral float-left" title="psyplot_gui.backend module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="psyplot_gui.console.html" class="btn btn-neutral float-right" title="psyplot_gui.console module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <!--
+SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.backend.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.console.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum Geesthacht, 2016-2021 University of Lausanne.</p>
+    <p>&#169; Copyright 2021-2024 Helmholtz-Zentrum hereon GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+
+<div class="footer">
+    <span class="creativecommons">
+    <a href="https://creativecommons.org/licenses/by/4.0/" >
+    <img style="height: 1.5em;" src="../_static/license_logo.png" border="0" alt="Creative Commons License"/>
+    </a>
+    This documentation is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">
+    CC-BY-4.0
+    </a>
+    </span>
+</div>
+
+
 
 </footer>
         </div>

@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psyplot_gui.fmt_widget &mdash; psyplot-gui 1.3.0+11.g227d84e documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+  <title>psyplot_gui.fmt_widget &mdash; psyplot-gui  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nc-table-styles.css?v=d585f46f" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -25,28 +31,183 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> psyplot-gui
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            psyplot-gui
           </a>
-              <div class="version">
-                1.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installing.html#how-to-install">How to install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../installing.html#installation-using-conda">Installation using conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../installing.html#installation-using-pip">Installation using pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../installing.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../installing.html#required-dependencies">Required dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#starting-the-gui">Starting the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#the-console">The Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#the-help-explorer">The Help Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#the-plot-creator">The Plot Creator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#the-project-content">The Project content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started.html#the-formatoptions-widget">The formatoptions widget</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration of the GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../command_line.html">Command line usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../plugins.html">Plugin configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contributing to psyplot-gui</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/psyplot_gui.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../command_line.html">Command line usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line.html#positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line.html#named-arguments">Named Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line.html#info-options">Info options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line.html#output-options">Output options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line.html#gui-options">Gui options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins.html">Plugin configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins.html#plugin-config">Plugin configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins.html#developing-plugins">Developing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contribution and development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/psyplot_gui.html">psyplot_gui package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.ListGuiPluginsAction"><code class="docutils literal notranslate"><span class="pre">ListGuiPluginsAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.UNIT_TESTING"><code class="docutils literal notranslate"><span class="pre">UNIT_TESTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.send_files_to_psyplot"><code class="docutils literal notranslate"><span class="pre">send_files_to_psyplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#psyplot_gui.start_app"><code class="docutils literal notranslate"><span class="pre">start_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.compat.html">psyplot_gui.compat package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.config.html">psyplot_gui.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/psyplot_gui.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html"><code class="docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock"><code class="docutils literal notranslate"><span class="pre">FiguresDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html"><code class="docutils literal notranslate"><span class="pre">DockMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.ListValidator"><code class="docutils literal notranslate"><span class="pre">ListValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.StreamToLogger"><code class="docutils literal notranslate"><span class="pre">StreamToLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.get_module_path"><code class="docutils literal notranslate"><span class="pre">get_module_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.common.html#psyplot_gui.common.is_running_tests"><code class="docutils literal notranslate"><span class="pre">is_running_tests()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.console.html"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.console.html#psyplot_gui.console.IPythonControl"><code class="docutils literal notranslate"><span class="pre">IPythonControl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.console.html#psyplot_gui.console.init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">init_asyncio_patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html"><code class="docutils literal notranslate"><span class="pre">ArrayItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree"><code class="docutils literal notranslate"><span class="pre">DatasetTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree"><code class="docutils literal notranslate"><span class="pre">FiguresTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList"><code class="docutils literal notranslate"><span class="pre">PlotterList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent"><code class="docutils literal notranslate"><span class="pre">ProjectContent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContentWidget"><code class="docutils literal notranslate"><span class="pre">ProjectContentWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton"><code class="docutils literal notranslate"><span class="pre">SelectAllButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.escape_html"><code class="docutils literal notranslate"><span class="pre">escape_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html"><code class="docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel"><code class="docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView"><code class="docutils literal notranslate"><span class="pre">DataFrameView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView"><code class="docutils literal notranslate"><span class="pre">FrozenTableView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.bool_false_check"><code class="docutils literal notranslate"><span class="pre">bool_false_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dependencies.html"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree"><code class="docutils literal notranslate"><span class="pre">DependenciesTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.fmt_widget.html"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html"><code class="docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin"><code class="docutils literal notranslate"><span class="pre">HelpMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread"><code class="docutils literal notranslate"><span class="pre">SphinxThread</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp"><code class="docutils literal notranslate"><span class="pre">TextHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser"><code class="docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo"><code class="docutils literal notranslate"><span class="pre">UrlCombo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp"><code class="docutils literal notranslate"><span class="pre">UrlHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.file2html"><code class="docutils literal notranslate"><span class="pre">file2html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.html2file"><code class="docutils literal notranslate"><span class="pre">html2file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.main.html"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.main.html#psyplot_gui.main.mainwindow"><code class="docutils literal notranslate"><span class="pre">mainwindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable"><code class="docutils literal notranslate"><span class="pre">ArrayTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator"><code class="docutils literal notranslate"><span class="pre">AxesCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector"><code class="docutils literal notranslate"><span class="pre">AxesSelector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer"><code class="docutils literal notranslate"><span class="pre">AxesViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox"><code class="docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable"><code class="docutils literal notranslate"><span class="pre">CoordsTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable"><code class="docutils literal notranslate"><span class="pre">DragDropTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator"><code class="docutils literal notranslate"><span class="pre">PlotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable"><code class="docutils literal notranslate"><span class="pre">VariablesTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html"><code class="docutils literal notranslate"><span class="pre">ConfigPage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences"><code class="docutils literal notranslate"><span class="pre">Prefences</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree"><code class="docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-4-0">v1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-3-0">v1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id3">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-2-4">v1.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-2-3">v1.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-2-2">v1.2.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id4">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id5">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-2-1">v1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-2-0">v1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id6">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-1-0">v1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id7">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#v1-0-1">v1.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id8">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id9">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../todos.html">ToDos</a></li>
 </ul>
 
@@ -63,10 +224,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-          <li><a href="../psyplot_gui.html">psyplot_gui</a> &raquo;</li>
-      <li>psyplot_gui.fmt_widget</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../psyplot_gui.html">psyplot_gui</a></li>
+      <li class="breadcrumb-item active">psyplot_gui.fmt_widget</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -80,50 +241,47 @@
 <span class="sd">&quot;&quot;&quot;Module defining a widget for updating the formatoption of the current</span>
 <span class="sd">project&quot;&quot;&quot;</span>
 
-<span class="c1"># Disclaimer</span>
-<span class="c1"># ----------</span>
+<span class="c1"># SPDX-FileCopyrightText: 2016-2024 University of Lausanne</span>
+<span class="c1"># SPDX-FileCopyrightText: 2020-2021 Helmholtz-Zentrum Geesthacht</span>
+<span class="c1"># SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH</span>
 <span class="c1">#</span>
-<span class="c1"># Copyright (C) 2021 Helmholtz-Zentrum Hereon</span>
-<span class="c1"># Copyright (C) 2020-2021 Helmholtz-Zentrum Geesthacht</span>
-<span class="c1"># Copyright (C) 2016-2021 University of Lausanne</span>
-<span class="c1">#</span>
-<span class="c1"># This file is part of psyplot-gui and is released under the GNU LGPL-3.O license.</span>
-<span class="c1"># See COPYING and COPYING.LESSER in the root of the repository for full</span>
-<span class="c1"># licensing details.</span>
-<span class="c1">#</span>
-<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
-<span class="c1"># it under the terms of the GNU Lesser General Public License version 3.0 as</span>
-<span class="c1"># published by the Free Software Foundation.</span>
-<span class="c1">#</span>
-<span class="c1"># This program is distributed in the hope that it will be useful,</span>
-<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-<span class="c1"># GNU LGPL-3.0 license for more details.</span>
-<span class="c1">#</span>
-<span class="c1"># You should have received a copy of the GNU LGPL-3.0 license</span>
-<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># SPDX-License-Identifier: LGPL-3.0-only</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">import</span> <span class="nn">psyplot.plotter</span> <span class="k">as</span> <span class="nn">psyp</span>
+<span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
 <span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">ExecutionResult</span>
-<span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
+<span class="kn">from</span> <span class="nn">psyplot.data</span> <span class="kn">import</span> <span class="n">isstring</span><span class="p">,</span> <span class="n">safe_list</span>
 <span class="kn">from</span> <span class="nn">psyplot.utils</span> <span class="kn">import</span> <span class="n">_temp_bool_prop</span><span class="p">,</span> <span class="n">unique_everseen</span>
+
+<span class="kn">from</span> <span class="nn">psyplot_gui.common</span> <span class="kn">import</span> <span class="n">DockMixin</span><span class="p">,</span> <span class="n">PyErrorMessage</span><span class="p">,</span> <span class="n">get_icon</span>
 <span class="kn">from</span> <span class="nn">psyplot_gui.compat.qtcompat</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QToolButton</span><span class="p">,</span>
-    <span class="n">QIcon</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QTextEdit</span><span class="p">,</span> <span class="n">QListView</span><span class="p">,</span> <span class="n">QCompleter</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span>
-    <span class="n">QStandardItemModel</span><span class="p">,</span> <span class="n">QStandardItem</span><span class="p">,</span> <span class="n">with_qt5</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">psyplot_gui.plot_creator</span> <span class="kn">import</span> <span class="n">CoordComboBox</span>
+    <span class="n">QCheckBox</span><span class="p">,</span>
+    <span class="n">QComboBox</span><span class="p">,</span>
+    <span class="n">QCompleter</span><span class="p">,</span>
+    <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QIcon</span><span class="p">,</span>
+    <span class="n">QLineEdit</span><span class="p">,</span>
+    <span class="n">QListView</span><span class="p">,</span>
+    <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QStandardItem</span><span class="p">,</span>
+    <span class="n">QStandardItemModel</span><span class="p">,</span>
+    <span class="n">Qt</span><span class="p">,</span>
+    <span class="n">QTextEdit</span><span class="p">,</span>
+    <span class="n">QToolButton</span><span class="p">,</span>
+    <span class="n">QVBoxLayout</span><span class="p">,</span>
+    <span class="n">QWidget</span><span class="p">,</span>
+    <span class="n">with_qt5</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">psyplot_gui.config.rcsetup</span> <span class="kn">import</span> <span class="n">rcParams</span>
-<span class="kn">from</span> <span class="nn">psyplot.compat.pycompat</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="nb">map</span>
-<span class="kn">from</span> <span class="nn">psyplot_gui.common</span> <span class="kn">import</span> <span class="n">DockMixin</span><span class="p">,</span> <span class="n">get_icon</span><span class="p">,</span> <span class="n">PyErrorMessage</span>
-<span class="kn">from</span> <span class="nn">psyplot.data</span> <span class="kn">import</span> <span class="n">safe_list</span>
-<span class="kn">import</span> <span class="nn">psyplot.plotter</span> <span class="k">as</span> <span class="nn">psyp</span>
-<span class="kn">from</span> <span class="nn">psyplot.data</span> <span class="kn">import</span> <span class="n">isstring</span>
+<span class="kn">from</span> <span class="nn">psyplot_gui.plot_creator</span> <span class="kn">import</span> <span class="n">CoordComboBox</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">ExecutionInfo</span>
@@ -134,18 +292,20 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<span class="n">COORDSGROUP</span> <span class="o">=</span> <span class="s1">&#39;__coords&#39;</span>
-<span class="n">ALLGROUP</span> <span class="o">=</span> <span class="s1">&#39;__all&#39;</span>
+<span class="n">COORDSGROUP</span> <span class="o">=</span> <span class="s2">&quot;__coords&quot;</span>
+<span class="n">ALLGROUP</span> <span class="o">=</span> <span class="s2">&quot;__all&quot;</span>
 
 
-<div class="viewcode-block" id="DimensionsWidget"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget">[docs]</a><span class="k">class</span> <span class="nc">DimensionsWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A widget for updating the dimensions&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DimensionsWidget">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget">[docs]</a>
+<span class="k">class</span> <span class="nc">DimensionsWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A widget for updating the dimensions&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DimensionsWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span> <span class="o">=</span> <span class="n">CoordComboBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ds</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cb_use_coord</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;show coordinates&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cb_close_popups</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;close dropdowns&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_use_coord</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;show coordinates&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_close_popups</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;close dropdowns&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cb_close_popups</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toggle_close_popup</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_single_selection</span> <span class="o">=</span> <span class="kc">False</span>
@@ -160,35 +320,51 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cb_close_popups</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_close_popup</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">leftclick</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">insert_from_combo</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DimensionsWidget.set_dim"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_dim">[docs]</a>    <span class="k">def</span> <span class="nf">set_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+<div class="viewcode-block" id="DimensionsWidget.set_dim">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_dim">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.slice2list"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.slice2list">[docs]</a>    <span class="k">def</span> <span class="nf">slice2list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sl</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DimensionsWidget.slice2list">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.slice2list">[docs]</a>
+    <span class="k">def</span> <span class="nf">slice2list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sl</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sl</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">sl</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">sl</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.reset_combobox"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox">[docs]</a>    <span class="k">def</span> <span class="nf">reset_combobox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Clear all comboboxes&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DimensionsWidget.reset_combobox">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_combobox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all comboboxes&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">use_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_use_coord</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">_is_empty</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.toggle_close_popup"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_close_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DimensionsWidget.toggle_close_popup">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup">[docs]</a>
+    <span class="k">def</span> <span class="nf">toggle_close_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">close_popups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_close_popups</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.insert_from_combo"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo">[docs]</a>    <span class="k">def</span> <span class="nf">insert_from_combo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DimensionsWidget.insert_from_combo">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert_from_combo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span>
         <span class="n">inserts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
             <span class="n">ind</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">view</span><span class="p">()</span><span class="o">.</span><span class="n">selectionModel</span><span class="p">()</span><span class="o">.</span><span class="n">selectedIndexes</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inserts</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_single_selection</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
-                                    <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span>
+                <span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
@@ -200,29 +376,42 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">set_obj</span><span class="p">(</span><span class="n">inserts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.get_ds"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.get_ds">[docs]</a>    <span class="k">def</span> <span class="nf">get_ds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DimensionsWidget.get_ds">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.get_ds">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
+
         <span class="n">project</span> <span class="o">=</span> <span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">()</span>
         <span class="n">datasets</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">datasets</span>
         <span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span>
         <span class="n">dims</span> <span class="o">=</span> <span class="p">{</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">ds</span> <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Datasets have differing dimensions lengths for the &quot;</span>
-                 <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> dimension!&quot;</span> <span class="o">%</span> <span class="n">dim</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Datasets have differing dimensions lengths for the &quot;</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> dimension!&quot;</span> <span class="o">%</span> <span class="n">dim</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="DimensionsWidget.set_single_selection"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection">[docs]</a>    <span class="k">def</span> <span class="nf">set_single_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DimensionsWidget.set_single_selection">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_single_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_single_selection</span> <span class="o">=</span> <span class="n">yes</span>
         <span class="k">if</span> <span class="n">yes</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">view</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span>
-                <span class="n">QListView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">view</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QListView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">coord_combo</span><span class="o">.</span><span class="n">view</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span>
-                <span class="n">QListView</span><span class="o">.</span><span class="n">ExtendedSelection</span><span class="p">)</span></div></div>
+                <span class="n">QListView</span><span class="o">.</span><span class="n">ExtendedSelection</span>
+            <span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="FormatoptionWidget"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget">[docs]</a><span class="k">class</span> <span class="nc">FormatoptionWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">DockMixin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget">[docs]</a>
+<span class="k">class</span> <span class="nc">FormatoptionWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">DockMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Widget to update the formatoptions of the current project</span>
 
 <span class="sd">    This widget, mainly made out of a combobox for the formatoption group,</span>
@@ -237,7 +426,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">no_fmtos_update</span> <span class="o">=</span> <span class="n">_temp_bool_prop</span><span class="p">(</span>
-        <span class="s1">&#39;no_fmtos_update&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;update the fmto combo box or not&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="s2">&quot;no_fmtos_update&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;update the fmto combo box or not&quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="c1">#: The combobox for the formatoption groups</span>
     <span class="n">group_combo</span> <span class="o">=</span> <span class="kc">None</span>
@@ -262,12 +452,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The shell to execute the update of the formatoptions in the current</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The shell to execute the update of the formatoptions in the current</span>
 <span class="sd">        project&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">kernel_manager</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">shell</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        help_explorer: psyplot_gui.help_explorer.HelpExplorer</span>
@@ -283,8 +473,8 @@
 <span class="sd">        ``*args, **kwargs``</span>
 <span class="sd">            Any other keyword for the QWidget class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">help_explorer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;help_explorer&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">console</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">help_explorer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;help_explorer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">console</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FormatoptionWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_explorer</span> <span class="o">=</span> <span class="n">help_explorer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console</span> <span class="o">=</span> <span class="n">console</span>
@@ -303,9 +493,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">setEditable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">setInsertPolicy</span><span class="p">(</span><span class="n">QComboBox</span><span class="o">.</span><span class="n">NoInsert</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmto_completer</span> <span class="o">=</span> <span class="n">completer</span> <span class="o">=</span> <span class="n">QCompleter</span><span class="p">(</span>
-            <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lev&#39;</span><span class="p">])</span>
-        <span class="n">completer</span><span class="o">.</span><span class="n">setCompletionMode</span><span class="p">(</span>
-            <span class="n">QCompleter</span><span class="o">.</span><span class="n">PopupCompletion</span><span class="p">)</span>
+            <span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">,</span> <span class="s2">&quot;lev&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">completer</span><span class="o">.</span><span class="n">setCompletionMode</span><span class="p">(</span><span class="n">QCompleter</span><span class="o">.</span><span class="n">PopupCompletion</span><span class="p">)</span>
         <span class="n">completer</span><span class="o">.</span><span class="n">activated</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set_fmto</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">with_qt5</span><span class="p">:</span>
             <span class="n">completer</span><span class="o">.</span><span class="n">setFilterMode</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">MatchContains</span><span class="p">)</span>
@@ -315,19 +505,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span> <span class="o">=</span> <span class="n">DimensionsWidget</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Multiline&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Multiline&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;Yaml syntax&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;Yaml syntax&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Keys&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Summaries&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Docs&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Keys&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Summaries&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Docs&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;grouped&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;all groups&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;include links&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;grouped&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;all groups&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;include links&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
@@ -335,39 +525,48 @@
         <span class="c1"># -------------------------- Descriptions -----------------------------</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Select the formatoption group&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Select the formatoption to update&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Select the formatoption group&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Select the formatoption to update&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Insert the value which what you want to update the selected &#39;</span>
-            <span class="s1">&#39;formatoption and hit right button. The code is executed in the &#39;</span>
-            <span class="s1">&#39;main console.&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Insert the value which what you want to update the selected &quot;</span>
+            <span class="s2">&quot;formatoption and hit right button. The code is executed in the &quot;</span>
+            <span class="s2">&quot;main console.&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
             <span class="s2">&quot;Use the yaml syntax for the values inserted in the above cell. &quot;</span>
             <span class="s2">&quot;Otherwise the content there is evaluated as a python expression &quot;</span>
-            <span class="s2">&quot;in the terminal&quot;</span><span class="p">)</span>
+            <span class="s2">&quot;in the terminal&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">toolTip</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">get_icon</span><span class="p">(</span><span class="s1">&#39;run_arrow.png&#39;</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Update the selected formatoption&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="n">get_icon</span><span class="p">(</span><span class="s2">&quot;run_arrow.png&quot;</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Update the selected formatoption&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Allow linebreaks in the text editor line above.&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Allow linebreaks in the text editor line above.&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Show the formatoption keys in this group (or in all &#39;</span>
-            <span class="s1">&#39;groups) in the help explorer&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Show the formatoption keys in this group (or in all &quot;</span>
+            <span class="s2">&quot;groups) in the help explorer&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Show the formatoption summaries in this group (or in all &#39;</span>
-            <span class="s1">&#39;groups) in the help explorer&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Show the formatoption summaries in this group (or in all &quot;</span>
+            <span class="s2">&quot;groups) in the help explorer&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Show the formatoption documentations in this group (or in all &#39;</span>
-            <span class="s1">&#39;groups) in the help explorer&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Show the formatoption documentations in this group (or in all &quot;</span>
+            <span class="s2">&quot;groups) in the help explorer&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Group the formatoptions before displaying them in the help &#39;</span>
-            <span class="s1">&#39;explorer&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Use all groups when displaying the &#39;</span>
-                                      <span class="s1">&#39;keys, docs or summaries&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Group the formatoptions before displaying them in the help &quot;</span>
+            <span class="s2">&quot;explorer&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
+            <span class="s2">&quot;Use all groups when displaying the &quot;</span> <span class="s2">&quot;keys, docs or summaries&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
-            <span class="s1">&#39;Include links to remote documentations when showing the &#39;</span>
-            <span class="s1">&#39;keys, docs and summaries in the help explorer (requires &#39;</span>
-            <span class="s1">&#39;intersphinx)&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;Include links to remote documentations when showing the &quot;</span>
+            <span class="s2">&quot;keys, docs and summaries in the help explorer (requires &quot;</span>
+            <span class="s2">&quot;intersphinx)&quot;</span>
+        <span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># -------------------------- Connections ------------------------------</span>
@@ -376,16 +575,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_fmt_info</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_fmt_widget</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_current_fmt_value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_current_fmt_value</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_code</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_button</span><span class="o">.</span><span class="n">click</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_line_edit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s1">&#39;keys&#39;</span><span class="p">))</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s2">&quot;keys&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s1">&#39;summaries&#39;</span><span class="p">))</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s2">&quot;summaries&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">))</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_all_fmt_info</span><span class="p">,</span> <span class="s2">&quot;docs&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># ------------------------------ Layouts ------------------------------</span>
@@ -403,8 +606,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">info_box</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">info_box</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">info_box</span><span class="o">.</span><span class="n">addStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span><span class="p">,</span>
-                  <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keys_button</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">summaries_button</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">docs_button</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="p">,</span>
+        <span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info_box</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vbox</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
@@ -420,22 +629,30 @@
         <span class="c1"># fill with content</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill_combos_from_project</span><span class="p">(</span><span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">())</span>
         <span class="n">psy</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">oncpchange</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_combos_from_project</span><span class="p">)</span>
-        <span class="n">rcParams</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;fmt.sort_by_key&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">refill_from_rc</span><span class="p">)</span>
+        <span class="n">rcParams</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;fmt.sort_by_key&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">refill_from_rc</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FormatoptionWidget.refill_from_rc"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc">[docs]</a>    <span class="k">def</span> <span class="nf">refill_from_rc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_by_key</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatoptionWidget.refill_from_rc">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc">[docs]</a>
+    <span class="k">def</span> <span class="nf">refill_from_rc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_by_key</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">psyplot.project</span> <span class="kn">import</span> <span class="n">gcp</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">fill_combos_from_project</span><span class="p">(</span><span class="n">gcp</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.fill_combos_from_project"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project">[docs]</a>    <span class="k">def</span> <span class="nf">fill_combos_from_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Fill :attr:`group_combo` and :attr:`fmt_combo` from a project</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.fill_combos_from_project">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project">[docs]</a>
+    <span class="k">def</span> <span class="nf">fill_combos_from_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fill :attr:`group_combo` and :attr:`fmt_combo` from a project</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        project: psyplot.project.Project</span>
 <span class="sd">            The project to use&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;fmt.sort_by_key&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;fmt.sort_by_key&quot;</span><span class="p">]:</span>
+
             <span class="k">def</span> <span class="nf">sorter</span><span class="p">(</span><span class="n">fmto</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">fmto</span><span class="o">.</span><span class="n">key</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">sorter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span>
 
@@ -451,14 +668,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1"># get dimensions</span>
             <span class="n">it_vars</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
-                <span class="n">arr</span><span class="o">.</span><span class="n">psy</span><span class="o">.</span><span class="n">iter_base_variables</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">arrays</span><span class="p">)</span>
+                <span class="n">arr</span><span class="o">.</span><span class="n">psy</span><span class="o">.</span><span class="n">iter_base_variables</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">arrays</span>
+            <span class="p">)</span>
             <span class="n">dims</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it_vars</span><span class="p">)</span><span class="o">.</span><span class="n">dims</span>
             <span class="n">sdims</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">it_vars</span><span class="p">:</span>
                 <span class="n">sdims</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sdims</span><span class="p">]</span>
             <span class="n">coords_name</span> <span class="o">=</span> <span class="p">[</span><span class="n">COORDSGROUP</span><span class="p">]</span> <span class="k">if</span> <span class="n">coords</span> <span class="k">else</span> <span class="p">[]</span>
-            <span class="n">coords_verbose</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dimensions&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">coords</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="n">coords_verbose</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dimensions&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">coords</span> <span class="k">else</span> <span class="p">[]</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">coords</span><span class="p">]</span> <span class="k">if</span> <span class="n">coords</span> <span class="k">else</span> <span class="p">[]</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">plotters</span><span class="p">):</span>
@@ -468,20 +686,26 @@
                     <span class="n">grouped_fmts</span><span class="p">[</span><span class="n">fmto</span><span class="o">.</span><span class="n">group</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fmto</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">itervalues</span><span class="p">(</span><span class="n">grouped_fmts</span><span class="p">):</span>
                     <span class="n">val</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sorter</span><span class="p">)</span>
-                <span class="n">grouped_fmts</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span>
-                    <span class="nb">sorted</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">grouped_fmts</span><span class="p">),</span>
-                           <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">psyp</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+                <span class="n">grouped_fmts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="nb">sorted</span><span class="p">(</span>
+                        <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">grouped_fmts</span><span class="p">),</span>
+                        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">psyp</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
                 <span class="n">fmt_groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">grouped_fmts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
                 <span class="c1"># save original names</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="n">coords_name</span> <span class="o">+</span> <span class="p">[</span><span class="n">ALLGROUP</span><span class="p">]</span> <span class="o">+</span> <span class="n">fmt_groups</span>
                 <span class="c1"># save verbose group names (which are used in the combo box)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">groupnames</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">coords_verbose</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;All formatoptions&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span>
-                        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">psyp</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="n">fmt_groups</span><span class="p">)))</span>
+                    <span class="n">coords_verbose</span>
+                    <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;All formatoptions&quot;</span><span class="p">]</span>
+                    <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">psyp</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="n">fmt_groups</span><span class="p">))</span>
+                <span class="p">)</span>
                 <span class="c1"># save formatoptions</span>
                 <span class="n">fmtos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">grouped_fmts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span> <span class="o">=</span> <span class="n">coords</span> <span class="o">+</span> <span class="p">[</span><span class="nb">sorted</span><span class="p">(</span>
-                    <span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">fmtos</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">sorter</span><span class="p">)]</span> <span class="o">+</span> <span class="n">fmtos</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">coords</span> <span class="o">+</span> <span class="p">[</span><span class="nb">sorted</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">fmtos</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">sorter</span><span class="p">)]</span> <span class="o">+</span> <span class="n">fmtos</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="n">coords_name</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">groupnames</span> <span class="o">=</span> <span class="n">coords_verbose</span>
@@ -491,16 +715,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">ind</span> <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill_fmt_combo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.get_name"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmto</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the name of a :class:`psyplot.plotter.Formatoption` instance&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.get_name">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmto</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of a :class:`psyplot.plotter.Formatoption` instance&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmto</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">fmto</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fmto</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fmto</span><span class="o">.</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">fmto</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="n">fmto</span><span class="o">.</span><span class="n">key</span></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fmto</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fmto</span><span class="o">.</span><span class="n">key</span><span class="p">)</span> <span class="k">if</span> <span class="n">fmto</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="n">fmto</span><span class="o">.</span><span class="n">key</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fmto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()][</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="p">]</span>
 
     <span class="nd">@fmto</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">fmto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -514,35 +743,44 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">fill_fmt_combo</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
                 <span class="k">return</span>
 
-<div class="viewcode-block" id="FormatoptionWidget.toggle_line_edit"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_line_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Switch between the :attr:`line_edit` and :attr:`text_edit`</span>
+<div class="viewcode-block" id="FormatoptionWidget.toggle_line_edit">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit">[docs]</a>
+    <span class="k">def</span> <span class="nf">toggle_line_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Switch between the :attr:`line_edit` and :attr:`text_edit`</span>
 
 <span class="sd">        This method is called when the :attr:`multiline_button` is clicked</span>
 <span class="sd">        and switches between the single line :attr:``line_edit` and the</span>
 <span class="sd">        multiline :attr:`text_edit`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># switch to multiline text edit</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span>
-                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+        <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span>
-              <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()):</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiline_button</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
+        <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.fill_fmt_combo"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo">[docs]</a>    <span class="k">def</span> <span class="nf">fill_fmt_combo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">current_text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Fill the :attr:`fmt_combo` combobox based on the current group name</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.fill_fmt_combo">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo">[docs]</a>
+    <span class="k">def</span> <span class="nf">fill_fmt_combo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">current_text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fill the :attr:`fmt_combo` combobox based on the current group name&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">current_text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">current_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span>
-                    <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="p">)</span>
                 <span class="n">ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">findText</span><span class="p">(</span><span class="n">current_text</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">ind</span> <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="c1"># update completer model</span>
@@ -552,19 +790,31 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">load_fmt_widget</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_current_fmt_value</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.set_fmto"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto">[docs]</a>    <span class="k">def</span> <span class="nf">set_fmto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.set_fmto">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_fmto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmto</span> <span class="o">=</span> <span class="n">name</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.setup_fmt_completion_model"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model">[docs]</a>    <span class="k">def</span> <span class="nf">setup_fmt_completion_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">fmtos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_everseen</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">,</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">))))</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.setup_fmt_completion_model">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_fmt_completion_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fmtos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="n">unique_everseen</span><span class="p">(</span>
+                <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">,</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmto_completer</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
         <span class="n">model</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fmtos</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fmtos</span><span class="p">):</span>
             <span class="n">model</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QStandardItem</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.load_fmt_widget"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget">[docs]</a>    <span class="k">def</span> <span class="nf">load_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load the formatoption specific widget</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.load_fmt_widget">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the formatoption specific widget</span>
 
 <span class="sd">        This method loads the formatoption specific widget from the</span>
 <span class="sd">        :meth:`psyplot.plotter.Formatoption.get_fmt_widget` method and</span>
@@ -578,12 +828,12 @@
         <span class="n">group_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">psyplot.project</span> <span class="kn">import</span> <span class="n">gcp</span>
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">group_ind</span><span class="p">]</span> <span class="o">==</span> <span class="n">COORDSGROUP</span><span class="p">:</span>
                 <span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="o">.</span><span class="n">set_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="o">.</span><span class="n">set_single_selection</span><span class="p">(</span>
-                    <span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gcp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="o">.</span><span class="n">set_single_selection</span><span class="p">(</span><span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gcp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fmto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
@@ -591,12 +841,18 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">vbox</span><span class="o">.</span><span class="n">insertWidget</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.reset_fmt_widget"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget">[docs]</a>    <span class="k">def</span> <span class="nf">reset_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.reset_fmt_widget">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_fmt_widget</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_current_fmt_value</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.remove_fmt_widget"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget">[docs]</a>    <span class="k">def</span> <span class="nf">remove_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.remove_fmt_widget">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_fmt_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_widget</span><span class="p">:</span>
@@ -606,30 +862,39 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_widget</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.set_current_fmt_value"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_current_fmt_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add the value of the current formatoption to the line text&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.set_current_fmt_value">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_current_fmt_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the value of the current formatoption to the line text&quot;&quot;&quot;</span>
         <span class="n">group_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">group_ind</span><span class="p">]</span> <span class="o">==</span> <span class="n">COORDSGROUP</span><span class="p">:</span>
                 <span class="kn">from</span> <span class="nn">psyplot.project</span> <span class="kn">import</span> <span class="n">gcp</span>
+
                 <span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_obj</span><span class="p">(</span><span class="n">gcp</span><span class="p">()</span><span class="o">.</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">psy</span><span class="o">.</span><span class="n">idims</span><span class="p">[</span><span class="n">dim</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fmto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_obj</span><span class="p">(</span><span class="n">fmto</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.show_fmt_info"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info">[docs]</a>    <span class="k">def</span> <span class="nf">show_fmt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show the documentation of the formatoption in the help explorer</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.show_fmt_info">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_fmt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the documentation of the formatoption in the help explorer&quot;&quot;&quot;</span>
         <span class="n">group_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span> <span class="ow">and</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">group_ind</span><span class="p">]</span> <span class="o">!=</span> <span class="n">COORDSGROUP</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_fmtos_update</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">group_ind</span><span class="p">]</span> <span class="o">!=</span> <span class="n">COORDSGROUP</span><span class="p">:</span>
             <span class="n">fmto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()][</span><span class="n">i</span><span class="p">]</span>
             <span class="n">fmto</span><span class="o">.</span><span class="n">plotter</span><span class="o">.</span><span class="n">show_docs</span><span class="p">(</span>
-                <span class="n">fmto</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">include_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">())</span></div>
+                <span class="n">fmto</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">include_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+            <span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.run_code"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.run_code">[docs]</a>    <span class="k">def</span> <span class="nf">run_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the update of the project inside the :attr:`shell`&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.run_code">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.run_code">[docs]</a>
+    <span class="k">def</span> <span class="nf">run_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the update of the project inside the :attr:`shell`&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
             <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
@@ -639,18 +904,24 @@
         <span class="n">group_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">group_ind</span><span class="p">]</span> <span class="o">==</span> <span class="n">COORDSGROUP</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()]</span>
-            <span class="n">param</span> <span class="o">=</span> <span class="s1">&#39;dims&#39;</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="s2">&quot;dims&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="n">group_ind</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()]</span><span class="o">.</span><span class="n">key</span>
-            <span class="n">param</span> <span class="o">=</span> <span class="s1">&#39;fmt&#39;</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="s2">&quot;fmt&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
             <span class="kn">import</span> <span class="nn">psyplot.project</span> <span class="k">as</span> <span class="nn">psy</span>
+
             <span class="n">psy</span><span class="o">.</span><span class="n">gcp</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)})</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;psy.gcp().update(</span><span class="si">%s</span><span class="s2">={&#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">})&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">ExecutionInfo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">info</span> <span class="o">=</span> <span class="n">ExecutionInfo</span><span class="p">(</span><span class="n">raw_cell</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">store_history</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                     <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shell_futures</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="n">ExecutionInfo</span><span class="p">(</span>
+                    <span class="n">raw_cell</span><span class="o">=</span><span class="n">code</span><span class="p">,</span>
+                    <span class="n">store_history</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">shell_futures</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">cell_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="n">e</span> <span class="o">=</span> <span class="n">ExecutionResult</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">e</span> <span class="o">=</span> <span class="n">ExecutionResult</span><span class="p">()</span>
@@ -662,15 +933,21 @@
             <span class="k">finally</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.get_text"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the current update text&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.get_text">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the current update text&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.get_obj"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_obj">[docs]</a>    <span class="k">def</span> <span class="nf">get_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the current update text&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.get_obj">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_obj">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the current update text&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
             <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -682,8 +959,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">obj</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.insert_obj"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj">[docs]</a>    <span class="k">def</span> <span class="nf">insert_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a string to the formatoption widget&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.insert_obj">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a string to the formatoption widget&quot;&quot;&quot;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
         <span class="n">use_yaml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaml_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
         <span class="n">use_line_edit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">()</span>
@@ -704,32 +984,41 @@
                     <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">obj</span> <span class="o">+</span> <span class="n">current</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">current</span> <span class="o">+</span> <span class="n">obj</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
-                <span class="n">current</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">elif</span> <span class="n">isstring</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>  <span class="c1"># add quotation marks</span>
             <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">obj</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">use_yaml</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">...&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">...&quot;</span><span class="p">):</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">use_line_edit</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">insertPlainText</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.clear_text"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.clear_text">[docs]</a>    <span class="k">def</span> <span class="nf">clear_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.clear_text">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.clear_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">line_edit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.set_obj"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_obj">[docs]</a>    <span class="k">def</span> <span class="nf">set_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.set_obj">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_obj">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_text</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FormatoptionWidget.show_all_fmt_info"><a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info">[docs]</a>    <span class="k">def</span> <span class="nf">show_all_fmt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Show the keys, summaries or docs of the formatoptions</span>
+
+<div class="viewcode-block" id="FormatoptionWidget.show_all_fmt_info">
+<a class="viewcode-back" href="../../api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_all_fmt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the keys, summaries or docs of the formatoptions</span>
 
 <span class="sd">        Calling this function let&#39;s the help browser show the documentation</span>
 <span class="sd">        etc. of all docs or only the selected group determined by the state of</span>
@@ -741,33 +1030,63 @@
 <span class="sd">            Determines what to show&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">or</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="n">fmtos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
-                <span class="n">fmto_group</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fmto_group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ALLGROUP</span><span class="p">,</span> <span class="n">COORDSGROUP</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">all_groups_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span>
+        <span class="p">):</span>
+            <span class="n">fmtos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+                    <span class="n">fmto_group</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fmto_group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ALLGROUP</span><span class="p">,</span> <span class="n">COORDSGROUP</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fmtos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmtos</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">group_combo</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()]</span>
         <span class="n">plotter</span> <span class="o">=</span> <span class="n">fmtos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plotter</span>
-        <span class="nb">getattr</span><span class="p">(</span><span class="n">plotter</span><span class="p">,</span> <span class="s1">&#39;show_&#39;</span> <span class="o">+</span> <span class="n">what</span><span class="p">)(</span>
-            <span class="p">[</span><span class="n">fmto</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">fmto</span> <span class="ow">in</span> <span class="n">fmtos</span><span class="p">],</span> <span class="n">grouped</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
-            <span class="n">include_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">())</span></div></div>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">plotter</span><span class="p">,</span> <span class="s2">&quot;show_&quot;</span> <span class="o">+</span> <span class="n">what</span><span class="p">)(</span>
+            <span class="p">[</span><span class="n">fmto</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">fmto</span> <span class="ow">in</span> <span class="n">fmtos</span><span class="p">],</span>
+            <span class="n">grouped</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grouped_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
+            <span class="n">include_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">include_links_cb</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span>
+        <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>
           </div>
-          <footer>
+          <!--
+SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum Geesthacht, 2016-2021 University of Lausanne.</p>
+    <p>&#169; Copyright 2021-2024 Helmholtz-Zentrum hereon GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+
+<div class="footer">
+    <span class="creativecommons">
+    <a href="https://creativecommons.org/licenses/by/4.0/" >
+    <img style="height: 1.5em;" src="../../_static/license_logo.png" border="0" alt="Creative Commons License"/>
+    </a>
+    This documentation is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">
+    CC-BY-4.0
+    </a>
+    </span>
+</div>
+
+
 
 </footer>
         </div>

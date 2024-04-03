@@ -1,6 +1,3 @@
-psyplot\_gui.fmt\_widget module
-===============================
-
 .. automodule:: psyplot_gui.fmt_widget
    :members:
    :undoc-members:

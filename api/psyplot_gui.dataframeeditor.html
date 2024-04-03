@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psyplot_gui.dataframeeditor module &mdash; psyplot-gui 1.3.0+11.g227d84e documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+  <title>&lt;no title&gt; &mdash; psyplot-gui  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nc-table-styles.css?v=d585f46f" />
+      <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="psyplot_gui.dependencies module" href="psyplot_gui.dependencies.html" />
-    <link rel="prev" title="psyplot_gui.content_widget module" href="psyplot_gui.content_widget.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="psyplot_gui.dependencies.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="psyplot_gui.content_widget.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,45 +34,183 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> psyplot-gui
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            psyplot-gui
           </a>
-              <div class="version">
-                1.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installing.html#how-to-install">How to install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#installation-using-conda">Installation using conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#installation-using-pip">Installation using pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installing.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installing.html#required-dependencies">Required dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#starting-the-gui">Starting the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-console">The Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-help-explorer">The Help Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-plot-creator">The Plot Creator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-project-content">The Project content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#the-formatoptions-widget">The formatoptions widget</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration of the GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contributing to psyplot-gui</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="psyplot_gui.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.backend.html">psyplot_gui.backend module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.common.html">psyplot_gui.common module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.console.html">psyplot_gui.console module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.content_widget.html">psyplot_gui.content_widget module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">psyplot_gui.dataframeeditor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.dependencies.html">psyplot_gui.dependencies module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.fmt_widget.html">psyplot_gui.fmt_widget module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.help_explorer.html">psyplot_gui.help_explorer module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.main.html">psyplot_gui.main module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.plot_creator.html">psyplot_gui.plot_creator module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.preferences.html">psyplot_gui.preferences module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line.html">Command line usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#named-arguments">Named Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#info-options">Info options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#output-options">Output options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line.html#gui-options">Gui options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugin configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html#plugin-config">Plugin configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins.html#developing-plugins">Developing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contribution and development hints</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="psyplot_gui.html">psyplot_gui package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.ListGuiPluginsAction"><code class="docutils literal notranslate"><span class="pre">ListGuiPluginsAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.UNIT_TESTING"><code class="docutils literal notranslate"><span class="pre">UNIT_TESTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.send_files_to_psyplot"><code class="docutils literal notranslate"><span class="pre">send_files_to_psyplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#psyplot_gui.start_app"><code class="docutils literal notranslate"><span class="pre">start_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="psyplot_gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.compat.html">psyplot_gui.compat package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.config.html">psyplot_gui.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="psyplot_gui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html"><code class="docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock"><code class="docutils literal notranslate"><span class="pre">FiguresDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html"><code class="docutils literal notranslate"><span class="pre">DockMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.ListValidator"><code class="docutils literal notranslate"><span class="pre">ListValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.StreamToLogger"><code class="docutils literal notranslate"><span class="pre">StreamToLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.get_module_path"><code class="docutils literal notranslate"><span class="pre">get_module_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.is_running_tests"><code class="docutils literal notranslate"><span class="pre">is_running_tests()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html#psyplot_gui.console.IPythonControl"><code class="docutils literal notranslate"><span class="pre">IPythonControl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.console.html#psyplot_gui.console.init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">init_asyncio_patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html"><code class="docutils literal notranslate"><span class="pre">ArrayItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree"><code class="docutils literal notranslate"><span class="pre">DatasetTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree"><code class="docutils literal notranslate"><span class="pre">FiguresTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList"><code class="docutils literal notranslate"><span class="pre">PlotterList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent"><code class="docutils literal notranslate"><span class="pre">ProjectContent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContentWidget"><code class="docutils literal notranslate"><span class="pre">ProjectContentWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton"><code class="docutils literal notranslate"><span class="pre">SelectAllButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.content_widget.html#psyplot_gui.content_widget.escape_html"><code class="docutils literal notranslate"><span class="pre">escape_html()</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel"><code class="docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameView"><code class="docutils literal notranslate"><span class="pre">DataFrameView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.dataframeeditor.FrozenTableView"><code class="docutils literal notranslate"><span class="pre">FrozenTableView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psyplot_gui.dataframeeditor.bool_false_check"><code class="docutils literal notranslate"><span class="pre">bool_false_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dependencies.html"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree"><code class="docutils literal notranslate"><span class="pre">DependenciesTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.fmt_widget.html"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html"><code class="docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin"><code class="docutils literal notranslate"><span class="pre">HelpMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread"><code class="docutils literal notranslate"><span class="pre">SphinxThread</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp"><code class="docutils literal notranslate"><span class="pre">TextHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser"><code class="docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo"><code class="docutils literal notranslate"><span class="pre">UrlCombo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp"><code class="docutils literal notranslate"><span class="pre">UrlHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.file2html"><code class="docutils literal notranslate"><span class="pre">file2html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.html2file"><code class="docutils literal notranslate"><span class="pre">html2file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.main.html"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.main.html#psyplot_gui.main.mainwindow"><code class="docutils literal notranslate"><span class="pre">mainwindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable"><code class="docutils literal notranslate"><span class="pre">ArrayTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator"><code class="docutils literal notranslate"><span class="pre">AxesCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector"><code class="docutils literal notranslate"><span class="pre">AxesSelector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer"><code class="docutils literal notranslate"><span class="pre">AxesViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox"><code class="docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable"><code class="docutils literal notranslate"><span class="pre">CoordsTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable"><code class="docutils literal notranslate"><span class="pre">DragDropTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator"><code class="docutils literal notranslate"><span class="pre">PlotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable"><code class="docutils literal notranslate"><span class="pre">VariablesTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html"><code class="docutils literal notranslate"><span class="pre">ConfigPage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences"><code class="docutils literal notranslate"><span class="pre">Prefences</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree"><code class="docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-4-0">v1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-3-0">v1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-4">v1.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-3">v1.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-2">v1.2.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-1">v1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-2-0">v1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-1-0">v1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v1-0-1">v1.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../todos.html">ToDos</a></li>
 </ul>
 
@@ -83,9 +227,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="psyplot_gui.html">API Reference</a> &raquo;</li>
-      <li>psyplot_gui.dataframeeditor module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="psyplot_gui.html">psyplot_gui package</a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/psyplot_gui.dataframeeditor.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,15 +240,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-psyplot_gui.dataframeeditor">
-<span id="psyplot-gui-dataframeeditor-module"></span><h1>psyplot_gui.dataframeeditor module<a class="headerlink" href="#module-psyplot_gui.dataframeeditor" title="Permalink to this headline"></a></h1>
-<p>A widget to display and edit DataFrames</p>
+  <p id="module-psyplot_gui.dataframeeditor">A widget to display and edit DataFrames</p>
 <p><strong>Classes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="psyplot_gui.dataframeeditor.DataFrameDock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></p></td>
 <td><p>The QDockWidget for the <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="psyplot_gui.dataframeeditor.DataFrameEditor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></p></td>
@@ -123,11 +262,7 @@
 </tbody>
 </table>
 <p><strong>Functions:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.bool_false_check" title="psyplot_gui.dataframeeditor.bool_false_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool_false_check</span></code></a>(value)</p></td>
 <td><p>Used to convert bool intrance to false since any string in bool('') will return True</p></td>
@@ -136,15 +271,11 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameDock">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameDock</span></span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameDock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameDock</span></span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameDock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDockWidget</span></code></p>
 <p>The QDockWidget for the <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="psyplot_gui.dataframeeditor.DataFrameEditor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></p>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock.close" title="psyplot_gui.dataframeeditor.DataFrameDock.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
 <td><p>Reimplemented to remove the dock widget from the mainwindow when closed</p></td>
@@ -153,7 +284,7 @@
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameDock.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameDock.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameDock.close" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameDock.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameDock.close" title="Link to this definition"></a></dt>
 <dd><p>Reimplemented to remove the dock widget from the mainwindow when closed</p>
 </dd></dl>
 
@@ -161,15 +292,11 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.common.DockMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameEditor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="psyplot_gui.common.html#psyplot_gui.common.DockMixin" title="psyplot_gui.common.DockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DockMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>An editor for data frames</p>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited" title="psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell_edited</span></code></a>(*args, **kwargs)</p></td>
 <td><p>A signal that is emitted when a cell has been changed.</p></td>
@@ -186,11 +313,7 @@
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.clear_table" title="psyplot_gui.dataframeeditor.DataFrameEditor.clear_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_table</span></code></a>()</p></td>
 <td><p>Clear the table and emit the <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cleared" title="psyplot_gui.dataframeeditor.DataFrameEditor.cleared"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cleared</span></code></a> signal</p></td>
@@ -205,7 +328,7 @@
 <td><p>Opens a file dialog and the dataset that has been inserted</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_df" title="psyplot_gui.dataframeeditor.DataFrameEditor.set_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_df</span></code></a>(df, *args, **kwargs)</p></td>
-<td><p>Fill the table from a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p></td>
+<td><p>Fill the table from a <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable" title="psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dtypes_changeable</span></code></a>(state)</p></td>
 <td><p>Set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">DataFrameModel.dtypes_changeable</span></code> attribute</p></td>
@@ -231,20 +354,16 @@
 </tbody>
 </table>
 <p><strong>Classes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls" title="psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dock_cls</span></code></a></p></td>
-<td><p>alias of <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="psyplot_gui.dataframeeditor.DataFrameDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.dataframeeditor.DataFrameDock</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="psyplot_gui.dataframeeditor.DataFrameDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited">
-<span class="sig-name descname"><span class="pre">cell_edited</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cell_edited</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited" title="Link to this definition"></a></dt>
 <dd><p>A signal that is emitted when a cell has been changed. The argument
 is a tuple of two integers and one float:
 the row index, the column index and the new value</p>
@@ -252,31 +371,27 @@ the row index, the column index and the new value</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.clear_table">
-<span class="sig-name descname"><span class="pre">clear_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.clear_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.clear_table" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clear_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.clear_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.clear_table" title="Link to this definition"></a></dt>
 <dd><p>Clear the table and emit the <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cleared" title="psyplot_gui.dataframeeditor.DataFrameEditor.cleared"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cleared</span></code></a> signal</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.cleared">
-<span class="sig-name descname"><span class="pre">cleared</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cleared" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cleared</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.cleared" title="Link to this definition"></a></dt>
 <dd><p>A signal that is emitted, if the table is cleared</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.close" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.close" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls">
-<span class="sig-name descname"><span class="pre">dock_cls</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="psyplot_gui.dataframeeditor.DataFrameDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">psyplot_gui.dataframeeditor.DataFrameDock</span></code></a>
+<span class="sig-name descname"><span class="pre">dock_cls</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameDock" title="psyplot_gui.dataframeeditor.DataFrameDock"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a>
 <strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code>()</p></td>
 <td><p>Reimplemented to remove the dock widget from the mainwindow when closed</p></td>
@@ -287,7 +402,7 @@ the row index, the column index and the new value</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.hidden">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">hidden</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.hidden" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hidden</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.hidden" title="Link to this definition"></a></dt>
 <dd><p>bool(x) -&gt; bool</p>
 <p>Returns True when the argument x is true, False otherwise.
 The builtins True and False are the only two instances of the class bool.
@@ -296,18 +411,18 @@ The class bool is a subclass of the class int, and cannot be subclassed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.maybe_tabify">
-<span class="sig-name descname"><span class="pre">maybe_tabify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.maybe_tabify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.maybe_tabify" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">maybe_tabify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.maybe_tabify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.maybe_tabify" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.open_dataframe">
-<span class="sig-name descname"><span class="pre">open_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.open_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.open_dataframe" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">open_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.open_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.open_dataframe" title="Link to this definition"></a></dt>
 <dd><p>Opens a file dialog and the dataset that has been inserted</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.rows_inserted">
-<span class="sig-name descname"><span class="pre">rows_inserted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.rows_inserted" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">rows_inserted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.rows_inserted" title="Link to this definition"></a></dt>
 <dd><p>A signal that is emitted, if rows have been inserted into the dataframe.
 The first value is the integer of the (original) position of the row,
 the second one is the number of rows</p>
@@ -315,16 +430,16 @@ the second one is the number of rows</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.set_df">
-<span class="sig-name descname"><span class="pre">set_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_df" title="Permalink to this definition"></a></dt>
-<dd><p>Fill the table from a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></p>
+<span class="sig-name descname"><span class="pre">set_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_df" title="Link to this definition"></a></dt>
+<dd><p>Fill the table from a <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
 instance</p></li>
-<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
-<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
-<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True (default), show and <a href="#id1"><span class="problematic" id="id2">raise_</span></a> the editor</p></li>
+<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
+<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
+<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True (default), show and <a href="#id1"><span class="problematic" id="id2">raise_</span></a> the editor</p></li>
 </ul>
 </dd>
 </dl>
@@ -332,67 +447,52 @@ instance</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable">
-<span class="sig-name descname"><span class="pre">set_dtypes_changeable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_dtypes_changeable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_dtypes_changeable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_dtypes_changeable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable" title="Link to this definition"></a></dt>
 <dd><p>Set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">DataFrameModel.dtypes_changeable</span></code> attribute</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.set_index_editable">
-<span class="sig-name descname"><span class="pre">set_index_editable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_index_editable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_index_editable" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_index_editable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_index_editable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_index_editable" title="Link to this definition"></a></dt>
 <dd><p>Set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">DataFrameModel.index_editable</span></code> attribute</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.set_lbl_size_text">
-<span class="sig-name descname"><span class="pre">set_lbl_size_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_lbl_size_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_lbl_size_text" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_lbl_size_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.set_lbl_size_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.set_lbl_size_text" title="Link to this definition"></a></dt>
 <dd><p>Set the text of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">lbl_size</span></code> label to display the size</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.to_dock">
-<span class="sig-name descname"><span class="pre">to_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.to_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.to_dock" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_dock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.to_dock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.to_dock" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.toggle_fmt_button">
-<span class="sig-name descname"><span class="pre">toggle_fmt_button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.toggle_fmt_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.toggle_fmt_button" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">toggle_fmt_button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.toggle_fmt_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.toggle_fmt_button" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.update_format">
-<span class="sig-name descname"><span class="pre">update_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.update_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.update_format" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.update_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.update_format" title="Link to this definition"></a></dt>
 <dd><p>Update the format of the table</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameEditor.update_index_editable">
-<span class="sig-name descname"><span class="pre">update_index_editable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.update_index_editable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.update_index_editable" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_index_editable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameEditor.update_index_editable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameEditor.update_index_editable" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_editable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes_changeable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_editable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtypes_changeable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QAbstractTableModel</span></code></p>
 <p>DataFrame Table Model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
-instance</p></li>
-<li><p><strong>parent</strong> (<a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="psyplot_gui.dataframeeditor.DataFrameEditor"><em>DataFrameEditor</em></a>) – The editor for the table</p></li>
-<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
-<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
-</ul>
-</dd>
-</dl>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD" title="psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">COLS_TO_LOAD</span></code></a></p></td>
 <td><p></p></td>
@@ -403,11 +503,7 @@ instance</p></li>
 </tbody>
 </table>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel.bgcolor" title="psyplot_gui.dataframeeditor.DataFrameModel.bgcolor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bgcolor</span></code></a>(state)</p></td>
 <td><p>Toggle backgroundcolor</p></td>
@@ -464,73 +560,73 @@ instance</p></li>
 </table>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD">
-<span class="sig-name descname"><span class="pre">COLS_TO_LOAD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">40</span></em><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">COLS_TO_LOAD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.ROWS_TO_LOAD">
-<span class="sig-name descname"><span class="pre">ROWS_TO_LOAD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">500</span></em><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.ROWS_TO_LOAD" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ROWS_TO_LOAD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">500</span></em><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.ROWS_TO_LOAD" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.bgcolor">
-<span class="sig-name descname"><span class="pre">bgcolor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.bgcolor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.bgcolor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bgcolor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.bgcolor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.bgcolor" title="Link to this definition"></a></dt>
 <dd><p>Toggle backgroundcolor</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.can_fetch_more">
-<span class="sig-name descname"><span class="pre">can_fetch_more</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.can_fetch_more"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.can_fetch_more" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">can_fetch_more</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.can_fetch_more"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.can_fetch_more" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.columnCount">
-<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">index=&lt;PyQt5.QtCore.QModelIndex</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.columnCount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">columnCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index=&lt;PyQt5.QtCore.QModelIndex</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.columnCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.columnCount" title="Link to this definition"></a></dt>
 <dd><p>DataFrame column number</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.data">
-<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.data" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.data" title="Link to this definition"></a></dt>
 <dd><p>Cell content</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.fetch_more">
-<span class="sig-name descname"><span class="pre">fetch_more</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.fetch_more"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.fetch_more" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fetch_more</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.fetch_more"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.fetch_more" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.flags">
-<span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.flags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.flags" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.flags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.flags" title="Link to this definition"></a></dt>
 <dd><p>Set flags</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.get_format">
-<span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.get_format" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.get_format" title="Link to this definition"></a></dt>
 <dd><p>Return current format</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.get_value">
-<span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.get_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.get_value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.get_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.get_value" title="Link to this definition"></a></dt>
 <dd><p>Returns the value of the DataFrame</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.headerData">
-<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.headerData" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">headerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.headerData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.headerData" title="Link to this definition"></a></dt>
 <dd><p>Set header data</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.insertRow">
-<span class="sig-name descname"><span class="pre">insertRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.insertRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.insertRow" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insertRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.insertRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.insertRow" title="Link to this definition"></a></dt>
 <dd><p>Insert one row into the <code class="xref py py-attr docutils literal notranslate"><span class="pre">df</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>irow</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The row index. If iRow is equal to the length of the
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>irow</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The row index. If iRow is equal to the length of the
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">df</span></code>, the new row will be appended.</p>
 </dd>
 </dl>
@@ -538,14 +634,14 @@ instance</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.insertRows">
-<span class="sig-name descname"><span class="pre">insertRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.insertRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.insertRows" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insertRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.insertRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.insertRows" title="Link to this definition"></a></dt>
 <dd><p>Insert a row into the <code class="xref py py-attr docutils literal notranslate"><span class="pre">df</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>irow</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The row index. If <cite>irow</cite> is equal to the length of the
+<li><p><strong>irow</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The row index. If <cite>irow</cite> is equal to the length of the
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">df</span></code>, the rows will be appended.</p></li>
-<li><p><strong>nrows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of rows to insert</p></li>
+<li><p><strong>nrows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of rows to insert</p></li>
 </ul>
 </dd>
 </dl>
@@ -553,36 +649,36 @@ instance</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.reset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.reset" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.rowCount">
-<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">index=&lt;PyQt5.QtCore.QModelIndex</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.rowCount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">rowCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index=&lt;PyQt5.QtCore.QModelIndex</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.rowCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.rowCount" title="Link to this definition"></a></dt>
 <dd><p>DataFrame row number</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.setData">
-<span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">change_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.setData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.setData" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">change_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.setData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.setData" title="Link to this definition"></a></dt>
 <dd><p>Cell content change</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.set_format">
-<span class="sig-name descname"><span class="pre">set_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.set_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.set_format" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.set_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.set_format" title="Link to this definition"></a></dt>
 <dd><p>Change display format</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.sort">
-<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.sort" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.sort" title="Link to this definition"></a></dt>
 <dd><p>Overriding sort method</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameModel.update_df_index">
-<span class="sig-name descname"><span class="pre">update_df_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.update_df_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.update_df_index" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_df_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameModel.update_df_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameModel.update_df_index" title="Link to this definition"></a></dt>
 <dd><p>“Update the DataFrame index</p>
 </dd></dl>
 
@@ -590,26 +686,11 @@ instance</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableView</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">DataFrameView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTableView</span></code></p>
 <p>Data Frame view class</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
-instance</p></li>
-<li><p><strong>parent</strong> (<a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameEditor" title="psyplot_gui.dataframeeditor.DataFrameEditor"><em>DataFrameEditor</em></a>) – The editor for the table</p></li>
-<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
-<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
-</ul>
-</dd>
-</dl>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameView.change_type" title="psyplot_gui.dataframeeditor.DataFrameView.change_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_type</span></code></a>(func)</p></td>
 <td><p>A function that changes types of cells</p></td>
@@ -642,7 +723,7 @@ instance</p></li>
 <td><p>Scroll the table.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameView.set_df" title="psyplot_gui.dataframeeditor.DataFrameView.set_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_df</span></code></a>(df, *args, **kwargs)</p></td>
-<td><p>Set the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> for this table</p></td>
+<td><p>Set the <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code> for this table</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameView.set_index" title="psyplot_gui.dataframeeditor.DataFrameView.set_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_index</span></code></a>([append])</p></td>
 <td><p>Set the index from the selected columns</p></td>
@@ -662,11 +743,7 @@ instance</p></li>
 </tbody>
 </table>
 <p><strong>Attributes:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameView.filled" title="psyplot_gui.dataframeeditor.DataFrameView.filled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filled</span></code></a></p></td>
 <td><p>True if the table is filled with content</p></td>
@@ -675,50 +752,50 @@ instance</p></li>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.change_type">
-<span class="sig-name descname"><span class="pre">change_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.change_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.change_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">change_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.change_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.change_type" title="Link to this definition"></a></dt>
 <dd><p>A function that changes types of cells</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.contextMenuEvent">
-<span class="sig-name descname"><span class="pre">contextMenuEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.contextMenuEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.contextMenuEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">contextMenuEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.contextMenuEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.contextMenuEvent" title="Link to this definition"></a></dt>
 <dd><p>Reimplement Qt method</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.copy" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.copy" title="Link to this definition"></a></dt>
 <dd><p>Copy text to clipboard</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.filled">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">filled</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.filled" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filled</span></span><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.filled" title="Link to this definition"></a></dt>
 <dd><p>True if the table is filled with content</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.insert_row_above_selection">
-<span class="sig-name descname"><span class="pre">insert_row_above_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.insert_row_above_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.insert_row_above_selection" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insert_row_above_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.insert_row_above_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.insert_row_above_selection" title="Link to this definition"></a></dt>
 <dd><p>Insert rows above the selection</p>
 <p>The number of rows inserted depends on the number of selected rows</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.insert_row_below_selection">
-<span class="sig-name descname"><span class="pre">insert_row_below_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.insert_row_below_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.insert_row_below_selection" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insert_row_below_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.insert_row_below_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.insert_row_below_selection" title="Link to this definition"></a></dt>
 <dd><p>Insert rows below the selection</p>
 <p>The number of rows inserted depends on the number of selected rows</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.load_more_data">
-<span class="sig-name descname"><span class="pre">load_more_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.load_more_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.load_more_data" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load_more_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.load_more_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.load_more_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.moveCursor">
-<span class="sig-name descname"><span class="pre">moveCursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor_action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.moveCursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.moveCursor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">moveCursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor_action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.moveCursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.moveCursor" title="Link to this definition"></a></dt>
 <dd><p>Update the table position.</p>
 <p>Updates the position along with the frozen column
 when the cursor (selector) changes its position</p>
@@ -726,12 +803,12 @@ when the cursor (selector) changes its position</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.reset_model">
-<span class="sig-name descname"><span class="pre">reset_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.reset_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.reset_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reset_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.reset_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.reset_model" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.resizeEvent">
-<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.resizeEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.resizeEvent" title="Link to this definition"></a></dt>
 <dd><p>Update the frozen column dimensions.</p>
 <p>Updates takes place when the enclosing window of this
 table reports a dimension change</p>
@@ -739,7 +816,7 @@ table reports a dimension change</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.scrollTo">
-<span class="sig-name descname"><span class="pre">scrollTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.scrollTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.scrollTo" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">scrollTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.scrollTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.scrollTo" title="Link to this definition"></a></dt>
 <dd><p>Scroll the table.</p>
 <p>It is necessary to ensure that the item at index is visible.
 The view will try to position the item according to the
@@ -749,15 +826,15 @@ the frozen column is scrolled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.set_df">
-<span class="sig-name descname"><span class="pre">set_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.set_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.set_df" title="Permalink to this definition"></a></dt>
-<dd><p>Set the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> for this table</p>
+<span class="sig-name descname"><span class="pre">set_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.set_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.set_df" title="Link to this definition"></a></dt>
+<dd><p>Set the <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code> for this table</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The data frame that will be shown by this <a class="reference internal" href="#psyplot_gui.dataframeeditor.DataFrameModel" title="psyplot_gui.dataframeeditor.DataFrameModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a>
 instance</p></li>
-<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
-<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
+<li><p><strong>index_editable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True if the index should be modifiable by the user</p></li>
+<li><p><strong>dtypes_changeable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True, if the data types should be modifiable by the user</p></li>
 </ul>
 </dd>
 </dl>
@@ -765,32 +842,32 @@ instance</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.set_index">
-<span class="sig-name descname"><span class="pre">set_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.set_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.set_index" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.set_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.set_index" title="Link to this definition"></a></dt>
 <dd><p>Set the index from the selected columns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.setup_menu">
-<span class="sig-name descname"><span class="pre">setup_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.setup_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.setup_menu" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setup_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.setup_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.setup_menu" title="Link to this definition"></a></dt>
 <dd><p>Setup context menu</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.sortByColumn">
-<span class="sig-name descname"><span class="pre">sortByColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.sortByColumn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.sortByColumn" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sortByColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.sortByColumn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.sortByColumn" title="Link to this definition"></a></dt>
 <dd><p>Implement a Column sort</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.update_section_height">
-<span class="sig-name descname"><span class="pre">update_section_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.update_section_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.update_section_height" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_section_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.update_section_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.update_section_height" title="Link to this definition"></a></dt>
 <dd><p>Update the vertical width of the frozen column when a
 change takes place on any of the rows</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.DataFrameView.update_section_width">
-<span class="sig-name descname"><span class="pre">update_section_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.update_section_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.update_section_width" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_section_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#DataFrameView.update_section_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.DataFrameView.update_section_width" title="Link to this definition"></a></dt>
 <dd><p>Update the horizontal width of the frozen column when a
 change takes place in the first column of the table</p>
 </dd></dl>
@@ -799,18 +876,13 @@ change takes place in the first column of the table</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.FrozenTableView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">FrozenTableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableView</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">FrozenTableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTableView</span></code></p>
 <p>This class implements a table with its first column frozen
 For more information please see:
 <a class="reference external" href="http://doc.qt.io/qt-5/qtwidgets-itemviews-frozencolumn-example.html">http://doc.qt.io/qt-5/qtwidgets-itemviews-frozencolumn-example.html</a></p>
-<p>Constructor.</p>
 <p><strong>Methods:</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent" title="psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contextMenuEvent</span></code></a>(event)</p></td>
 <td><p>Show the context Menu</p></td>
@@ -822,14 +894,14 @@ For more information please see:
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent">
-<span class="sig-name descname"><span class="pre">contextMenuEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView.contextMenuEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">contextMenuEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView.contextMenuEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent" title="Link to this definition"></a></dt>
 <dd><p>Show the context Menu</p>
 <p>Reimplemented to show the use the contextMenuEvent of the parent</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.FrozenTableView.update_geometry">
-<span class="sig-name descname"><span class="pre">update_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView.update_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView.update_geometry" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#FrozenTableView.update_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.FrozenTableView.update_geometry" title="Link to this definition"></a></dt>
 <dd><p>Update the frozen column size when an update occurs in its parent
 table</p>
 </dd></dl>
@@ -838,31 +910,50 @@ table</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="psyplot_gui.dataframeeditor.bool_false_check">
-<span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">bool_false_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#bool_false_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.bool_false_check" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">psyplot_gui.dataframeeditor.</span></span><span class="sig-name descname"><span class="pre">bool_false_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/psyplot_gui/dataframeeditor.html#bool_false_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#psyplot_gui.dataframeeditor.bool_false_check" title="Link to this definition"></a></dt>
 <dd><p>Used to convert bool intrance to false since any string in bool(‘’)
 will return True</p>
 </dd></dl>
 
-</section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="psyplot_gui.content_widget.html" class="btn btn-neutral float-left" title="psyplot_gui.content_widget module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="psyplot_gui.dependencies.html" class="btn btn-neutral float-right" title="psyplot_gui.dependencies module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <!--
+SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="psyplot_gui.content_widget.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="psyplot_gui.dependencies.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021 Helmholtz-Zentrum Hereon, 2020-2021 Helmholtz-Zentrum Geesthacht, 2016-2021 University of Lausanne.</p>
+    <p>&#169; Copyright 2021-2024 Helmholtz-Zentrum hereon GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+
+<div class="footer">
+    <span class="creativecommons">
+    <a href="https://creativecommons.org/licenses/by/4.0/" >
+    <img style="height: 1.5em;" src="../_static/license_logo.png" border="0" alt="Creative Commons License"/>
+    </a>
+    This documentation is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">
+    CC-BY-4.0
+    </a>
+    </span>
+</div>
+
+
 
 </footer>
         </div>

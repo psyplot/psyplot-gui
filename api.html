@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; psyplot-gui  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/nc-table-styles.css?v=d585f46f" />
+      <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="psyplot_gui package" href="api/psyplot_gui.html" />
+    <link rel="prev" title="Contribution and development hints" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            psyplot-gui
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#how-to-install">How to install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installing.html#installation-using-conda">Installation using conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installing.html#installation-using-pip">Installation using pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installing.html#required-dependencies">Required dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#starting-the-gui">Starting the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#the-console">The Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#the-help-explorer">The Help Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#the-plot-creator">The Plot Creator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#the-project-content">The Project content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#the-formatoptions-widget">The formatoptions widget</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration of the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command line usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html#positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html#named-arguments">Named Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html#info-options">Info options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html#output-options">Output options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html#gui-options">Gui options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins.html#plugin-config">Plugin configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins.html#developing-plugins">Developing plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribution and development hints</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html">psyplot_gui package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.ListGuiPluginsAction"><code class="docutils literal notranslate"><span class="pre">ListGuiPluginsAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.UNIT_TESTING"><code class="docutils literal notranslate"><span class="pre">UNIT_TESTING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.send_files_to_psyplot"><code class="docutils literal notranslate"><span class="pre">send_files_to_psyplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.start_app"><code class="docutils literal notranslate"><span class="pre">start_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.compat.html">psyplot_gui.compat package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.config.html">psyplot_gui.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html"><code class="docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock"><code class="docutils literal notranslate"><span class="pre">FiguresDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html"><code class="docutils literal notranslate"><span class="pre">DockMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.ListValidator"><code class="docutils literal notranslate"><span class="pre">ListValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.StreamToLogger"><code class="docutils literal notranslate"><span class="pre">StreamToLogger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.get_module_path"><code class="docutils literal notranslate"><span class="pre">get_module_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.is_running_tests"><code class="docutils literal notranslate"><span class="pre">is_running_tests()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.IPythonControl"><code class="docutils literal notranslate"><span class="pre">IPythonControl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">init_asyncio_patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html"><code class="docutils literal notranslate"><span class="pre">ArrayItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree"><code class="docutils literal notranslate"><span class="pre">DatasetTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree"><code class="docutils literal notranslate"><span class="pre">FiguresTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList"><code class="docutils literal notranslate"><span class="pre">PlotterList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent"><code class="docutils literal notranslate"><span class="pre">ProjectContent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContentWidget"><code class="docutils literal notranslate"><span class="pre">ProjectContentWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton"><code class="docutils literal notranslate"><span class="pre">SelectAllButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.escape_html"><code class="docutils literal notranslate"><span class="pre">escape_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html"><code class="docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel"><code class="docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView"><code class="docutils literal notranslate"><span class="pre">DataFrameView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView"><code class="docutils literal notranslate"><span class="pre">FrozenTableView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.bool_false_check"><code class="docutils literal notranslate"><span class="pre">bool_false_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree"><code class="docutils literal notranslate"><span class="pre">DependenciesTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html"><code class="docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin"><code class="docutils literal notranslate"><span class="pre">HelpMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread"><code class="docutils literal notranslate"><span class="pre">SphinxThread</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp"><code class="docutils literal notranslate"><span class="pre">TextHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser"><code class="docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo"><code class="docutils literal notranslate"><span class="pre">UrlCombo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp"><code class="docutils literal notranslate"><span class="pre">UrlHelp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.file2html"><code class="docutils literal notranslate"><span class="pre">file2html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.html2file"><code class="docutils literal notranslate"><span class="pre">html2file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.mainwindow"><code class="docutils literal notranslate"><span class="pre">mainwindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable"><code class="docutils literal notranslate"><span class="pre">ArrayTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator"><code class="docutils literal notranslate"><span class="pre">AxesCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector"><code class="docutils literal notranslate"><span class="pre">AxesSelector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer"><code class="docutils literal notranslate"><span class="pre">AxesViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox"><code class="docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable"><code class="docutils literal notranslate"><span class="pre">CoordsTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable"><code class="docutils literal notranslate"><span class="pre">DragDropTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator"><code class="docutils literal notranslate"><span class="pre">PlotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable"><code class="docutils literal notranslate"><span class="pre">VariablesTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html"><code class="docutils literal notranslate"><span class="pre">ConfigPage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences"><code class="docutils literal notranslate"><span class="pre">Prefences</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree"><code class="docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-4-0">v1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-3-0">v1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-2-4">v1.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-2-3">v1.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-2-2">v1.2.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-2-1">v1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-2-0">v1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-1-0">v1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">Added</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v1-0-1">v1.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todos.html">ToDos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">psyplot-gui</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<span id="api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/psyplot_gui.html">psyplot_gui package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.ListGuiPluginsAction"><code class="docutils literal notranslate"><span class="pre">ListGuiPluginsAction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.UNIT_TESTING"><code class="docutils literal notranslate"><span class="pre">UNIT_TESTING</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.send_files_to_psyplot"><code class="docutils literal notranslate"><span class="pre">send_files_to_psyplot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#psyplot_gui.start_app"><code class="docutils literal notranslate"><span class="pre">start_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.compat.html">psyplot_gui.compat package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.compat.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.compat.qtcompat.html"><code class="docutils literal notranslate"><span class="pre">asstring()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.compat.qtcompat.html#psyplot_gui.compat.qtcompat.isstring"><code class="docutils literal notranslate"><span class="pre">isstring()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.config.html">psyplot_gui.config package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.config.html#psyplot_gui.config.config_path"><code class="docutils literal notranslate"><span class="pre">config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.config.html#psyplot_gui.config.logcfg_path"><code class="docutils literal notranslate"><span class="pre">logcfg_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.config.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html"><code class="docutils literal notranslate"><span class="pre">GuiRcParams</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams.HEADER"><code class="docutils literal notranslate"><span class="pre">GuiRcParams.HEADER</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams.load_from_file"><code class="docutils literal notranslate"><span class="pre">GuiRcParams.load_from_file()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.GuiRcParams.load_plugins"><code class="docutils literal notranslate"><span class="pre">GuiRcParams.load_plugins()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.defaultParams"><code class="docutils literal notranslate"><span class="pre">defaultParams</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.rcParams"><code class="docutils literal notranslate"><span class="pre">rcParams</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.try_and_error"><code class="docutils literal notranslate"><span class="pre">try_and_error()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_all"><code class="docutils literal notranslate"><span class="pre">validate_all()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_none"><code class="docutils literal notranslate"><span class="pre">validate_none()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.config.rcsetup.html#psyplot_gui.config.rcsetup.validate_str"><code class="docutils literal notranslate"><span class="pre">validate_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.sphinx_supp.html">psyplot_gui.sphinx_supp package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.sphinx_supp.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.sphinx_supp.conf.html"><code class="docutils literal notranslate"><span class="pre">link_aliases()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/psyplot_gui.sphinx_supp.conf.html#psyplot_gui.sphinx_supp.conf.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/psyplot_gui.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html"><code class="docutils literal notranslate"><span class="pre">FigureCanvas</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FigureWidget.dock_cls"><code class="docutils literal notranslate"><span class="pre">FigureWidget.dock_cls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock"><code class="docutils literal notranslate"><span class="pre">FiguresDock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.FiguresDock.close"><code class="docutils literal notranslate"><span class="pre">FiguresDock.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvas.resizeEvent"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvas.resizeEvent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager.resize"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager.resize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager.statusBar"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager.statusBar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.PsyplotCanvasManager.toolbar"><code class="docutils literal notranslate"><span class="pre">PsyplotCanvasManager.toolbar</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.backend.html#psyplot_gui.backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html"><code class="docutils literal notranslate"><span class="pre">DockMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.config_page"><code class="docutils literal notranslate"><span class="pre">DockMixin.config_page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.create_central_widget_action"><code class="docutils literal notranslate"><span class="pre">DockMixin.create_central_widget_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.create_view_action"><code class="docutils literal notranslate"><span class="pre">DockMixin.create_view_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.dock"><code class="docutils literal notranslate"><span class="pre">DockMixin.dock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.dock_cls"><code class="docutils literal notranslate"><span class="pre">DockMixin.dock_cls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.dock_position"><code class="docutils literal notranslate"><span class="pre">DockMixin.dock_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.hidden"><code class="docutils literal notranslate"><span class="pre">DockMixin.hidden</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.hide_plugin"><code class="docutils literal notranslate"><span class="pre">DockMixin.hide_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.is_shown"><code class="docutils literal notranslate"><span class="pre">DockMixin.is_shown</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.position_dock"><code class="docutils literal notranslate"><span class="pre">DockMixin.position_dock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.remove_plugin"><code class="docutils literal notranslate"><span class="pre">DockMixin.remove_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.show_plugin"><code class="docutils literal notranslate"><span class="pre">DockMixin.show_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.show_status_message"><code class="docutils literal notranslate"><span class="pre">DockMixin.show_status_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.title"><code class="docutils literal notranslate"><span class="pre">DockMixin.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.DockMixin.to_dock"><code class="docutils literal notranslate"><span class="pre">DockMixin.to_dock()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.ListValidator"><code class="docutils literal notranslate"><span class="pre">ListValidator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.check"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.get_from_shell"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.get_from_shell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.get_obj"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.get_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.instances2check_str"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.instances2check_str</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.object_loaded"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.object_loaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.LoadFromConsoleButton.potential_object_names"><code class="docutils literal notranslate"><span class="pre">LoadFromConsoleButton.potential_object_names</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage.excepthook"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage.excepthook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.PyErrorMessage.showTraceback"><code class="docutils literal notranslate"><span class="pre">PyErrorMessage.showTraceback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.StreamToLogger"><code class="docutils literal notranslate"><span class="pre">StreamToLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.StreamToLogger.flush"><code class="docutils literal notranslate"><span class="pre">StreamToLogger.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.StreamToLogger.write"><code class="docutils literal notranslate"><span class="pre">StreamToLogger.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.get_module_path"><code class="docutils literal notranslate"><span class="pre">get_module_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.common.html#psyplot_gui.common.is_running_tests"><code class="docutils literal notranslate"><span class="pre">is_running_tests()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.console.html"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.close"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.custom_control"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.custom_control</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.dock_position"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.dock_position</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.eventFilter"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.eventFilter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.get_current_object"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.get_current_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.get_obj"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.get_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.intro_msg"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.intro_msg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.rc"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.rc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.run_command"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.run_command</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.run_command_in_shell"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.run_command_in_shell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.run_script"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.run_script</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.run_script_in_shell"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.run_script_in_shell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.show_current_help"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.show_current_help()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.title"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.update_mp"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.update_mp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.ConsoleWidget.update_sp"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.update_sp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.IPythonControl"><code class="docutils literal notranslate"><span class="pre">IPythonControl</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.IPythonControl.keyPressEvent"><code class="docutils literal notranslate"><span class="pre">IPythonControl.keyPressEvent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.console.html#psyplot_gui.console.init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">init_asyncio_patch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html"><code class="docutils literal notranslate"><span class="pre">ArrayItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ArrayItem.arr"><code class="docutils literal notranslate"><span class="pre">ArrayItem.arr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ArrayItem.disconnect_from_array"><code class="docutils literal notranslate"><span class="pre">ArrayItem.disconnect_from_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ArrayItem.set_text_from_array"><code class="docutils literal notranslate"><span class="pre">ArrayItem.set_text_from_array()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree"><code class="docutils literal notranslate"><span class="pre">DatasetTree</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.add_datasets_from_cp"><code class="docutils literal notranslate"><span class="pre">DatasetTree.add_datasets_from_cp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.create_dataset_tree"><code class="docutils literal notranslate"><span class="pre">DatasetTree.create_dataset_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.expand_items"><code class="docutils literal notranslate"><span class="pre">DatasetTree.expand_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.expanded_items"><code class="docutils literal notranslate"><span class="pre">DatasetTree.expanded_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.is_coord"><code class="docutils literal notranslate"><span class="pre">DatasetTree.is_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.is_variable"><code class="docutils literal notranslate"><span class="pre">DatasetTree.is_variable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.load_variable_desc"><code class="docutils literal notranslate"><span class="pre">DatasetTree.load_variable_desc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.make_plot"><code class="docutils literal notranslate"><span class="pre">DatasetTree.make_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.open_menu"><code class="docutils literal notranslate"><span class="pre">DatasetTree.open_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.refresh_items"><code class="docutils literal notranslate"><span class="pre">DatasetTree.refresh_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.set_columns"><code class="docutils literal notranslate"><span class="pre">DatasetTree.set_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTree.tooltips"><code class="docutils literal notranslate"><span class="pre">DatasetTree.tooltips</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem.add_attrs"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem.add_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem.add_variables"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem.add_variables()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem.get_plots_item"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem.get_plots_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.DatasetTreeItem.refresh_plots_item"><code class="docutils literal notranslate"><span class="pre">DatasetTreeItem.refresh_plots_item()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree"><code class="docutils literal notranslate"><span class="pre">FiguresTree</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTree.add_figures_from_cp"><code class="docutils literal notranslate"><span class="pre">FiguresTree.add_figures_from_cp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem.disconnect_from_array"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem.disconnect_from_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.FiguresTreeItem.set_text_from_array"><code class="docutils literal notranslate"><span class="pre">FiguresTreeItem.set_text_from_array()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList"><code class="docutils literal notranslate"><span class="pre">PlotterList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.array_items"><code class="docutils literal notranslate"><span class="pre">PlotterList.array_items</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.arrays"><code class="docutils literal notranslate"><span class="pre">PlotterList.arrays</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.can_import_plotter"><code class="docutils literal notranslate"><span class="pre">PlotterList.can_import_plotter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.disconnect_items"><code class="docutils literal notranslate"><span class="pre">PlotterList.disconnect_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.is_empty"><code class="docutils literal notranslate"><span class="pre">PlotterList.is_empty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.project_attribute"><code class="docutils literal notranslate"><span class="pre">PlotterList.project_attribute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.update_cp"><code class="docutils literal notranslate"><span class="pre">PlotterList.update_cp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.update_from_project"><code class="docutils literal notranslate"><span class="pre">PlotterList.update_from_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.PlotterList.updated_from_project"><code class="docutils literal notranslate"><span class="pre">PlotterList.updated_from_project</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent"><code class="docutils literal notranslate"><span class="pre">ProjectContent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.add_plotterlist"><code class="docutils literal notranslate"><span class="pre">ProjectContent.add_plotterlist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.current_names"><code class="docutils literal notranslate"><span class="pre">ProjectContent.current_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.enable_list"><code class="docutils literal notranslate"><span class="pre">ProjectContent.enable_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.lists"><code class="docutils literal notranslate"><span class="pre">ProjectContent.lists</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.update_current_list"><code class="docutils literal notranslate"><span class="pre">ProjectContent.update_current_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContent.update_lists"><code class="docutils literal notranslate"><span class="pre">ProjectContent.update_lists()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.ProjectContentWidget"><code class="docutils literal notranslate"><span class="pre">ProjectContentWidget</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton"><code class="docutils literal notranslate"><span class="pre">SelectAllButton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton.enable_from_project"><code class="docutils literal notranslate"><span class="pre">SelectAllButton.enable_from_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectAllButton.select_all"><code class="docutils literal notranslate"><span class="pre">SelectAllButton.select_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton.enable_from_project"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton.enable_from_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.SelectNoneButton.select_none"><code class="docutils literal notranslate"><span class="pre">SelectNoneButton.select_none()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.content_widget.html#psyplot_gui.content_widget.escape_html"><code class="docutils literal notranslate"><span class="pre">escape_html()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html"><code class="docutils literal notranslate"><span class="pre">DataFrameDock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameDock.close"><code class="docutils literal notranslate"><span class="pre">DataFrameDock.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.cell_edited"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.cell_edited</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.clear_table"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.clear_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.cleared"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.cleared</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.close"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.dock_cls"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.dock_cls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.hidden"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.hidden</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.maybe_tabify"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.maybe_tabify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.open_dataframe"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.open_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.rows_inserted"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.rows_inserted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.set_df"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.set_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.set_dtypes_changeable"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.set_dtypes_changeable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.set_index_editable"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.set_index_editable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.set_lbl_size_text"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.set_lbl_size_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.to_dock"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.to_dock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.toggle_fmt_button"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.toggle_fmt_button()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.update_format"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.update_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameEditor.update_index_editable"><code class="docutils literal notranslate"><span class="pre">DataFrameEditor.update_index_editable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel"><code class="docutils literal notranslate"><span class="pre">DataFrameModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.COLS_TO_LOAD"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.COLS_TO_LOAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.ROWS_TO_LOAD"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.ROWS_TO_LOAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.bgcolor"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.bgcolor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.can_fetch_more"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.can_fetch_more()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.columnCount"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.columnCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.data"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.fetch_more"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.fetch_more()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.flags"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.flags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.get_format"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.get_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.get_value"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.get_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.headerData"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.headerData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.insertRow"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.insertRow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.insertRows"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.insertRows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.reset"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.rowCount"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.rowCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.setData"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.setData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.set_format"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.set_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.sort"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.sort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameModel.update_df_index"><code class="docutils literal notranslate"><span class="pre">DataFrameModel.update_df_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView"><code class="docutils literal notranslate"><span class="pre">DataFrameView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.change_type"><code class="docutils literal notranslate"><span class="pre">DataFrameView.change_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.contextMenuEvent"><code class="docutils literal notranslate"><span class="pre">DataFrameView.contextMenuEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.copy"><code class="docutils literal notranslate"><span class="pre">DataFrameView.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.filled"><code class="docutils literal notranslate"><span class="pre">DataFrameView.filled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.insert_row_above_selection"><code class="docutils literal notranslate"><span class="pre">DataFrameView.insert_row_above_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.insert_row_below_selection"><code class="docutils literal notranslate"><span class="pre">DataFrameView.insert_row_below_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.load_more_data"><code class="docutils literal notranslate"><span class="pre">DataFrameView.load_more_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.moveCursor"><code class="docutils literal notranslate"><span class="pre">DataFrameView.moveCursor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.reset_model"><code class="docutils literal notranslate"><span class="pre">DataFrameView.reset_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.resizeEvent"><code class="docutils literal notranslate"><span class="pre">DataFrameView.resizeEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.scrollTo"><code class="docutils literal notranslate"><span class="pre">DataFrameView.scrollTo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.set_df"><code class="docutils literal notranslate"><span class="pre">DataFrameView.set_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.set_index"><code class="docutils literal notranslate"><span class="pre">DataFrameView.set_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.setup_menu"><code class="docutils literal notranslate"><span class="pre">DataFrameView.setup_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.sortByColumn"><code class="docutils literal notranslate"><span class="pre">DataFrameView.sortByColumn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.update_section_height"><code class="docutils literal notranslate"><span class="pre">DataFrameView.update_section_height()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.DataFrameView.update_section_width"><code class="docutils literal notranslate"><span class="pre">DataFrameView.update_section_width()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView"><code class="docutils literal notranslate"><span class="pre">FrozenTableView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView.contextMenuEvent"><code class="docutils literal notranslate"><span class="pre">FrozenTableView.contextMenuEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.FrozenTableView.update_geometry"><code class="docutils literal notranslate"><span class="pre">FrozenTableView.update_geometry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dataframeeditor.html#psyplot_gui.dataframeeditor.bool_false_check"><code class="docutils literal notranslate"><span class="pre">bool_false_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dependencies.html"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.bt_copy"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.bt_copy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.clear_label"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.clear_label()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.copy_selected"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.copy_selected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.info_label"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.info_label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.label"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.timer"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.timer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.tree"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.tree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesDialog.vbox"><code class="docutils literal notranslate"><span class="pre">DependenciesDialog.vbox</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree"><code class="docutils literal notranslate"><span class="pre">DependenciesTree</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree.add_dependencies"><code class="docutils literal notranslate"><span class="pre">DependenciesTree.add_dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.dependencies.html#psyplot_gui.dependencies.DependenciesTree.open_menu"><code class="docutils literal notranslate"><span class="pre">DependenciesTree.open_menu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.get_ds"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.get_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.insert_from_combo"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.insert_from_combo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.reset_combobox"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.reset_combobox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_dim"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.set_dim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.set_single_selection"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.set_single_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.slice2list"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.slice2list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.DimensionsWidget.toggle_close_popup"><code class="docutils literal notranslate"><span class="pre">DimensionsWidget.toggle_close_popup()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.clear_text"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.clear_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_combos_from_project"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.fill_combos_from_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fill_fmt_combo"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.fill_fmt_combo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_combo"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.fmt_combo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fmt_widget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.fmt_widget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.fmto"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.fmto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_name"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_obj"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.get_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.get_text"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.get_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.group_combo"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.group_combo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.help_explorer"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.help_explorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.insert_obj"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.insert_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.line_edit"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.line_edit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.load_fmt_widget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.load_fmt_widget()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.multiline_button"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.multiline_button</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.no_fmtos_update"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.no_fmtos_update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.refill_from_rc"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.refill_from_rc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.remove_fmt_widget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.remove_fmt_widget()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.reset_fmt_widget"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.reset_fmt_widget()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.run_code"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.run_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_current_fmt_value"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.set_current_fmt_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_fmto"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.set_fmto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.set_obj"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.set_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.setup_fmt_completion_model"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.setup_fmt_completion_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.shell"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.shell</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_all_fmt_info"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.show_all_fmt_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.show_fmt_info"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.show_fmt_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.text_edit"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.text_edit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.fmt_widget.html#psyplot_gui.fmt_widget.FormatoptionWidget.toggle_line_edit"><code class="docutils literal notranslate"><span class="pre">FormatoptionWidget.toggle_line_edit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html"><code class="docutils literal notranslate"><span class="pre">HelpExplorer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.close"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.set_viewer"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.set_viewer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.show_help"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.show_help()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.show_intro"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.show_intro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.show_rst"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.show_rst()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpExplorer.viewers"><code class="docutils literal notranslate"><span class="pre">HelpExplorer.viewers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin"><code class="docutils literal notranslate"><span class="pre">HelpMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.can_document_object"><code class="docutils literal notranslate"><span class="pre">HelpMixin.can_document_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.can_show_rst"><code class="docutils literal notranslate"><span class="pre">HelpMixin.can_show_rst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.describe_object"><code class="docutils literal notranslate"><span class="pre">HelpMixin.describe_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.get_doc"><code class="docutils literal notranslate"><span class="pre">HelpMixin.get_doc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.header"><code class="docutils literal notranslate"><span class="pre">HelpMixin.header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.object_descriptor"><code class="docutils literal notranslate"><span class="pre">HelpMixin.object_descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.process_docstring"><code class="docutils literal notranslate"><span class="pre">HelpMixin.process_docstring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.show_help"><code class="docutils literal notranslate"><span class="pre">HelpMixin.show_help()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.show_intro"><code class="docutils literal notranslate"><span class="pre">HelpMixin.show_intro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.HelpMixin.show_rst"><code class="docutils literal notranslate"><span class="pre">HelpMixin.show_rst()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread"><code class="docutils literal notranslate"><span class="pre">SphinxThread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread.html_error"><code class="docutils literal notranslate"><span class="pre">SphinxThread.html_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread.html_ready"><code class="docutils literal notranslate"><span class="pre">SphinxThread.html_ready</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread.render"><code class="docutils literal notranslate"><span class="pre">SphinxThread.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.SphinxThread.run"><code class="docutils literal notranslate"><span class="pre">SphinxThread.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp"><code class="docutils literal notranslate"><span class="pre">TextHelp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp.editor"><code class="docutils literal notranslate"><span class="pre">TextHelp.editor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.TextHelp.show_rst"><code class="docutils literal notranslate"><span class="pre">TextHelp.show_rst()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser"><code class="docutils literal notranslate"><span class="pre">UrlBrowser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.browse"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.browse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_ahead"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_ahead</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_back"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_back</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_lock"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_lock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_lock_default"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_lock_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_refresh"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_url_lock</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.bt_url_lock_default"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.bt_url_lock_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.button_box"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.button_box</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.completed"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.completed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.default_url"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.default_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.doc_urls"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.doc_urls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.html"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.tb_url"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.tb_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.toogle_lock"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.toogle_lock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.toogle_url_lock"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.toogle_url_lock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.update_url_lock_from_rc"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.update_url_lock_from_rc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.url_changed"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.url_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.url_like_re"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.url_like_re</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlBrowser.vbox"><code class="docutils literal notranslate"><span class="pre">UrlBrowser.vbox</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo"><code class="docutils literal notranslate"><span class="pre">UrlCombo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo.add_text_on_top"><code class="docutils literal notranslate"><span class="pre">UrlCombo.add_text_on_top()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo.keyPressEvent"><code class="docutils literal notranslate"><span class="pre">UrlCombo.keyPressEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlCombo.setModel"><code class="docutils literal notranslate"><span class="pre">UrlCombo.setModel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp"><code class="docutils literal notranslate"><span class="pre">UrlHelp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.browse"><code class="docutils literal notranslate"><span class="pre">UrlHelp.browse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.bt_url_menus"><code class="docutils literal notranslate"><span class="pre">UrlHelp.bt_url_menus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.can_document_object"><code class="docutils literal notranslate"><span class="pre">UrlHelp.can_document_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.can_show_rst"><code class="docutils literal notranslate"><span class="pre">UrlHelp.can_show_rst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.close"><code class="docutils literal notranslate"><span class="pre">UrlHelp.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.describe_object"><code class="docutils literal notranslate"><span class="pre">UrlHelp.describe_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.get_doc"><code class="docutils literal notranslate"><span class="pre">UrlHelp.get_doc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.get_objtype"><code class="docutils literal notranslate"><span class="pre">UrlHelp.get_objtype()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.header"><code class="docutils literal notranslate"><span class="pre">UrlHelp.header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.is_importable"><code class="docutils literal notranslate"><span class="pre">UrlHelp.is_importable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.object_descriptor"><code class="docutils literal notranslate"><span class="pre">UrlHelp.object_descriptor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.process_docstring"><code class="docutils literal notranslate"><span class="pre">UrlHelp.process_docstring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.reset_sphinx"><code class="docutils literal notranslate"><span class="pre">UrlHelp.reset_sphinx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.show_help"><code class="docutils literal notranslate"><span class="pre">UrlHelp.show_help()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.show_intro"><code class="docutils literal notranslate"><span class="pre">UrlHelp.show_intro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.show_rst"><code class="docutils literal notranslate"><span class="pre">UrlHelp.show_rst()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.sphinx_thread"><code class="docutils literal notranslate"><span class="pre">UrlHelp.sphinx_thread</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.toogle_connect_console"><code class="docutils literal notranslate"><span class="pre">UrlHelp.toogle_connect_console()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.toogle_url_lock"><code class="docutils literal notranslate"><span class="pre">UrlHelp.toogle_url_lock()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.update_connect_console"><code class="docutils literal notranslate"><span class="pre">UrlHelp.update_connect_console()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.UrlHelp.url_changed"><code class="docutils literal notranslate"><span class="pre">UrlHelp.url_changed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.file2html"><code class="docutils literal notranslate"><span class="pre">file2html()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.help_explorer.html#psyplot_gui.help_explorer.html2file"><code class="docutils literal notranslate"><span class="pre">html2file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.main.html"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.about"><code class="docutils literal notranslate"><span class="pre">MainWindow.about()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.add_mp_to_menu"><code class="docutils literal notranslate"><span class="pre">MainWindow.add_mp_to_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.central_widget_key"><code class="docutils literal notranslate"><span class="pre">MainWindow.central_widget_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.change_cwd"><code class="docutils literal notranslate"><span class="pre">MainWindow.change_cwd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.close"><code class="docutils literal notranslate"><span class="pre">MainWindow.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.closeEvent"><code class="docutils literal notranslate"><span class="pre">MainWindow.closeEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.console"><code class="docutils literal notranslate"><span class="pre">MainWindow.console</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.current_shortcuts"><code class="docutils literal notranslate"><span class="pre">MainWindow.current_shortcuts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.dataframeeditors"><code class="docutils literal notranslate"><span class="pre">MainWindow.dataframeeditors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.default_shortcuts"><code class="docutils literal notranslate"><span class="pre">MainWindow.default_shortcuts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.default_widths"><code class="docutils literal notranslate"><span class="pre">MainWindow.default_widths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.dockwidgets"><code class="docutils literal notranslate"><span class="pre">MainWindow.dockwidgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.ds_tree"><code class="docutils literal notranslate"><span class="pre">MainWindow.ds_tree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.edit_preferences"><code class="docutils literal notranslate"><span class="pre">MainWindow.edit_preferences()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.eventually_add_mp_to_menu"><code class="docutils literal notranslate"><span class="pre">MainWindow.eventually_add_mp_to_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.excepthook"><code class="docutils literal notranslate"><span class="pre">MainWindow.excepthook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.export_mp"><code class="docutils literal notranslate"><span class="pre">MainWindow.export_mp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.export_sp"><code class="docutils literal notranslate"><span class="pre">MainWindow.export_sp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.figures"><code class="docutils literal notranslate"><span class="pre">MainWindow.figures</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.figures_tree"><code class="docutils literal notranslate"><span class="pre">MainWindow.figures_tree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.fmt_widget"><code class="docutils literal notranslate"><span class="pre">MainWindow.fmt_widget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.focus_on_console"><code class="docutils literal notranslate"><span class="pre">MainWindow.focus_on_console()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.help_explorer"><code class="docutils literal notranslate"><span class="pre">MainWindow.help_explorer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.load_mp_preset"><code class="docutils literal notranslate"><span class="pre">MainWindow.load_mp_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.load_sp_preset"><code class="docutils literal notranslate"><span class="pre">MainWindow.load_sp_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.logger"><code class="docutils literal notranslate"><span class="pre">MainWindow.logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.new_data_frame_editor"><code class="docutils literal notranslate"><span class="pre">MainWindow.new_data_frame_editor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.new_plots"><code class="docutils literal notranslate"><span class="pre">MainWindow.new_plots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_external"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_external</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_external_files"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_external_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_files"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_files_server"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_files_server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_mp"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_mp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.open_sp"><code class="docutils literal notranslate"><span class="pre">MainWindow.open_sp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.project_content"><code class="docutils literal notranslate"><span class="pre">MainWindow.project_content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.register_shortcut"><code class="docutils literal notranslate"><span class="pre">MainWindow.register_shortcut()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.reset_rcParams"><code class="docutils literal notranslate"><span class="pre">MainWindow.reset_rcParams()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.run"><code class="docutils literal notranslate"><span class="pre">MainWindow.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.run_app"><code class="docutils literal notranslate"><span class="pre">MainWindow.run_app()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_mp"><code class="docutils literal notranslate"><span class="pre">MainWindow.save_mp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_mp_preset"><code class="docutils literal notranslate"><span class="pre">MainWindow.save_mp_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_sp"><code class="docutils literal notranslate"><span class="pre">MainWindow.save_sp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.save_sp_preset"><code class="docutils literal notranslate"><span class="pre">MainWindow.save_sp_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.set_central_widget"><code class="docutils literal notranslate"><span class="pre">MainWindow.set_central_widget()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.setup_default_layout"><code class="docutils literal notranslate"><span class="pre">MainWindow.setup_default_layout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.show_dependencies"><code class="docutils literal notranslate"><span class="pre">MainWindow.show_dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.start_open_files_server"><code class="docutils literal notranslate"><span class="pre">MainWindow.start_open_files_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.MainWindow.update_project_action"><code class="docutils literal notranslate"><span class="pre">MainWindow.update_project_action()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.main.html#psyplot_gui.main.mainwindow"><code class="docutils literal notranslate"><span class="pre">mainwindow</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameItemDelegate.createEditor"><code class="docutils literal notranslate"><span class="pre">ArrayNameItemDelegate.createEditor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator.fixup"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator.fixup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayNameValidator.validate"><code class="docutils literal notranslate"><span class="pre">ArrayNameValidator.validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable"><code class="docutils literal notranslate"><span class="pre">ArrayTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.DIMS_TT"><code class="docutils literal notranslate"><span class="pre">ArrayTable.DIMS_TT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.VARIABLE_TT"><code class="docutils literal notranslate"><span class="pre">ArrayTable.VARIABLE_TT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.add_single_subplot"><code class="docutils literal notranslate"><span class="pre">ArrayTable.add_single_subplot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.add_subplots"><code class="docutils literal notranslate"><span class="pre">ArrayTable.add_subplots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.arr_col"><code class="docutils literal notranslate"><span class="pre">ArrayTable.arr_col</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.arr_names_dict"><code class="docutils literal notranslate"><span class="pre">ArrayTable.arr_names_dict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.axes"><code class="docutils literal notranslate"><span class="pre">ArrayTable.axes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.axes_col"><code class="docutils literal notranslate"><span class="pre">ArrayTable.axes_col</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.axes_creator_action"><code class="docutils literal notranslate"><span class="pre">ArrayTable.axes_creator_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.axes_info"><code class="docutils literal notranslate"><span class="pre">ArrayTable.axes_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.axes_patt"><code class="docutils literal notranslate"><span class="pre">ArrayTable.axes_patt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.check_array"><code class="docutils literal notranslate"><span class="pre">ArrayTable.check_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.check_arrays"><code class="docutils literal notranslate"><span class="pre">ArrayTable.check_arrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.check_col"><code class="docutils literal notranslate"><span class="pre">ArrayTable.check_col</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.check_item"><code class="docutils literal notranslate"><span class="pre">ArrayTable.check_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.current_names"><code class="docutils literal notranslate"><span class="pre">ArrayTable.current_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.dropEvent"><code class="docutils literal notranslate"><span class="pre">ArrayTable.dropEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.get_all_rows"><code class="docutils literal notranslate"><span class="pre">ArrayTable.get_all_rows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.insert_array"><code class="docutils literal notranslate"><span class="pre">ArrayTable.insert_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.next_available_name"><code class="docutils literal notranslate"><span class="pre">ArrayTable.next_available_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.prefer_list"><code class="docutils literal notranslate"><span class="pre">ArrayTable.prefer_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.remove_arrays"><code class="docutils literal notranslate"><span class="pre">ArrayTable.remove_arrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.sep"><code class="docutils literal notranslate"><span class="pre">ArrayTable.sep</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.set_columns"><code class="docutils literal notranslate"><span class="pre">ArrayTable.set_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.set_pm"><code class="docutils literal notranslate"><span class="pre">ArrayTable.set_pm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.setup_from_ds"><code class="docutils literal notranslate"><span class="pre">ArrayTable.setup_from_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.showAxesCreator"><code class="docutils literal notranslate"><span class="pre">ArrayTable.showAxesCreator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.subplot_patt"><code class="docutils literal notranslate"><span class="pre">ArrayTable.subplot_patt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.update_other_items"><code class="docutils literal notranslate"><span class="pre">ArrayTable.update_other_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.update_selected"><code class="docutils literal notranslate"><span class="pre">ArrayTable.update_selected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.var_col"><code class="docutils literal notranslate"><span class="pre">ArrayTable.var_col</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.ArrayTable.vnames"><code class="docutils literal notranslate"><span class="pre">ArrayTable.vnames</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator"><code class="docutils literal notranslate"><span class="pre">AxesCreator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator.create_axes"><code class="docutils literal notranslate"><span class="pre">AxesCreator.create_axes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator.get_iter"><code class="docutils literal notranslate"><span class="pre">AxesCreator.get_iter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreator.resize_rectangle"><code class="docutils literal notranslate"><span class="pre">AxesCreator.resize_rectangle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection.close"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection.create_subplot"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection.create_subplot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection.okpressed"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection.okpressed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesCreatorCollection.widgets"><code class="docutils literal notranslate"><span class="pre">AxesCreatorCollection.widgets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector"><code class="docutils literal notranslate"><span class="pre">AxesSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.allow_axes_select"><code class="docutils literal notranslate"><span class="pre">AxesSelector.allow_axes_select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.change_pickers"><code class="docutils literal notranslate"><span class="pre">AxesSelector.change_pickers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.close"><code class="docutils literal notranslate"><span class="pre">AxesSelector.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.get_iter"><code class="docutils literal notranslate"><span class="pre">AxesSelector.get_iter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.get_picked_ax"><code class="docutils literal notranslate"><span class="pre">AxesSelector.get_picked_ax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.inspect_axes"><code class="docutils literal notranslate"><span class="pre">AxesSelector.inspect_axes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.restore_pickers"><code class="docutils literal notranslate"><span class="pre">AxesSelector.restore_pickers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.setVisible"><code class="docutils literal notranslate"><span class="pre">AxesSelector.setVisible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesSelector.unclick"><code class="docutils literal notranslate"><span class="pre">AxesSelector.unclick()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer"><code class="docutils literal notranslate"><span class="pre">AxesViewer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer.resizeEvent"><code class="docutils literal notranslate"><span class="pre">AxesViewer.resizeEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.AxesViewer.sizeChanged"><code class="docutils literal notranslate"><span class="pre">AxesViewer.sizeChanged</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox"><code class="docutils literal notranslate"><span class="pre">CoordComboBox</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.close_popups"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.close_popups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.eventFilter"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.eventFilter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.handleItemPressed"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.handleItemPressed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.hidePopup"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.hidePopup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.hide_anyway"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.hide_anyway()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.leftclick"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.leftclick</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.load_coord"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.load_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.mouseDoubleClickEvent"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.mouseDoubleClickEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.mousePressEvent"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.mousePressEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.right_click"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.right_click()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordComboBox.use_coords"><code class="docutils literal notranslate"><span class="pre">CoordComboBox.use_coords</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable"><code class="docutils literal notranslate"><span class="pre">CoordsTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable.combo_boxes"><code class="docutils literal notranslate"><span class="pre">CoordsTable.combo_boxes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable.fill_from_ds"><code class="docutils literal notranslate"><span class="pre">CoordsTable.fill_from_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.CoordsTable.sizeHint"><code class="docutils literal notranslate"><span class="pre">CoordsTable.sizeHint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable"><code class="docutils literal notranslate"><span class="pre">DragDropTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable.dropEvent"><code class="docutils literal notranslate"><span class="pre">DragDropTable.dropEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable.dropOn"><code class="docutils literal notranslate"><span class="pre">DragDropTable.dropOn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable.droppingOnItself"><code class="docutils literal notranslate"><span class="pre">DragDropTable.droppingOnItself()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable.moveRows"><code class="docutils literal notranslate"><span class="pre">DragDropTable.moveRows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.DragDropTable.position"><code class="docutils literal notranslate"><span class="pre">DragDropTable.position()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator"><code class="docutils literal notranslate"><span class="pre">PlotCreator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.NO_PM_TT"><code class="docutils literal notranslate"><span class="pre">PlotCreator.NO_PM_TT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.add_new_ds"><code class="docutils literal notranslate"><span class="pre">PlotCreator.add_new_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.close"><code class="docutils literal notranslate"><span class="pre">PlotCreator.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.connect_combo_boxes"><code class="docutils literal notranslate"><span class="pre">PlotCreator.connect_combo_boxes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.create_plots"><code class="docutils literal notranslate"><span class="pre">PlotCreator.create_plots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.fill_ds_combo"><code class="docutils literal notranslate"><span class="pre">PlotCreator.fill_ds_combo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.fill_fmt_tree"><code class="docutils literal notranslate"><span class="pre">PlotCreator.fill_fmt_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.fill_plot_method_combo"><code class="docutils literal notranslate"><span class="pre">PlotCreator.fill_plot_method_combo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.get_ds"><code class="docutils literal notranslate"><span class="pre">PlotCreator.get_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.insert_array"><code class="docutils literal notranslate"><span class="pre">PlotCreator.insert_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.insert_array_from_combo"><code class="docutils literal notranslate"><span class="pre">PlotCreator.insert_array_from_combo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.keyPressEvent"><code class="docutils literal notranslate"><span class="pre">PlotCreator.keyPressEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.load_preset"><code class="docutils literal notranslate"><span class="pre">PlotCreator.load_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.open_data"><code class="docutils literal notranslate"><span class="pre">PlotCreator.open_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.open_dataset"><code class="docutils literal notranslate"><span class="pre">PlotCreator.open_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.reset_comboboxes"><code class="docutils literal notranslate"><span class="pre">PlotCreator.reset_comboboxes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.set_decoder"><code class="docutils literal notranslate"><span class="pre">PlotCreator.set_decoder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.set_ds"><code class="docutils literal notranslate"><span class="pre">PlotCreator.set_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.set_pm"><code class="docutils literal notranslate"><span class="pre">PlotCreator.set_pm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.set_preset"><code class="docutils literal notranslate"><span class="pre">PlotCreator.set_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.setup_subplot"><code class="docutils literal notranslate"><span class="pre">PlotCreator.setup_subplot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.setup_subplots"><code class="docutils literal notranslate"><span class="pre">PlotCreator.setup_subplots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.show_pm_info"><code class="docutils literal notranslate"><span class="pre">PlotCreator.show_pm_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.switch2ds"><code class="docutils literal notranslate"><span class="pre">PlotCreator.switch2ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.PlotCreator.toggle_close_popups"><code class="docutils literal notranslate"><span class="pre">PlotCreator.toggle_close_popups()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.create_subplot"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.create_subplot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.get_iter"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.get_iter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.set_num2_validator"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.set_num2_validator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.set_selected"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.set_selected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num1"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.set_selected_from_num1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.set_selected_from_num2"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.set_selected_from_num2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.setup_table"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.setup_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.SubplotCreator.update_num_edit"><code class="docutils literal notranslate"><span class="pre">SubplotCreator.update_num_edit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariableItemDelegate.createEditor"><code class="docutils literal notranslate"><span class="pre">VariableItemDelegate.createEditor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable"><code class="docutils literal notranslate"><span class="pre">VariablesTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable.fill_from_ds"><code class="docutils literal notranslate"><span class="pre">VariablesTable.fill_from_ds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable.selected_variables"><code class="docutils literal notranslate"><span class="pre">VariablesTable.selected_variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable.set_columns"><code class="docutils literal notranslate"><span class="pre">VariablesTable.set_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.plot_creator.html#psyplot_gui.plot_creator.VariablesTable.variables"><code class="docutils literal notranslate"><span class="pre">VariablesTable.variables</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html"><code class="docutils literal notranslate"><span class="pre">ConfigPage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.apply_changes"><code class="docutils literal notranslate"><span class="pre">ConfigPage.apply_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.auto_updates"><code class="docutils literal notranslate"><span class="pre">ConfigPage.auto_updates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.changed"><code class="docutils literal notranslate"><span class="pre">ConfigPage.changed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.icon"><code class="docutils literal notranslate"><span class="pre">ConfigPage.icon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.initialize"><code class="docutils literal notranslate"><span class="pre">ConfigPage.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.is_valid"><code class="docutils literal notranslate"><span class="pre">ConfigPage.is_valid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.propose_changes"><code class="docutils literal notranslate"><span class="pre">ConfigPage.propose_changes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.title"><code class="docutils literal notranslate"><span class="pre">ConfigPage.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.ConfigPage.validChanged"><code class="docutils literal notranslate"><span class="pre">ConfigPage.validChanged</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget.default_path"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget.default_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget.rc"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget.rc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.GuiRcParamsWidget.title"><code class="docutils literal notranslate"><span class="pre">GuiRcParamsWidget.title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences"><code class="docutils literal notranslate"><span class="pre">Prefences</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.accept"><code class="docutils literal notranslate"><span class="pre">Prefences.accept()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.add_page"><code class="docutils literal notranslate"><span class="pre">Prefences.add_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.apply_clicked"><code class="docutils literal notranslate"><span class="pre">Prefences.apply_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.bt_apply"><code class="docutils literal notranslate"><span class="pre">Prefences.bt_apply</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.check_changes"><code class="docutils literal notranslate"><span class="pre">Prefences.check_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.current_page_changed"><code class="docutils literal notranslate"><span class="pre">Prefences.current_page_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.get_page"><code class="docutils literal notranslate"><span class="pre">Prefences.get_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.load_plugin_pages"><code class="docutils literal notranslate"><span class="pre">Prefences.load_plugin_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.pages"><code class="docutils literal notranslate"><span class="pre">Prefences.pages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.Prefences.set_current_index"><code class="docutils literal notranslate"><span class="pre">Prefences.set_current_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget.default_path"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget.default_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget.rc"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget.rc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.PsyRcParamsWidget.title"><code class="docutils literal notranslate"><span class="pre">PsyRcParamsWidget.title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree"><code class="docutils literal notranslate"><span class="pre">RcParamsTree</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.apply_changes"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.apply_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.changed_rc"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.changed_rc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.initialize"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.is_valid"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.is_valid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.open_menu"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.open_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.propose_changes"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.propose_changes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.rc"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.rc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.select_changes"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.select_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.selected_rc"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.selected_rc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.set_icon_func"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.set_icon_func()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.set_valid"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.set_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.top_level_items"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.top_level_items</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.valid"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.valid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.validChanged"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.validChanged</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsTree.value_col"><code class="docutils literal notranslate"><span class="pre">RcParamsTree.value_col</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.apply_changes"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.apply_changes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.changed"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.changed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.icon"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.icon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.initialize"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.is_valid"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.is_valid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.propose_changes"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.propose_changes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.rc"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.rc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.save_settings_action"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.save_settings_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.tree"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.tree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/psyplot_gui.preferences.html#psyplot_gui.preferences.RcParamsWidget.validChanged"><code class="docutils literal notranslate"><span class="pre">RcParamsWidget.validChanged</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <!--
+SPDX-FileCopyrightText: 2021-2024 Helmholtz-Zentrum hereon GmbH
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contribution and development hints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/psyplot_gui.html" class="btn btn-neutral float-right" title="psyplot_gui package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2024 Helmholtz-Zentrum hereon GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+
+<div class="footer">
+    <span class="creativecommons">
+    <a href="https://creativecommons.org/licenses/by/4.0/" >
+    <img style="height: 1.5em;" src="_static/license_logo.png" border="0" alt="Creative Commons License"/>
+    </a>
+    This documentation is licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">
+    CC-BY-4.0
+    </a>
+    </span>
+</div>
+
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

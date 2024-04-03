@@ -1,6 +1,3 @@
-psyplot\_gui.common module
-==========================
-
 .. automodule:: psyplot_gui.common
    :members:
    :undoc-members:

@@ -1,6 +1,3 @@
-psyplot\_gui.help\_explorer module
-==================================
-
 .. automodule:: psyplot_gui.help_explorer
    :members:
    :undoc-members:
